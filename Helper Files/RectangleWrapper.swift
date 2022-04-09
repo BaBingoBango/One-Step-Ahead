@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// A modifier which encloses a SwiftUI view in a rectangle of customizable color and height.
 struct RectangleWrapper: ViewModifier {
     
     var fixedHeight: Int?

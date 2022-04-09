@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreML
+import PencilKit
 
 /// The state of a currently running game.
 struct GameState {
@@ -27,7 +28,7 @@ struct GameState {
     /// The AI's score for each game round.
     var AIscores: [Double] = []
     /// The time left on the game's current timer.
-    var timeLeft: Double = 0.0
+    var timeLeft: Double = 5.0
     
     // ML Model Variable
     /// The current model for the AI, trained on the player's task attempts.
