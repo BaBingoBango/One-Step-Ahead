@@ -59,14 +59,21 @@ struct GameView: View {
                         
                         Button(action: {
                             // Undo the canvas
-                            print("Deleting...count: \(allDrawings.count)")
+                            // FIXME: Undo funtion might not be working
                             isDeletingDrawing = true
                             canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
                             if allDrawings.count >= 1 {
                                 allDrawings.removeLast()
                             }
                             isDeletingDrawing = false
-                            print("Deleted! count: \(allDrawings.count)")
+                            
+                            // FIXME: Delete this
+                            let image = canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale)
+                            if let data = image.pngData() {
+                                let filename = getDocumentsDirectory().appendingPathComponent("drawingtest.png")
+                                try? data.write(to: filename)
+                            }
+                            print(getDocumentsDirectory())
                         }) {
                             ZStack {
                                 Rectangle()
@@ -92,12 +99,9 @@ struct GameView: View {
                             .aspectRatio(1.0, contentMode: .fit)
                         
                         CanvasView(canvasView: $canvasView, onSaved: {
-                            print("Saving...count: \(allDrawings.count)")
                             if !isDeletingDrawing {
                                 allDrawings.append(canvasView.drawing)
-                                print("APPENDED! count: \(allDrawings.count)")
                             }
-                            print("Saved! Count: \(allDrawings.count)")
                         })
                     }
                     .aspectRatio(1.0, contentMode: .fit)
