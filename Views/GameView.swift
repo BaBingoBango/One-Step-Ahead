@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PencilKit
+import CoreML
 
 /// The view displaying the elements of the currently running game; originates from the New Game screen.
 struct GameView: View {
@@ -225,6 +226,16 @@ struct GameView: View {
         AItext = "Training..."
         
         // Use the judge model to give the user a score
+        let judgeModelWrapper = game.task.judgeModel
+        var predictionProbabilities: [String : Double]
+        do {
+            try predictionProbabilities = judgeModelWrapper!.prediction(image: buffer(from: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))!).classLabelProbs
+            game.playerScores.append(predictionProbabilities[game.task.object]!)
+        } catch {
+            print("[Judge Model Prediction Error]")
+            print(error.localizedDescription)
+        }
+        
         let judgeScore: Double = 75.3
         game.playerScores.append(judgeScore)
         

@@ -19,7 +19,7 @@ struct Task {
     /// The English phrase that should follow this task's type's verb.
     var commandPhrase: String
     /// The Core ML model trained to assign scores to object task attempts.
-    var judgeModel: MLModel
+    var judgeModel: Drawing_Judge_Model?
     
     // Computed Properties
     /// An English phrase prompting the user to complete the task.
@@ -48,7 +48,18 @@ struct Task {
     // Included App Data
     /// The list of all possible tasks for use in games.
     static var taskList: [Task] = [
-        Task(category: .drawing, object: "Circle", commandPhrase: "a perfect circle!", judgeModel: MLModel())
+        Task(category: .drawing, object: "Circle", commandPhrase: "a perfect circle!", judgeModel: loadDrawingJudge())
     ]
+    
+    /// Loads the drawing judge model from its .mlmodelc file.
+    static func loadDrawingJudge() -> Drawing_Judge_Model? {
+        do {
+            return try Drawing_Judge_Model(configuration: MLModelConfiguration())
+        } catch {
+            print("[loadDrawingJudge() Error]")
+            print(error.localizedDescription)
+            return nil
+        }
+    }
     
 }
