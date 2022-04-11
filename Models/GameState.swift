@@ -28,7 +28,9 @@ struct GameState {
     /// The AI's score for each game round.
     var AIscores: [Double] = []
     /// The time left on the game's current timer.
-    var timeLeft: Double = 5.0
+    var timeLeft: Double = 9.9
+    /// Whether or not the on-screen timer should decrease.
+    var shouldRunTimer: Bool = true
     
     // ML Model Variable
     /// The current model for the AI, trained on the player's task attempts.

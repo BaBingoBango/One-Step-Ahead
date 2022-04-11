@@ -18,7 +18,10 @@ struct GameView: View {
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     /// The text displaying at the top of the view under the round number.
-    @State var commandText = "Get ready..."
+    @State var commandText = "Draw the mystery object!"
+    // FIXME: Update AI box to something else
+    /// The text which displays in the AI's "canvas" area.
+    @State var AItext = "Chatting with Skynet..."
     /// Whether or not the Done! button should be active.
     @State var isDoneButtonEnabled = false
     
@@ -66,14 +69,6 @@ struct GameView: View {
                                 allDrawings.removeLast()
                             }
                             isDeletingDrawing = false
-                            
-                            // FIXME: Delete this
-                            let image = canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale)
-                            if let data = image.pngData() {
-                                let filename = getDocumentsDirectory().appendingPathComponent("drawingtest.png")
-                                try? data.write(to: filename)
-                            }
-                            print(getDocumentsDirectory())
                         }) {
                             ZStack {
                                 Rectangle()
@@ -112,9 +107,9 @@ struct GameView: View {
                         .padding(.top)
                     
                     if game.currentRound != 1 {
-                        Text(game.playerScores[game.currentRound - 1].description)
+                        Text("\(game.playerScores[game.currentRound - 2].description)%")
                             .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .fontWeight(.heavy)
                             .foregroundColor(.green)
                     } else {
                         Text("---")
@@ -132,14 +127,18 @@ struct GameView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Text("The AI")
+                        Text("The Machine")
                             .font(.title2)
                             .fontWeight(.bold)
                     }
                     
-                    Rectangle()
-                        .opacity(0.2)
-                        .aspectRatio(1.0, contentMode: .fit)
+                    ZStack {
+                        Rectangle()
+                            .opacity(0.2)
+                            .aspectRatio(1.0, contentMode: .fit)
+                        
+                        Text("Chatting with Skynet...")
+                    }
                     
                     Text("Current Score")
                         .font(.title)
@@ -147,9 +146,9 @@ struct GameView: View {
                         .padding(.top)
                     
                     if game.currentRound != 1 {
-                        Text(game.AIscores[game.currentRound - 1].description)
+                        Text("\(game.AIscores[game.currentRound - 2].description)%")
                             .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .fontWeight(.heavy)
                             .foregroundColor(.green)
                     } else {
                         Text("---")
@@ -171,16 +170,34 @@ struct GameView: View {
             Spacer()
         }
         .onReceive(timer) { input in
-            // Update the timer
-            game.timeLeft -= 0.1
+            // MARK: Timer Response
+            
+            // Update the on-screen timer if it's running
+            if game.shouldRunTimer {
+                // Decrease the on-screen timer if it's running
+                if game.timeLeft - 0.1 <= 0 {
+                    // If the timer will be nonpositive, set it to zero
+                    game.timeLeft = 0
+                } else {
+                    // Otherwise, decrease it normally
+                    game.timeLeft -= 0.1
+                }
+            }
+            
+            // If the on-screen timer is zero, stop it and evaluate the scores
+            if game.timeLeft == 0 {
+                game.shouldRunTimer = false
+                evaluateScores()
+                finishRound()
+            }
         }
     }
     
     // MARK: - Functions
-    /// Code to execute when a new game round is starting.
+    /// Updates the game state variables to start a new round of play.
     func setupNewRound() {
-        // Reset the timer to 20 seconds
-        game.timeLeft = 20
+        // Reset the timer to 9.9 seconds
+        game.timeLeft = 9.9
         
         // Reset the player canvas
         canvasView.drawing = PKDrawing()
@@ -197,6 +214,36 @@ struct GameView: View {
         
         // Enable the Done! button
         isDoneButtonEnabled = true
+        
+        // Start the timer
+        game.shouldRunTimer = true
+    }
+    /// Uses machine learning to produce and update scores for the player and AI.
+    func evaluateScores() {
+        // Update the command and AI text
+        commandText = "Judging..."
+        AItext = "Training..."
+        
+        // Use the judge model to give the user a score
+        let judgeScore: Double = 75.3
+        game.playerScores.append(judgeScore)
+        
+        // Train a new AI model and get its training score
+        let trainingScore: Double = 25.8
+        game.AIscores.append(trainingScore)
+    }
+    /// Updates the game state variables to end the current round of play (and possibly the entire game).
+    func finishRound() {
+        // Check if a winner exists
+        // FIXME: Add custom threshold
+        if game.playerScores.last! > 80 || game.AIscores.last! > 80 {
+            // If one does, update the command
+            // FIXME: Add a better game-end event
+            commandText = game.playerScores.last! >= game.AIscores.last! ? "You win!" : "The machine wins..."
+        } else {
+            // If one dosen't, start a new round!
+            setupNewRound()
+        }
     }
     
 }
