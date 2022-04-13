@@ -8,17 +8,37 @@
 import Foundation
 import UIKit
 
-/// Saves the given image to the disk with the given name.
-func saveImage(_ image: UIImage, name: String?) {
-    if let data = image.pngData() {
-        let filename = getDocumentsDirectory().appendingPathComponent(name ?? "image.png")
-        try? data.write(to: filename)
-        print("Image saved to \(getDocumentsDirectory())")
-    }
-}
-
 /// Returns a URL to the user's documents directory for the app.
 func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     return paths[0]
+}
+
+/// Saves the given image to the disk's documents directory with the given name.
+func saveImageToDocuments(_ image: UIImage, name: String?) {
+    if let data = image.pngData() {
+        let filename = getDocumentsDirectory().appendingPathComponent(name ?? "image.png")
+        try? data.write(to: filename)
+//        print("Image saved to \(getDocumentsDirectory())")
+    }
+}
+
+/// Saves the given image to the disk's temp directory with the given name.
+func saveImageToTemp(_ image: UIImage, name: String?) {
+    if let data = image.pngData() {
+        let filename = FileManager.default.temporaryDirectory.appendingPathComponent(name ?? "image.png")
+        try? data.write(to: filename)
+//        print("Image saved to \(FileManager.default.temporaryDirectory)")
+    }
+}
+
+/// Clears the entire directory located at the given path.
+func clearFolder(_ atPath: String) {
+    do {
+        for eachFile in try FileManager.default.contentsOfDirectory(atPath: atPath) {
+            try FileManager.default.removeItem(at: URL(fileURLWithPath: atPath + "/" + eachFile))
+        }
+    } catch {
+        print("Could not clear folder: \(error)")
+    }
 }

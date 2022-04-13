@@ -147,7 +147,7 @@ struct GameView: View {
                         .padding(.top)
                     
                     if game.currentRound != 1 {
-                        Text("\(game.AIscores[game.currentRound - 2].description)%")
+                        Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
                             .foregroundColor(.green)
@@ -170,6 +170,12 @@ struct GameView: View {
             
             Spacer()
         }
+        .onAppear {
+            // MARK: View Launch Code
+            // Clear the documents and temporary directories
+            clearFolder(getDocumentsDirectory().path)
+            clearFolder(FileManager.default.temporaryDirectory.path)
+        }
         .onReceive(timer) { input in
             // MARK: Timer Response
             
@@ -189,6 +195,9 @@ struct GameView: View {
             if game.timeLeft == 0 {
                 game.shouldRunTimer = false
                 evaluateScores()
+                print("User / AI Scores:")
+                print(game.playerScores)
+                print(game.AIscores)
                 finishRound()
             }
         }
@@ -197,6 +206,7 @@ struct GameView: View {
     // MARK: - Functions
     /// Updates the game state variables to start a new round of play.
     func setupNewRound() {
+        
         // Reset the timer to 9.9 seconds
         game.timeLeft = 9.9
         
@@ -233,7 +243,7 @@ struct GameView: View {
             let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))
             
             // Save the image to the AI's training data
-            saveImage(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
+            saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
             
             // Get the probabilities for every drawing
             try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
@@ -250,12 +260,10 @@ struct GameView: View {
             print(error)
         }
         
-        // Train a new AI model and get its training score
-        // FIXME: Judge the AI
-        assignAIscore()
-        
-        let trainingScore: Double = 25.8
-        game.AIscores.append(trainingScore)
+        // Train a new AI model and get its training score, unless it is round 1, in which
+        // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
+        let newAIscore = getAIscore()
+        game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {

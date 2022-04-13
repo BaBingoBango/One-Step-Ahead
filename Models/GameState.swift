@@ -14,7 +14,7 @@ struct GameState {
     
     // Game Configuration Variables
     /// The task the player must complete for the game.
-    var task: Task = Task.taskList[0]
+    var task: Task = Task.taskList.last!
     /// The user-set difficulty level for the game.
     var difficulty: Difficulty = .normal
     /// Whether or not the task's object should be revealed.
