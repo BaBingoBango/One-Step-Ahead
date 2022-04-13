@@ -232,6 +232,9 @@ struct GameView: View {
             let background = UIColor.white.imageWithColor(width: canvasView.bounds.width, height: canvasView.bounds.height)
             let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))
             
+            // Save the image to the AI's training data
+            saveImage(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
+            
             // Get the probabilities for every drawing
             try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
@@ -248,6 +251,9 @@ struct GameView: View {
         }
         
         // Train a new AI model and get its training score
+        // FIXME: Judge the AI
+        assignAIscore()
+        
         let trainingScore: Double = 25.8
         game.AIscores.append(trainingScore)
     }

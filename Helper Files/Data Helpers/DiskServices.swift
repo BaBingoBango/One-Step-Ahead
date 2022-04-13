@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-func saveImage(_ image: UIImage) {
+/// Saves the given image to the disk with the given name.
+func saveImage(_ image: UIImage, name: String?) {
     if let data = image.pngData() {
-        let filename = getDocumentsDirectory().appendingPathComponent("copy.png")
+        let filename = getDocumentsDirectory().appendingPathComponent(name ?? "image.png")
         try? data.write(to: filename)
         print("Image saved to \(getDocumentsDirectory())")
     }
