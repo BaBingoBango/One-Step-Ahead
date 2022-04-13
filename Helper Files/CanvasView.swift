@@ -34,7 +34,7 @@ private extension CanvasView {
 extension CanvasView: UIViewRepresentable {
     /// Creates, configures, and returns the UIKit canvas view object.
     func makeUIView(context: Context) -> PKCanvasView {
-        canvasView.tool = PKInkingTool(.pen, color: .black, width: 10)
+        canvasView.tool = PKInkingTool(.pen, color: .black, width: 5)
         canvasView.drawingPolicy = .anyInput
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false

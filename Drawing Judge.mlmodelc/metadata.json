@@ -1,7 +1,7 @@
 [
   {
     "metadataOutputVersion" : "3.0",
-    "shortDescription" : "The model which assigns scores to user drawings in One Step Ahead.",
+    "shortDescription" : "The model that assigns scores to user drawings in One Step Ahead.",
     "outputSchema" : [
       {
         "isOptional" : "0",
@@ -71,9 +71,9 @@
       "Crown",
       "Door"
     ],
-    "generatedClassName" : "Drawing_Judge_Model",
+    "generatedClassName" : "Drawing_Judge",
     "userDefinedMetadata" : {
-      "com.apple.createml.version" : "12.3.0",
+      "com.apple.createml.version" : "12.3.1",
       "com.apple.createml.app.tag" : "78.8",
       "com.apple.coreml.model.preview.type" : "imageClassifier",
       "com.apple.createml.app.version" : "3.0"

@@ -226,18 +226,26 @@ struct GameView: View {
         AItext = "Training..."
         
         // Use the judge model to give the user a score
-        let judgeModelWrapper = game.task.judgeModel
-        var predictionProbabilities: [String : Double]
+        var predictionProbabilities: [String : String] = [:]
         do {
-            try predictionProbabilities = judgeModelWrapper!.prediction(image: buffer(from: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))!).classLabelProbs
-            game.playerScores.append(predictionProbabilities[game.task.object]!)
+            // Layer the drawing on top of a white background
+            let background = UIColor.white.imageWithColor(width: canvasView.bounds.width, height: canvasView.bounds.height)
+            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))
+            
+            // Get the probabilities for every drawing
+            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
+                for eachPrediction in predictions! {
+                    predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
+                }
+            })
+            
+            // Add the score to the game state
+            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
         } catch {
             print("[Judge Model Prediction Error]")
             print(error.localizedDescription)
+            print(error)
         }
-        
-        let judgeScore: Double = 75.3
-        game.playerScores.append(judgeScore)
         
         // Train a new AI model and get its training score
         let trainingScore: Double = 25.8
@@ -247,7 +255,7 @@ struct GameView: View {
     func finishRound() {
         // Check if a winner exists
         // FIXME: Add custom threshold
-        if game.playerScores.last! > 80 || game.AIscores.last! > 80 {
+        if game.playerScores.last! > 100 || game.AIscores.last! > 100 {
             // If one does, update the command
             // FIXME: Add a better game-end event
             commandText = game.playerScores.last! >= game.AIscores.last! ? "You win!" : "The machine wins..."
