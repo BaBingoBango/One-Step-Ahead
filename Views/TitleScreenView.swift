@@ -10,6 +10,10 @@ import SwiftUI
 
 /// The entry point view for the app. Shows the main logo and a button to advance to the main menu.
 struct TitleScreenView: View {
+    
+    // Variables
+    @State var showingAppInfo = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -32,16 +36,22 @@ struct TitleScreenView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // FIXME: Add app info
-                        print("where's the info?")
+                        showingAppInfo = true
                     }) {
                         Image(systemName: "info.circle")
+                    }
+                    .sheet(isPresented: $showingAppInfo) {
+                        AppInfoView()
                     }
                 }
             })
             
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            // MARK: View Launch Code
+            playAudio(fileName: "The Big Beat 80s", type: "mp3")
+        }
     }
 }
 

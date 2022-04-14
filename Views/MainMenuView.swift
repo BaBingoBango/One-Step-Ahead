@@ -40,7 +40,6 @@ struct MainMenuView: View {
         
         // MARK: Navigation View Settings
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("ONE STEP AHEAD")
     }
 }
 

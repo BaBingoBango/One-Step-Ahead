@@ -97,12 +97,14 @@ struct NewGameMenuView: View {
             }
             .padding(.top, 5)
             
-            Text("Let's Roll!")
-                .fontWeight(.bold)
-                .foregroundColor(Color.blue)
-                .modifier(RectangleWrapper(fixedHeight: 50, color: .blue))
-                .frame(width: 250)
-                .padding(.top)
+            NavigationLink(destination: GameView()) {
+                Text("Let's Roll!")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.blue)
+                    .modifier(RectangleWrapper(fixedHeight: 50, color: .blue))
+                    .frame(width: 250)
+                    .padding(.top)
+            }
             
         }
         

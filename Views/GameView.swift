@@ -25,6 +25,8 @@ struct GameView: View {
     @State var AItext = "Chatting with Skynet..."
     /// Whether or not the Done! button should be active.
     @State var isDoneButtonEnabled = false
+    /// Whether or not the AI model is currently being trained.
+    @State var isTrainingAImodel = false
     
     /// The UIKit view object for the drawing canvas.
     @State var canvasView = PKCanvasView()
@@ -138,7 +140,14 @@ struct GameView: View {
                             .opacity(0.2)
                             .aspectRatio(1.0, contentMode: .fit)
                         
-                        Text("Chatting with Skynet...")
+                        VStack {
+                            if isTrainingAImodel {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                            }
+                            
+                            Text(AItext)
+                        }
                     }
                     
                     Text("Current Score")
@@ -175,6 +184,10 @@ struct GameView: View {
             // Clear the documents and temporary directories
             clearFolder(getDocumentsDirectory().path)
             clearFolder(FileManager.default.temporaryDirectory.path)
+            
+            // Start the battle music
+            stopAudio()
+            playAudio(fileName: "Powerup!", type: "mp3")
         }
         .onReceive(timer) { input in
             // MARK: Timer Response
@@ -194,10 +207,9 @@ struct GameView: View {
             // If the on-screen timer is zero, stop it and evaluate the scores
             if game.timeLeft == 0 {
                 game.shouldRunTimer = false
+                isTrainingAImodel = true
                 evaluateScores()
-                print("User / AI Scores:")
-                print(game.playerScores)
-                print(game.AIscores)
+                isTrainingAImodel = false
                 finishRound()
             }
         }
@@ -206,6 +218,9 @@ struct GameView: View {
     // MARK: - Functions
     /// Updates the game state variables to start a new round of play.
     func setupNewRound() {
+        // Update the command and the AI text
+        commandText = "Draw the mystery object!"
+        AItext = "Chatting with Skynet!"
         
         // Reset the timer to 9.9 seconds
         game.timeLeft = 9.9
@@ -220,9 +235,6 @@ struct GameView: View {
         // Update the round number
         game.currentRound += 1
         
-        // Update the command
-        commandText = game.task.commandPrompt
-        
         // Enable the Done! button
         isDoneButtonEnabled = true
         
@@ -232,8 +244,8 @@ struct GameView: View {
     /// Uses machine learning to produce and update scores for the player and AI.
     func evaluateScores() {
         // Update the command and AI text
-        commandText = "Judging..."
-        AItext = "Training..."
+        commandText = "Judging your drawing..."
+        AItext = "Learning your secrets..."
         
         // Use the judge model to give the user a score
         var predictionProbabilities: [String : String] = [:]
