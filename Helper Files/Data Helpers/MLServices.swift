@@ -42,9 +42,6 @@ extension GameView {
                     saveImageToTemp(UIImage(named: "\(eachDrawingType.lowercased())_500\(eachFile).png")!, name: "\(eachDrawingType).\(eachFile + 1).png")
                 }
             }
-            
-            // If we are in round 1, stop here and return the player's first score
-            return game.playerScores[0]
         }
         
         // Load the training and testing files
@@ -64,6 +61,11 @@ extension GameView {
         
         // Test the model on the testing data
         let testingMetrics = AImodel.evaluation(on: testingData)
+        
+        // If we are in round 1, stop here and return the player's first score
+        if game.currentRound == 1 {
+            return game.playerScores[0]
+        }
         
         // Return the recall score for the current task object
         return testingMetrics.precisionRecall["precision"][drawingTypes.firstIndex(of: game.task.object)!] * 100

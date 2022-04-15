@@ -207,10 +207,16 @@ struct GameView: View {
             // If the on-screen timer is zero, stop it and evaluate the scores
             if game.timeLeft == 0 {
                 game.shouldRunTimer = false
+                // Update the command and AI box
+                commandText = "Judging your drawing..."
+                AItext = "Learning your secrets..."
                 isTrainingAImodel = true
-                evaluateScores()
-                isTrainingAImodel = false
-                finishRound()
+                
+                // At this point, we want to start an async operation. When it finishes, we should proceed with finishing the round.
+                evaluateScores(compeltion: {
+                    isTrainingAImodel = false
+                    finishRound()
+                })
             }
         }
     }
@@ -242,10 +248,10 @@ struct GameView: View {
         game.shouldRunTimer = true
     }
     /// Uses machine learning to produce and update scores for the player and AI.
-    func evaluateScores() {
-        // Update the command and AI text
-        commandText = "Judging your drawing..."
-        AItext = "Learning your secrets..."
+    /// - Parameter completionHandler: Code to execute once scores have been assigned.
+    ///
+    /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
+    func evaluateScores(compeltion: () -> Void) {
         
         // Use the judge model to give the user a score
         var predictionProbabilities: [String : String] = [:]
@@ -276,6 +282,8 @@ struct GameView: View {
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
         let newAIscore = getAIscore()
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
+        
+        compeltion()
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {
