@@ -40,7 +40,8 @@ let package = Package(
             name: "AppModule",
             path: ".",
             exclude: [
-                "./ConfigList.plist"
+                "./ConfigList.plist",
+                "./README.md"
             ],
             resources: [
                 .process("Music"),
