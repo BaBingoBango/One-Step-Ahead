@@ -31,13 +31,21 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ]
+            ],
+            additionalInfoPlistContentFilePath: "ConfigList.plist"
         )
     ],
     targets: [
         .executableTarget(
             name: "AppModule",
-            path: "."
+            path: ".",
+            exclude: [
+                "./ConfigList.plist"
+            ],
+            resources: [
+                .process("Music"),
+                .process("Helper Files/Drawing Judge Files/Drawing Judge.mlmodelc")
+            ]
         )
     ]
 )

@@ -205,6 +205,7 @@ struct GameView: View {
             }
             
             // If the on-screen timer is zero, stop it and evaluate the scores
+            // FIXME: Async solution - process UI updates at time 0, then process scores at like -0.001 seconds or something, that way the two cod pieces execute completely seperately - probably also update UI again on another timer send? :)
             if game.timeLeft == 0 {
                 game.shouldRunTimer = false
                 // Update the command and AI box
