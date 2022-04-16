@@ -195,7 +195,7 @@ struct GameView: View {
             // Update the on-screen timer if it's running
             if game.shouldRunTimer {
                 // Decrease the on-screen timer if it's running
-                if game.timeLeft - 0.1 <= 0 {
+                if game.timeLeft - 0.1 <= 0 && !isTrainingAImodel {
                     // If the timer will be nonpositive, set it to zero
                     game.timeLeft = 0
                 } else {
@@ -204,20 +204,22 @@ struct GameView: View {
                 }
             }
             
-            // If the on-screen timer is zero, stop it and evaluate the scores
-            // FIXME: Async solution - process UI updates at time 0, then process scores at like -0.001 seconds or something, that way the two cod pieces execute completely seperately - probably also update UI again on another timer send? :)
+            // If the time has reached zero, update the UI
             if game.timeLeft == 0 {
-                game.shouldRunTimer = false
-                // Update the command and AI box
                 commandText = "Judging your drawing..."
                 AItext = "Learning your secrets..."
                 isTrainingAImodel = true
-                
-                // At this point, we want to start an async operation. When it finishes, we should proceed with finishing the round.
-                evaluateScores(compeltion: {
-                    isTrainingAImodel = false
-                    finishRound()
-                })
+            }
+            
+            // On the next 0.1 second, calculate the scores
+            if game.timeLeft == -0.1 {
+                evaluateScores()
+            }
+            
+            // On the next 0.1 second, process the end of the round
+            if game.timeLeft == -0.2 {
+                isTrainingAImodel = false
+                finishRound()
             }
         }
     }
@@ -252,7 +254,7 @@ struct GameView: View {
     /// - Parameter completionHandler: Code to execute once scores have been assigned.
     ///
     /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
-    func evaluateScores(compeltion: () -> Void) {
+    func evaluateScores() {
         
         // Use the judge model to give the user a score
         var predictionProbabilities: [String : String] = [:]
@@ -281,10 +283,9 @@ struct GameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = getAIscore()
+//        let newAIscore = getAIscore()
+        let newAIscore = 0.0
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
-        
-        compeltion()
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {

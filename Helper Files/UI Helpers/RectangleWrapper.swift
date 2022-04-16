@@ -13,19 +13,20 @@ struct RectangleWrapper: ViewModifier {
     
     var fixedHeight: Int?
     var color: Color?
+    var opacity: Double?
     
     func body(content: Content) -> some View {
         ZStack {
             if fixedHeight == nil {
                 Rectangle()
                     .foregroundColor(color == nil ? .primary : color!)
-                    .opacity(0.1)
+                    .opacity(opacity == nil ? 0.1 : opacity!)
                     .cornerRadius(15)
             } else {
                 Rectangle()
                     .foregroundColor(color == nil ? .primary : color!)
                     .frame(height: CGFloat(fixedHeight!))
-                    .opacity(0.1)
+                    .opacity(opacity == nil ? 0.1 : opacity!)
                     .cornerRadius(15)
             }
             content

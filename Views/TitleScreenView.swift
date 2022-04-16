@@ -16,19 +16,25 @@ struct TitleScreenView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Image("Main Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 250)
-                
-                NavigationLink(destination: MainMenuView()) {
-                    Text("Start Game")
-                        .fontWeight(.bold)
+            ZStack {
+                Canvas { context, size in
+                    
                 }
-                .modifier(RectangleWrapper(fixedHeight: 50, color: .blue))
-                .frame(width: 250)
-                .padding(.top)
+                VStack {
+                    Image("Main Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 250)
+                    
+                    NavigationLink(destination: MainMenuView()) {
+                        Text("Start Game")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
+                    .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
+                    .frame(width: 250)
+                    .padding(.top)
+                }
             }
             
             // MARK: Navigation View Settings
