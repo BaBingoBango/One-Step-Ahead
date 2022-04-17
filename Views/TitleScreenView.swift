@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SpriteKit
 
 /// The entry point view for the app. Shows the main logo and a button to advance to the main menu.
 struct TitleScreenView: View {
@@ -17,22 +18,21 @@ struct TitleScreenView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Canvas { context, size in
-                    
-                }
+                SpriteView(scene: SKScene(fileNamed: "Title Screen Graphics")!)
                 VStack {
                     Image("Main Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 250)
+                        .frame(height: 400)
+                        .hidden()
                     
                     NavigationLink(destination: MainMenuView()) {
                         Text("Start Game")
                             .fontWeight(.bold)
                             .foregroundColor(.white)
+                            .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
+                            .frame(width: 250)
                     }
-                    .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
-                    .frame(width: 250)
                     .padding(.top)
                 }
             }

@@ -45,7 +45,8 @@ let package = Package(
             ],
             resources: [
                 .process("Music"),
-                .process("Helper Files/Drawing Judge Files/Drawing Judge.mlmodelc")
+                .process("Helper Files/Drawing Judge Files/Drawing Judge.mlmodelc"),
+                .process("Helper Files/SpriteKit UI Helpers")
             ]
         )
     ]

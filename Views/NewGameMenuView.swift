@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SpriteKit
 
 /// The view for configuring a new game's options; originates from the main menu.
 struct NewGameMenuView: View {
@@ -16,96 +17,99 @@ struct NewGameMenuView: View {
     @State var game: GameState = GameState()
     
     var body: some View {
-        VStack {
-            
-            Text("Choose Task Category")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            HStack {
-                Button(action: {
-                    game.task.category = .drawing
-                }) {
-                    IconButtonView(imageName: "pencil.and.outline", text: "Drawing", isBlue: game.task.category == .drawing)
-                }
-                Button(action: {
-                    game.task.category = .speech
-                }) {
-                    IconButtonView(imageName: "waveform", text: "Speech", isBlue: game.task.category == .speech)
-                }
-                Button(action: {
-                    game.task.category = .handPoses
-                }) {
-                    IconButtonView(imageName: "hand.thumbsup.fill", text: "Hand Poses", isBlue: game.task.category == .handPoses)
-                }
-            }
-            
-            Text("Choose Difficulty")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.top)
-            
-            HStack {
-                Button(action: {
-                    game.difficulty = .easy
-                }) {
-                    Text("Easy")
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .easy ? .green : nil))
-                        .frame(width: 120)
-                }
-                Button(action: {
-                    game.difficulty = .normal
-                }) {
-                    Text("Normal")
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .normal ? .blue : nil))
-                        .frame(width: 120)
-                }
-                Button(action: {
-                    game.difficulty = .hard
-                }) {
-                    Text("Hard")
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .hard ? .red : nil))
-                        .frame(width: 120)
-                }
-            }
-            
-            HStack {
-                Button(action: {
-                    game.shouldDemystify = false
-                }) {
-                    Text("Standard Game")
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .modifier(RectangleWrapper(fixedHeight: 40, color: !game.shouldDemystify ? .blue : nil))
-                        .frame(width: 185)
-                }
-                Button(action: {
-                    game.shouldDemystify = true
-                }) {
-                    Text("Demystify!")
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .modifier(RectangleWrapper(fixedHeight: 40, color: game.shouldDemystify ? .purple : nil))
-                        .frame(width: 185)
-                }
-            }
-            .padding(.top, 5)
-            
-            NavigationLink(destination: GameView()) {
-                Text("Let's Roll!")
+        ZStack {
+            SpriteView(scene: SKScene(fileNamed: "New Game Menu Graphics")!)
+            VStack {
+                
+                Text("Choose Task Category")
+                    .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.blue)
-                    .modifier(RectangleWrapper(fixedHeight: 50, color: .blue))
-                    .frame(width: 250)
+                
+                HStack {
+                    Button(action: {
+                        game.task.category = .drawing
+                    }) {
+                        IconButtonView(imageName: "pencil.and.outline", text: "Drawing", isBlue: game.task.category == .drawing)
+                    }
+                    Button(action: {
+                        game.task.category = .speech
+                    }) {
+                        IconButtonView(imageName: "waveform", text: "Speech", isBlue: game.task.category == .speech)
+                    }
+                    Button(action: {
+                        game.task.category = .handPoses
+                    }) {
+                        IconButtonView(imageName: "hand.thumbsup.fill", text: "Hand Poses", isBlue: game.task.category == .handPoses)
+                    }
+                }
+                
+                Text("Choose Difficulty")
+                    .font(.title)
+                    .fontWeight(.bold)
                     .padding(.top)
+                
+                HStack {
+                    Button(action: {
+                        game.difficulty = .easy
+                    }) {
+                        Text("Easy")
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .easy ? .green : nil))
+                            .frame(width: 120)
+                    }
+                    Button(action: {
+                        game.difficulty = .normal
+                    }) {
+                        Text("Normal")
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .normal ? .blue : nil))
+                            .frame(width: 120)
+                    }
+                    Button(action: {
+                        game.difficulty = .hard
+                    }) {
+                        Text("Hard")
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .hard ? .red : nil))
+                            .frame(width: 120)
+                    }
+                }
+                
+                HStack {
+                    Button(action: {
+                        game.shouldDemystify = false
+                    }) {
+                        Text("Standard Game")
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                            .modifier(RectangleWrapper(fixedHeight: 40, color: !game.shouldDemystify ? .blue : nil))
+                            .frame(width: 185)
+                    }
+                    Button(action: {
+                        game.shouldDemystify = true
+                    }) {
+                        Text("Demystify!")
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.shouldDemystify ? .purple : nil))
+                            .frame(width: 185)
+                    }
+                }
+                .padding(.top, 5)
+                
+                NavigationLink(destination: GameView()) {
+                    Text("Let's Roll!")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.blue)
+                        .modifier(RectangleWrapper(fixedHeight: 50, color: .blue))
+                        .frame(width: 250)
+                        .padding(.top)
+                }
+                
             }
-            
         }
         
         // MARK: Navigation View Settings

@@ -8,6 +8,7 @@
 import SwiftUI
 import PencilKit
 import CoreML
+import SpriteKit
 
 /// The view displaying the elements of the currently running game; originates from the New Game screen.
 struct GameView: View {
@@ -37,147 +38,150 @@ struct GameView: View {
     
     // MARK: - View Body
     var body: some View {
-        VStack(spacing: 0) {
-            Text("- Round \(game.currentRound) -")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.bottom, 5)
-            
-            Text(commandText)
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.bottom, 5)
-            
-            Text(game.timeLeft.truncate(places: 1).description + "s")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-            
-            Spacer()
-            
-            HStack(alignment: .center, spacing: 37.5) {
-                VStack {
-                    HStack(alignment: .bottom) {
-                        Text("You")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            // Undo the canvas
-                            // FIXME: Undo funtion might not be working
-                            isDeletingDrawing = true
-                            canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
-                            if allDrawings.count >= 1 {
-                                allDrawings.removeLast()
-                            }
-                            isDeletingDrawing = false
-                        }) {
-                            ZStack {
-                                Rectangle()
-                                    .foregroundColor(.secondary)
-                                    .cornerRadius(50)
-                                HStack {
-                                    Image(systemName: "arrow.uturn.backward.circle")
-                                        .foregroundColor(.primary)
-                                    
-                                    Text("Undo")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.primary)
+        ZStack {
+            SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
+            VStack(spacing: 0) {
+                Text("- Round \(game.currentRound) -")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 5)
+                
+                Text(commandText)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 5)
+                
+                Text(game.timeLeft.truncate(places: 1).description + "s")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                
+                Spacer()
+                
+                HStack(alignment: .center, spacing: 37.5) {
+                    VStack {
+                        HStack(alignment: .bottom) {
+                            Text("You")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                // Undo the canvas
+                                // FIXME: Undo funtion might not be working
+                                isDeletingDrawing = true
+                                canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
+                                if allDrawings.count >= 1 {
+                                    allDrawings.removeLast()
+                                }
+                                isDeletingDrawing = false
+                            }) {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(.secondary)
+                                        .cornerRadius(50)
+                                    HStack {
+                                        Image(systemName: "arrow.uturn.backward.circle")
+                                            .foregroundColor(.primary)
+                                        
+                                        Text("Undo")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+                                    }
                                 }
                             }
+                            .frame(width: 120, height: 40)
+                            .offset(y: 5)
                         }
-                        .frame(width: 120, height: 40)
-                        .offset(y: 5)
-                    }
-                    
-                    ZStack {
-                        Rectangle()
-                            .opacity(0.2)
-                            .aspectRatio(1.0, contentMode: .fit)
                         
-                        CanvasView(canvasView: $canvasView, onSaved: {
-                            if !isDeletingDrawing {
-                                allDrawings.append(canvasView.drawing)
-                            }
-                        })
-                    }
-                    .aspectRatio(1.0, contentMode: .fit)
-                    
-                    Text("Current Score")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.top)
-                    
-                    if game.currentRound != 1 {
-                        Text("\(game.playerScores[game.currentRound - 2].description)%")
-                            .font(.largeTitle)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.green)
-                    } else {
-                        Text("---")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
-                Text("VS")
-                    .font(.largeTitle)
-                    .fontWeight(.black)
-                    .padding(.bottom, 48)
-                
-                VStack {
-                    HStack {
-                        Spacer()
-                        Text("The Machine")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                    }
-                    
-                    ZStack {
-                        Rectangle()
-                            .opacity(0.2)
-                            .aspectRatio(1.0, contentMode: .fit)
-                        
-                        VStack {
-                            if isTrainingAImodel {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                            }
+                        ZStack {
+                            Rectangle()
+                                .opacity(0.2)
+                                .aspectRatio(1.0, contentMode: .fit)
                             
-                            Text(AItext)
+                            CanvasView(canvasView: $canvasView, onSaved: {
+                                if !isDeletingDrawing {
+                                    allDrawings.append(canvasView.drawing)
+                                }
+                            })
+                        }
+                        .aspectRatio(1.0, contentMode: .fit)
+                        
+                        Text("Current Score")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.top)
+                        
+                        if game.currentRound != 1 {
+                            Text("\(game.playerScores[game.currentRound - 2].description)%")
+                                .font(.largeTitle)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.green)
+                        } else {
+                            Text("---")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.secondary)
                         }
                     }
                     
-                    Text("Current Score")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.top)
+                    Text("VS")
+                        .font(.largeTitle)
+                        .fontWeight(.black)
+                        .padding(.bottom, 48)
                     
-                    if game.currentRound != 1 {
-                        Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                            .font(.largeTitle)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.green)
-                    } else {
-                        Text("---")
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text("The Machine")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                        }
+                        
+                        ZStack {
+                            Rectangle()
+                                .opacity(0.2)
+                                .aspectRatio(1.0, contentMode: .fit)
+                            
+                            VStack {
+                                if isTrainingAImodel {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                }
+                                
+                                Text(AItext)
+                            }
+                        }
+                        
+                        Text("Current Score")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(.secondary)
+                            .padding(.top)
+                        
+                        if game.currentRound != 1 {
+                            Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
+                                .font(.largeTitle)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.green)
+                        } else {
+                            Text("---")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
+                .padding(.horizontal, 75)
+                
+                Text("Done!")
+                    .fontWeight(.bold)
+                    .foregroundColor(isDoneButtonEnabled ? .blue : .gray)
+                    .modifier(RectangleWrapper(fixedHeight: 50, color: isDoneButtonEnabled ? .blue : .black))
+                    .frame(width: 250)
+                    .disabled(!isDoneButtonEnabled)
+                
+                Spacer()
             }
-            .padding(.horizontal, 75)
-            
-            Text("Done!")
-                .fontWeight(.bold)
-                .foregroundColor(isDoneButtonEnabled ? .blue : .gray)
-                .modifier(RectangleWrapper(fixedHeight: 50, color: isDoneButtonEnabled ? .blue : .black))
-                .frame(width: 250)
-                .disabled(!isDoneButtonEnabled)
-            
-            Spacer()
         }
         .onAppear {
             // MARK: View Launch Code
