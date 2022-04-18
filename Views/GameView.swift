@@ -288,7 +288,7 @@ struct GameView: View {
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
 //        let newAIscore = getAIscore()
-        let newAIscore = 0.0
+        let newAIscore = 69.4
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).

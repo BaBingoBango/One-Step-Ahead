@@ -23,7 +23,7 @@ struct TitleScreenView: View {
                     Image("Main Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 400)
+                        .frame(height: 350)
                         .hidden()
                     
                     NavigationLink(destination: MainMenuView()) {
@@ -56,7 +56,7 @@ struct TitleScreenView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             // MARK: View Launch Code
-            playAudio(fileName: "The Big Beat 80s", type: "mp3")
+            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
         }
     }
 }

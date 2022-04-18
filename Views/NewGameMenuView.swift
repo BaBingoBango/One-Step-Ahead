@@ -21,92 +21,82 @@ struct NewGameMenuView: View {
             SpriteView(scene: SKScene(fileNamed: "New Game Menu Graphics")!)
             VStack {
                 
-                Text("Choose Task Category")
-                    .font(.title)
-                    .fontWeight(.bold)
-                
-                HStack {
-                    Button(action: {
-                        game.task.category = .drawing
-                    }) {
-                        IconButtonView(imageName: "pencil.and.outline", text: "Drawing", isBlue: game.task.category == .drawing)
-                    }
-                    Button(action: {
-                        game.task.category = .speech
-                    }) {
-                        IconButtonView(imageName: "waveform", text: "Speech", isBlue: game.task.category == .speech)
-                    }
-                    Button(action: {
-                        game.task.category = .handPoses
-                    }) {
-                        IconButtonView(imageName: "hand.thumbsup.fill", text: "Hand Poses", isBlue: game.task.category == .handPoses)
+                VStack {
+                    HStack(alignment: .bottom) {
+                        VStack {
+                            Text("Game Mode")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.leading, 100)
+                            HStack {
+                                Button(action: {
+                                    game.shouldDemystify = true
+                                }) {
+                                    IconButtonView(imageName: "wand.and.stars.inverse", text: "Demystify", isBlue: game.shouldDemystify)
+                                }
+                                .padding(.leading, 100)
+                                Button(action: {
+                                    game.task.category = .speech
+                                }) {
+                                    IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.task.category == .speech)
+                                }
+                                Button(action: {
+                                    game.task.category = .drawing
+                                }) {
+                                    IconButtonView(imageName: "eye.slash.fill", text: "Flying Blind", isBlue: game.task.category == .drawing)
+                                }
+                            }
+                        }
+                        Text("The ultimate test of wits; try to draw the mystery object before the AI can with no hints whatsoever!")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .padding(.horizontal, 100)
+                            .padding(.bottom, 5)
                     }
                 }
                 
-                Text("Choose Difficulty")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top)
-                
-                HStack {
-                    Button(action: {
-                        game.difficulty = .easy
-                    }) {
-                        Text("Easy")
+                VStack {
+                    HStack(alignment: .bottom) {
+                        VStack {
+                            Text("Difficulty")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.leading, 100)
+                            HStack {
+                                Button(action: {
+                                    game.difficulty = .easy
+                                }) {
+                                    IconButtonView(imageName: "sun.max.fill", text: "Easy", isBlue: game.difficulty == .easy)
+                                }
+                                .padding(.leading, 100)
+                                Button(action: {
+                                    game.difficulty = .normal
+                                }) {
+                                    IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.difficulty == .normal)
+                                }
+                                Button(action: {
+                                    game.difficulty = .hard
+                                }) {
+                                    IconButtonView(imageName: "flame.fill", text: "Hard", isBlue: game.difficulty == .hard)
+                                }
+                            }
+                        }
+                        Text("The ultimate test of wits; try to draw the mystery object before the AI can with no hints whatsoever!")
+                            .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .easy ? .green : nil))
-                            .frame(width: 120)
-                    }
-                    Button(action: {
-                        game.difficulty = .normal
-                    }) {
-                        Text("Normal")
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .normal ? .blue : nil))
-                            .frame(width: 120)
-                    }
-                    Button(action: {
-                        game.difficulty = .hard
-                    }) {
-                        Text("Hard")
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.difficulty == .hard ? .red : nil))
-                            .frame(width: 120)
-                    }
-                }
-                
-                HStack {
-                    Button(action: {
-                        game.shouldDemystify = false
-                    }) {
-                        Text("Standard Game")
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .modifier(RectangleWrapper(fixedHeight: 40, color: !game.shouldDemystify ? .blue : nil))
-                            .frame(width: 185)
-                    }
-                    Button(action: {
-                        game.shouldDemystify = true
-                    }) {
-                        Text("Demystify!")
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .modifier(RectangleWrapper(fixedHeight: 40, color: game.shouldDemystify ? .purple : nil))
-                            .frame(width: 185)
+                            .padding(.horizontal, 100)
+                            .padding(.bottom, 5)
                     }
                 }
-                .padding(.top, 5)
+                .padding(.top)
                 
                 NavigationLink(destination: GameView()) {
                     Text("Let's Roll!")
                         .fontWeight(.bold)
-                        .foregroundColor(Color.blue)
-                        .modifier(RectangleWrapper(fixedHeight: 50, color: .blue))
+                        .foregroundColor(Color.white)
+                        .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
                         .frame(width: 250)
-                        .padding(.top)
+                        .padding(.top, 50)
                 }
                 
             }
@@ -145,7 +135,7 @@ struct IconButtonView: View {
                 .foregroundColor(.primary)
                 .padding(.top, 5)
         }
-        .modifier(RectangleWrapper(fixedHeight: 80, color: isBlue ? .blue : nil))
+        .modifier(RectangleWrapper(fixedHeight: 80, color: isBlue ? .blue : nil, opacity: isBlue ? 1.0 : 0.1))
         .frame(width: 120)
     }
 }
