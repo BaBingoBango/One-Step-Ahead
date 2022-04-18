@@ -9,8 +9,8 @@ The game is designed to be run on an iPad, but also works on M1 Macs! It has not
 > The app project is not compatible with Simulator, since it relies on the Create ML framework. Please be sure to build and the app for a physical device.
 
 ## Sources
-The Big Beat 80s: ??????
-Powerup!: ??????
-Space Background: https://unsplash.com/photos/_0eMNseqmYk
-Star Background: https://unsplash.com/photos/qVotvbsuM_c
+The Big Beat 80s: ??????<br>
+Powerup!: ??????<br>
+Space Background: https://unsplash.com/photos/_0eMNseqmYk<br>
+Star Background: https://unsplash.com/photos/qVotvbsuM_c<br>
 Dun Dun Dun Sound Effect: https://freesound.org/people/copyc4t/sounds/146434/
