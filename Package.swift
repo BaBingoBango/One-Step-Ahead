@@ -44,7 +44,7 @@ let package = Package(
                 "./README.md"
             ],
             resources: [
-                .process("Music"),
+                .process("Music & Sound Effects"),
                 .process("Helper Files/Drawing Judge Files/Drawing Judge.mlmodelc"),
                 .process("Helper Files/SpriteKit UI Helpers")
             ]
