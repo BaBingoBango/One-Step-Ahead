@@ -287,15 +287,14 @@ struct GameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-//        let newAIscore = getAIscore()
-        let newAIscore = 69.4
+        let newAIscore = getAIscore()
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {
         // Check if a winner exists
         // FIXME: Add custom threshold
-        if game.playerScores.last! > 100 || game.AIscores.last! > 100 {
+        if game.playerScores.last! > game.playerWinThreshold || game.AIscores.last! > game.AIwinThreshold {
             // If one does, update the command
             // FIXME: Add a better game-end event
             commandText = game.playerScores.last! >= game.AIscores.last! ? "You win!" : "The machine wins..."

@@ -15,28 +15,36 @@ struct MainMenuView: View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
             HStack(spacing: 100) {
-                VStack {
+                VStack(spacing: -30) {
                     NavigationLink(destination: NewGameMenuView()) {
-                        RotatingSquare(firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
                             .padding(90)
                     }
                     
-                    Text("Description Text")
+                    Text("Who can learn faster? You or a computer? Race to find out and finish a drawing before the AI model does!")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
                         .padding(.top)
                 }
                 
-                VStack {
+                VStack(spacing: -30) {
                     NavigationLink(destination: EmptyView()) {
-                        RotatingSquare(firstColor: .green, secondColor: .mint, text: "PRACTICE")
+                        RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
                             .padding(90)
                     }
                     
-                    Text("Description Text")
+                    Text("Your machine combat journey begins here. Learn the ropes of One Step Ahead and machine learning all at once!")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
                         .padding(.top)
                 }
             }
             .padding(.horizontal)
         }
+        // MARK: Navigation View Settings
+        .navigationTitle("Main Menu")
     }
 }
 

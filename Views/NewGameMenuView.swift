@@ -30,26 +30,27 @@ struct NewGameMenuView: View {
                                 .padding(.leading, 100)
                             HStack {
                                 Button(action: {
-                                    game.shouldDemystify = true
+                                    game.gameMode = .demystify
                                 }) {
-                                    IconButtonView(imageName: "wand.and.stars.inverse", text: "Demystify", isBlue: game.shouldDemystify)
+                                    IconButtonView(imageName: "wand.and.stars.inverse", text: "Demystify", isBlue: game.gameMode == .demystify)
                                 }
                                 .padding(.leading, 100)
                                 Button(action: {
-                                    game.task.category = .speech
+                                    game.gameMode = .normal
                                 }) {
-                                    IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.task.category == .speech)
+                                    IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.gameMode == .normal)
                                 }
                                 Button(action: {
-                                    game.task.category = .drawing
+                                    game.gameMode = .flyingBlind
                                 }) {
-                                    IconButtonView(imageName: "eye.slash.fill", text: "Flying Blind", isBlue: game.task.category == .drawing)
+                                    IconButtonView(imageName: "eye.slash.fill", text: "Flying Blind", isBlue: game.gameMode == .flyingBlind)
                                 }
                             }
                         }
-                        Text("The ultimate test of wits; try to draw the mystery object before the AI can with no hints whatsoever!")
+                        Text(getGameModeDescription())
                             .font(.title3)
                             .fontWeight(.bold)
+                            .frame(width: 350)
                             .padding(.horizontal, 100)
                             .padding(.bottom, 5)
                     }
@@ -81,9 +82,10 @@ struct NewGameMenuView: View {
                                 }
                             }
                         }
-                        Text("The ultimate test of wits; try to draw the mystery object before the AI can with no hints whatsoever!")
+                        Text(getDifficultyDescription())
                             .font(.title3)
                             .fontWeight(.bold)
+                            .frame(width: 350)
                             .padding(.horizontal, 100)
                             .padding(.bottom, 5)
                     }
@@ -106,6 +108,29 @@ struct NewGameMenuView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("New Game")
     }
+    
+    // MARK: View Functions
+    func getGameModeDescription() -> String {
+        switch game.gameMode {
+        case .flyingBlind:
+            return "The ultimate test of wits; try to draw the mystery object before the AI can with no hints whatsoever!"
+        case .normal:
+            return "A regular game of One Step Ahead; you'll have a short list of possible drawings to guess from!"
+        case .demystify:
+            return "You'll know what to draw right away; it's a true test of your skills as an artist!"
+        }
+    }
+    func getDifficultyDescription() -> String {
+        switch game.difficulty {
+        case .easy:
+            return "You'll only need 80% drawing accuracy to win; the AI will need 90% to win!"
+        case .normal:
+            return "Both you and the AI will need 90% drawing accuracy to win."
+        case .hard:
+            return "You'll need 97% drawing accuracy to win; the AI will only need 80% to win!"
+        }
+    }
+    
 }
 
 struct NewGameMenuView_Previews: PreviewProvider {

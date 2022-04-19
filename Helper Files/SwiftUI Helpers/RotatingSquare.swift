@@ -11,6 +11,7 @@ import SwiftUI
 struct RotatingSquare: View {
     
     // Pass-In Variables
+    var direction: RotationDirection
     var firstColor: Color
     var secondColor: Color
     var text: String
@@ -38,13 +39,25 @@ struct RotatingSquare: View {
                 .multilineTextAlignment(.center)
         }
         .onReceive(timer) { input in
-            rotationDegrees += 0.1
+            if direction == .clockwise {
+                rotationDegrees += 0.1
+            } else {
+                rotationDegrees -= 0.1
+            }
         }
     }
+    
+    // Enumeration
+    /// The two ways in which a rotating square can turn.
+    enum RotationDirection {
+        case clockwise
+        case counterclockwise
+    }
+    
 }
 
 struct RotatingRectangle_Previews: PreviewProvider {
     static var previews: some View {
-        RotatingSquare(firstColor: .blue, secondColor: .cyan, text: "NEW\nGAME")
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW\nGAME")
     }
 }
