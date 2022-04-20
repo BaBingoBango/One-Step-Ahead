@@ -126,16 +126,20 @@ struct PercentCircle: View {
     
     // Variables
     var percent: Double
+    var circleWidth: CGFloat = 150
+    var circleHeight: CGFloat = 150
+    var color: Color = .green
+    var font: Font = .largeTitle
     
     var body: some View {
         HStack(spacing: 50) {
             ZStack {
                 Circle()
-                    .foregroundColor(.green)
-                    .frame(width: 150, height: 150)
+                    .foregroundColor(color)
+                    .frame(width: circleWidth, height: circleHeight)
                 
                 Text("\(percent.description)%")
-                    .font(.largeTitle)
+                    .font(font)
                     .fontWeight(.heavy)
             }
         }
