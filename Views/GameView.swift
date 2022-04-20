@@ -42,7 +42,8 @@ struct GameView: View {
     // MARK: - View Body
     var body: some View {
         ZStack {
-            NavigationLink(destination: GameEndView(), isActive: $isShowingGameEndView) { EmptyView() }
+            // The programatically-triggered navigation link for the game end view
+            NavigationLink(destination: GameEndView(game: game), isActive: $isShowingGameEndView) { EmptyView() }
             
             SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
@@ -259,9 +260,6 @@ struct GameView: View {
         // Reset the player canvas
         canvasView.drawing = PKDrawing()
         allDrawings = []
-        
-        // Enable canvas editing
-        // FIXME: No code
         
         // Update the round number
         game.currentRound += 1
