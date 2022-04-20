@@ -19,6 +19,7 @@ struct NewGameMenuView: View {
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "New Game Menu Graphics")!)
+                .edgesIgnoringSafeArea(.all)
             VStack {
                 
                 VStack {
@@ -92,7 +93,7 @@ struct NewGameMenuView: View {
                 }
                 .padding(.top)
                 
-                NavigationLink(destination: GameView()) {
+                NavigationLink(destination: GameView(game: game, commandText: game.defaultCommandText)) {
                     Text("Let's Roll!")
                         .fontWeight(.bold)
                         .foregroundColor(Color.white)
@@ -102,6 +103,9 @@ struct NewGameMenuView: View {
                 }
                 
             }
+        }
+        .onAppear {
+            game = GameState()
         }
         
         // MARK: Navigation View Settings

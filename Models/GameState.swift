@@ -40,25 +40,52 @@ struct GameState {
     
     // MARK: - Computed Properties
     /// The drawing score required for the player to win the game.
-    var playerWinThreshold: Double {
+    var playerWinThreshold: Int {
         switch difficulty {
         case .easy:
-            return 80.0
+            return 80
         case .normal:
-            return 90.0
+            return 90
         case .hard:
-            return 97.0
+            return 97
         }
     }
     /// The drawing score required for the AI to win the game.
-    var AIwinThreshold: Double {
+    var AIwinThreshold: Int {
         switch difficulty {
         case .easy:
             return 90
         case .normal:
-            return 90.0
+            return 90
         case .hard:
-            return 80.0
+            return 80
+        }
+    }
+    /// The command text to display when a round's timer is decreasing.
+    var defaultCommandText: String {
+        switch gameMode {
+        case .flyingBlind:
+            return "Draw the mystery object!"
+        case .normal:
+            // Remove the current object from the task list
+            var drawingList = Task.taskList
+            drawingList.remove(at: Task.taskList.firstIndex(where: { $0.object == task.object })!)
+            
+            // Select 3 random objects to use as clues, along with the game task's object
+            var clues: [Task] = [task]
+            for _ in 1...3 {
+                let randomTask = drawingList.randomElement()!
+                drawingList.remove(at: drawingList.firstIndex(where: { $0.object == randomTask.object })!)
+                clues.append(randomTask)
+            }
+            
+            // Shuffle the clues
+            clues.shuffle()
+            
+            // Return default command text
+            return "Posible Drawings: \(clues[0].object), \(clues[1].object), \(clues[2].object), \(clues[3].object)"
+        case .demystify:
+            return "Draw \(task.commandPhrase)"
         }
     }
     

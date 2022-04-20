@@ -13,6 +13,7 @@ struct GameEndView: View {
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
+                .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 Text("You win!")
                     .foregroundColor(.gold)

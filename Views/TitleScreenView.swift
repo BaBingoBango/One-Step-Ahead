@@ -19,6 +19,7 @@ struct TitleScreenView: View {
         NavigationView {
             ZStack {
                 SpriteView(scene: SKScene(fileNamed: "Title Screen Graphics")!)
+                    .edgesIgnoringSafeArea(.all)
                 VStack {
                     Image("Main Logo")
                         .resizable()

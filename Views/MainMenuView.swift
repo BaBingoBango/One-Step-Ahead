@@ -14,11 +14,12 @@ struct MainMenuView: View {
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
+                .edgesIgnoringSafeArea(.all)
             HStack(spacing: 100) {
                 VStack(spacing: -30) {
                     NavigationLink(destination: NewGameMenuView()) {
                         RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
-                            .padding(90)
+                            .padding(120)
                     }
                     
                     Text("Who can learn faster? You or a computer? Race to find out and finish a drawing before the AI model does!")
@@ -31,7 +32,7 @@ struct MainMenuView: View {
                 VStack(spacing: -30) {
                     NavigationLink(destination: EmptyView()) {
                         RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
-                            .padding(90)
+                            .padding(120)
                     }
                     
                     Text("Your machine combat journey begins here. Learn the ropes of One Step Ahead and machine learning all at once!")
