@@ -32,17 +32,20 @@ struct NewGameMenuView: View {
                             HStack {
                                 Button(action: {
                                     game.gameMode = .demystify
+                                    game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
                                     IconButtonView(imageName: "wand.and.stars.inverse", text: "Demystify", isBlue: game.gameMode == .demystify)
                                 }
                                 .padding(.leading, 100)
                                 Button(action: {
                                     game.gameMode = .normal
+                                    game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
                                     IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.gameMode == .normal)
                                 }
                                 Button(action: {
                                     game.gameMode = .flyingBlind
+                                    game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
                                     IconButtonView(imageName: "eye.slash.fill", text: "Flying Blind", isBlue: game.gameMode == .flyingBlind)
                                 }
@@ -106,6 +109,7 @@ struct NewGameMenuView: View {
         }
         .onAppear {
             game = GameState()
+            game.defaultCommandText = game.getDefaultCommandText()
         }
         
         // MARK: Navigation View Settings

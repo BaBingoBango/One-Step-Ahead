@@ -21,6 +21,8 @@ struct GameState {
     var gameMode: GameMode = .normal
     /// The user-set difficulty level for the game.
     var difficulty: Difficulty = .normal
+    /// The command text to display when a round's timer is decreasing.
+    var defaultCommandText: String = "Default Command Text"
     
     // MARK: - Game State Variables
     /// The number of the game's current round.
@@ -61,8 +63,24 @@ struct GameState {
             return 80
         }
     }
-    /// The command text to display when a round's timer is decreasing.
-    var defaultCommandText: String {
+    
+    // MARK: - Enumerations
+    /// The possible modes for a game; they describe the level of hints the player should receive.
+    enum GameMode {
+        case flyingBlind
+        case normal
+        case demystify
+    }
+    /// The possible difficulties of a game: easy, normal, or hard.
+    enum Difficulty {
+        case easy
+        case normal
+        case hard
+    }
+    
+    // MARK: - Functions
+    /// Gets the appropriate default command text for the current game.
+    func getDefaultCommandText() -> String {
         switch gameMode {
         case .flyingBlind:
             return "Draw the mystery object!"
@@ -87,20 +105,6 @@ struct GameState {
         case .demystify:
             return "Draw \(task.commandPhrase)"
         }
-    }
-    
-    // MARK: - Enumerations
-    /// The possible modes for a game; they describe the level of hints the player should receive.
-    enum GameMode {
-        case flyingBlind
-        case normal
-        case demystify
-    }
-    /// The possible difficulties of a game: easy, normal, or hard.
-    enum Difficulty {
-        case easy
-        case normal
-        case hard
     }
     
 }
