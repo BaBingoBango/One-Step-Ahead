@@ -112,13 +112,13 @@ struct GameEndView: View {
                 }
                 
                 NavigationLink(destination: PlayerScoresView(game: game)) {
-                    Text("View Game Statistics")
-                        .font(.title)
+                    Text("View Round History")
+                        .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }
                 .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
-                .frame(width: 425)
+                .frame(width: 375)
                 .padding(.bottom, 50)
             }
             .padding(.top)

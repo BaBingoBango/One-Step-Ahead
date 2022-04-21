@@ -20,19 +20,23 @@ struct PlayerScoresView: View {
             SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(1...game.currentRound, id: \.self) { roundNumber in
-                        
-                        RoundScoreCard(roundNumber: roundNumber, playerScore: game.playerScores[roundNumber - 1], AIscore: game.AIscores[roundNumber - 1], object: game.task.object)
-                            .padding(.horizontal, 30)
-                        
+            VStack {
+                Text("")
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(1...game.currentRound, id: \.self) { roundNumber in
+                            
+                            RoundScoreCard(roundNumber: roundNumber, playerScore: game.playerScores[roundNumber - 1], AIscore: game.AIscores[roundNumber - 1], object: game.task.object)
+                                .padding(.horizontal, 20)
+                            
+                        }
                     }
                 }
             }
         }
         // MARK: Navigation Bar Settings
-        .navigationTitle("Game Statistics")
+        .navigationTitle("Round History")
     }
 }
 
@@ -68,6 +72,7 @@ struct RoundScoreCard: View {
                 
                 // FIXME: Replace with image
                 Image(uiImage: getImageFromDocuments("\(object).\(roundNumber).png")!)
+                    .resizable()
                     .frame(width: 200, height: 200)
                     .cornerRadius(10)
                 
