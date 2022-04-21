@@ -28,11 +28,8 @@ struct GameView: View {
     
     /// The text displaying at the top of the view under the round number.
     @State var commandText: String
-    // FIXME: Update AI box to something else
     /// The text which displays in the AI's "canvas" area.
     @State var AItext = getIdleAIMessage()
-    /// Whether or not the Done! button should be active.
-    @State var isDoneButtonEnabled = false
     /// Whether or not the AI model is currently being trained.
     @State var isTrainingAImodel = false
     
@@ -309,9 +306,6 @@ struct GameView: View {
         
         // Update the round number
         game.currentRound += 1
-        
-        // Enable the Done! button
-        isDoneButtonEnabled = true
         
         // Start the timer
         game.shouldRunTimer = true

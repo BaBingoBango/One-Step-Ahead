@@ -30,7 +30,7 @@ struct MainMenuView: View {
                 }
                 
                 VStack(spacing: -30) {
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: BackstoryView()) {
                         RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
                             .padding(120)
                     }
