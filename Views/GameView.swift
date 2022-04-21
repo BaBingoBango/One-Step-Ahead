@@ -14,8 +14,12 @@ import SpriteKit
 struct GameView: View {
     
     // MARK: - Variables
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     /// Whether or not the game end view is showing.
     @State private var isShowingGameEndView = false
+    /// Whether or not the view is currently being collapsed by the End Game View.
+    @State var isDismissing = false
     
     /// The state of the app's currently running game, passed in from the New Game screen.
     @State var game: GameState = GameState()
@@ -211,6 +215,15 @@ struct GameView: View {
             // Start the battle music
             stopAudio()
             playAudio(fileName: "Powerup!", type: "mp3")
+            
+            // Dismiss the view if we are currently collapsing the navigation chain
+            if isDismissing {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .onDisappear {
+            // MARK: View Vanish Code
+            isDismissing = true
         }
         .onReceive(timer) { input in
             // MARK: Timer Response

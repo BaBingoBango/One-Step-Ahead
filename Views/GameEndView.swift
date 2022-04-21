@@ -12,6 +12,7 @@ import SpriteKit
 struct GameEndView: View {
     
     // Variables
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
     
@@ -44,8 +45,8 @@ struct GameEndView: View {
             SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
-                Text("You win!")
-                    .foregroundColor(.gold)
+                Text(winner == .player ? "You win!" : "You lose...")
+                    .foregroundColor(winner == .player ? .gold : .red)
                     .font(.system(size: 70))
                     .fontWeight(.black)
                     .padding(.top)
@@ -111,14 +112,27 @@ struct GameEndView: View {
                     Spacer()
                 }
                 
-                NavigationLink(destination: PlayerScoresView(game: game)) {
-                    Text("View Round History")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
+                HStack(spacing: 10) {
+                    NavigationLink(destination: PlayerScoresView(game: game)) {
+                        Text("View Round History")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
+                    .modifier(RectangleWrapper(fixedHeight: 60, color: .gray, opacity: 1.0))
+                    .frame(width: 375)
+                    
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Return To Menu")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                            .frame(width: 375)
+                    }
                 }
-                .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
-                .frame(width: 375)
                 .padding(.bottom, 50)
             }
             .padding(.top)
