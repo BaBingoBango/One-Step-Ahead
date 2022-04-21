@@ -37,3 +37,22 @@ extension UIImage {
     return mergedImage
   }
 }
+
+public extension UIImage {
+    /// Fills a given image's pixels with a given color.
+    /// - Parameter fillColor: The color to fill the image with.
+    /// - Returns: The image tinted with the given color.
+    func tint(with fillColor: UIColor) -> UIImage? {
+        let image = withRenderingMode(.alwaysTemplate)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        fillColor.set()
+        image.draw(in: CGRect(origin: .zero, size: size))
+
+        guard let imageColored = UIGraphicsGetImageFromCurrentImageContext() else {
+            return nil
+        }
+        
+        UIGraphicsEndImageContext()
+        return imageColored
+    }
+}

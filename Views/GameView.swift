@@ -14,13 +14,16 @@ import SpriteKit
 struct GameView: View {
     
     // MARK: - Variables
+    /// Whether or not the game end view is showing.
+    @State private var isShowingGameEndView = false
+    
     /// The state of the app's currently running game, passed in from the New Game screen.
     @State var game: GameState = GameState()
     /// A 0.1-second-interval timer responsible for triggering game events.
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     /// The text displaying at the top of the view under the round number.
-    @State var commandText = "Draw the mystery object!"
+    @State var commandText: String
     // FIXME: Update AI box to something else
     /// The text which displays in the AI's "canvas" area.
     @State var AItext = "Chatting with Skynet..."
@@ -39,7 +42,12 @@ struct GameView: View {
     // MARK: - View Body
     var body: some View {
         ZStack {
+            // The programatically-triggered navigation link for the game end view
+            NavigationLink(destination: GameEndView(game: game), isActive: $isShowingGameEndView) { EmptyView() }
+            
             SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
+                .edgesIgnoringSafeArea(.all)
+            
             VStack(spacing: 0) {
                 Text("- Round \(game.currentRound) -")
                     .font(.largeTitle)
@@ -174,12 +182,22 @@ struct GameView: View {
                 }
                 .padding(.horizontal, 75)
                 
-                Text("Done!")
+                Text("Your Win Threshold: \(game.playerWinThreshold)%")
+                    .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(isDoneButtonEnabled ? .blue : .gray)
-                    .modifier(RectangleWrapper(fixedHeight: 50, color: isDoneButtonEnabled ? .blue : .black))
-                    .frame(width: 250)
-                    .disabled(!isDoneButtonEnabled)
+                    .foregroundColor(.green)
+                    .multilineTextAlignment(.center)
+                    .opacity(0.7)
+                    .frame(width: 350)
+                
+                Text("AI Win Threshold: \(game.AIwinThreshold)%")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
+                    .opacity(0.7)
+                    .padding(.top, 5)
+                    .frame(width: 350)
                 
                 Spacer()
             }
@@ -233,7 +251,7 @@ struct GameView: View {
     /// Updates the game state variables to start a new round of play.
     func setupNewRound() {
         // Update the command and the AI text
-        commandText = "Draw the mystery object!"
+        commandText = game.defaultCommandText
         AItext = "Chatting with Skynet!"
         
         // Reset the timer to 9.9 seconds
@@ -242,9 +260,6 @@ struct GameView: View {
         // Reset the player canvas
         canvasView.drawing = PKDrawing()
         allDrawings = []
-        
-        // Enable canvas editing
-        // FIXME: No code
         
         // Update the round number
         game.currentRound += 1
@@ -255,9 +270,6 @@ struct GameView: View {
         // Start the timer
         game.shouldRunTimer = true
     }
-    /// Uses machine learning to produce and update scores for the player and AI.
-    /// - Parameter completionHandler: Code to execute once scores have been assigned.
-    ///
     /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
     func evaluateScores() {
         
@@ -266,7 +278,7 @@ struct GameView: View {
         do {
             // Layer the drawing on top of a white background
             let background = UIColor.white.imageWithColor(width: canvasView.bounds.width, height: canvasView.bounds.height)
-            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))
+            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale).tint(with: .black)!)
             
             // Save the image to the AI's training data
             saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
@@ -294,11 +306,12 @@ struct GameView: View {
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {
         // Check if a winner exists
-        // FIXME: Add custom threshold
-        if game.playerScores.last! > game.playerWinThreshold || game.AIscores.last! > game.AIwinThreshold {
-            // If one does, update the command
-            // FIXME: Add a better game-end event
-            commandText = game.playerScores.last! >= game.AIscores.last! ? "You win!" : "The machine wins..."
+        if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
+            // If one does, update the command, trigger the navigation link, and disable the timer
+            commandText = "That's a wrap!"
+            isShowingGameEndView = true
+            game.shouldRunTimer = false
+            game.timeLeft = -1
         } else {
             // If one dosen't, start a new round!
             setupNewRound()
@@ -309,7 +322,7 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(commandText: "Preview!")
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

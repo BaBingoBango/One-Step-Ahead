@@ -32,6 +32,21 @@ func saveImageToTemp(_ image: UIImage, name: String?) {
     }
 }
 
+/// Retrieves an image file stored in the documents directory.
+/// - Parameter fileName: The name of the image file (with extension) stored in the documents directory.
+/// - Returns: The image file as a UIImage.
+func getImageFromDocuments(_ fileName: String) -> UIImage? {
+    let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+    let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+    let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+    if let dirPath = paths.first {
+       let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
+        return UIImage(contentsOfFile: imageURL.path)!
+    } else {
+        return nil
+    }
+}
+
 /// Clears the entire directory located at the given path.
 func clearFolder(_ atPath: String) {
     do {
