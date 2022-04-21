@@ -240,9 +240,11 @@ struct GameView: View {
             clearFolder(getDocumentsDirectory().path)
             clearFolder(FileManager.default.temporaryDirectory.path)
             
-            // Start the battle music
-            stopAudio()
-            playAudio(fileName: "Powerup!", type: "mp3")
+            // Start the battle music if we're not dismissing
+            if !isDismissing {
+                stopAudio()
+                playAudio(fileName: "Powerup!", type: "mp3")
+            }
             
             // Dismiss the view if we are currently collapsing the navigation chain
             if isDismissing {
@@ -251,6 +253,9 @@ struct GameView: View {
         }
         .onDisappear {
             // MARK: View Vanish Code
+            stopAudio()
+            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+            
             isDismissing = true
         }
         .onReceive(timer) { input in

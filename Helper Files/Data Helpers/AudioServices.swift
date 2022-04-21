@@ -9,8 +9,10 @@ import Foundation
 import AVFoundation
 
 // Variables
+/// The global audio player for the app.
 var audioPlayer: AVAudioPlayer?
 
+/// Uses the global player to play the given audio file.
 func playAudio(fileName: String, type: String) {
     
     if let path = Bundle.main.path(forResource: fileName, ofType: type) {
@@ -25,6 +27,7 @@ func playAudio(fileName: String, type: String) {
     }
 }
 
+/// Stops whatever is playing on the global player.
 func stopAudio() {
     audioPlayer?.stop()
 }

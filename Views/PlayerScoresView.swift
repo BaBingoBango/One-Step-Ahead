@@ -35,6 +35,11 @@ struct PlayerScoresView: View {
                 }
             }
         }
+        .onAppear {
+            // MARK: View Launch Code
+            stopAudio()
+            // FIXME: Play victory/defeat music
+        }
         // MARK: Navigation Bar Settings
         .navigationTitle("Round History")
     }

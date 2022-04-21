@@ -112,7 +112,7 @@ struct GameEndView: View {
                     Spacer()
                 }
                 
-                HStack(spacing: 10) {
+                HStack(spacing: 30) {
                     NavigationLink(destination: PlayerScoresView(game: game)) {
                         Text("View Round History")
                             .font(.title2)
