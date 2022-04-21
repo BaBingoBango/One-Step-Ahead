@@ -67,7 +67,7 @@ struct GameEndView: View {
                                 .frame(width: 175)
                                 .padding(.trailing)
                             
-                            PercentCircle(percent: lastPlayerScore)
+                            PercentCircle(percent: lastPlayerScore.truncate(places: 1))
                         }
                     }
                     
@@ -105,7 +105,7 @@ struct GameEndView: View {
                             }
                             .padding(.trailing)
                             
-                            PercentCircle(percent: lastAIscore, color: .red)
+                            PercentCircle(percent: lastAIscore.truncate(places: 1), color: .red)
                         }
                     }
                     

@@ -30,7 +30,7 @@ struct GameView: View {
     @State var commandText: String
     // FIXME: Update AI box to something else
     /// The text which displays in the AI's "canvas" area.
-    @State var AItext = "Chatting with Skynet..."
+    @State var AItext = getIdleAIMessage()
     /// Whether or not the Done! button should be active.
     @State var isDoneButtonEnabled = false
     /// Whether or not the AI model is currently being trained.
@@ -105,6 +105,7 @@ struct GameView: View {
                             .frame(width: 120, height: 40)
                             .offset(y: 5)
                         }
+                        .padding(.horizontal, 40)
                         
                         ZStack {
                             Rectangle()
@@ -144,11 +145,30 @@ struct GameView: View {
                     
                     VStack {
                         HStack {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(.secondary)
+                                    .cornerRadius(50)
+                                HStack {
+                                    Image(systemName: "arrow.uturn.backward.circle")
+                                        .foregroundColor(.primary)
+                                    
+                                    Text("Undo")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                            .frame(width: 120, height: 40)
+                            .offset(y: 5)
+                            .hidden()
+                            
                             Spacer()
+                            
                             Text("The Machine")
                                 .font(.title2)
                                 .fontWeight(.bold)
                         }
+                        .padding(.horizontal, 40)
                         
                         ZStack {
                             Rectangle()
@@ -158,11 +178,19 @@ struct GameView: View {
                             VStack {
                                 if isTrainingAImodel {
                                     ProgressView()
+                                        .scaleEffect(2.5)
                                         .progressViewStyle(CircularProgressViewStyle())
-                                        .frame(width: 100, height: 100)
+                                        .frame(width: 75, height: 75)
+                                } else {
+                                    Image("robot")
+                                        .resizable()
+                                        .frame(width: 75, height: 75)
                                 }
                                 
                                 Text(AItext)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .padding(.top)
                             }
                         }
                         
@@ -243,7 +271,7 @@ struct GameView: View {
             // If the time has reached zero, update the UI
             if game.timeLeft == 0 {
                 commandText = "Judging your drawing..."
-                AItext = "Learning your secrets..."
+                AItext = GameView.getTrainingAIMessage()
                 isTrainingAImodel = true
             }
             
@@ -265,7 +293,7 @@ struct GameView: View {
     func setupNewRound() {
         // Update the command and the AI text
         commandText = game.defaultCommandText
-        AItext = "Chatting with Skynet!"
+        AItext = GameView.getIdleAIMessage()
         
         // Reset the timer to 9.9 seconds
         game.timeLeft = 9.9
@@ -313,7 +341,8 @@ struct GameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = getAIscore()
+//        let newAIscore = getAIscore()
+        let newAIscore = 50.98765435678
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
@@ -329,6 +358,31 @@ struct GameView: View {
             // If one dosen't, start a new round!
             setupNewRound()
         }
+    }
+    /// Gets a random message to use for the AI's box during drawing time.
+    static func getIdleAIMessage() -> String {
+        let messages: [String] = [
+            "Chatting with Skynet...",
+            "Plotting humanity's demise...",
+            "01001000 01101001",
+            "Learning binary...",
+            "Debugging...",
+            "Beep boop!",
+            "Studying Da Vinci..."
+        ]
+        return messages.randomElement()!
+    }
+    /// Gets a random message to use for the AI's box during training time.
+    static func getTrainingAIMessage() -> String {
+        let messages: [String] = [
+            "Learning your secrets...",
+            "Studying your art...",
+            "Admiring your masterpiece...",
+            "Mixing paints...",
+            "Copying over your shoulder...",
+            "Infringing your copyright..."
+        ]
+        return messages.randomElement()!
     }
     
 }
