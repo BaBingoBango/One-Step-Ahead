@@ -20,34 +20,54 @@ struct PlayerScoresView: View {
             SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             
-            RoundScoreCard()
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(1...game.currentRound, id: \.self) { roundNumber in
+                        
+                        RoundScoreCard(roundNumber: roundNumber, playerScore: game.playerScores[roundNumber - 1], AIscore: game.AIscores[roundNumber - 1], object: game.task.object)
+                            .padding(.horizontal, 30)
+                        
+                    }
+                }
+            }
         }
+        // MARK: Navigation Bar Settings
+        .navigationTitle("Game Statistics")
     }
 }
 
 struct PlayerScoresView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerScoresView(game: GameState())
+        PlayerScoresView(game: GameState(currentRound: 2, playerScores: [10, 20, 30], AIscores: [5, 30, 25]))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
 
+/// The view for a round's worth of information on the player scores screen. The information is contained in a visual card-like structure.
 struct RoundScoreCard: View {
+    
+    // Variables
+    var roundNumber: Int
+    var playerScore: Double
+    var AIscore: Double
+    var object: String
+    
     var body: some View {
         ZStack {
             Rectangle()
                 .cornerRadius(30)
             
             VStack {
-                Text("- Round 1 -")
+                Spacer()
+                
+                Text("- Round \(roundNumber) -")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.black)
-                    .padding(.vertical)
+                    .padding(.bottom)
                 
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .opacity(0.3)
+                // FIXME: Replace with image
+                Image(uiImage: getImageFromDocuments("\(object).\(roundNumber).png")!)
                     .frame(width: 200, height: 200)
                     .cornerRadius(10)
                 
@@ -58,7 +78,7 @@ struct RoundScoreCard: View {
                             .fontWeight(.bold)
                             .foregroundColor(.green)
                         
-                        PercentCircle(percent: 100.0, circleWidth: 100, circleHeight: 100, font: .title2)
+                        PercentCircle(percent: playerScore.truncate(places: 1), circleWidth: 95, circleHeight: 95, font: .title2)
                             .padding(.top, 5)
                     }
                     
@@ -68,7 +88,7 @@ struct RoundScoreCard: View {
                             .fontWeight(.bold)
                             .foregroundColor(.red)
                         
-                        PercentCircle(percent: 100.0, circleWidth: 100, circleHeight: 100, color: .red, font: .title2)
+                        PercentCircle(percent: AIscore.truncate(places: 1), circleWidth: 95, circleHeight: 95, color: .red, font: .title2)
                             .padding(.top, 5)
                     }
                 }
@@ -76,6 +96,6 @@ struct RoundScoreCard: View {
                 Spacer()
             }
         }
-        .frame(width: 350, height: 450)
+        .frame(width: 325, height: 450)
     }
 }

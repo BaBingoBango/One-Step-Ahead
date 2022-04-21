@@ -15,6 +15,30 @@ struct GameEndView: View {
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
     
+    // Computed Properties
+    /// The player score from the last round of play.
+    var lastPlayerScore: Double {
+        game.playerScores.last!
+    }
+    /// The AI score from the last round of play.
+    var lastAIscore: Double {
+        game.AIscores.last!
+    }
+    var winner: Combatant {
+        if lastPlayerScore >= lastAIscore {
+            return .player
+        } else {
+            return .AI
+        }
+    }
+    
+    // Enumeration
+    /// The types of combatants in a game, that is, the player and the AI.
+    enum Combatant {
+        case player
+        case AI
+    }
+    
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
@@ -36,26 +60,14 @@ struct GameEndView: View {
                             .padding(.bottom)
                         
                         HStack(alignment: .center, spacing: 0) {
-//                            Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
-//                                .resizable()
-//                                .aspectRatio(1.0, contentMode: .fit)
-//                                .frame(width: 175)
-//                                .padding(.trailing)
-                            Rectangle()
+                            Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
+                                .resizable()
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .frame(width: 175)
                                 .padding(.trailing)
                             
-                            PercentCircle(percent: 100.0)
+                            PercentCircle(percent: lastPlayerScore)
                         }
-                        
-                        Text("View Previous Scores")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
-                            .frame(width: 425)
-                            .padding(.top, 100)
                     }
                     
                     Spacer()
@@ -69,7 +81,7 @@ struct GameEndView: View {
                     Spacer()
                     
                     VStack {
-                        Text("\"Witty AI response!\"")
+                        Text(winner == .player ? "\"My plans are foiled!\"" : "\"Ha, ha! I win!\"")
                             .font(.title)
                             .fontWeight(.bold)
                             .padding(.bottom)
@@ -92,20 +104,22 @@ struct GameEndView: View {
                             }
                             .padding(.trailing)
                             
-                            PercentCircle(percent: 100.0)
+                            PercentCircle(percent: lastAIscore, color: .red)
                         }
-                        
-                        Text("View AI Training Data")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
-                            .frame(width: 425)
-                            .padding(.top, 100)
                     }
                     
                     Spacer()
                 }
+                
+                NavigationLink(destination: PlayerScoresView(game: game)) {
+                    Text("View Game Statistics")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+                .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                .frame(width: 425)
+                .padding(.bottom, 50)
             }
             .padding(.top)
         }
@@ -117,7 +131,7 @@ struct GameEndView: View {
 
 struct GameEndView_Previews: PreviewProvider {
     static var previews: some View {
-        GameEndView(game: GameState())
+        GameEndView(game: GameState(playerScores: [99.9], AIscores: [69.4]))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

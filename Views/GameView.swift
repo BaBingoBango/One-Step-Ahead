@@ -270,9 +270,6 @@ struct GameView: View {
         // Start the timer
         game.shouldRunTimer = true
     }
-    /// Uses machine learning to produce and update scores for the player and AI.
-    /// - Parameter completionHandler: Code to execute once scores have been assigned.
-    ///
     /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
     func evaluateScores() {
         
@@ -303,17 +300,18 @@ struct GameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-//        let newAIscore = getAIscore()
-        let newAIscore = 50.0
+        let newAIscore = getAIscore()
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {
         // Check if a winner exists
         if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
-            // If one does, update the command and trigger the navigation link
+            // If one does, update the command, trigger the navigation link, and disable the timer
             commandText = "That's a wrap!"
             isShowingGameEndView = true
+            game.shouldRunTimer = false
+            game.timeLeft = -1
         } else {
             // If one dosen't, start a new round!
             setupNewRound()
