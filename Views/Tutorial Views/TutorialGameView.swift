@@ -27,6 +27,16 @@ struct TutorialGameView: View {
     @State var speakerColor1: Color = .brown
     /// The current speaker's secondary representation color.
     @State var speakerColor2: Color = .yellow
+    /// Whether or not the AI box is on-screen.
+    @State var isShowingAIbox = false
+    /// Whether or not the player box and "VS" text are on-screen.
+    @State var isShowingPlayerBox = false
+    /// Whether or not the round indicator is on-screen.
+    @State var isShowingRoundIndicator = false
+    /// Whether or not the timer is on-screen.
+    @State var isShowingTimer = false
+    /// Whether or not the "Tap" text is on-screen.
+    @State var isShowingAdvancePrompt = true
     
     // Game View Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -35,7 +45,7 @@ struct TutorialGameView: View {
     /// Whether or not the view is currently being collapsed by the End Game View.
     @State var isDismissing = false
     /// The state of the app's currently running game, passed in from the New Game screen.
-    @State var game: GameState = GameState()
+    @State var game: GameState = GameState(shouldRunTimer: false)
     /// A 0.1-second-interval timer responsible for triggering game events.
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     /// The text displaying at the top of the view under the round number.
@@ -64,15 +74,12 @@ struct TutorialGameView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .padding(.bottom, 5)
-                        
-                        Text(commandText)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(.bottom, 5)
+                            .isHidden(!isShowingRoundIndicator)
                         
                         Text(game.timeLeft.truncate(places: 1).description + "s")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
+                            .isHidden(!isShowingTimer)
                         
                         Spacer()
                         
@@ -144,11 +151,13 @@ struct TutorialGameView: View {
                                         .foregroundColor(.secondary)
                                 }
                             }
+                            .isHidden(!isShowingPlayerBox)
                             
                             Text("VS")
                                 .font(.largeTitle)
                                 .fontWeight(.black)
                                 .padding(.bottom, 48)
+                                .isHidden(!isShowingPlayerBox)
                             
                             VStack {
                                 HStack {
@@ -195,7 +204,7 @@ struct TutorialGameView: View {
                                         }
                                         
                                         Text(AItext)
-                                            .font(.title2)
+                                            .font(.headline)
                                             .fontWeight(.bold)
                                             .padding(.top)
                                     }
@@ -218,25 +227,9 @@ struct TutorialGameView: View {
                                         .foregroundColor(.secondary)
                                 }
                             }
+                            .isHidden(!isShowingAIbox)
                         }
                         .padding(.horizontal, 75)
-                        
-                        Text("Your Win Threshold: \(game.playerWinThreshold)%")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.green)
-                            .multilineTextAlignment(.center)
-                            .opacity(0.7)
-                            .frame(width: 350)
-                        
-                        Text("AI Win Threshold: \(game.AIwinThreshold)%")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                            .opacity(0.7)
-                            .padding(.top, 5)
-                            .frame(width: 350)
                         
                         Spacer()
                     }
@@ -245,7 +238,7 @@ struct TutorialGameView: View {
                 
                 Spacer()
                 
-                DialogueView(emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
+                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
                     .onTapGesture {
                         moveToNextState()
                     }
@@ -253,9 +246,112 @@ struct TutorialGameView: View {
                     .padding(.bottom)
             }
         }
+        .onReceive(timer) { input in
+            // MARK: Timer Response
+            
+            // Update the on-screen timer if it's running
+            if game.shouldRunTimer {
+                // Decrease the on-screen timer if it's running
+                if game.timeLeft - 0.1 <= 0 && !isTrainingAImodel {
+                    // If the timer will be nonpositive, set it to zero
+                    game.timeLeft = 0
+                } else {
+                    // Otherwise, decrease it normally
+                    game.timeLeft -= 0.1
+                }
+            }
+            
+            // If the time has reached zero, update the UI
+            if game.timeLeft == 0 {
+                commandText = "Judging your drawing..."
+                AItext = GameView.getTrainingAIMessage()
+                isTrainingAImodel = true
+            }
+            
+            // On the next 0.1 second, calculate the scores
+            if game.timeLeft == -0.1 {
+                evaluateScores()
+            }
+            
+            // On the next 0.1 second, process the end of the round
+            if game.timeLeft == -0.2 {
+                isTrainingAImodel = false
+                finishRound()
+            }
+        }
     }
     
-    // MARK: View Functions
+    // MARK: Game View Functions
+    /// Updates the game state variables to start a new round of play.
+    func setupNewRound() {
+        // Update the command and the AI text
+        commandText = game.defaultCommandText
+        AItext = GameView.getIdleAIMessage()
+        
+        // Reset the timer to 9.9 seconds
+        game.timeLeft = 9.9
+        
+        // Reset the player canvas
+        canvasView.drawing = PKDrawing()
+        allDrawings = []
+        
+        // Update the round number
+        game.currentRound += 1
+        
+        // Start the timer
+        game.shouldRunTimer = true
+    }
+    /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
+    func evaluateScores() {
+        
+        // Use the judge model to give the user a score
+        var predictionProbabilities: [String : String] = [:]
+        do {
+            // Layer the drawing on top of a white background
+            let background = UIColor.white.imageWithColor(width: canvasView.bounds.width, height: canvasView.bounds.height)
+            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale).tint(with: .black)!)
+            
+            // Save the image to the AI's training data
+            saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
+            
+            // Get the probabilities for every drawing
+            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
+                for eachPrediction in predictions! {
+                    predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
+                }
+            })
+            
+            // Add the score to the game state
+            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
+        } catch {
+            print("[Judge Model Prediction Error]")
+            print(error.localizedDescription)
+            print(error)
+        }
+        
+        // Train a new AI model and get its training score, unless it is round 1, in which
+        // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
+//        let newAIscore = getAIscore()
+        let newAIscore = 50.98765435678
+        game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
+    }
+    /// Updates the game state variables to end the current round of play (and possibly the entire game).
+    func finishRound() {
+        // Check if a winner exists
+        if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
+            // If one does, update the command, trigger the navigation link, and disable the timer
+            // FIXME: Missing tutorial end logic
+            commandText = "That's a wrap!"
+            isShowingGameEndView = true
+            game.shouldRunTimer = false
+            game.timeLeft = -1
+        } else {
+            // If one dosen't, start a new round!
+            setupNewRound()
+        }
+    }
+    
+    // MARK: Tutorial-Specific View Functions
     /// Transitions the UI to the state with the ID number one greater than the current ID number.
     func moveToNextState() {
         stateID += 1
@@ -274,19 +370,56 @@ struct TutorialGameView: View {
             // Move from state 2 to 3
             speakerDialogue = "Goooooooood mooooooorrrrrrning! So glad I found you! Now we can get to work stopping this machine!"
             
-            
         case 4:
             // Move from state 3 to 4
-            speakerDialogue = "AUGH"
-            // FIXME: missing code
+            speakerDialogue = "You see, the machine is bent on copying humans and taking over the world!"
+            isShowingAIbox = true
+            
+        case 5:
+            // Move ftom state 4 to 5
+            speakerEmoji = "robot"
+            speakerName = "The Machine"
+            speakerDialogue = "Beep boop! I will learn your ways and destroy humanity!"
+            speakerColor1 = .white
+            speakerColor2 = .gray
+            
+        case 6:
+            // Move from state 5 to 6
+            speakerEmoji = "doctor"
+            speakerName = "Dr. Jim Bake"
+            speakerDialogue = "Oh dear. As you attempt to draw a mystery object, the machine will train an image classifier model, using all your attempts as the training data!"
+            speakerColor1 = .blue
+            speakerColor2 = .cyan
+            
+        case 7:
+            // Move from state 6 to 7
+            speakerDialogue = "To beat the machine, you'll have to learn how to draw the mystery object before the machine learning model figures it out from your guesses!"
+            isShowingPlayerBox = true
+            
+        case 8:
+            // Move from state 7 to 8
+            speakerDialogue = "Let's give it a go! You'll have 15 seconds to draw each round. After that, the machine will copy your art for its training data, and the judge model will evaluate both you and the AI!"
+        case 9:
+            // Move from state 8 to 9
+            speakerDialogue = "All right, here we go! Once you tap, you'll have 15 seconds to try and draw \"something rectangular that opens\" with 95% accuracy or higher!"
+            
+        case 10:
+            // Move from state 9 to 10
+            speakerDialogue = "Go, go, go! Draw something rectangular that opens!"
+            isShowingAdvancePrompt = false
+            
+            // Start the game
+            isShowingRoundIndicator = true
+            isShowingTimer = true
+            game.shouldRunTimer = true
             
         default:
-            // Restore the state to the default
-            speakerEmoji = "radio"
-            speakerName = "Old Radio"
-            speakerDialogue = "Incoming Transmission..."
-            speakerColor1 = .brown
-            speakerColor2 = .yellow
+            // Place the view in an invalid/bad state (we should never arrive here)
+            speakerEmoji = ""
+            speakerName = "---"
+            speakerDialogue = ""
+            speakerColor1 = .gray
+            speakerColor2 = .gray
             
         }
     }
@@ -304,6 +437,7 @@ struct TutorialGameView_Previews: PreviewProvider {
 struct DialogueView: View {
     
     // Variables
+    @Binding var isShowingAdvancePrompt: Bool
     var emojiImageName: String
     var characterName: String
     var dialogue: String
@@ -368,6 +502,7 @@ struct DialogueView: View {
                     .foregroundColor(color1)
                     .padding(.top, 100)
                     .padding(.leading, 830)
+                    .isHidden(!isShowingAdvancePrompt)
             }
         }
     }
