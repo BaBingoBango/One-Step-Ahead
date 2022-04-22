@@ -18,7 +18,7 @@ struct GameState {
     /// By default, the task will be randomly selected from the task list.
     var task: Task = Task.taskList.randomElement()!
     /// The selected game mode for the game.
-    var gameMode: GameMode = .normal
+    var gameMode: GameMode = .cluedIn
     /// The user-set difficulty level for the game.
     var difficulty: Difficulty = .normal
     /// The command text to display when a round's timer is decreasing.
@@ -50,6 +50,8 @@ struct GameState {
             return 90
         case .hard:
             return 97
+        case .lunatic:
+            return 99
         }
     }
     /// The drawing score required for the AI to win the game.
@@ -61,6 +63,8 @@ struct GameState {
             return 90
         case .hard:
             return 80
+        case .lunatic:
+            return 50
         }
     }
     
@@ -68,7 +72,8 @@ struct GameState {
     /// The possible modes for a game; they describe the level of hints the player should receive.
     enum GameMode {
         case flyingBlind
-        case normal
+        case cluedIn
+        case batch
         case demystify
     }
     /// The possible difficulties of a game: easy, normal, or hard.
@@ -76,6 +81,7 @@ struct GameState {
         case easy
         case normal
         case hard
+        case lunatic
     }
     
     // MARK: - Functions
@@ -84,7 +90,9 @@ struct GameState {
         switch gameMode {
         case .flyingBlind:
             return "Draw the mystery object!"
-        case .normal:
+        case .cluedIn:
+            return task.genericDescription
+        case .batch:
             // Remove the current object from the task list
             var drawingList = Task.taskList
             drawingList.remove(at: Task.taskList.firstIndex(where: { $0.object == task.object })!)

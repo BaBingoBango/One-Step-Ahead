@@ -38,10 +38,16 @@ struct NewGameMenuView: View {
                                 }
                                 .padding(.leading, 100)
                                 Button(action: {
-                                    game.gameMode = .normal
+                                    game.gameMode = .batch
                                     game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
-                                    IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.gameMode == .normal)
+                                    IconButtonView(imageName: "square.grid.2x2.fill", text: "Batch", isBlue: game.gameMode == .batch)
+                                }
+                                Button(action: {
+                                    game.gameMode = .cluedIn
+                                    game.defaultCommandText = game.getDefaultCommandText()
+                                }) {
+                                    IconButtonView(imageName: "person.fill.questionmark", text: "Clued In", isBlue: game.gameMode == .cluedIn)
                                 }
                                 Button(action: {
                                     game.gameMode = .flyingBlind
@@ -82,7 +88,12 @@ struct NewGameMenuView: View {
                                 Button(action: {
                                     game.difficulty = .hard
                                 }) {
-                                    IconButtonView(imageName: "flame.fill", text: "Hard", isBlue: game.difficulty == .hard)
+                                    IconButtonView(imageName: "bolt.fill", text: "Hard", isBlue: game.difficulty == .hard)
+                                }
+                                Button(action: {
+                                    game.difficulty = .lunatic
+                                }) {
+                                    IconButtonView(imageName: "flame.fill", text: "Lunatic", isBlue: game.difficulty == .lunatic)
                                 }
                             }
                         }
@@ -122,8 +133,10 @@ struct NewGameMenuView: View {
         switch game.gameMode {
         case .flyingBlind:
             return "The ultimate test of wits; try to draw the mystery object before the AI can with no hints whatsoever!"
-        case .normal:
-            return "A regular game of One Step Ahead; you'll have a short list of possible drawings to guess from!"
+        case .cluedIn:
+            return "You'll have a generic description of what to draw; can your deductive skills beat the AI's computational skills?"
+        case .batch:
+            return "The correct drawing will be concealed amongst three fakes. Can you find it before the machine does?"
         case .demystify:
             return "You'll know what to draw right away; it's a true test of your skills as an artist!"
         }
@@ -136,6 +149,8 @@ struct NewGameMenuView: View {
             return "Both you and the AI will need 90% drawing accuracy to win."
         case .hard:
             return "You'll need 97% drawing accuracy to win; the AI will only need 80% to win!"
+        case .lunatic:
+            return "The ultimate showdown; can you reach 99% accuracy before the machine reaches 50%?"
         }
     }
     

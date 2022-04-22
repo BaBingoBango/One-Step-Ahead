@@ -360,8 +360,7 @@ struct TutorialGameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-//        let newAIscore = getAIscore()
-        let newAIscore = 50.98765435678
+        let newAIscore = getAIscore()
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
@@ -369,7 +368,6 @@ struct TutorialGameView: View {
         // Check if a winner exists
         if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
             // If one does, update the command, trigger the navigation link, and disable the timer
-            // FIXME: Missing tutorial end logic
             commandText = "That's a wrap!"
             isShowingGameEndView = true
             game.shouldRunTimer = false
@@ -430,11 +428,11 @@ struct TutorialGameView: View {
             speakerDialogue = "Let's give it a go! You'll have 15 seconds to draw each round. After that, the machine will copy your art for its training data, and the judge model will evaluate both you and the AI!"
         case 9:
             // Move from state 8 to 9
-            speakerDialogue = "All right, here we go! Once you tap, you'll have 15 seconds to try and draw \"something rectangular that opens\" with 95% accuracy or higher!"
+            speakerDialogue = "All right, here we go! Once you tap, you'll have 15 seconds to try and draw \"something that chops\" with 97% accuracy or higher!"
             
         case 10:
             // Move from state 9 to 10
-            speakerDialogue = "Go, go, go! Draw something rectangular that opens!"
+            speakerDialogue = "Go, go, go! Draw something that chops with 97% accuracy or better! The machine only needs 80% accuracy!"
             isShowingAdvancePrompt = false
             
             // Start the game

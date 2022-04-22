@@ -50,6 +50,11 @@ struct GameEndView: View {
                     .font(.system(size: 70))
                     .fontWeight(.black)
                     .padding(.top)
+                Text("Drawing: \(game.task.object)")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .padding(.top, 3)
                 
                 HStack(alignment: .center) {
                     Spacer()
@@ -65,6 +70,7 @@ struct GameEndView: View {
                                 .resizable()
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .frame(width: 175)
+                                .cornerRadius(25)
                                 .padding(.trailing)
                             
                             PercentCircle(percent: lastPlayerScore.truncate(places: 1))
@@ -99,6 +105,7 @@ struct GameEndView: View {
                                     ))
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(width: 175)
+                                    .cornerRadius(25)
                                 
                                 Image("robot")
                                     .scaleEffect(0.8)

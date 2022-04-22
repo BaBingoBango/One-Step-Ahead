@@ -28,8 +28,13 @@ struct BackstoryView: View {
                 .edgesIgnoringSafeArea(.all)
         }
         .onTapGesture {
+            // Configure settings for the tutorial game
+            game.task = Task.taskList.first(where: { $0.object == "Axe" })!
+            game.gameMode = .cluedIn
+            game.difficulty = .hard
+            
+            // Present the tutorial game
             game.shouldRunTimer = false
-            game.task = Task.taskList.first(where: { $0.object == "Door" })!
             isShowingTutorialGameView = true
         }
         .onAppear {

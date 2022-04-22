@@ -20,7 +20,7 @@ struct TutorialGameEndView: View {
     /// The name of the current speaker.
     @State var speakerName = "Dr. Tim Bake"
     /// The current speaker's current dialogue.
-    @State var speakerDialogue = "Hi ho! You did it! Great job!"
+    @State var speakerDialogue = "Hi ho! That's a wrap, then!"
     /// The current speaker's primary representation color.
     @State var speakerColor1: Color = .blue
     /// The current speaker's secondary representation color.
@@ -68,6 +68,11 @@ struct TutorialGameEndView: View {
                         .font(.system(size: 70))
                         .fontWeight(.black)
                         .padding(.top)
+                    Text("Drawing: \(game.task.object)")
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .padding(.top, 3)
                     
                     HStack(alignment: .center) {
                         Spacer()
@@ -83,6 +88,7 @@ struct TutorialGameEndView: View {
                                     .resizable()
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(width: 175)
+                                    .cornerRadius(25)
                                     .padding(.trailing)
                                 
                                 PercentCircle(percent: lastPlayerScore.truncate(places: 1))
@@ -117,6 +123,7 @@ struct TutorialGameEndView: View {
                                         ))
                                         .aspectRatio(1.0, contentMode: .fit)
                                         .frame(width: 175)
+                                        .cornerRadius(25)
                                     
                                     Image("robot")
                                         .scaleEffect(0.8)
