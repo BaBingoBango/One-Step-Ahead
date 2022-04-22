@@ -41,7 +41,7 @@ func getImageFromDocuments(_ fileName: String) -> UIImage? {
     let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
     if let dirPath = paths.first {
        let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
-        return UIImage(contentsOfFile: imageURL.path)!
+        return UIImage(contentsOfFile: imageURL.path) ?? UIImage(named: "default artwork")
     } else {
         return nil
     }

@@ -63,6 +63,9 @@ struct TutorialGameView: View {
     
     var body: some View {
         ZStack {
+            // The programatically-triggered navigation link for the game end view
+            NavigationLink(destination: TutorialGameEndView(game: game), isActive: $isShowingGameEndView) { EmptyView() }
+            
             SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             
@@ -119,7 +122,7 @@ struct TutorialGameView: View {
                                     .frame(width: 120, height: 40)
                                     .offset(y: 5)
                                 }
-                                .padding(.horizontal, 40)
+                                .padding(.horizontal, 85)
                                 
                                 ZStack {
                                     Rectangle()
@@ -184,7 +187,7 @@ struct TutorialGameView: View {
                                         .font(.title2)
                                         .fontWeight(.bold)
                                 }
-                                .padding(.horizontal, 40)
+                                .padding(.horizontal, 85)
                                 
                                 ZStack {
                                     Rectangle()
@@ -240,11 +243,37 @@ struct TutorialGameView: View {
                 
                 DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
                     .onTapGesture {
-                        moveToNextState()
+                        if stateID != 10 {
+                            moveToNextState()
+                        }
                     }
                     .padding(.horizontal, 50)
                     .padding(.bottom)
             }
+        }
+        .onAppear {
+            // MARK: View Launch Code
+            // Clear the documents and temporary directories
+            clearFolder(getDocumentsDirectory().path)
+            clearFolder(FileManager.default.temporaryDirectory.path)
+            
+            // Start the battle music if we're not dismissing
+            if !isDismissing {
+                stopAudio()
+                playAudio(fileName: "Powerup!", type: "mp3")
+            }
+            
+            // Dismiss the view if we are currently collapsing the navigation chain
+            if isDismissing {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .onDisappear {
+            // MARK: View Vanish Code
+            stopAudio()
+            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+            
+            isDismissing = true
         }
         .onReceive(timer) { input in
             // MARK: Timer Response
@@ -361,7 +390,7 @@ struct TutorialGameView: View {
         case 2:
             // Move from state 1 to 2
             speakerEmoji = "doctor"
-            speakerName = "Dr. Jim Bake"
+            speakerName = "Dr. Tim Bake"
             speakerDialogue = "Hello? Can you hear me? ...Ah!"
             speakerColor1 = .blue
             speakerColor2 = .cyan
@@ -386,7 +415,7 @@ struct TutorialGameView: View {
         case 6:
             // Move from state 5 to 6
             speakerEmoji = "doctor"
-            speakerName = "Dr. Jim Bake"
+            speakerName = "Dr. Tim Bake"
             speakerDialogue = "Oh dear. As you attempt to draw a mystery object, the machine will train an image classifier model, using all your attempts as the training data!"
             speakerColor1 = .blue
             speakerColor2 = .cyan
@@ -470,39 +499,51 @@ struct DialogueView: View {
                     .frame(height: 145)
                     .cornerRadius(30)
                 
-                ZStack {
-                    Rectangle()
-                        .fill(
-                            LinearGradient(
-                                gradient: .init(colors: [color1, color2]),
-                            startPoint: .init(x: 0.5, y: 0),
-                            endPoint: .init(x: 0.5, y: 0.6)
-                        ))
-                        .cornerRadius(10)
-                    
-                    Text(characterName)
-                        .font(.title3)
-                        .fontWeight(.heavy)
+                HStack {
+                    VStack {
+                        ZStack {
+                            Rectangle()
+                                .fill(
+                                    LinearGradient(
+                                        gradient: .init(colors: [color1, color2]),
+                                    startPoint: .init(x: 0.5, y: 0),
+                                    endPoint: .init(x: 0.5, y: 0.6)
+                                ))
+                                .cornerRadius(10)
+                            
+                            Text(characterName)
+                                .font(.title3)
+                                .fontWeight(.heavy)
+                        }
+                        .frame(width: 200, height: 40)
+                        Spacer()
+                    }
+                    Spacer()
                 }
-                .frame(width: 200, height: 40)
-                .padding(.bottom, 140)
-                .padding(.trailing, 550)
+                .frame(height: 184)
+                .padding(.leading, 75)
                 
                 Text(dialogue)
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(.black)
-                    .padding(.leading, 95)
+                    .padding(.horizontal, 90)
                     .padding(.trailing)
                     .padding(.top, 7)
                 
-                Text("Tap ➤")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(color1)
-                    .padding(.top, 100)
-                    .padding(.leading, 830)
-                    .isHidden(!isShowingAdvancePrompt)
+                HStack {
+                    Spacer()
+                    VStack {
+                        Spacer()
+                        Text("Tap ➤")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(color1 != .white ? color1 : .gray)
+                            .isHidden(!isShowingAdvancePrompt)
+                    }
+                }
+                .frame(height: 145)
+                .padding([.bottom, .trailing])
             }
         }
     }

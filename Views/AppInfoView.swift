@@ -16,7 +16,7 @@ struct AppInfoView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                Text("One Step Ahead!")
+                Text("One Step Ahead")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                 

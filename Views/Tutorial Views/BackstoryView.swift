@@ -12,10 +12,13 @@ import SpriteKit
 struct BackstoryView: View {
     
     // Variables
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the tutorial game view is being presented.
     @State var isShowingTutorialGameView = false
     /// The state of the app's currently running game.
     @State var game: GameState = GameState()
+    /// Whether or not the view is currently being collapsed by the End Game View.
+    @State var isDismissing = false
     
     var body: some View {
         ZStack {
@@ -28,6 +31,14 @@ struct BackstoryView: View {
             game.shouldRunTimer = false
             game.task = Task.taskList.first(where: { $0.object == "Door" })!
             isShowingTutorialGameView = true
+        }
+        .onAppear {
+            if isDismissing {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .onDisappear {
+            isDismissing = true
         }
     }
 }
