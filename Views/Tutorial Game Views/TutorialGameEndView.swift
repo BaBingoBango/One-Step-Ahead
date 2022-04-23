@@ -72,7 +72,7 @@ struct TutorialGameEndView: View {
                         .font(.system(size: 70))
                         .fontWeight(.black)
                         .padding(.top)
-                    Text("Drawing: \(game.task.object)")
+                    Text("Correct Drawing: \(game.task.object)")
                         .foregroundColor(.white)
                         .font(.largeTitle)
                         .fontWeight(.heavy)

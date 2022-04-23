@@ -39,6 +39,10 @@ struct TutorialGameView: View {
     @State var isShowingTimer = false
     /// Whether or not the "Tap" text is on-screen.
     @State var isShowingAdvancePrompt = true
+    /// Whether or not the training explanation drawing is on-screen.
+    @State var isShowingTrainingDataDrawing = false
+    /// Whether or not the judge model explanation text is on-screen.
+    @State var isShowingJudgeModelDrawing = false
     
     // Game View Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -123,7 +127,7 @@ struct TutorialGameView: View {
                                     .frame(width: 120, height: 40)
                                     .offset(y: 5)
                                 }
-                                .padding(.horizontal, 85)
+                                .padding(.horizontal, 40)
                                 
                                 ZStack {
                                     Rectangle()
@@ -188,7 +192,7 @@ struct TutorialGameView: View {
                                         .font(.title2)
                                         .fontWeight(.bold)
                                 }
-                                .padding(.horizontal, 85)
+                                .padding(.horizontal, 40)
                                 
                                 ZStack {
                                     Rectangle()
@@ -223,7 +227,7 @@ struct TutorialGameView: View {
                                     Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
                                         .font(.largeTitle)
                                         .fontWeight(.heavy)
-                                        .foregroundColor(.green)
+                                        .foregroundColor(.red)
                                 } else {
                                     Text("---")
                                         .font(.title)
@@ -250,6 +254,37 @@ struct TutorialGameView: View {
                     }
                     .padding(.horizontal, 50)
                     .padding(.bottom)
+            }
+            
+            VStack {
+                
+                Spacer()
+                
+                Image("Training Explanation Art")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(30)
+                    .padding(50)
+                    .isHidden(!isShowingTrainingDataDrawing, remove: true)
+                
+                Image("Judge Explanation Art")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(30)
+                    .padding(50)
+                    .isHidden(!isShowingJudgeModelDrawing, remove: true)
+                
+                Spacer()
+                
+                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
+                    .onTapGesture {
+                        if stateID != 10 {
+                            moveToNextState()
+                        }
+                    }
+                    .padding(.horizontal, 50)
+                    .padding(.bottom)
+                    .hidden()
             }
             
             // MARK: Navigation View Settings
@@ -375,7 +410,7 @@ struct TutorialGameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = 50.0
+        let newAIscore = getAIscore()
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
@@ -432,22 +467,29 @@ struct TutorialGameView: View {
             speakerDialogue = "Oh dear. As you attempt to draw a mystery object, the machine will train an image classifier model, using all your attempts as the training data!"
             speakerColor1 = .blue
             speakerColor2 = .cyan
+            isShowingAIbox = false
+            isShowingTrainingDataDrawing = true
             
         case 7:
             // Move from state 6 to 7
             speakerDialogue = "To beat the machine, you'll have to learn how to draw the mystery object before the machine learning model figures it out from your guesses!"
-            isShowingPlayerBox = true
+            isShowingTrainingDataDrawing = false
+            isShowingJudgeModelDrawing = true
             
         case 8:
             // Move from state 7 to 8
-            speakerDialogue = "Let's give it a go! You'll have 15 seconds to draw each round. After that, the machine will copy your art for its training data, and the judge model will evaluate both you and the AI!"
+            speakerDialogue = "Let's give it a try. You'll have 15 seconds to draw each round. After that, the machine will copy your art for its training data and you'll each get a score!"
+            isShowingTrainingDataDrawing = false
+            isShowingJudgeModelDrawing = false
+            isShowingPlayerBox = true
+            isShowingAIbox = true
         case 9:
             // Move from state 8 to 9
-            speakerDialogue = "All right, here we go! Once you tap, you'll have 15 seconds to try and draw \"something that chops\" with 97% accuracy or higher!"
+            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something that chops\" with 97% accuracy or higher!"
             
         case 10:
             // Move from state 9 to 10
-            speakerDialogue = "Go, go, go! Draw something that chops with 97% accuracy or better! The machine only needs 80% accuracy!"
+            speakerDialogue = "Go, go, go! Draw \"something that chops\" with 97% accuracy or better! The machine only needs 80% accuracy!"
             isShowingAdvancePrompt = false
             
             // Start the game
@@ -485,6 +527,8 @@ struct DialogueView: View {
     var dialogue: String
     var color1: Color
     var color2: Color
+    var height: CGFloat = 145
+    var advancePrompt = "Tap ➤"
     
     var body: some View {
         HStack(spacing: 0) {
@@ -500,16 +544,16 @@ struct DialogueView: View {
                 Image(emojiImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 110, height: 110)
+                    .frame(width: height - 35, height: height - 35)
             }
-            .frame(width: 170, height: 170)
+            .frame(width: height + 25, height: height + 25)
             .padding(.trailing, -70)
             .foregroundColor(.gray)
             .zIndex(1)
             
             ZStack {
                 Rectangle()
-                    .frame(height: 145)
+                    .frame(height: height)
                     .cornerRadius(30)
                 
                 HStack {
@@ -533,7 +577,7 @@ struct DialogueView: View {
                     }
                     Spacer()
                 }
-                .frame(height: 184)
+                .frame(height: height + 39)
                 .padding(.leading, 75)
                 
                 Text(dialogue)
@@ -548,14 +592,14 @@ struct DialogueView: View {
                     Spacer()
                     VStack {
                         Spacer()
-                        Text("Tap ➤")
+                        Text(advancePrompt)
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(color1 != .white ? color1 : .gray)
                             .isHidden(!isShowingAdvancePrompt)
                     }
                 }
-                .frame(height: 145)
+                .frame(height: height)
                 .padding([.bottom, .trailing])
             }
         }

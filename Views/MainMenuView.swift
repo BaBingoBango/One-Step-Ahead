@@ -17,54 +17,76 @@ struct MainMenuView: View {
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
+    /// The tip currently being displayed at the bottom of the view.
+    @State var tip = Tip.tipList.randomElement()!
     
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
                 .edgesIgnoringSafeArea(.all)
-            HStack(spacing: 100) {
-                if hasFinishedTutorial {
+            VStack {
+                HStack(spacing: 100) {
+                    if hasFinishedTutorial {
+                        VStack(spacing: -30) {
+                            NavigationLink(destination: NewGameMenuView()) {
+                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+                                    .padding(120)
+                            }
+                            
+                            Text("Who can learn faster - you or a computer? Race to find out and finish a drawing before the AI model does!")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.center)
+                                .padding(.top)
+                        }
+                    } else {
+                        VStack(spacing: -30) {
+                            ZStack {
+                                Rectangle()
+                                    .fill(
+                                        LinearGradient(
+                                            gradient: .init(colors: [.gray, .gray.opacity(0.5)]),
+                                        startPoint: .init(x: 0.5, y: 0),
+                                        endPoint: .init(x: 0.5, y: 0.6)
+                                        
+                                    ))
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                
+                                VStack {
+                                    Image(systemName: "lock.fill")
+                                        .foregroundColor(.white)
+                                        .font(.largeTitle)
+                                        .offset(y: -10)
+                                    
+                                    Text("NEW GAME")
+                                        .foregroundColor(.white)
+                                        .font(.largeTitle)
+                                        .fontWeight(.heavy)
+                                        .multilineTextAlignment(.center)
+                                }
+                            }
+                                .padding(120)
+                            
+                            Text("To unlock custom games, you'll need to complete the tutorial first!\n")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.center)
+                                .padding(.top)
+                        }
+                    }
+                    
                     VStack(spacing: -30) {
-                        NavigationLink(destination: NewGameMenuView()) {
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+                        Button(action: {
+                            isShowingTutorialSequence = true
+                        }) {
+                            RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
                                 .padding(120)
                         }
-                        
-                        Text("Who can learn faster - you or a computer? Race to find out and finish a drawing before the AI model does!")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .padding(.top)
-                    }
-                } else {
-                    VStack(spacing: -30) {
-                        ZStack {
-                            Rectangle()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: .init(colors: [.gray, .gray.opacity(0.5)]),
-                                    startPoint: .init(x: 0.5, y: 0),
-                                    endPoint: .init(x: 0.5, y: 0.6)
-                                    
-                                ))
-                                .aspectRatio(1.0, contentMode: .fit)
-                            
-                            VStack {
-                                Image(systemName: "lock.fill")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                                    .offset(y: -10)
-                                
-                                Text("NEW GAME")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                                    .fontWeight(.heavy)
-                                    .multilineTextAlignment(.center)
-                            }
+                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
                         }
-                            .padding(120)
                         
-                        Text("To unlock custom games, you'll need to complete the tutorial first!")
+                        Text("Your machine combat journey begins here. Learn the ropes of One Step Ahead and machine learning all at once!")
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
@@ -72,23 +94,18 @@ struct MainMenuView: View {
                     }
                 }
                 
-                VStack(spacing: -30) {
-                    Button(action: {
-                        isShowingTutorialSequence = true
-                    }) {
-                        RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
-                            .padding(120)
+                Spacer()
+                
+                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: tip.speakerEmoji, characterName: tip.speakerName, dialogue: tip.tipText, color1: tip.speakerPrimaryColor, color2: tip.speakerSecondaryColor, height: 120, advancePrompt: "Another Tip ➤")
+                    .onTapGesture {
+                        var candidateTip = Tip.tipList.randomElement()!
+                        while candidateTip.tipText == tip.tipText {
+                            candidateTip = Tip.tipList.randomElement()!
+                        }
+                        tip
+                        = candidateTip
                     }
-                    .fullScreenCover(isPresented: $isShowingTutorialSequence) {
-                        BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
-                    }
-                    
-                    Text("Your machine combat journey begins here. Learn the ropes of One Step Ahead and machine learning all at once!")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .padding(.top)
-                }
+                    .padding(.horizontal, 60)
             }
             .padding(.horizontal)
         }
