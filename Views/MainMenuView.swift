@@ -84,6 +84,13 @@ struct MainMenuView: View {
             }
             .padding(.horizontal)
         }
+        .onAppear {
+            // MARK: View Launch Code
+            // If nothing is playing, start "The Big Beat 80s"
+            if !audioPlayer!.isPlaying {
+                playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+            }
+        }
         // MARK: Navigation View Settings
         .navigationTitle("Main Menu")
     }

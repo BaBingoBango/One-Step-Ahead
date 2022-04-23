@@ -38,11 +38,14 @@ struct BackstoryView: View {
             isShowingTutorialGameView = true
         }
         .onAppear {
+            // MARK: View Launch Code
+            stopAudio()
             if isDismissing {
                 self.presentationMode.wrappedValue.dismiss()
             }
         }
         .onDisappear {
+            // MARK: View Vanish Code
             isDismissing = true
         }
     }

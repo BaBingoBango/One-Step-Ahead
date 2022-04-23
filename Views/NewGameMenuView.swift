@@ -119,6 +119,14 @@ struct NewGameMenuView: View {
             }
         }
         .onAppear {
+            // MARK: View Launch Code
+            // If nothing is playing, or if "Powerup!" is playing, start "The Big Beat 80s"
+            if !audioPlayer!.isPlaying || audioPlayer!.url!.absoluteString.contains("Powerup") {
+                stopAudio()
+                playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+            }
+            
+            // Reset the current game state
             game = GameState()
             game.defaultCommandText = game.getDefaultCommandText()
         }

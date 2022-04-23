@@ -144,6 +144,10 @@ struct GameEndView: View {
             }
             .padding(.top)
         }
+        .onAppear {
+            // MARK: View Launch Code
+            stopAudio()
+        }
         
         // MARK: Navigation Bar Settings
         .navigationBarBackButtonHidden(true)
