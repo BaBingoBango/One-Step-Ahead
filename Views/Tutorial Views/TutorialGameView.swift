@@ -15,6 +15,8 @@ struct TutorialGameView: View {
     // View Variables
     /// The ID number of the tutorial's current state. When the state ID is incremented, the view responds by changing UI elements appropriately.
     @State var stateID: Int = 1
+    /// Whether or not the tutorial sequence is being presented as a full screen modal.
+    @Binding var isShowingTutorialSequence: Bool
     
     // Current State Variables
     /// The name of the emoji representation of the current speaker.
@@ -64,7 +66,7 @@ struct TutorialGameView: View {
     var body: some View {
         ZStack {
             // The programatically-triggered navigation link for the game end view
-            NavigationLink(destination: TutorialGameEndView(game: game), isActive: $isShowingGameEndView) { EmptyView() }
+            NavigationLink(destination: TutorialGameEndView(isShowingTutorialSequence: $isShowingTutorialSequence, game: game), isActive: $isShowingGameEndView) { EmptyView() }
             
             SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
@@ -249,6 +251,22 @@ struct TutorialGameView: View {
                     .padding(.horizontal, 50)
                     .padding(.bottom)
             }
+            
+            // MARK: Navigation View Settings
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        isShowingTutorialSequence = false
+                    }) {
+                        Text("Quit Tutorial")
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+            
         }
         .onAppear {
             // MARK: View Launch Code
@@ -452,7 +470,7 @@ struct TutorialGameView: View {
 
 struct TutorialGameView_Previews: PreviewProvider {
     static var previews: some View {
-        TutorialGameView(commandText: "Preview command text!")
+        TutorialGameView(isShowingTutorialSequence: .constant(true), commandText: "Preview command text!")
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

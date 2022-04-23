@@ -8,10 +8,11 @@
 import Foundation
 import AVFoundation
 
-// Variables
+// Global Variable
 /// The global audio player for the app.
 var audioPlayer: AVAudioPlayer?
 
+// Global Functions
 /// Uses the global player to play the given audio file.
 func playAudio(fileName: String, type: String) {
     
@@ -21,7 +22,7 @@ func playAudio(fileName: String, type: String) {
             // Set the audio player to infinite loop
             audioPlayer?.numberOfLoops = -1
             // FIXME: Re-enable music and getAIScore()
-//            audioPlayer?.play()
+            audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")
         }

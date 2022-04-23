@@ -13,6 +13,8 @@ struct TutorialGameEndView: View {
     // View Variables
     /// The ID number of the tutorial's current state. When the state ID is incremented, the view responds by changing UI elements appropriately.
     @State var stateID: Int = 1
+    /// Whether or not the tutorial sequence is being presented as a full screen modal.
+    @Binding var isShowingTutorialSequence: Bool
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     
@@ -205,7 +207,7 @@ struct TutorialGameEndView: View {
         case 7:
             // End the tutorial sequence and return to the main menu
             hasFinishedTutorial = true
-            self.presentationMode.wrappedValue.dismiss()
+            isShowingTutorialSequence = false
             
         default:
             // Place the view in an invalid/bad state (we should never arrive here)
@@ -222,7 +224,7 @@ struct TutorialGameEndView: View {
 
 struct TutorialGameEndView_Previews: PreviewProvider {
     static var previews: some View {
-        TutorialGameEndView(game: GameState())
+        TutorialGameEndView(isShowingTutorialSequence: .constant(true), game: GameState())
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

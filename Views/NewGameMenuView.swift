@@ -15,6 +15,8 @@ struct NewGameMenuView: View {
     // Variables
     /// The state of the app's currently running game.
     @State var game: GameState = GameState()
+    /// Whether or not the game sequence is being presented as a full screen modal.
+    @State var isShowingGameSequence = false
     
     var body: some View {
         ZStack {
@@ -107,7 +109,9 @@ struct NewGameMenuView: View {
                 }
                 .padding(.top)
                 
-                NavigationLink(destination: GameView(game: game, commandText: game.defaultCommandText)) {
+                Button(action: {
+                    isShowingGameSequence = true
+                }) {
                     Text("Let's Roll!")
                         .fontWeight(.bold)
                         .foregroundColor(Color.white)
@@ -115,7 +119,16 @@ struct NewGameMenuView: View {
                         .frame(width: 250)
                         .padding(.top, 50)
                 }
-                
+                .fullScreenCover(isPresented: $isShowingGameSequence) {
+                    GameView(isShowingGameSequence: $isShowingGameSequence, game: game, commandText: game.defaultCommandText)
+                }
+            }
+        }
+        .onChange(of: isShowingGameSequence) { newValue in
+            if newValue == false {
+                // Reset the current game state
+                game = GameState()
+                game.defaultCommandText = game.getDefaultCommandText()
             }
         }
         .onAppear {

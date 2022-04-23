@@ -13,6 +13,8 @@ struct GameEndView: View {
     
     // Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    /// Whether or not the game sequence is being presented as a full screen modal.
+    @Binding var isShowingGameSequence: Bool
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
     
@@ -130,7 +132,8 @@ struct GameEndView: View {
                     .frame(width: 375)
                     
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                        isShowingGameSequence = false
                     }) {
                         Text("Return To Menu")
                             .font(.title2)
@@ -156,7 +159,7 @@ struct GameEndView: View {
 
 struct GameEndView_Previews: PreviewProvider {
     static var previews: some View {
-        GameEndView(game: GameState(playerScores: [99.9], AIscores: [69.4]))
+        GameEndView(isShowingGameSequence: .constant(true), game: GameState(playerScores: [99.9], AIscores: [69.4]))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

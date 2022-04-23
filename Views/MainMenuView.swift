@@ -9,12 +9,14 @@ import Foundation
 import SwiftUI
 import SpriteKit
 
-/// The central navigation point for the app, containing links to New Game and Practice.
+/// The central navigation point for the app, containing links to New Game and the tutorial sequence.
 struct MainMenuView: View {
     
     // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
+    /// Whether or not the tutorial sequence is being presented as a full screen modal.
+    @State var isShowingTutorialSequence = false
     
     var body: some View {
         ZStack {
@@ -71,9 +73,14 @@ struct MainMenuView: View {
                 }
                 
                 VStack(spacing: -30) {
-                    NavigationLink(destination: BackstoryView()) {
+                    Button(action: {
+                        isShowingTutorialSequence = true
+                    }) {
                         RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
                             .padding(120)
+                    }
+                    .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                        BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
                     }
                     
                     Text("Your machine combat journey begins here. Learn the ropes of One Step Ahead and machine learning all at once!")

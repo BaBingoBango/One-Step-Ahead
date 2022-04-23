@@ -13,6 +13,8 @@ struct BackstoryView: View {
     
     // Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    /// Whether or not the tutorial sequence is being presented as a full screen modal.
+    @Binding var isShowingTutorialSequence: Bool
     /// Whether or not the tutorial game view is being presented.
     @State var isShowingTutorialGameView = false
     /// The state of the app's currently running game.
@@ -21,21 +23,38 @@ struct BackstoryView: View {
     @State var isDismissing = false
     
     var body: some View {
-        ZStack {
-            NavigationLink(destination: TutorialGameView(game: game, commandText: game.defaultCommandText), isActive: $isShowingTutorialGameView) { EmptyView() }
+        NavigationView {
+            ZStack {
+                NavigationLink(destination: TutorialGameView(isShowingTutorialSequence: $isShowingTutorialSequence, game: game, commandText: game.defaultCommandText), isActive: $isShowingTutorialGameView) { EmptyView() }
+                
+                SpriteView(scene: SKScene(fileNamed: "Backstory View Graphics")!)
+                    .edgesIgnoringSafeArea(.all)
+            }
+            .onTapGesture {
+                // Configure settings for the tutorial game
+                game.task = Task.taskList.first(where: { $0.object == "Axe" })!
+                game.gameMode = .cluedIn
+                game.difficulty = .hard
+                
+                // Present the tutorial game
+                game.shouldRunTimer = false
+                isShowingTutorialGameView = true
+            }
             
-            SpriteView(scene: SKScene(fileNamed: "Backstory View Graphics")!)
-                .edgesIgnoringSafeArea(.all)
-        }
-        .onTapGesture {
-            // Configure settings for the tutorial game
-            game.task = Task.taskList.first(where: { $0.object == "Axe" })!
-            game.gameMode = .cluedIn
-            game.difficulty = .hard
-            
-            // Present the tutorial game
-            game.shouldRunTimer = false
-            isShowingTutorialGameView = true
+            // MARK: Navigation View Settings
+            .navigationViewStyle(.stack)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Quit Tutorial")
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                    }
+                }
+            }
         }
         .onAppear {
             // MARK: View Launch Code
@@ -53,7 +72,7 @@ struct BackstoryView: View {
 
 struct BackstoryView_Previews: PreviewProvider {
     static var previews: some View {
-        BackstoryView()
+        BackstoryView(isShowingTutorialSequence: .constant(true))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
