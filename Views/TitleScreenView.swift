@@ -21,10 +21,8 @@ struct TitleScreenView: View {
                 SpriteView(scene: SKScene(fileNamed: "Title Screen Graphics")!)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Image("Main Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 350)
+                    Rectangle()
+                        .frame(width: 350, height: 350)
                         .hidden()
                     
                     NavigationLink(destination: MainMenuView()) {

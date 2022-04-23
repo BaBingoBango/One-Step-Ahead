@@ -12,6 +12,7 @@ import SpriteKit
 /// The central navigation point for the app, containing links to New Game and Practice.
 struct MainMenuView: View {
     
+    // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     

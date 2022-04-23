@@ -97,7 +97,6 @@ struct TutorialGameView: View {
                                     
                                     Button(action: {
                                         // Undo the canvas
-                                        // FIXME: Undo funtion might not be working
                                         isDeletingDrawing = true
                                         canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
                                         if allDrawings.count >= 1 {
