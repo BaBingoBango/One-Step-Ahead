@@ -13,6 +13,8 @@ struct TutorialGameEndView: View {
     // View Variables
     /// The ID number of the tutorial's current state. When the state ID is incremented, the view responds by changing UI elements appropriately.
     @State var stateID: Int = 1
+    /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     
     // Current State Variables
     /// The name of the emoji representation of the current speaker.
@@ -197,6 +199,7 @@ struct TutorialGameEndView: View {
             
         case 7:
             // End the tutorial sequence and return to the main menu
+            hasFinishedTutorial = true
             self.presentationMode.wrappedValue.dismiss()
             
         default:

@@ -11,22 +11,62 @@ import SpriteKit
 
 /// The central navigation point for the app, containing links to New Game and Practice.
 struct MainMenuView: View {
+    
+    /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
+    
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             HStack(spacing: 100) {
-                VStack(spacing: -30) {
-                    NavigationLink(destination: NewGameMenuView()) {
-                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
-                            .padding(120)
+                if hasFinishedTutorial {
+                    VStack(spacing: -30) {
+                        NavigationLink(destination: NewGameMenuView()) {
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+                                .padding(120)
+                        }
+                        
+                        Text("Who can learn faster - you or a computer? Race to find out and finish a drawing before the AI model does!")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.top)
                     }
-                    
-                    Text("Who can learn faster? You or a computer? Race to find out and finish a drawing before the AI model does!")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .padding(.top)
+                } else {
+                    VStack(spacing: -30) {
+                        ZStack {
+                            Rectangle()
+                                .fill(
+                                    LinearGradient(
+                                        gradient: .init(colors: [.gray, .gray.opacity(0.5)]),
+                                    startPoint: .init(x: 0.5, y: 0),
+                                    endPoint: .init(x: 0.5, y: 0.6)
+                                    
+                                ))
+                                .aspectRatio(1.0, contentMode: .fit)
+                            
+                            VStack {
+                                Image(systemName: "lock.fill")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                    .offset(y: -10)
+                                
+                                Text("NEW GAME")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                    .fontWeight(.heavy)
+                                    .multilineTextAlignment(.center)
+                            }
+                        }
+                            .padding(120)
+                        
+                        Text("To unlock custom games, you'll need to complete the tutorial first!")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.top)
+                    }
                 }
                 
                 VStack(spacing: -30) {
