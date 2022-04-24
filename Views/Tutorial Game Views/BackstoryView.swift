@@ -32,7 +32,7 @@ struct BackstoryView: View {
             }
             .onTapGesture {
                 // Configure settings for the tutorial game
-                game.task = Task.taskList.first(where: { $0.object == "Door" })!
+                game.task = Task.taskList.first(where: { $0.object == "Apple" })!
                 game.gameMode = .cluedIn
                 game.difficulty = .hard
                 
