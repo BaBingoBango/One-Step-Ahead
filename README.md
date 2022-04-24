@@ -12,7 +12,7 @@ The game is designed to be run on an iPad, but also works on M1 Macs! It has not
 Please see below for the origins of content that were not made expressly for this project.
 
 ## Music & Sound Effects
-Dun Dun Dun Sound Effect: https://freesound.org/people/copyc4t/sounds/146434/
+Dun Dun Dun Sound Effect: https://freesound.org/people/copyc4t/sounds/146434/<br>
 "The Big Beat 80s": YouTube Audio Library (http://youtube.com/audiolibrary)<br>
 "Powerup!": YouTube Audio Library (http://youtube.com/audiolibrary)<br>
 Victory Jingle: http://freemusicarchive.org<br>
