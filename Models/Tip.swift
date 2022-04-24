@@ -31,7 +31,7 @@ struct Tip {
         Tip(speakerName: "Dr. Tim Bake", tipText: "The AI's image classifier model is tested on 10 versions of the correct drawing!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         Tip(speakerName: "The Machine", tipText: "I'll be back...", speakerEmoji: "robot", speakerPrimaryColor: .white, speakerSecondaryColor: .gray),
         Tip(speakerName: "The Machine", tipText: "Your world is doomed!", speakerEmoji: "robot", speakerPrimaryColor: .white, speakerSecondaryColor: .gray),
-        Tip(speakerName: "Dr. Tim Bake", tipText: "Watch your back...the AI has been known to swoop all the way from 0% to 100%!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
+        Tip(speakerName: "Dr. Tim Bake", tipText: "Watch your back...the AI has been known to swoop from 0% to 100% in a single round!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         Tip(speakerName: "Dr. Tim Bake", tipText: "Never give up! Never give in! Never gonna give you up!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         Tip(speakerName: "Dr. Tim Bake", tipText: "It's easy to get started with ML - try developer.apple.com/machine-learning!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         Tip(speakerName: "Dr. Tim Bake", tipText: "If you ever make a machine learning model, be careful not to let it escape like I did!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),

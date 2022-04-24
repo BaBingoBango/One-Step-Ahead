@@ -13,7 +13,7 @@ import AVFoundation
 var audioPlayer: AVAudioPlayer?
 
 // Global Functions
-/// Uses the global player to play the given audio file.
+/// Uses the global player to play the given audio file on a loop.
 func playAudio(fileName: String, type: String) {
     
     if let path = Bundle.main.path(forResource: fileName, ofType: type) {
@@ -21,6 +21,21 @@ func playAudio(fileName: String, type: String) {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             // Set the audio player to infinite loop
             audioPlayer?.numberOfLoops = -1
+            audioPlayer?.play()
+        } catch {
+            print("Could not locate and play the sound file.")
+        }
+    }
+}
+
+/// Uses the global player to play the given audio file once.
+func playAudioOnce(fileName: String, type: String) {
+    
+    if let path = Bundle.main.path(forResource: fileName, ofType: type) {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            // Set the audio player to not loop
+            audioPlayer?.numberOfLoops = 0
             audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")

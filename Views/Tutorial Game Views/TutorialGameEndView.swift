@@ -17,6 +17,8 @@ struct TutorialGameEndView: View {
     @Binding var isShowingTutorialSequence: Bool
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
+    /// Whether or not the victory/defeat jingle has played.
+    @State var hasPlayedJingle = false
     
     // Current State Variables
     /// The name of the emoji representation of the current speaker.
@@ -45,7 +47,7 @@ struct TutorialGameEndView: View {
         game.AIscores.last ?? 69.098765
     }
     var winner: Combatant {
-        if lastPlayerScore >= lastAIscore {
+        if lastPlayerScore >= lastAIscore && lastPlayerScore >= Double(game.playerWinThreshold) {
             return .player
         } else {
             return .AI
@@ -159,6 +161,10 @@ struct TutorialGameEndView: View {
         .onAppear {
             // MARK: View Launch Code
             stopAudio()
+            if !hasPlayedJingle {
+                playAudioOnce(fileName: winner == .player ? "Victory Jingle" : "Defeat Jingle", type: "mp3")
+                hasPlayedJingle = true
+            }
         }
         
         // MARK: Navigation Bar Settings
@@ -206,6 +212,7 @@ struct TutorialGameEndView: View {
             
         case 7:
             // End the tutorial sequence and return to the main menu
+            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
             hasFinishedTutorial = true
             isShowingTutorialSequence = false
             

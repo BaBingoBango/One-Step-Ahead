@@ -17,6 +17,8 @@ struct GameEndView: View {
     @Binding var isShowingGameSequence: Bool
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
+    /// Whether or not the victory/defeat jingle has played.
+    @State var hasPlayedJingle = false
     
     // Computed Properties
     /// The player score from the last round of play.
@@ -28,7 +30,7 @@ struct GameEndView: View {
         game.AIscores.last!
     }
     var winner: Combatant {
-        if lastPlayerScore >= lastAIscore {
+        if lastPlayerScore >= lastAIscore && lastPlayerScore >= Double(game.playerWinThreshold) {
             return .player
         } else {
             return .AI
@@ -127,9 +129,9 @@ struct GameEndView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
+                        .modifier(RectangleWrapper(fixedHeight: 60, color: .gray, opacity: 1.0))
+                        .frame(width: 375)
                     }
-                    .modifier(RectangleWrapper(fixedHeight: 60, color: .gray, opacity: 1.0))
-                    .frame(width: 375)
                     
                     Button(action: {
                         playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
@@ -150,6 +152,10 @@ struct GameEndView: View {
         .onAppear {
             // MARK: View Launch Code
             stopAudio()
+            if !hasPlayedJingle {
+                playAudioOnce(fileName: winner == .player ? "Victory Jingle" : "Defeat Jingle", type: "mp3")
+                hasPlayedJingle = true
+            }
         }
         
         // MARK: Navigation Bar Settings
