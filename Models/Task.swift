@@ -55,7 +55,7 @@ struct Task {
         Task(category: .drawing, object: "Bird", commandPhrase: "a bird!", genericDescription: "Draw something that flies!"),
         Task(category: .drawing, object: "Bowtie", commandPhrase: "a bowtie!", genericDescription: "Draw a fancy accessory!"),
         Task(category: .drawing, object: "Broom", commandPhrase: "a broom!", genericDescription: "Draw something that cleans!"),
-        Task(category: .drawing, object: "Calculator", commandPhrase: "a calculator!", genericDescription: "Draw a math tool!"),
+        Task(category: .drawing, object: "Calculator", commandPhrase: "a calculator!", genericDescription: "Draw a common math tool!"),
         Task(category: .drawing, object: "Cat", commandPhrase: "a cat!", genericDescription: "Draw a common pet!"),
         Task(category: .drawing, object: "Crown", commandPhrase: "a crown!", genericDescription: "Draw a piece of expensive headwear!"),
         Task(category: .drawing, object: "Clock", commandPhrase: "a clock!", genericDescription: "Draw something round with hands!"),

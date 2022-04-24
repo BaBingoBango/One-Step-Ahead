@@ -502,11 +502,11 @@ struct TutorialGameView: View {
             isShowingAIbox = true
         case 9:
             // Move from state 8 to 9
-            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something that chops\" with 97% accuracy or higher!"
+            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something round and edible\" with 97% accuracy or higher!"
             
         case 10:
             // Move from state 9 to 10
-            speakerDialogue = "Go, go, go! Draw \"something that chops\" with 97% accuracy or better! The machine only needs 80% accuracy!"
+            speakerDialogue = "Go, go, go! Draw \"something round and edible\" with 97% accuracy or better! The machine only needs 80%!"
             isShowingAdvancePrompt = false
             
             // Start the game

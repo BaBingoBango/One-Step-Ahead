@@ -32,7 +32,7 @@ struct AppInfoView: View {
                 Text("Version 1.0")
                     .padding(.top)
                 
-                Text("Created by Ethan Marshall")
+                Text("Created by Ethan Marshall :)")
                     .padding(.top)
             }
             .padding(.bottom, 40)

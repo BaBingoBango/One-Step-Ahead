@@ -38,7 +38,9 @@ struct Tip {
         Tip(speakerName: "Dr. Tim Bake", tipText: "If you're not sure where to start, try generic shapes like circles, squares, and rectangles!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         Tip(speakerName: "Dr. Tim Bake", tipText: "Yes, I do run a tech company, it's called Orange. Why do you ask?", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         Tip(speakerName: "The Machine", tipText: "Please stop asking me to open the pod bay doors.", speakerEmoji: "robot", speakerPrimaryColor: .white, speakerSecondaryColor: .gray),
-        Tip(speakerName: "Dr. Tim Bake", tipText: "If you're having trouble, try watching for when the AI's score goes up.", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan)
+        Tip(speakerName: "Dr. Tim Bake", tipText: "If you're having trouble, try watching for when the AI's score goes up.", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
+        Tip(speakerName: "Dr. Tim Bake", tipText: "If you and the AI exactly tie, you’ll always win. Phew!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
+        Tip(speakerName: "Dr. Tim Bake", tipText: "On the first round, the AI’s score will always match yours. After that, it’s anyone’s guess!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan)
     ]
     
 }
