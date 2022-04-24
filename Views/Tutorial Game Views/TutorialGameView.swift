@@ -54,6 +54,8 @@ struct TutorialGameView: View {
     @State var game: GameState = GameState(shouldRunTimer: false)
     /// A 0.1-second-interval timer responsible for triggering game events.
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    /// The current status of the end-of-round score evaluation process.
+    @State var scoreEvaluationStatus : ScoreEvaluationStatus = .notEvaluating
     /// The text displaying at the top of the view under the round number.
     @State var commandText: String
     /// The text which displays in the AI's "canvas" area.
@@ -66,6 +68,14 @@ struct TutorialGameView: View {
     @State var allDrawings: [PKDrawing] = []
     /// Whether or not a canvas undo operation is currently taking place.
     @State var isDeletingDrawing = false
+    
+    // MARK: - Enumeration
+    /// The different possible statuses of the end-of-round score evaluation process.
+    enum ScoreEvaluationStatus {
+        case notEvaluating
+        case evaluating
+        case evaluationComplete
+    }
     
     var body: some View {
         ZStack {
@@ -327,7 +337,6 @@ struct TutorialGameView: View {
         }
         .onReceive(timer) { input in
             // MARK: Timer Response
-            
             // Update the on-screen timer if it's running
             if game.shouldRunTimer {
                 // Decrease the on-screen timer if it's running
@@ -341,7 +350,7 @@ struct TutorialGameView: View {
             }
             
             // If the time has reached zero, update the UI
-            if game.timeLeft == 0 {
+            if game.timeLeft == 0.0 && scoreEvaluationStatus == .notEvaluating {
                 commandText = "Judging your drawing..."
                 AItext = GameView.getTrainingAIMessage()
                 isTrainingAImodel = true
@@ -349,12 +358,20 @@ struct TutorialGameView: View {
             
             // On the next 0.1 second, calculate the scores
             if game.timeLeft == -0.1 {
-                evaluateScores()
+                scoreEvaluationStatus = .evaluating
+                game.timeLeft = 0.0
+                game.shouldRunTimer = false
+                let canvasBounds = canvasView.bounds
+                DispatchQueue.global(qos: .userInteractive).async {
+                    evaluateScores(canvasBounds: canvasBounds)
+                    scoreEvaluationStatus = .evaluationComplete
+                }
             }
             
-            // On the next 0.1 second, process the end of the round
-            if game.timeLeft == -0.2 {
+            // If we have finished scoring, finish out the round
+            if game.timeLeft == 0.0 && scoreEvaluationStatus == .evaluationComplete {
                 isTrainingAImodel = false
+                scoreEvaluationStatus = .notEvaluating
                 finishRound()
             }
         }
@@ -381,14 +398,14 @@ struct TutorialGameView: View {
         game.shouldRunTimer = true
     }
     /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
-    func evaluateScores() {
+    func evaluateScores(canvasBounds: CGRect) {
         
         // Use the judge model to give the user a score
         var predictionProbabilities: [String : String] = [:]
         do {
             // Layer the drawing on top of a white background
-            let background = UIColor.white.imageWithColor(width: canvasView.bounds.width, height: canvasView.bounds.height)
-            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale).tint(with: .black)!)
+            let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
+            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
             
             // Save the image to the AI's training data
             saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
