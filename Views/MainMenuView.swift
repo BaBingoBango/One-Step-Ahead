@@ -67,7 +67,7 @@ struct MainMenuView: View {
                             }
                                 .padding(120)
                             
-                            Text("To unlock custom games, you'll need to complete the tutorial first!\n")
+                            Text("In order to play games with all the game modes and difficulties, you'll need to complete the tutorial!")
                                 .font(.title3)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
