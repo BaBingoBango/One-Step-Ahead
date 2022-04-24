@@ -16,6 +16,12 @@ struct AppInfoView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
+                Image("App Icon Copy")
+                    .resizable()
+                    .frame(width: 160, height: 160)
+                    .cornerRadius(35)
+                    .padding(.bottom, 20)
+                
                 Text("One Step Ahead")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
@@ -29,6 +35,7 @@ struct AppInfoView: View {
                 Text("Created by Ethan Marshall")
                     .padding(.top)
             }
+            .padding(.bottom, 40)
             
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
