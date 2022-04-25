@@ -304,6 +304,7 @@ struct TutorialGameView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         isShowingTutorialSequence = false
+                        playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
                     }) {
                         Text("Quit Tutorial")
                             .fontWeight(.bold)
