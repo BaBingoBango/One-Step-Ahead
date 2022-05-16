@@ -146,6 +146,7 @@
 		AAF0A6292832F7E500E84330 = {
 			isa = PBXGroup;
 			children = (
+				AAF0A69E2832F9F300E84330 /* README.md */,
 				AAF0A6342832F7E500E84330 /* One Step Ahead */,
 				AAF0A6452832F7E600E84330 /* One Step AheadTests */,
 				AAF0A64F2832F7E600E84330 /* One Step AheadUITests */,
@@ -166,7 +167,6 @@
 		AAF0A6342832F7E500E84330 /* One Step Ahead */ = {
 			isa = PBXGroup;
 			children = (
-				AAF0A69E2832F9F300E84330 /* README.md */,
 				AAF0A69C2832F9EA00E84330 /* MyApp.swift */,
 				AAF0A6392832F7E600E84330 /* Assets.xcassets */,
 				AAF0A68A2832F9E200E84330 /* Models */,
