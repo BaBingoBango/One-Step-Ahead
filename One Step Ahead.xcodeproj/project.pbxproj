@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
 		AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6392832F7E600E84330 /* Assets.xcassets */; };
 		AAF0A6472832F7E600E84330 /* One_Step_AheadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6462832F7E600E84330 /* One_Step_AheadTests.swift */; };
 		AAF0A6512832F7E600E84330 /* One_Step_AheadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6502832F7E600E84330 /* One_Step_AheadUITests.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AAF0A6322832F7E500E84330 /* One Step Ahead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Step Ahead.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF0A6392832F7E600E84330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAF0A6422832F7E600E84330 /* One Step AheadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "One Step AheadTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AAC5D7532832FC070056E781 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				AAC5D7542832FC070056E781 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		AAF0A6292832F7E500E84330 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +183,7 @@
 				AAF0A6A22832F9F900E84330 /* Views */,
 				AAF0A6912832F9E600E84330 /* Music & Sound Effects */,
 				AAF0A65F2832F9DF00E84330 /* Helper Files */,
+				AAC5D7532832FC070056E781 /* Preview Content */,
 			);
 			path = "One Step Ahead";
 			sourceTree = "<group>";
@@ -418,6 +429,7 @@
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
 				AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */,
 				AAF0A6872832F9DF00E84330 /* Drawing Judge.mlmodelc in Resources */,
+				AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */,
 				AAF0A6972832F9E600E84330 /* Defeat Jingle.mp3 in Resources */,
 				AAF0A6822832F9DF00E84330 /* New Game Menu Graphics.sks in Resources */,
 				AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */,
