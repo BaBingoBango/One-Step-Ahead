@@ -40,7 +40,6 @@
 		AAF0A69B2832F9E600E84330 /* The Big Beat 80s (Spaced).wav in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6962832F9E600E84330 /* The Big Beat 80s (Spaced).wav */; };
 		AAF0A69D2832F9EA00E84330 /* MyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A69C2832F9EA00E84330 /* MyApp.swift */; };
 		AAF0A69F2832F9F300E84330 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A69E2832F9F300E84330 /* README.md */; };
-		AAF0A6A12832F9F600E84330 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6A02832F9F600E84330 /* Package.swift */; };
 		AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6A32832F9F900E84330 /* MainMenuView.swift */; };
 		AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6A52832F9F900E84330 /* GameView.swift */; };
 		AAF0A6B12832F9F900E84330 /* GameEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6A62832F9F900E84330 /* GameEndView.swift */; };
@@ -107,7 +106,6 @@
 		AAF0A6962832F9E600E84330 /* The Big Beat 80s (Spaced).wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "The Big Beat 80s (Spaced).wav"; sourceTree = "<group>"; };
 		AAF0A69C2832F9EA00E84330 /* MyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
 		AAF0A69E2832F9F300E84330 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		AAF0A6A02832F9F600E84330 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		AAF0A6A32832F9F900E84330 /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		AAF0A6A52832F9F900E84330 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		AAF0A6A62832F9F900E84330 /* GameEndView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEndView.swift; sourceTree = "<group>"; };
@@ -168,13 +166,12 @@
 		AAF0A6342832F7E500E84330 /* One Step Ahead */ = {
 			isa = PBXGroup;
 			children = (
-				AAF0A6A22832F9F900E84330 /* Views */,
-				AAF0A6A02832F9F600E84330 /* Package.swift */,
 				AAF0A69E2832F9F300E84330 /* README.md */,
 				AAF0A69C2832F9EA00E84330 /* MyApp.swift */,
-				AAF0A6912832F9E600E84330 /* Music & Sound Effects */,
-				AAF0A68A2832F9E200E84330 /* Models */,
 				AAF0A6392832F7E600E84330 /* Assets.xcassets */,
+				AAF0A68A2832F9E200E84330 /* Models */,
+				AAF0A6A22832F9F900E84330 /* Views */,
+				AAF0A6912832F9E600E84330 /* Music & Sound Effects */,
 				AAF0A65F2832F9DF00E84330 /* Helper Files */,
 			);
 			path = "One Step Ahead";
@@ -468,7 +465,6 @@
 				AAF0A6902832F9E200E84330 /* Task.swift in Sources */,
 				AAF0A68F2832F9E200E84330 /* GameState.swift in Sources */,
 				AAF0A6802832F9DF00E84330 /* HidingServices.swift in Sources */,
-				AAF0A6A12832F9F600E84330 /* Package.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,
