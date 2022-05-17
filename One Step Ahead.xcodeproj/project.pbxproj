@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */; };
+		AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */; };
 		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
 		AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6392832F7E600E84330 /* Assets.xcassets */; };
 		AAF0A6472832F7E600E84330 /* One_Step_AheadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6462832F7E600E84330 /* One_Step_AheadTests.swift */; };
@@ -28,7 +30,6 @@
 		AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6702832F9DF00E84330 /* Title Screen Graphics.sks */; };
 		AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6712832F9DF00E84330 /* Backstory View Graphics.sks */; };
 		AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6722832F9DF00E84330 /* Game End View Graphics.sks */; };
-		AAF0A6872832F9DF00E84330 /* Drawing Judge.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6742832F9DF00E84330 /* Drawing Judge.mlmodelc */; };
 		AAF0A6882832F9DF00E84330 /* ImagePredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */; };
 		AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */; };
 		AAF0A68E2832F9E200E84330 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A68B2832F9E200E84330 /* Tip.swift */; };
@@ -71,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge II.mlmodelc"; sourceTree = "<group>"; };
+		AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge.mlmodelc"; sourceTree = "<group>"; };
 		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AAF0A6322832F7E500E84330 /* One Step Ahead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Step Ahead.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF0A6392832F7E600E84330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,7 +98,6 @@
 		AAF0A6702832F9DF00E84330 /* Title Screen Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Title Screen Graphics.sks"; sourceTree = "<group>"; };
 		AAF0A6712832F9DF00E84330 /* Backstory View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Backstory View Graphics.sks"; sourceTree = "<group>"; };
 		AAF0A6722832F9DF00E84330 /* Game End View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Game End View Graphics.sks"; sourceTree = "<group>"; };
-		AAF0A6742832F9DF00E84330 /* Drawing Judge.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge.mlmodelc"; sourceTree = "<group>"; };
 		AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePredictor.swift; sourceTree = "<group>"; };
 		AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawing_Judge_Model.swift; sourceTree = "<group>"; };
 		AAF0A68B2832F9E200E84330 /* Tip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
@@ -256,7 +258,8 @@
 		AAF0A6732832F9DF00E84330 /* Drawing Judge Files */ = {
 			isa = PBXGroup;
 			children = (
-				AAF0A6742832F9DF00E84330 /* Drawing Judge.mlmodelc */,
+				AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */,
+				AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */,
 				AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */,
 				AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */,
 			);
@@ -422,18 +425,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */,
 				AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */,
 				AAF0A69A2832F9E600E84330 /* Victory Jingle.mp3 in Resources */,
 				AAF0A6982832F9E600E84330 /* Powerup!.mp3 in Resources */,
 				AAF0A6832832F9DF00E84330 /* Main Menu Graphics.sks in Resources */,
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
 				AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */,
-				AAF0A6872832F9DF00E84330 /* Drawing Judge.mlmodelc in Resources */,
 				AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */,
 				AAF0A6972832F9E600E84330 /* Defeat Jingle.mp3 in Resources */,
 				AAF0A6822832F9DF00E84330 /* New Game Menu Graphics.sks in Resources */,
 				AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */,
 				AAF0A69F2832F9F300E84330 /* README.md in Resources */,
+				AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */,
 				AAF0A6992832F9E600E84330 /* Dun Dun Dun.wav in Resources */,
 				AAF0A69B2832F9E600E84330 /* The Big Beat 80s (Spaced).wav in Resources */,
 				AAF0A6812832F9DF00E84330 /* Game View Graphics.sks in Resources */,
