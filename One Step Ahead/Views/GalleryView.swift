@@ -11,8 +11,8 @@ import SpriteKit
 struct GalleryView: View {
     
     // MARK: View Variables
-    /// An array of grid items to size and position each row of the gallery grid.
-    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 6)
+    /// The task list, sorted alphabetically.
+    var sortedTaskList = Task.taskList.sorted(by: { $0.object < $1.object })
     
     var body: some View {
         ZStack {
@@ -45,9 +45,9 @@ struct GalleryView: View {
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(maxWidth: .infinity)
                     
-                    LazyVGrid(columns: columns) {
-                        ForEach(Task.taskList.sorted(by: { $0.object < $1.object }), id: \.object) { task in
-                            TaskRectangleView(task: task)
+                    LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 6)) {
+                        ForEach(0...sortedTaskList.count - 1, id: \.self) { index in
+                            TaskRectangleView(task: sortedTaskList[index], index: index)
                         }
                     }
                     .padding(.horizontal)
@@ -67,7 +67,21 @@ struct GalleryView_Previews: PreviewProvider {
 struct TaskRectangleView: View {
     
     // MARK: View Variables
+    /// The task represented by this view.
     var task: Task
+    /// The task list index of the task represented by this view.
+    var index: Int
+    /// A 3-digit string version of the task list index of the task represented by this view.
+    var indexString: String {
+        switch String(index).count {
+        case 1:
+            return "00\(index)"
+        case 2:
+            return "0\(index)"
+        default:
+            return String(index)
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -77,13 +91,13 @@ struct TaskRectangleView: View {
                 .cornerRadius(10)
                 .frame(height: 150)
             
-            Text("00\(Task.taskList.sorted(by: { $0.object < $1.object }).firstIndex(where: { $0.object == task.object })! + 1)")
+            Text(indexString)
                 .foregroundColor(.white)
                 .opacity(0.05)
-                .font(.system(size: 100))
+                .font(.system(size: 115))
             
             VStack(spacing: 5) {
-                Text("🍎")
+                Text(task.emoji)
                     .font(.system(size: 30))
                 
                 Text(task.object)
