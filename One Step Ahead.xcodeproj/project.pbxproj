@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */; };
 		AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */; };
+		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
+		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
 		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
 		AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6392832F7E600E84330 /* Assets.xcassets */; };
 		AAF0A6472832F7E600E84330 /* One_Step_AheadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6462832F7E600E84330 /* One_Step_AheadTests.swift */; };
@@ -74,6 +76,9 @@
 /* Begin PBXFileReference section */
 		AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge II.mlmodelc"; sourceTree = "<group>"; };
 		AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge.mlmodelc"; sourceTree = "<group>"; };
+		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
+		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AAF0A6322832F7E500E84330 /* One Step Ahead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Step Ahead.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF0A6392832F7E600E84330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -180,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				AAF0A69C2832F9EA00E84330 /* MyApp.swift */,
+				AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */,
 				AAF0A6392832F7E600E84330 /* Assets.xcassets */,
 				AAF0A68A2832F9E200E84330 /* Models */,
 				AAF0A6A22832F9F900E84330 /* Views */,
@@ -238,6 +244,7 @@
 				AAF0A6692832F9DF00E84330 /* CanvasView.swift */,
 				AAF0A66A2832F9DF00E84330 /* RectangleWrapper.swift */,
 				AAF0A66B2832F9DF00E84330 /* HidingServices.swift */,
+				AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */,
 			);
 			path = "SwiftUI Helpers";
 			sourceTree = "<group>";
@@ -291,12 +298,13 @@
 		AAF0A6A22832F9F900E84330 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AAF0A6A32832F9F900E84330 /* MainMenuView.swift */,
-				AAF0A6A42832F9F900E84330 /* Game Views */,
-				AAF0A6A82832F9F900E84330 /* AppInfoView.swift */,
 				AAF0A6A92832F9F900E84330 /* TitleScreenView.swift */,
-				AAF0A6AA2832F9F900E84330 /* NewGameMenuView.swift */,
+				AAF0A6A82832F9F900E84330 /* AppInfoView.swift */,
+				AAF0A6A32832F9F900E84330 /* MainMenuView.swift */,
 				AAF0A6AB2832F9F900E84330 /* Tutorial Game Views */,
+				AAF0A6AA2832F9F900E84330 /* NewGameMenuView.swift */,
+				AAF0A6A42832F9F900E84330 /* Game Views */,
+				AAC000DA2836BCBC00C89FCE /* GalleryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -474,6 +482,7 @@
 				AAF0A6B12832F9F900E84330 /* GameEndView.swift in Sources */,
 				AAF0A67B2832F9DF00E84330 /* MathServices.swift in Sources */,
 				AAF0A6882832F9DF00E84330 /* ImagePredictor.swift in Sources */,
+				AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */,
 				AAF0A6B22832F9F900E84330 /* PlayerScoresView.swift in Sources */,
 				AAF0A67C2832F9DF00E84330 /* AudioServices.swift in Sources */,
 				AAF0A6B42832F9F900E84330 /* TitleScreenView.swift in Sources */,
@@ -490,6 +499,7 @@
 				AAF0A6B52832F9F900E84330 /* NewGameMenuView.swift in Sources */,
 				AAF0A69D2832F9EA00E84330 /* MyApp.swift in Sources */,
 				AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */,
+				AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */,
 				AAF0A6772832F9DF00E84330 /* MLServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,11 +662,11 @@
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = "One-Step-Ahead-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -668,7 +678,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -683,11 +693,11 @@
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = "One-Step-Ahead-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -699,7 +709,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

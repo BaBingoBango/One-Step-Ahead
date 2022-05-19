@@ -14,83 +14,120 @@ struct MainMenuView: View {
     
     // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
-    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = true
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
     /// The tip currently being displayed at the bottom of the view.
     @State var tip = Tip.tipList.randomElement()!
+    
+    /// The amount of padding for each of the larger menu buttons.
+    var bigSquarePadding = 0.0
+    /// The amount of padding for each of the smaller menu buttons.
+    var smallSquarePadding = 50.0
     
     var body: some View {
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                HStack(spacing: 100) {
-                    if hasFinishedTutorial {
-                        VStack(spacing: -30) {
-                            NavigationLink(destination: NewGameMenuView()) {
-                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
-                                    .padding(120)
-                            }
-                            
-                            Text("Who can learn faster - you or a computer? Race to find out and finish a drawing before the AI model does!")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .padding(.top)
-                        }
-                    } else {
-                        VStack(spacing: -30) {
-                            ZStack {
-                                Rectangle()
-                                    .fill(
-                                        LinearGradient(
-                                            gradient: .init(colors: [.gray, .gray.opacity(0.5)]),
-                                        startPoint: .init(x: 0.5, y: 0),
-                                        endPoint: .init(x: 0.5, y: 0.6)
-                                        
-                                    ))
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                
-                                VStack {
-                                    Image(systemName: "lock.fill")
-                                        .foregroundColor(.white)
-                                        .font(.largeTitle)
-                                        .offset(y: -10)
-                                    
-                                    Text("NEW GAME")
-                                        .foregroundColor(.white)
-                                        .font(.largeTitle)
-                                        .fontWeight(.heavy)
-                                        .multilineTextAlignment(.center)
-                                }
-                            }
-                                .padding(120)
-                            
-                            Text("In order to play games with all the game modes and difficulties, you'll need to complete the tutorial!")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .padding(.top)
-                        }
-                    }
-                    
-                    VStack(spacing: -30) {
+                Spacer()
+                
+                HStack(spacing: 0) {
+                    VStack {
                         Button(action: {
                             isShowingTutorialSequence = true
                         }) {
-                            RotatingSquare(direction: .counterclockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
-                                .padding(120)
+                            RotatingSquare(direction: .clockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
+                                .padding(smallSquarePadding)
                         }
                         .fullScreenCover(isPresented: $isShowingTutorialSequence) {
                             BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
                         }
                         
-                        Text("Your machine combat journey begins here. Learn the ropes of One Step Ahead and machine learning all at once!")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .padding(.top)
+                        Spacer()
+                        
+                        Button(action: {
+                            isShowingTutorialSequence = true
+                        }) {
+                            RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GC")
+                                .padding(smallSquarePadding)
+                        }
+                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
+                        }
+                    }
+                    
+                    if hasFinishedTutorial {
+                        NavigationLink(destination: NewGameMenuView()) {
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+                                .padding(bigSquarePadding)
+                        }
+                        .padding(.top, 110)
+                    } else {
+                        ZStack {
+                            Rectangle()
+                                .fill(
+                                    LinearGradient(
+                                        gradient: .init(colors: [.gray, .gray.opacity(0.5)]),
+                                    startPoint: .init(x: 0.5, y: 0),
+                                    endPoint: .init(x: 0.5, y: 0.6)
+                                    
+                                ))
+                                .aspectRatio(1.0, contentMode: .fit)
+                            
+                            VStack {
+                                Image(systemName: "lock.fill")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                    .offset(y: -10)
+                                
+                                Text("NEW GAME")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                    .fontWeight(.heavy)
+                                    .multilineTextAlignment(.center)
+                            }
+                        }
+                            .padding(bigSquarePadding)
+                    }
+                    
+                    Rectangle()
+                        .frame(width: 150, height: 100)
+                        .hidden()
+                    
+                    Button(action: {
+                        isShowingTutorialSequence = true
+                    }) {
+                        RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                            .padding(bigSquarePadding)
+                    }
+                    .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                        BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
+                    }
+                    .padding(.top, 110)
+                    
+                    VStack {
+                        Button(action: {
+                            isShowingTutorialSequence = true
+                        }) {
+                            RotatingSquare(direction: .counterclockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY")
+                                .padding(smallSquarePadding)
+                        }
+                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            isShowingTutorialSequence = true
+                        }) {
+                            RotatingSquare(direction: .counterclockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS")
+                                .padding(smallSquarePadding)
+                        }
+                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
+                        }
                     }
                 }
                 
@@ -102,17 +139,37 @@ struct MainMenuView: View {
                         while candidateTip.tipText == tip.tipText {
                             candidateTip = Tip.tipList.randomElement()!
                         }
-                        tip
-                        = candidateTip
+                        tip = candidateTip
                     }
                     .padding(.horizontal, 60)
             }
             .padding(.horizontal)
+            
+            VStack {
+                HStack(spacing: 220) {
+                    Image("Game Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .hidden()
+                    
+                    Image("Game Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                    Image("Game Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .hidden()
+                }
+                
+                Spacer()
+            }
+            .padding(.top, 65)
         }
         .onAppear {
             // MARK: View Launch Code
             // If nothing is playing, start "The Big Beat 80s"
-            if !audioPlayer!.isPlaying {
+            if !(audioPlayer?.isPlaying ?? true) {
                 playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
             }
         }

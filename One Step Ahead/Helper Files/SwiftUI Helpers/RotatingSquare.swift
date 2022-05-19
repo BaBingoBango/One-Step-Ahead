@@ -37,6 +37,8 @@ struct RotatingSquare: View {
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.1)
+                .lineLimit(1)
         }
         .onReceive(timer) { input in
             if direction == .clockwise {
