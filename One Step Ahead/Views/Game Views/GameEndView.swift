@@ -151,6 +151,7 @@ struct GameEndView: View {
         }
         .onAppear {
             // MARK: View Launch Code
+            // Adjust the music
             stopAudio()
             if !hasPlayedJingle {
                 playAudioOnce(fileName: winner == .player ? "Victory Jingle" : "Defeat Jingle", type: "mp3")

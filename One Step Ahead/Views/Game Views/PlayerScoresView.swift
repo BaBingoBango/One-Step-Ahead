@@ -70,7 +70,6 @@ struct RoundScoreCard: View {
                     .foregroundColor(.black)
                     .padding(.bottom)
                 
-                // FIXME: Replace with image
                 Image(uiImage: getImageFromDocuments("\(object).\(roundNumber).png")!)
                     .resizable()
                     .frame(width: 200, height: 200)

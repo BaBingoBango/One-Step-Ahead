@@ -11,10 +11,15 @@ import SpriteKit
 /// The view showing all the user's locked and unlocked drawings. It serves as the launch point for Practice and Play Game With.
 struct GalleryView: View {
     
+    // MARK: View Variables
+    /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
+    @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
     /// The task list, sorted alphabetically.
     var sortedTaskList = Task.taskList.sorted(by: { $0.object < $1.object })
     
     var body: some View {
+        let galleryProgress = Double(userTaskRecords.records.count) / Double(Task.taskList.count)
+        
         ZStack {
             SpriteView(scene: SKScene(fileNamed: "Gallery View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
@@ -22,27 +27,20 @@ struct GalleryView: View {
             VStack {
                 ScrollView {
                     HStack {
-                        Text("~")
-                            .font(.system(size: 120))
-                            .fontWeight(.heavy)
-                        
-                        ProgressCircleView(progress: 0.75, color: .blue, lineWidth: 10, imageName: "photo.artframe")
+                        ProgressCircleView(progress: galleryProgress, color: .blue, lineWidth: 10, imageName: "photo.artframe")
                             .aspectRatio(1.0, contentMode: .fill)
                         
                         VStack(alignment: .leading, spacing: -10) {
-                            Text("75%")
+                            Text("\(galleryProgress.truncate(places: galleryProgress.truncatingRemainder(dividingBy: 0.1) == 0 ? 1 : 3).description)%")
                                 .font(.system(size: 120))
                                 .fontWeight(.heavy)
                             Text("Gallery Completion")
                                 .font(.system(size: 40))
                                 .fontWeight(.bold)
                         }
-                        
-                        Text("~")
-                            .font(.system(size: 120))
-                            .fontWeight(.heavy)
                     }
-                    .padding(.top)
+                    .padding(.top, 75)
+                    .padding(.bottom, 75)
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(maxWidth: .infinity)
                     

@@ -89,9 +89,8 @@ struct TaskDetailView: View {
                         .modifier(RectangleWrapper(fixedHeight: 60, color: .green, opacity: 1.0))
                     }
                     
-                    Button(action: {
-                        
-                    }) {
+
+                    NavigationLink(destination: NewGameMenuView()) {
                         HStack {
                             Image(systemName: "play.fill")
                                 .foregroundColor(.white)

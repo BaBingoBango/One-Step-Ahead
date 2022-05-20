@@ -15,6 +15,8 @@ struct RotatingSquare: View {
     var firstColor: Color
     var secondColor: Color
     var text: String
+    var iconName: String?
+    var imageAssetName: String?
     
     // Timer Variables
     @State var rotationDegrees = 0.0
@@ -32,13 +34,31 @@ struct RotatingSquare: View {
                 ))
                 .aspectRatio(1.0, contentMode: .fit)
                 .rotationEffect(.degrees(rotationDegrees))
-            Text(text)
-                .foregroundColor(.white)
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-                .multilineTextAlignment(.center)
-                .minimumScaleFactor(0.1)
-                .lineLimit(1)
+            
+            if imageAssetName == nil {
+                VStack {
+                    if iconName != nil {
+                        Image(systemName: iconName!)
+                            .foregroundColor(.white)
+                            .font(.largeTitle)
+                            .offset(y: -10)
+                    }
+                    
+                    Text(text)
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.1)
+                        .lineLimit(1)
+                }
+            } else {
+                Image(imageAssetName!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .padding()
+            }
         }
         .onReceive(timer) { input in
             if direction == .clockwise {

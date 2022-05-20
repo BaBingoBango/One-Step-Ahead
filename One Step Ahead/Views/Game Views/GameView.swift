@@ -14,6 +14,9 @@ import SpriteKit
 struct GameView: View {
     
     // MARK: - Variables
+    /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
+    @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
+    /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the game sequence is being presented as a full screen modal.
     @Binding var isShowingGameSequence: Bool
@@ -134,16 +137,24 @@ struct GameView: View {
                                 .fontWeight(.bold)
                                 .padding(.top)
                             
-                            if game.currentRound != 1 {
-                                Text("\(game.playerScores[game.currentRound - 2].description)%")
-                                    .font(.largeTitle)
-                                    .fontWeight(.heavy)
-                                    .foregroundColor(.green)
-                            } else {
-                                Text("---")
-                                    .font(.title)
+                            HStack(spacing: 0) {
+                                if game.currentRound != 1 {
+                                    Text("\(game.playerScores[game.currentRound - 2].description)%")
+                                        .font(.largeTitle)
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.green)
+                                } else {
+                                    Text("---")
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.secondary)
+                                }
+                                
+                                Text("  /  \(game.playerWinThreshold)%")
+                                    .font(.title2)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.green)
+                                    .opacity(0.6)
                             }
                         }
                         
@@ -208,37 +219,38 @@ struct GameView: View {
                                 .fontWeight(.bold)
                                 .padding(.top)
                             
-                            if game.currentRound != 1 {
-                                Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                                    .font(.largeTitle)
-                                    .fontWeight(.heavy)
-                                    .foregroundColor(.red)
-                            } else {
-                                Text("---")
-                                    .font(.title)
+                            HStack {
+                                if game.currentRound != 1 {
+                                    Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
+                                        .font(.largeTitle)
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.red)
+                                } else {
+                                    Text("---")
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.secondary)
+                                }
+                                
+                                Text("  /  \(game.AIwinThreshold)%")
+                                    .font(.title2)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.red)
+                                    .opacity(0.6)
                             }
                         }
                     }
                     .padding(.horizontal, 75)
                     
-                    Text("Your Win Threshold: \(game.playerWinThreshold)%")
+                    Text("Game Score")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.green)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.7)
-                        .frame(width: 350)
+                        .foregroundColor(.gold)
                     
-                    Text("AI Win Threshold: \(game.AIwinThreshold)%")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .opacity(0.7)
-                        .padding(.top, 5)
-                        .frame(width: 350)
+                    Text(game.currentRound != 1 ? "\(game.gameScore) pts." : "---")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(game.currentRound != 1 ? .gold : .gray)
                     
                     Spacer()
                 }
@@ -384,7 +396,17 @@ struct GameView: View {
     func finishRound() {
         // Check if a winner exists
         if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
-            // If one does, update the command, trigger the navigation link, and disable the timer
+            // If one does, the game is over!
+            
+            // Record the task and player score to the user's save data
+            if !userTaskRecords.records.keys.contains(game.task.object) {
+                // If the task is locked, unlock it
+                userTaskRecords.records[game.task.object] = ["timesPlayed" : 0, "highScore" : 0]
+            }
+            userTaskRecords.records[game.task.object]!["timesPlayed"]! += 1
+            userTaskRecords.records[game.task.object]!["highScore"] = game.gameScore
+            
+            // Update the command, trigger the navigation link, and disable the timer
             commandText = "That's a wrap!"
             isShowingGameEndView = true
             game.shouldRunTimer = false
@@ -425,6 +447,6 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(isShowingGameSequence: .constant(true), commandText: "Preview!")
-            .previewInterfaceOrientation(.landscapeLeft)
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }

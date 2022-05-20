@@ -45,6 +45,9 @@ struct TutorialGameView: View {
     @State var isShowingJudgeModelDrawing = false
     
     // Game View Variables
+    /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
+    @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
+    /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the game end view is showing.
     @State private var isShowingGameEndView = false
@@ -435,7 +438,17 @@ struct TutorialGameView: View {
     func finishRound() {
         // Check if a winner exists
         if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
-            // If one does, update the command, trigger the navigation link, and disable the timer
+            // If one does, the game is over!
+            
+            // Record the task and player score to the user's save data
+            if !userTaskRecords.records.keys.contains(game.task.object) {
+                // If the task is locked, unlock it
+                userTaskRecords.records[game.task.object] = ["timesPlayed" : 0, "highScore" : 0]
+            }
+            userTaskRecords.records[game.task.object]!["timesPlayed"]! += 1
+            userTaskRecords.records[game.task.object]!["highScore"] = game.gameScore
+            
+            // Update the command, trigger the navigation link, and disable the timer
             commandText = "That's a wrap!"
             isShowingGameEndView = true
             game.shouldRunTimer = false

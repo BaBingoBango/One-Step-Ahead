@@ -41,6 +41,16 @@ struct GameState {
     var AImodel: MLModel = MLModel()
     
     // MARK: - Computed Properties
+    /// The player's current score for the game. It can take any integer value from 0 to 100,000.
+    ///
+    /// The game score is calculated via the following formula:
+    ///
+    /// Score = (((Player% x 100) - (AI% x 100) + 10,000) / Round Number) x 5
+    var gameScore: Int {
+        let playerPoints = playerScores.last! * 100.0
+        let AIpoints = AIscores.last! * 100.0
+        return Int(((playerPoints - AIpoints + 10_000) / Double(currentRound)) * 5.0)
+    }
     /// The drawing score required for the player to win the game.
     var playerWinThreshold: Int {
         switch difficulty {

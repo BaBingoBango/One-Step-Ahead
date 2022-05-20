@@ -14,7 +14,7 @@ struct MainMenuView: View {
     
     // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
-    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = true
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
     /// The tip currently being displayed at the bottom of the view.
@@ -49,7 +49,7 @@ struct MainMenuView: View {
                         Button(action: {
                             isShowingTutorialSequence = true
                         }) {
-                            RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GC")
+                            RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GAME CENTER", imageAssetName: "Game Center Logo")
                                 .padding(smallSquarePadding)
                         }
                         .fullScreenCover(isPresented: $isShowingTutorialSequence) {
@@ -64,51 +64,40 @@ struct MainMenuView: View {
                         }
                         .padding(.top, 110)
                     } else {
-                        ZStack {
-                            Rectangle()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: .init(colors: [.gray, .gray.opacity(0.5)]),
-                                    startPoint: .init(x: 0.5, y: 0),
-                                    endPoint: .init(x: 0.5, y: 0.6)
-                                    
-                                ))
-                                .aspectRatio(1.0, contentMode: .fit)
-                            
-                            VStack {
-                                Image(systemName: "lock.fill")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                                    .offset(y: -10)
-                                
-                                Text("NEW GAME")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                                    .fontWeight(.heavy)
-                                    .multilineTextAlignment(.center)
-                            }
-                        }
+                        RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "NEW GAME", iconName: "lock.fill")
                             .padding(bigSquarePadding)
+                            .padding(.top, 110)
                     }
                     
                     Rectangle()
                         .frame(width: 150, height: 100)
                         .hidden()
                     
-                    Button(action: {
-                        isShowingTutorialSequence = true
-                    }) {
-                        RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                    if hasFinishedTutorial {
+                        Button(action: {
+                            isShowingTutorialSequence = true
+                        }) {
+                            RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                                .padding(bigSquarePadding)
+                        }
+                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
+                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
+                        }
+                        .padding(.top, 110)
+                    } else {
+                        RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "VERSUS", iconName: "lock.fill")
                             .padding(bigSquarePadding)
+                            .padding(.top, 110)
                     }
-                    .fullScreenCover(isPresented: $isShowingTutorialSequence) {
-                        BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
-                    }
-                    .padding(.top, 110)
                     
                     VStack {
-                        NavigationLink(destination: GalleryView()) {
-                            RotatingSquare(direction: .counterclockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY")
+                        if hasFinishedTutorial {
+                            NavigationLink(destination: GalleryView()) {
+                                RotatingSquare(direction: .counterclockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY")
+                                    .padding(smallSquarePadding)
+                            }
+                        } else {
+                            RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GALLERY", iconName: "lock.fill")
                                 .padding(smallSquarePadding)
                         }
                         
