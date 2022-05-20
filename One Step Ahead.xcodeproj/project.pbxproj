@@ -11,6 +11,10 @@
 		AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
+		AAC000DF28371D3A00C89FCE /* Gallery View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */; };
+		AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E128371EA100C89FCE /* TaskRectangleView.swift */; };
+		AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E328371EC300C89FCE /* TaskDetailView.swift */; };
+		AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E5283731C400C89FCE /* UserTaskRecords.swift */; };
 		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
 		AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6392832F7E600E84330 /* Assets.xcassets */; };
 		AAF0A6472832F7E600E84330 /* One_Step_AheadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6462832F7E600E84330 /* One_Step_AheadTests.swift */; };
@@ -79,6 +83,10 @@
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
+		AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Gallery View Graphics.sks"; sourceTree = "<group>"; };
+		AAC000E128371EA100C89FCE /* TaskRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRectangleView.swift; sourceTree = "<group>"; };
+		AAC000E328371EC300C89FCE /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		AAC000E5283731C400C89FCE /* UserTaskRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskRecords.swift; sourceTree = "<group>"; };
 		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AAF0A6322832F7E500E84330 /* One Step Ahead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Step Ahead.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF0A6392832F7E600E84330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,6 +160,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AAC000E028371E8500C89FCE /* Gallery Views */ = {
+			isa = PBXGroup;
+			children = (
+				AAC000DA2836BCBC00C89FCE /* GalleryView.swift */,
+				AAC000E128371EA100C89FCE /* TaskRectangleView.swift */,
+				AAC000E328371EC300C89FCE /* TaskDetailView.swift */,
+			);
+			path = "Gallery Views";
+			sourceTree = "<group>";
+		};
 		AAC5D7532832FC070056E781 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +270,7 @@
 		AAF0A66C2832F9DF00E84330 /* SpriteKit UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */,
 				AAF0A66D2832F9DF00E84330 /* Game View Graphics.sks */,
 				AAF0A66E2832F9DF00E84330 /* New Game Menu Graphics.sks */,
 				AAF0A66F2832F9DF00E84330 /* Main Menu Graphics.sks */,
@@ -279,6 +298,7 @@
 				AAF0A68B2832F9E200E84330 /* Tip.swift */,
 				AAF0A68C2832F9E200E84330 /* GameState.swift */,
 				AAF0A68D2832F9E200E84330 /* Task.swift */,
+				AAC000E5283731C400C89FCE /* UserTaskRecords.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,7 +324,7 @@
 				AAF0A6AB2832F9F900E84330 /* Tutorial Game Views */,
 				AAF0A6AA2832F9F900E84330 /* NewGameMenuView.swift */,
 				AAF0A6A42832F9F900E84330 /* Game Views */,
-				AAC000DA2836BCBC00C89FCE /* GalleryView.swift */,
+				AAC000E028371E8500C89FCE /* Gallery Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,6 +461,7 @@
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
 				AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */,
 				AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */,
+				AAC000DF28371D3A00C89FCE /* Gallery View Graphics.sks in Resources */,
 				AAF0A6972832F9E600E84330 /* Defeat Jingle.mp3 in Resources */,
 				AAF0A6822832F9DF00E84330 /* New Game Menu Graphics.sks in Resources */,
 				AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */,
@@ -474,6 +495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF0A67D2832F9DF00E84330 /* RotatingSquare.swift in Sources */,
+				AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */,
 				AAF0A6792832F9DF00E84330 /* ColorServices.swift in Sources */,
 				AAF0A6B32832F9F900E84330 /* AppInfoView.swift in Sources */,
 				AAF0A6B62832F9F900E84330 /* BackstoryView.swift in Sources */,
@@ -486,6 +508,7 @@
 				AAF0A6B22832F9F900E84330 /* PlayerScoresView.swift in Sources */,
 				AAF0A67C2832F9DF00E84330 /* AudioServices.swift in Sources */,
 				AAF0A6B42832F9F900E84330 /* TitleScreenView.swift in Sources */,
+				AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */,
 				AAF0A6B72832F9F900E84330 /* TutorialGameView.swift in Sources */,
 				AAF0A6902832F9E200E84330 /* Task.swift in Sources */,
 				AAF0A68F2832F9E200E84330 /* GameState.swift in Sources */,
@@ -501,6 +524,7 @@
 				AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */,
 				AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */,
 				AAF0A6772832F9DF00E84330 /* MLServices.swift in Sources */,
+				AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

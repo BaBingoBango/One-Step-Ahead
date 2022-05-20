@@ -107,14 +107,9 @@ struct MainMenuView: View {
                     .padding(.top, 110)
                     
                     VStack {
-                        Button(action: {
-                            isShowingTutorialSequence = true
-                        }) {
+                        NavigationLink(destination: GalleryView()) {
                             RotatingSquare(direction: .counterclockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY")
                                 .padding(smallSquarePadding)
-                        }
-                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
-                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
                         }
                         
                         Spacer()
@@ -173,8 +168,10 @@ struct MainMenuView: View {
                 playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
             }
         }
+        
         // MARK: Navigation View Settings
         .navigationTitle("Main Menu")
+        
     }
 }
 

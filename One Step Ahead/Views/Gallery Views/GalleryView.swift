@@ -8,15 +8,15 @@
 import SwiftUI
 import SpriteKit
 
+/// The view showing all the user's locked and unlocked drawings. It serves as the launch point for Practice and Play Game With.
 struct GalleryView: View {
     
-    // MARK: View Variables
     /// The task list, sorted alphabetically.
     var sortedTaskList = Task.taskList.sorted(by: { $0.object < $1.object })
     
     var body: some View {
         ZStack {
-            SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
+            SpriteView(scene: SKScene(fileNamed: "Gallery View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -42,6 +42,7 @@ struct GalleryView: View {
                             .font(.system(size: 120))
                             .fontWeight(.heavy)
                     }
+                    .padding(.top)
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(maxWidth: .infinity)
                     
@@ -54,6 +55,10 @@ struct GalleryView: View {
                 }
             }
         }
+        
+        // MARK: Navigation View Settings
+        .navigationTitle("Drawing Gallery")
+        
     }
 }
 
@@ -61,49 +66,5 @@ struct GalleryView_Previews: PreviewProvider {
     static var previews: some View {
         GalleryView()
             .previewInterfaceOrientation(.landscapeRight)
-    }
-}
-
-struct TaskRectangleView: View {
-    
-    // MARK: View Variables
-    /// The task represented by this view.
-    var task: Task
-    /// The task list index of the task represented by this view.
-    var index: Int
-    /// A 3-digit string version of the task list index of the task represented by this view.
-    var indexString: String {
-        switch String(index).count {
-        case 1:
-            return "00\(index)"
-        case 2:
-            return "0\(index)"
-        default:
-            return String(index)
-        }
-    }
-    
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(.black)
-                .opacity(0.3)
-                .cornerRadius(10)
-                .frame(height: 150)
-            
-            Text(indexString)
-                .foregroundColor(.white)
-                .opacity(0.05)
-                .font(.system(size: 115))
-            
-            VStack(spacing: 5) {
-                Text(task.emoji)
-                    .font(.system(size: 30))
-                
-                Text(task.object)
-                    .font(.system(size: 25))
-                    .fontWeight(.bold)
-            }
-        }
     }
 }
