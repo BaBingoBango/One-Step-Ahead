@@ -28,6 +28,10 @@ class GameCenterAuthenticationController: UIViewController {
             // Handle an authentication error
             guard error == nil else {
                 print(error?.localizedDescription ?? "")
+                
+                // Enable the Start Game button
+                self.hasAuthenticatedWithGameCenter = true
+                
                 return
             }
             
