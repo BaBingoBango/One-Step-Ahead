@@ -15,6 +15,11 @@ struct NewGameMenuView: View {
     // Variables
     /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) private var presentationMode
+    /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
+    @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
+    /// Whether or not the user has enabled Unlock Assist. This value is persisted inside UserDefaults.
+    @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = false
+    /// The game state object for the game this view will launch.
     @State var game: GameState = GameState()
     /// Whether or not the game sequence is being presented as a full screen modal.
     @State var isShowingGameSequence = false
@@ -174,7 +179,21 @@ struct NewGameMenuView: View {
         // Perform the reset and restore
         game = GameState()
         if enforcedGameTask == nil {
-            game.task = Task.taskList.randomElement()!
+            // Pick a random task, considering Unlock Assist
+            if isUnlockAssistOn {
+                // Use Unlock Assist...
+                var candidateTask = Task.taskList.randomElement()!
+                // ...as long as there are drawings left to unlock
+                if userTaskRecords.records.count == Task.taskList.count {
+                    while userTaskRecords.records.keys.contains(candidateTask.object) {
+                        candidateTask = Task.taskList.randomElement()!
+                    }
+                }
+                game.task = candidateTask
+            } else {
+                // Don't use Unlock Assist
+                game.task = Task.taskList.randomElement()!
+            }
         } else {
             game.task = enforcedGameTask!
         }

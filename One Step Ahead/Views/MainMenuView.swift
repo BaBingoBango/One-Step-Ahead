@@ -17,6 +17,8 @@ struct MainMenuView: View {
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
+    /// Whether or not the settings view is being presented.
+    @State var isShowingSettings = false
     /// The tip currently being displayed at the bottom of the view.
     @State var tip = Tip.tipList.randomElement()!
     
@@ -104,13 +106,13 @@ struct MainMenuView: View {
                         Spacer()
                         
                         Button(action: {
-                            isShowingTutorialSequence = true
+                            isShowingSettings = true
                         }) {
                             RotatingSquare(direction: .counterclockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS")
                                 .padding(smallSquarePadding)
                         }
-                        .fullScreenCover(isPresented: $isShowingTutorialSequence) {
-                            BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
+                        .sheet(isPresented: $isShowingSettings) {
+                            SettingsView()
                         }
                     }
                 }
