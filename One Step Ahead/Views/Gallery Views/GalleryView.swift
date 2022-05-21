@@ -14,6 +14,14 @@ struct GalleryView: View {
     // MARK: View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
+    /// The task that should be sent to a New Game view.
+    @State var taskToPresent: Task? = nil
+    /// Whether or not a task detail view is currently being auto-dismissed.
+    @State var isTaskDetailAutoDismissing = false
+    /// Whether or not a New Game view is being presented.
+    @State var isShowingNewGameView = false
+    /// Whether or not a Task Detail view is being presented.
+    @State var isShowingTaskDetail = false
     /// The task list, sorted alphabetically.
     var sortedTaskList = Task.taskList.sorted(by: { $0.object < $1.object })
     
@@ -21,20 +29,23 @@ struct GalleryView: View {
         let galleryProgress = Double(userTaskRecords.records.count) / Double(Task.taskList.count)
         
         ZStack {
+            
+            NavigationLink(destination: NewGameMenuView(enforcedGameTask: taskToPresent), isActive: $isShowingNewGameView) { EmptyView() }
+            
             SpriteView(scene: SKScene(fileNamed: "Gallery View Graphics")!)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
                 ScrollView {
                     HStack {
-                        ProgressCircleView(progress: galleryProgress, color: .blue, lineWidth: 10, imageName: "photo.artframe")
+                        ProgressCircleView(progress: galleryProgress, color: galleryProgress != 1.0 ? .blue : .gold, lineWidth: 10, imageName: "photo.artframe")
                             .aspectRatio(1.0, contentMode: .fill)
                         
                         VStack(alignment: .leading, spacing: -10) {
-                            Text("\(galleryProgress.truncate(places: galleryProgress.truncatingRemainder(dividingBy: 0.1) == 0 ? 1 : 3).description)%")
+                            Text(galleryProgress != 1.0 ? "\((galleryProgress * 100.0).truncate(places: 1).description)%" : "100%")
                                 .font(.system(size: 120))
                                 .fontWeight(.heavy)
-                            Text("Gallery Completion")
+                            Text(galleryProgress != 1.0 ? "Gallery Completion" : "Gallery Completion!")
                                 .font(.system(size: 40))
                                 .fontWeight(.bold)
                         }
@@ -46,11 +57,28 @@ struct GalleryView: View {
                     
                     LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 6)) {
                         ForEach(0...sortedTaskList.count - 1, id: \.self) { index in
-                            TaskRectangleView(task: sortedTaskList[index], index: index)
+                            TaskRectangleView(taskToPresent: $taskToPresent, isTaskDetailAutoDismissing: $isTaskDetailAutoDismissing, task: sortedTaskList[index], index: index)
                         }
                     }
-                    .padding(.horizontal)
+                    .padding([.leading, .bottom, .trailing])
                 }
+            }
+        }
+        // FIXME: Issue #61
+        .onChange(of: taskToPresent) { newValue in
+            if newValue != nil {
+                // We have a value from a task detail view! Time to activate a navigation link!
+                isShowingNewGameView = true
+            }
+        }
+        .onChange(of: isShowingNewGameView) { newValue in
+            if newValue == false {
+                taskToPresent = nil
+            }
+        }
+        .onChange(of: isShowingTaskDetail) { newValue in
+            if newValue == false {
+                taskToPresent = nil
             }
         }
         

@@ -58,6 +58,7 @@ struct RotatingSquare: View {
                     .aspectRatio(contentMode: .fit)
                     .padding()
                     .padding()
+                    .padding()
             }
         }
         .onReceive(timer) { input in

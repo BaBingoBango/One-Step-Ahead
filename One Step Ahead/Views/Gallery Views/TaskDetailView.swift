@@ -15,6 +15,14 @@ struct TaskDetailView: View {
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
     /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) private var presentationMode
+    /// The task that should be sent to a New Game view by the Gallery View.
+    @Binding var taskToPresent: Task?
+    /// Whether or not a task detail view is currently being auto-dismissed.
+    @Binding var isTaskDetailAutoDismissing: Bool
+    /// Whether or not the Practice is being presented.
+    @State var isShowingPracticeView = false
+    /// Whether or not the New Game view is being presented.
+    @State var isShowingNewGameView = false
     /// The task represented by this view.
     var task: Task
     /// The task list index of the task represented by this view.
@@ -74,7 +82,7 @@ struct TaskDetailView: View {
                 
                 HStack {
                     Button(action: {
-                        
+                        isShowingPracticeView = true
                     }) {
                         HStack {
                             Image(systemName: "scribble.variable")
@@ -88,14 +96,22 @@ struct TaskDetailView: View {
                         }
                         .modifier(RectangleWrapper(fixedHeight: 60, color: .green, opacity: 1.0))
                     }
-                    
+                    .fullScreenCover(isPresented: $isShowingPracticeView) {
+                        PracticeView(task: task, index: index)
+                    }
 
-                    NavigationLink(destination: NewGameMenuView()) {
+                    Button(action: {
+                        // Set the Gallery View's state variable
+                        taskToPresent = task
+                        
+                        // Dismiss this modal
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
                         HStack {
                             Image(systemName: "play.fill")
                                 .foregroundColor(.white)
                                 .imageScale(.large)
-                            
+
                             Text("New Game")
                                 .font(.title2)
                                 .fontWeight(.bold)
@@ -127,7 +143,7 @@ struct TaskDetailView: View {
 
 struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskDetailView(task: Task.taskList[2], index: 2)
+        TaskDetailView(taskToPresent: .constant(nil), isTaskDetailAutoDismissing: .constant(false), task: Task.taskList[2], index: 2)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

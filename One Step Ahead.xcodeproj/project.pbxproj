@@ -16,6 +16,7 @@
 		AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E328371EC300C89FCE /* TaskDetailView.swift */; };
 		AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E5283731C400C89FCE /* UserTaskRecords.swift */; };
 		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
+		AADED59E28387B19009558AC /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADED59D28387B19009558AC /* PracticeView.swift */; };
 		AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6392832F7E600E84330 /* Assets.xcassets */; };
 		AAF0A6472832F7E600E84330 /* One_Step_AheadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6462832F7E600E84330 /* One_Step_AheadTests.swift */; };
 		AAF0A6512832F7E600E84330 /* One_Step_AheadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6502832F7E600E84330 /* One_Step_AheadUITests.swift */; };
@@ -88,6 +89,7 @@
 		AAC000E328371EC300C89FCE /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		AAC000E5283731C400C89FCE /* UserTaskRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskRecords.swift; sourceTree = "<group>"; };
 		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AADED59D28387B19009558AC /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		AAF0A6322832F7E500E84330 /* One Step Ahead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Step Ahead.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF0A6392832F7E600E84330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAF0A6422832F7E600E84330 /* One Step AheadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "One Step AheadTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				AAC000DA2836BCBC00C89FCE /* GalleryView.swift */,
 				AAC000E128371EA100C89FCE /* TaskRectangleView.swift */,
 				AAC000E328371EC300C89FCE /* TaskDetailView.swift */,
+				AADED59D28387B19009558AC /* PracticeView.swift */,
 			);
 			path = "Gallery Views";
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				AAF0A6902832F9E200E84330 /* Task.swift in Sources */,
 				AAF0A68F2832F9E200E84330 /* GameState.swift in Sources */,
 				AAF0A6802832F9DF00E84330 /* HidingServices.swift in Sources */,
+				AADED59E28387B19009558AC /* PracticeView.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,
@@ -697,8 +701,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Ethan.One-Step-Ahead";
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Marshall.One-Step-Ahead";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -728,8 +732,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Ethan.One-Step-Ahead";
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Marshall.One-Step-Ahead";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

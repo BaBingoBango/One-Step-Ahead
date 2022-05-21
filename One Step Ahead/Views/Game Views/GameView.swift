@@ -272,6 +272,7 @@ struct GameView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
         .onAppear {
             // MARK: View Launch Code
             // Clear the documents and temporary directories
@@ -291,10 +292,6 @@ struct GameView: View {
         }
         .onDisappear {
             // MARK: View Vanish Code
-            // Reset the current game state
-            game = GameState()
-            game.defaultCommandText = game.getDefaultCommandText()
-            // Mark the navigation chain as collapsing for later use by the game end view to close all the views at once
             isDismissing = true
         }
         .onReceive(timer) { input in
@@ -359,7 +356,9 @@ struct GameView: View {
         // Start the timer
         game.shouldRunTimer = true
     }
-    /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
+    ///Evaluates the user and AI scores for this round.
+    ///
+    /// > Warning: This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
     func evaluateScores(canvasBounds: CGRect) {
         
         // Use the judge model to give the user a score

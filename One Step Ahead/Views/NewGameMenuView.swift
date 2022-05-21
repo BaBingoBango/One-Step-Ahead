@@ -13,10 +13,15 @@ import SpriteKit
 struct NewGameMenuView: View {
     
     // Variables
-    /// The state of the app's currently running game.
+    /// The presentation status variable for this view's modal presentation.
+    @Environment(\.presentationMode) private var presentationMode
     @State var game: GameState = GameState()
     /// Whether or not the game sequence is being presented as a full screen modal.
     @State var isShowingGameSequence = false
+    /// The object that games launched from this view should always use. If it is nil, the object should be random.
+    var enforcedGameTask: Task? = nil
+    /// Whether or not the view should include a "Return To Gallery" button.
+    var shouldShowReturnToGalleryButton = false
     
     var body: some View {
         ZStack {
@@ -127,8 +132,7 @@ struct NewGameMenuView: View {
         .onChange(of: isShowingGameSequence) { newValue in
             if newValue == false {
                 // Reset the current game state
-                game = GameState()
-                game.defaultCommandText = game.getDefaultCommandText()
+                resetGameState()
             }
         }
         .onAppear {
@@ -140,16 +144,45 @@ struct NewGameMenuView: View {
             }
             
             // Reset the current game state
-            game = GameState()
-            game.defaultCommandText = game.getDefaultCommandText()
+            resetGameState()
         }
         
         // MARK: Navigation View Settings
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("New Game")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Return To Gallery")
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                }
+                .isHidden(!shouldShowReturnToGalleryButton, remove: true)
+            }
+        }
     }
     
     // MARK: View Functions
+    /// Resets the game state so a new game can begin.
+    func resetGameState() {
+        // Save the current mode and difficulty
+        let currentMode = game.gameMode
+        let currentDifficulty = game.difficulty
+        
+        // Perform the reset and restore
+        game = GameState()
+        if enforcedGameTask == nil {
+            game.task = Task.taskList.randomElement()!
+        } else {
+            game.task = enforcedGameTask!
+        }
+        game.gameMode = currentMode
+        game.difficulty = currentDifficulty
+        game.defaultCommandText = game.getDefaultCommandText()
+    }
+    /// Gets the extended desxription for a game mode.
     func getGameModeDescription() -> String {
         switch game.gameMode {
         case .flyingBlind:
@@ -162,6 +195,7 @@ struct NewGameMenuView: View {
             return "You'll know what to draw right away; it's a true test of your skills as an artist!"
         }
     }
+    /// Gets the extended description for a game difficulty.
     func getDifficultyDescription() -> String {
         switch game.difficulty {
         case .easy:

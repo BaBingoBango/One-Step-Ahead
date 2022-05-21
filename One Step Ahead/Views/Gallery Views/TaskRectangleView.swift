@@ -13,6 +13,10 @@ struct TaskRectangleView: View {
     // MARK: View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
+    /// The task that should be sent to a New Game view by the Gallery View.
+    @Binding var taskToPresent: Task?
+    /// Whether or not a task detail view is currently being auto-dismissed.
+    @Binding var isTaskDetailAutoDismissing: Bool
     /// Whether or not this view is presenting a task detail view as a modal.
     @State var isShowingTaskDetailView = false
     /// The task represented by this view.
@@ -67,13 +71,13 @@ struct TaskRectangleView: View {
         }
         .disabled(!isTaskUnlocked)
         .sheet(isPresented: $isShowingTaskDetailView) {
-            TaskDetailView(task: task, index: index)
+            TaskDetailView(taskToPresent: $taskToPresent, isTaskDetailAutoDismissing: $isTaskDetailAutoDismissing, task: task, index: index)
         }
     }
 }
 
 struct TaskRectangleView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRectangleView(task: Task.taskList[0], index: 0)
+        TaskRectangleView(taskToPresent: .constant(nil), isTaskDetailAutoDismissing: .constant(false), task: Task.taskList[0], index: 0)
     }
 }

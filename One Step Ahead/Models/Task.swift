@@ -9,7 +9,7 @@ import Foundation
 import CoreML
 
 /// In the context of a game, the action the player must take to score points.
-struct Task {
+struct Task: Equatable {
     
     // Variables
     /// The action the player must perform during a game.

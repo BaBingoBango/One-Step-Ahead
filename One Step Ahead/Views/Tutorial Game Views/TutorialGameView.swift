@@ -401,7 +401,9 @@ struct TutorialGameView: View {
         // Start the timer
         game.shouldRunTimer = true
     }
-    /// This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
+    /// Evaluates the user and AI scores for this round.
+    ///
+    /// > Warning: This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
     func evaluateScores(canvasBounds: CGRect) {
         
         // Use the judge model to give the user a score
