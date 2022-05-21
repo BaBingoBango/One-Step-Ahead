@@ -12,7 +12,10 @@ import SpriteKit
 /// The entry point view for the app. Shows the main logo and a button to advance to the main menu.
 struct TitleScreenView: View {
     
-    // Variables
+    // MARK: View Variables
+    /// Whether or not GameKit has completed the Game Center authentication process.
+    @AppStorage("hasAuthenticatedWithGameCenter") var hasAuthenticatedWithGameCenter: Bool = false
+    /// Whether or not the app info view is being presented.
     @State var showingAppInfo = false
     
     var body: some View {
@@ -25,14 +28,27 @@ struct TitleScreenView: View {
                         .frame(width: 350, height: 350)
                         .hidden()
                     
-                    NavigationLink(destination: MainMenuView()) {
-                        Text("Start Game")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
-                            .frame(width: 250)
+                    if hasAuthenticatedWithGameCenter {
+                        NavigationLink(destination: MainMenuView()) {
+                            Text("Start Game")
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
+                                .frame(width: 250)
+                        }
+                        .padding(.top)
+                    } else {
+                        ZStack {
+                            Text("")
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .modifier(RectangleWrapper(fixedHeight: 50, color: .gray, opacity: 1.0))
+                                .frame(width: 250)
+                            
+                            ProgressView()
+                        }
+                        .padding(.top)
                     }
-                    .padding(.top)
                 }
             }
             
