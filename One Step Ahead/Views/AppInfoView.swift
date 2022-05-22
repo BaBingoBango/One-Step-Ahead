@@ -26,13 +26,7 @@ struct AppInfoView: View {
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                 
-                Text("WWDC22 Swift Student Challenge Submission")
-                    .padding(.top)
-                
-                Text("Version 1.0")
-                    .padding(.top)
-                
-                Text("Created by Ethan Marshall :)")
+                Text("Version 1.1")
                     .padding(.top)
             }
             .padding(.bottom, 40)

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SpriteKit
+import GameKit
 
 /// The entry point view for the app. Shows the main logo and a button to advance to the main menu.
 struct TitleScreenView: View {
@@ -71,6 +72,7 @@ struct TitleScreenView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             // MARK: View Launch Code
+            // Start the menu music
             playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
         }
     }

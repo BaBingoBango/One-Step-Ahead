@@ -19,6 +19,8 @@
 		AACF8B1E2839627D00D9025C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B1D2839627D00D9025C /* SettingsView.swift */; };
 		AACF8B2128396E1300D9025C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACF8B2028396E1300D9025C /* GameKit.framework */; };
 		AACF8B23283971F000D9025C /* GameCenterAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */; };
+		AACF8B252839A68D00D9025C /* GameCenterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B242839A68D00D9025C /* GameCenterInfoView.swift */; };
+		AACF8B272839B98200D9025C /* SwiftUIGameCenterDashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B262839B98200D9025C /* SwiftUIGameCenterDashboardController.swift */; };
 		AADED59E28387B19009558AC /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADED59D28387B19009558AC /* PracticeView.swift */; };
 		AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6392832F7E600E84330 /* Assets.xcassets */; };
 		AAF0A6472832F7E600E84330 /* One_Step_AheadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6462832F7E600E84330 /* One_Step_AheadTests.swift */; };
@@ -95,6 +97,8 @@
 		AACF8B1D2839627D00D9025C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AACF8B2028396E1300D9025C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterAuthenticationController.swift; sourceTree = "<group>"; };
+		AACF8B242839A68D00D9025C /* GameCenterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterInfoView.swift; sourceTree = "<group>"; };
+		AACF8B262839B98200D9025C /* SwiftUIGameCenterDashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIGameCenterDashboardController.swift; sourceTree = "<group>"; };
 		AADED59D28387B19009558AC /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		AAF0A6322832F7E500E84330 /* One Step Ahead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Step Ahead.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF0A6392832F7E600E84330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				AAF0A66B2832F9DF00E84330 /* HidingServices.swift */,
 				AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */,
 				AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */,
+				AACF8B262839B98200D9025C /* SwiftUIGameCenterDashboardController.swift */,
 			);
 			path = "SwiftUI Helpers";
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 				AAF0A6A92832F9F900E84330 /* TitleScreenView.swift */,
 				AAF0A6A82832F9F900E84330 /* AppInfoView.swift */,
 				AAF0A6A32832F9F900E84330 /* MainMenuView.swift */,
+				AACF8B242839A68D00D9025C /* GameCenterInfoView.swift */,
 				AAF0A6AB2832F9F900E84330 /* Tutorial Game Views */,
 				AAF0A6AA2832F9F900E84330 /* NewGameMenuView.swift */,
 				AAF0A6A42832F9F900E84330 /* Game Views */,
@@ -535,10 +541,12 @@
 				AAF0A68F2832F9E200E84330 /* GameState.swift in Sources */,
 				AAF0A6802832F9DF00E84330 /* HidingServices.swift in Sources */,
 				AACF8B23283971F000D9025C /* GameCenterAuthenticationController.swift in Sources */,
+				AACF8B252839A68D00D9025C /* GameCenterInfoView.swift in Sources */,
 				AADED59E28387B19009558AC /* PracticeView.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,
 				AACF8B1E2839627D00D9025C /* SettingsView.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
+				AACF8B272839B98200D9025C /* SwiftUIGameCenterDashboardController.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,
 				AAF0A6B82832F9F900E84330 /* TutorialGameEndView.swift in Sources */,
 				AAF0A6782832F9DF00E84330 /* DiskServices.swift in Sources */,

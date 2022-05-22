@@ -35,15 +35,15 @@ class GameCenterAuthenticationController: UIViewController {
                 return
             }
             
-            // If a view controller is received from GameKit, present it
+            // If a view controller is received from GameKit, present it as long as the user hasn't blocked Game Center pop-ups
             if viewController != nil {
                 self.present(viewController!, animated: true, completion: nil)
             }
             
-            // Set up a Game Center access point
-//            GKAccessPoint.shared.location = .bottomLeading
-//            GKAccessPoint.shared.showHighlights = true
-//            GKAccessPoint.shared.isActive = GKLocalPlayer.local.isAuthenticated
+            // Enable the Game Center access point if the user is authenticated
+            GKAccessPoint.shared.location = .bottomLeading
+            GKAccessPoint.shared.showHighlights = true
+            GKAccessPoint.shared.isActive = GKLocalPlayer.local.isAuthenticated
             
             // Enable the Start Game button
             self.hasAuthenticatedWithGameCenter = true
