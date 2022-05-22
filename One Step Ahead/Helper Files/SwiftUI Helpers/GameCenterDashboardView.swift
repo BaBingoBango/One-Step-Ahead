@@ -10,7 +10,7 @@ import UIKit
 import GameKit
 
 /// A SwiftUI view for displaying the Game Center dashboard via a modal.
-struct SwiftUIGameCenterDashboardController: UIViewControllerRepresentable {
+struct GameCenterDashboardView: UIViewControllerRepresentable {
     
     // MARK: View Controller Generator
     func makeUIViewController(context: Context) -> GKGameCenterViewController {
@@ -39,9 +39,9 @@ struct SwiftUIGameCenterDashboardController: UIViewControllerRepresentable {
     
     // MARK: Coordinator Class
     class Coordinator: NSObject, GKGameCenterControllerDelegate, UINavigationControllerDelegate {
-        var parent: SwiftUIGameCenterDashboardController
+        var parent: GameCenterDashboardView
         
-        init(_ dashboardController: SwiftUIGameCenterDashboardController) {
+        init(_ dashboardController: GameCenterDashboardView) {
             self.parent = dashboardController
         }
         

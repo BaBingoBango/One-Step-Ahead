@@ -65,7 +65,7 @@ struct MainMenuView: View {
                                     }
                             }
                             .fullScreenCover(isPresented: $isShowingGameCenterDashboard) {
-                                SwiftUIGameCenterDashboardController()
+                                GameCenterDashboardView()
                                     .edgesIgnoringSafeArea(.all)
                             }
                         } else {

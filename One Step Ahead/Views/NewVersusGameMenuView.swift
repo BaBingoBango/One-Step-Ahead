@@ -1,16 +1,14 @@
 //
-//  NewGameMenuView.swift
+//  NewVersusGameMenuView.swift
 //  One Step Ahead
 //
-//  Created by Ethan Marshall on 4/7/22.
+//  Created by Ethan Marshall on 5/21/22.
 //
 
-import Foundation
 import SwiftUI
 import SpriteKit
 
-/// The view for configuring a new game's options; originates from the main menu.
-struct NewGameMenuView: View {
+struct NewVersusGameMenuView: View {
     
     // Variables
     /// The presentation status variable for this view's modal presentation.
@@ -35,7 +33,7 @@ struct NewGameMenuView: View {
             VStack {
                 
                 VStack {
-                    HStack(alignment: .bottom) {
+                    HStack(alignment: .center) {
                         VStack {
                             Text("Game Mode")
                                 .font(.title)
@@ -79,7 +77,7 @@ struct NewGameMenuView: View {
                 }
                 
                 VStack {
-                    HStack(alignment: .bottom) {
+                    HStack(alignment: .center) {
                         VStack {
                             Text("Difficulty")
                                 .font(.title)
@@ -110,6 +108,50 @@ struct NewGameMenuView: View {
                             }
                         }
                         Text(getDifficultyDescription())
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .frame(width: 350)
+                            .padding(.horizontal, 100)
+                            .padding(.bottom, 5)
+                    }
+                }
+                .padding(.top)
+                
+                VStack {
+                    HStack(alignment: .center) {
+                        VStack {
+                            Text("Maximum Players")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.leading, 100)
+                            
+                            ZStack {
+                                HStack {
+                                    Button(action: {}) { IconButtonView() }
+                                    Button(action: {}) { IconButtonView() }
+                                    Button(action: {}) { IconButtonView() }
+                                    Button(action: {}) { IconButtonView() }
+                                }
+                                .hidden()
+                                
+                                HStack {
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "person.fill")
+                                            .font(.system(size: 60))
+                                        
+                                        Text("8")
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 40))
+                                    }
+                                    
+                                    Stepper(value: .constant(8), in: 2...16) {}
+                                        .fixedSize()
+                                }
+                            }
+                            .padding(.leading, 100)
+                        }
+                        
+                        Text("Limit the maximum amount of players that can participate in your Versus match.")
                             .font(.title3)
                             .fontWeight(.bold)
                             .frame(width: 350)
@@ -232,37 +274,9 @@ struct NewGameMenuView: View {
     
 }
 
-struct NewGameMenuView_Previews: PreviewProvider {
+struct NewVersusGameMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        NewGameMenuView()
+        NewVersusGameMenuView()
             .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
-
-struct IconButtonView: View {
-    
-    // Variables
-    var imageName: String = ""
-    var text: String = ""
-    var isBlue: Bool = false
-    var number: Int?
-    
-    var body: some View {
-        VStack {
-            Image(systemName: number == nil ? imageName : "\(number!).circle")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(.primary)
-                .frame(height: number == nil ? 30 : 40)
-            
-            if number == nil {
-                Text(text)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                    .padding(.top, 5)
-            }
-        }
-        .modifier(RectangleWrapper(fixedHeight: 80, color: isBlue ? .blue : nil, opacity: isBlue ? 1.0 : 0.1))
-        .frame(width: 120)
     }
 }
