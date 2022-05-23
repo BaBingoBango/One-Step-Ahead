@@ -24,6 +24,10 @@ struct GameState {
     /// The command text to display when a round's timer is decreasing.
     var defaultCommandText: String = "Default Command Text"
     
+    // MARK: - Versus State Variables
+    /// The state of a Versus match that may or may not actually be running.
+    var versusGame: VersusGameState = VersusGameState()
+    
     // MARK: - Game State Variables
     /// The number of the game's current round.
     var currentRound: Int = 1

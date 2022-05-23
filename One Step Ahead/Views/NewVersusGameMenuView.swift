@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SpriteKit
+import GameKit
 
 struct NewVersusGameMenuView: View {
     
@@ -21,6 +22,10 @@ struct NewVersusGameMenuView: View {
     @State var game: GameState = GameState()
     /// Whether or not the game sequence is being presented as a full screen modal.
     @State var isShowingGameSequence = false
+    /// The match request object to send to the Game Center matchmaker view. If it is `nil`, the Onwards! button has not been tapped yet.
+    @State var matchRequest = GKMatchRequest()
+    /// Whether or not the matchmaker view is being presented as a full screen modal.
+    @State var isShowingMatchmaker = false
     /// The object that games launched from this view should always use. If it is nil, the object should be random.
     var enforcedGameTask: Task? = nil
     /// Whether or not the view should include a "Return To Gallery" button.
@@ -139,12 +144,12 @@ struct NewVersusGameMenuView: View {
                                         Image(systemName: "person.fill")
                                             .font(.system(size: 60))
                                         
-                                        Text("8")
+                                        Text(String(game.versusGame.maxPlayers))
                                             .fontWeight(.bold)
                                             .font(.system(size: 40))
                                     }
                                     
-                                    Stepper(value: .constant(8), in: 2...16) {}
+                                    Stepper(value: $game.versusGame.maxPlayers, in: 2...16) {}
                                         .fixedSize()
                                 }
                             }
@@ -162,17 +167,23 @@ struct NewVersusGameMenuView: View {
                 .padding(.top)
                 
                 Button(action: {
-                    isShowingGameSequence = true
+                    // Update the match request object
+                    matchRequest.minPlayers = 2
+                    matchRequest.maxPlayers = game.versusGame.maxPlayers
+                    
+                    // Present the matchmaker view
+                    isShowingMatchmaker = true
                 }) {
-                    Text("Let's Roll!")
+                    Text("Onwards!")
                         .fontWeight(.bold)
                         .foregroundColor(Color.white)
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
                         .frame(width: 250)
                         .padding(.top, 50)
                 }
-                .fullScreenCover(isPresented: $isShowingGameSequence) {
-                    GameView(isShowingGameSequence: $isShowingGameSequence, game: game, commandText: game.defaultCommandText)
+                .fullScreenCover(isPresented: $isShowingMatchmaker) {
+                    GameCenterMatchmakerView(matchRequest: matchRequest)
+                        .edgesIgnoringSafeArea(.all)
                 }
             }
         }
@@ -198,7 +209,7 @@ struct NewVersusGameMenuView: View {
         
         // MARK: Navigation View Settings
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("New Game")
+        .navigationTitle("New Versus Match")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {

@@ -18,10 +18,10 @@ struct MainMenuView: View {
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
-    /// Whether or not the Game Center information view is being presented.
-    @State var isShowingGameCenterInfoView = false
     /// Whether or not the Game Center dashboard is being presented.
     @State var isShowingGameCenterDashboard = false
+    /// Whether or not the Game Center information view is being presented.
+    @State var isShowingGameCenterInfoView = false
     /// Whether or not the settings view is being presented.
     @State var isShowingSettings = false
     /// The tip currently being displayed at the bottom of the view.
@@ -59,10 +59,6 @@ struct MainMenuView: View {
                             }) {
                                 RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GAME CENTER", imageAssetName: "Game Center Logo")
                                     .padding(smallSquarePadding)
-                                    .onAppear {
-                                        // Make sure the access point is disabled
-                                        GKAccessPoint.shared.isActive = false
-                                    }
                             }
                             .fullScreenCover(isPresented: $isShowingGameCenterDashboard) {
                                 GameCenterDashboardView()
@@ -83,10 +79,6 @@ struct MainMenuView: View {
                                         .padding(smallSquarePadding)
                                         .padding()
                                         .padding()
-                                }
-                                .onAppear {
-                                    // Make sure the access point is disabled
-                                    GKAccessPoint.shared.isActive = false
                                 }
                             }
                             .sheet(isPresented: $isShowingGameCenterInfoView) {
@@ -112,20 +104,24 @@ struct MainMenuView: View {
                         .hidden()
                     
                     if hasFinishedTutorial {
-                        Button(action: {
-                            if GKLocalPlayer.local.isAuthenticated {
-                                // FIXME: ??????
-                            } else {
-                                isShowingGameCenterInfoView = true
+                        if GKLocalPlayer.local.isAuthenticated {
+                            NavigationLink(destination: NewVersusGameMenuView()) {
+                                RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                                    .padding(bigSquarePadding)
                             }
-                        }) {
-                            RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
-                                .padding(bigSquarePadding)
+                            .padding(.top, 110)
+                        } else {
+                            Button(action: {
+                                isShowingGameCenterInfoView = true
+                            }) {
+                                RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                                    .padding(bigSquarePadding)
+                            }
+                            .sheet(isPresented: $isShowingGameCenterInfoView) {
+                                GameCenterInfoView()
+                            }
+                            .padding(.top, 110)
                         }
-                        .sheet(isPresented: $isShowingGameCenterInfoView) {
-                            GameCenterInfoView()
-                        }
-                        .padding(.top, 110)
                     } else {
                         RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "VERSUS", iconName: "lock.fill")
                             .padding(bigSquarePadding)
@@ -198,14 +194,6 @@ struct MainMenuView: View {
             if !(audioPlayer?.isPlaying ?? true) {
                 playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
             }
-            
-            // Disable the Game Center access point
-            GKAccessPoint.shared.isActive = false
-        }
-        .onDisappear {
-            // MARK: View Vanish Code
-            // Re-enable the Game Center access point if the user is authenticated
-            GKAccessPoint.shared.isActive = GKLocalPlayer.local.isAuthenticated
         }
         
         // MARK: Navigation View Settings

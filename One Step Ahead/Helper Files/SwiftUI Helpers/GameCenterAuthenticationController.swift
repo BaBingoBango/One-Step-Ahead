@@ -40,11 +40,6 @@ class GameCenterAuthenticationController: UIViewController {
                 self.present(viewController!, animated: true, completion: nil)
             }
             
-            // Enable the Game Center access point if the user is authenticated
-            GKAccessPoint.shared.location = .bottomLeading
-            GKAccessPoint.shared.showHighlights = true
-            GKAccessPoint.shared.isActive = GKLocalPlayer.local.isAuthenticated
-            
             // Enable the Start Game button
             self.hasAuthenticatedWithGameCenter = true
         }

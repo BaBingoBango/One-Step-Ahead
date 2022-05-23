@@ -22,10 +22,6 @@ struct GameCenterDashboardView: UIViewControllerRepresentable {
         dashboardViewController.view.addSubview(backgroundView)
         dashboardViewController.view.sendSubviewToBack(backgroundView)
         
-//        let backgroundView = UIImageView(image: UIImage(named: "space background"))
-//        backgroundView.frame = CGRect(x: 0, y: 0, width: 1459.395, height: 2434.341)
-//        backgroundView.contentScaleFactor = 0.676
-        
         return dashboardViewController
     }
     

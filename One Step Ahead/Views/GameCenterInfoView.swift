@@ -23,7 +23,7 @@ struct GameCenterInfoView: View {
                         .frame(width: 130)
                         .padding(.bottom, 20)
                     
-                    Text("Not Signed In To Game Center")
+                    Text("Game Center Required")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                     
