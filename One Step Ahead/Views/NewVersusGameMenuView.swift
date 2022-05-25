@@ -20,6 +20,8 @@ struct NewVersusGameMenuView: View {
     @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = false
     /// The game state object for the game this view will launch.
     @State var game: GameState = GameState()
+    /// The `GKMatch` object for the Versus match this view will launch.
+    @State var match: GKMatch = GKMatch()
     /// Whether or not the Versus game sequence is being presented as a full screen modal.
     @State var isShowingVersusGameSequence = false
     /// The match request object to send to the Game Center matchmaker view. If it is `nil`, the Onwards! button has not been tapped yet.
@@ -138,11 +140,11 @@ struct NewVersusGameMenuView: View {
                         .padding(.top, 50)
                 }
                 .fullScreenCover(isPresented: $isShowingMatchmaker) {
-                    GameCenterMatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, matchRequest: matchRequest)
+                    GameCenterMatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, match: $match, matchRequest: matchRequest)
                         .edgesIgnoringSafeArea(.all)
                 }
                 .fullScreenCover(isPresented: $isShowingVersusGameSequence) {
-                    GameView(isShowingGameSequence: $isShowingVersusGameSequence, game: game, commandText: game.defaultCommandText)
+                    VersusGameView(isShowingGameSequence: $isShowingVersusGameSequence, game: game, commandText: game.defaultCommandText, match: $match)
                 }
             }
         }

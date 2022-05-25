@@ -19,6 +19,7 @@
 		AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E328371EC300C89FCE /* TaskDetailView.swift */; };
 		AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E5283731C400C89FCE /* UserTaskRecords.swift */; };
 		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
+		AAC97EEC283ED23E00FEB54B /* VersusGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC97EEB283ED23E00FEB54B /* VersusGameView.swift */; };
 		AACF8B1E2839627D00D9025C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B1D2839627D00D9025C /* SettingsView.swift */; };
 		AACF8B2128396E1300D9025C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACF8B2028396E1300D9025C /* GameKit.framework */; };
 		AACF8B23283971F000D9025C /* GameCenterAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */; };
@@ -101,6 +102,7 @@
 		AAC000E328371EC300C89FCE /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		AAC000E5283731C400C89FCE /* UserTaskRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskRecords.swift; sourceTree = "<group>"; };
 		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AAC97EEB283ED23E00FEB54B /* VersusGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameView.swift; sourceTree = "<group>"; };
 		AACF8B1D2839627D00D9025C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AACF8B2028396E1300D9025C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterAuthenticationController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				AA82CF00283B20CF003FC070 /* GameCenterMatchmakerView.swift */,
+				AAC97EEB283ED23E00FEB54B /* VersusGameView.swift */,
 			);
 			path = "Versus Game Views";
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				AADED59E28387B19009558AC /* PracticeView.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,
 				AACF8B1E2839627D00D9025C /* SettingsView.swift in Sources */,
+				AAC97EEC283ED23E00FEB54B /* VersusGameView.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
 				AACF8B272839B98200D9025C /* GameCenterDashboardView.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,

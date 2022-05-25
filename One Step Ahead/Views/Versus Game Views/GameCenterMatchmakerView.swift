@@ -15,6 +15,7 @@ struct GameCenterMatchmakerView: UIViewControllerRepresentable {
     
     // MARK: View Variables
     @Binding var isShowingVersusGameSequence: Bool
+    @Binding var match: GKMatch
     var matchRequest: GKMatchRequest
     
     // MARK: View Controller Generator
@@ -70,6 +71,9 @@ struct GameCenterMatchmakerView: UIViewControllerRepresentable {
         func matchmakerViewController(_ matchmakerController: GKMatchmakerViewController, didFind match: GKMatch) {
             // Dismiss the view controller
             matchmakerController.dismiss(animated: true)
+            
+            // Set up the GKMatch object
+            parent.match = match
             
             // Present the Versus game sequence
             parent.isShowingVersusGameSequence = true

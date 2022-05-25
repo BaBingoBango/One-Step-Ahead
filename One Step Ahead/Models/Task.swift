@@ -219,7 +219,7 @@ struct Task: Equatable {
         Task(category: .drawing, object: "Lipstick", commandPhrase: "some lipstick!", genericDescription: "Draw a kind of makeup!", emoji: "💄"),
         Task(category: .drawing, object: "Lobster", commandPhrase: "a lobster!", genericDescription: "Draw a common seafood type!", emoji: "🦞"),
         Task(category: .drawing, object: "Lollipop", commandPhrase: "a lollipop!", genericDescription: "Draw a round candy!", emoji: "🍭"),
-        Task(category: .drawing, object: "Mailbox", commandPhrase: "a mailbox!", genericDescription: "Draw a box with an address", emoji: "📫"),
+        Task(category: .drawing, object: "Mailbox", commandPhrase: "a mailbox!", genericDescription: "Draw a box with an address!", emoji: "📫"),
         Task(category: .drawing, object: "Map", commandPhrase: "a map!", genericDescription: "Draw a guiding paper!", emoji: "🗺"),
         Task(category: .drawing, object: "Marker", commandPhrase: "a marker!", genericDescription: "Draw a colorful art tool!", emoji: "🖊"),
         Task(category: .drawing, object: "Matches", commandPhrase: "some matches!", genericDescription: "Draw old-fashioned firestarters", emoji: "🔥"),
