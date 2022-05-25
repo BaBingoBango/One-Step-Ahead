@@ -14,6 +14,7 @@ import GameKit
 struct GameCenterMatchmakerView: UIViewControllerRepresentable {
     
     // MARK: View Variables
+    @Binding var isShowingVersusGameSequence: Bool
     var matchRequest: GKMatchRequest
     
     // MARK: View Controller Generator
@@ -64,6 +65,14 @@ struct GameCenterMatchmakerView: UIViewControllerRepresentable {
             
             // Dismiss the view controller
             matchmakerController.dismiss(animated: true)
+        }
+        
+        func matchmakerViewController(_ matchmakerController: GKMatchmakerViewController, didFind match: GKMatch) {
+            // Dismiss the view controller
+            matchmakerController.dismiss(animated: true)
+            
+            // Present the Versus game sequence
+            parent.isShowingVersusGameSequence = true
         }
     }
     

@@ -20,8 +20,8 @@ struct NewVersusGameMenuView: View {
     @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = false
     /// The game state object for the game this view will launch.
     @State var game: GameState = GameState()
-    /// Whether or not the game sequence is being presented as a full screen modal.
-    @State var isShowingGameSequence = false
+    /// Whether or not the Versus game sequence is being presented as a full screen modal.
+    @State var isShowingVersusGameSequence = false
     /// The match request object to send to the Game Center matchmaker view. If it is `nil`, the Onwards! button has not been tapped yet.
     @State var matchRequest = GKMatchRequest()
     /// Whether or not the matchmaker view is being presented as a full screen modal.
@@ -122,54 +122,10 @@ struct NewVersusGameMenuView: View {
                 }
                 .padding(.top)
                 
-                VStack {
-                    HStack(alignment: .center) {
-                        VStack {
-                            Text("Maximum Players")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding(.leading, 100)
-                            
-                            ZStack {
-                                HStack {
-                                    Button(action: {}) { IconButtonView() }
-                                    Button(action: {}) { IconButtonView() }
-                                    Button(action: {}) { IconButtonView() }
-                                    Button(action: {}) { IconButtonView() }
-                                }
-                                .hidden()
-                                
-                                HStack {
-                                    HStack(spacing: 0) {
-                                        Image(systemName: "person.fill")
-                                            .font(.system(size: 60))
-                                        
-                                        Text(String(game.versusGame.maxPlayers))
-                                            .fontWeight(.bold)
-                                            .font(.system(size: 40))
-                                    }
-                                    
-                                    Stepper(value: $game.versusGame.maxPlayers, in: 2...16) {}
-                                        .fixedSize()
-                                }
-                            }
-                            .padding(.leading, 100)
-                        }
-                        
-                        Text("Limit the maximum amount of players that can participate in your Versus match.")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .frame(width: 350)
-                            .padding(.horizontal, 100)
-                            .padding(.bottom, 5)
-                    }
-                }
-                .padding(.top)
-                
                 Button(action: {
                     // Update the match request object
                     matchRequest.minPlayers = 2
-                    matchRequest.maxPlayers = game.versusGame.maxPlayers
+                    matchRequest.maxPlayers = 2
                     
                     // Present the matchmaker view
                     isShowingMatchmaker = true
@@ -182,12 +138,15 @@ struct NewVersusGameMenuView: View {
                         .padding(.top, 50)
                 }
                 .fullScreenCover(isPresented: $isShowingMatchmaker) {
-                    GameCenterMatchmakerView(matchRequest: matchRequest)
+                    GameCenterMatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, matchRequest: matchRequest)
                         .edgesIgnoringSafeArea(.all)
+                }
+                .fullScreenCover(isPresented: $isShowingVersusGameSequence) {
+                    GameView(isShowingGameSequence: $isShowingVersusGameSequence, game: game, commandText: game.defaultCommandText)
                 }
             }
         }
-        .onChange(of: isShowingGameSequence) { newValue in
+        .onChange(of: isShowingVersusGameSequence) { newValue in
             if newValue == false {
                 // Reset the current game state
                 resetGameState()
