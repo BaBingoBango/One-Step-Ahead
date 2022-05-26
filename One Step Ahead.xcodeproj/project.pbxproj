@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */; };
 		AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */; };
+		AA6835D9283F386A0024B859 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835D8283F386A0024B859 /* SeededGenerator.swift */; };
+		AA6835DB283F3C630024B859 /* MatchRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835DA283F3C630024B859 /* MatchRules.swift */; };
+		AA6835DD283F3CE20024B859 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835DC283F3CE20024B859 /* GameMode.swift */; };
+		AA6835DF283F3CE70024B859 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835DE283F3CE70024B859 /* Difficulty.swift */; };
 		AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */; };
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* GameCenterMatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* GameCenterMatchmakerView.swift */; };
@@ -91,6 +95,10 @@
 /* Begin PBXFileReference section */
 		AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge II.mlmodelc"; sourceTree = "<group>"; };
 		AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Drawing Judge.mlmodelc"; sourceTree = "<group>"; };
+		AA6835D8283F386A0024B859 /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
+		AA6835DA283F3C630024B859 /* MatchRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRules.swift; sourceTree = "<group>"; };
+		AA6835DC283F3CE20024B859 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		AA6835DE283F3CE70024B859 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameState.swift; sourceTree = "<group>"; };
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* GameCenterMatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterMatchmakerView.swift; sourceTree = "<group>"; };
@@ -183,6 +191,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA6835E0283F3CEB0024B859 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				AA6835DC283F3CE20024B859 /* GameMode.swift */,
+				AA6835DE283F3CE70024B859 /* Difficulty.swift */,
+			);
+			path = Enumerations;
+			sourceTree = "<group>";
+		};
 		AA82CEFF283B208F003FC070 /* Versus Game Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +310,7 @@
 				AAF0A6642832F9DF00E84330 /* ImageServices.swift */,
 				AAF0A6652832F9DF00E84330 /* MathServices.swift */,
 				AAF0A6662832F9DF00E84330 /* AudioServices.swift */,
+				AA6835D8283F386A0024B859 /* SeededGenerator.swift */,
 			);
 			path = "Data Helpers";
 			sourceTree = "<group>";
@@ -339,10 +357,12 @@
 		AAF0A68A2832F9E200E84330 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AA6835E0283F3CEB0024B859 /* Enumerations */,
 				AAF0A68B2832F9E200E84330 /* Tip.swift */,
 				AAF0A68C2832F9E200E84330 /* GameState.swift */,
 				AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */,
 				AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */,
+				AA6835DA283F3C630024B859 /* MatchRules.swift */,
 				AAF0A68D2832F9E200E84330 /* Task.swift */,
 				AAC000E5283731C400C89FCE /* UserTaskRecords.swift */,
 			);
@@ -545,6 +565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF0A67D2832F9DF00E84330 /* RotatingSquare.swift in Sources */,
+				AA6835D9283F386A0024B859 /* SeededGenerator.swift in Sources */,
 				AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */,
 				AAF0A6792832F9DF00E84330 /* ColorServices.swift in Sources */,
 				AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */,
@@ -562,6 +583,7 @@
 				AAF5228E2839CFA70027E95B /* NewVersusGameMenuView.swift in Sources */,
 				AAF0A6B42832F9F900E84330 /* TitleScreenView.swift in Sources */,
 				AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */,
+				AA6835DB283F3C630024B859 /* MatchRules.swift in Sources */,
 				AAF0A6B72832F9F900E84330 /* TutorialGameView.swift in Sources */,
 				AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */,
 				AAF0A6902832F9E200E84330 /* Task.swift in Sources */,
@@ -574,6 +596,7 @@
 				AACF8B1E2839627D00D9025C /* SettingsView.swift in Sources */,
 				AAC97EEC283ED23E00FEB54B /* VersusGameView.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
+				AA6835DF283F3CE70024B859 /* Difficulty.swift in Sources */,
 				AACF8B272839B98200D9025C /* GameCenterDashboardView.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,
 				AAF0A6B82832F9F900E84330 /* TutorialGameEndView.swift in Sources */,
@@ -582,6 +605,7 @@
 				AAF0A6B52832F9F900E84330 /* NewGameMenuView.swift in Sources */,
 				AAF0A69D2832F9EA00E84330 /* MyApp.swift in Sources */,
 				AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */,
+				AA6835DD283F3CE20024B859 /* GameMode.swift in Sources */,
 				AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */,
 				AAF0A6772832F9DF00E84330 /* MLServices.swift in Sources */,
 				AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */,

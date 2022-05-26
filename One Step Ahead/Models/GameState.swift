@@ -82,22 +82,6 @@ struct GameState {
         }
     }
     
-    // MARK: - Enumerations
-    /// The possible modes for a game; they describe the level of hints the player should receive.
-    enum GameMode {
-        case flyingBlind
-        case cluedIn
-        case batch
-        case demystify
-    }
-    /// The possible difficulties of a game: easy, normal, or hard.
-    enum Difficulty {
-        case easy
-        case normal
-        case hard
-        case lunatic
-    }
-    
     // MARK: - Functions
     /// Gets the appropriate default command text for the current game.
     func getDefaultCommandText() -> String {

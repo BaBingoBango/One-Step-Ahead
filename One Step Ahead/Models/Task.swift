@@ -9,7 +9,7 @@ import Foundation
 import CoreML
 
 /// In the context of a game, the action the player must take to score points.
-struct Task: Equatable {
+struct Task: Equatable, Codable {
     
     // Variables
     /// The action the player must perform during a game.
@@ -22,8 +22,6 @@ struct Task: Equatable {
     var genericDescription: String
     /// An emoji which represents this task's object.
     var emoji: String
-    /// The Core ML model trained to assign scores to object task attempts.
-    var judgeModel: MLModel = MLModel()
     
     // Computed Properties
     /// An English phrase prompting the user to complete the task.
@@ -43,7 +41,7 @@ struct Task: Equatable {
     
     // Enumerations
     /// The possible categories of tasks: drawing, speech, and hand poses.
-    enum TaskCategory {
+    enum TaskCategory: Codable {
         case drawing
         case speech
         case handPoses

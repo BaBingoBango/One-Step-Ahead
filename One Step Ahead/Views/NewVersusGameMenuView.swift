@@ -140,7 +140,7 @@ struct NewVersusGameMenuView: View {
                         .padding(.top, 50)
                 }
                 .fullScreenCover(isPresented: $isShowingMatchmaker) {
-                    GameCenterMatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, match: $match, matchRequest: matchRequest)
+                    GameCenterMatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, match: $match, game: $game, matchRequest: matchRequest)
                         .edgesIgnoringSafeArea(.all)
                 }
                 .fullScreenCover(isPresented: $isShowingVersusGameSequence) {
