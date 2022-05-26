@@ -75,6 +75,9 @@ struct GameCenterMatchmakerView: UIViewControllerRepresentable {
             // Set up the GKMatch object
             parent.match = match
             
+            // Execute a three second delay
+            sleep(3)
+            
             // Present the Versus game sequence
             parent.isShowingVersusGameSequence = true
         }

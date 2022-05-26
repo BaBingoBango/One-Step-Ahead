@@ -144,7 +144,7 @@ struct NewVersusGameMenuView: View {
                         .edgesIgnoringSafeArea(.all)
                 }
                 .fullScreenCover(isPresented: $isShowingVersusGameSequence) {
-                    VersusGameView(isShowingGameSequence: $isShowingVersusGameSequence, game: game, commandText: game.defaultCommandText, match: $match)
+                    VersusGameView(isShowingGameSequence: $isShowingVersusGameSequence, match: match, game: game, commandText: game.defaultCommandText)
                 }
             }
         }

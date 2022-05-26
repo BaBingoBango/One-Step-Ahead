@@ -23,7 +23,7 @@ struct VersusGameView: View {
     @Binding var isShowingGameSequence: Bool
     
     /// The `GKMatch` object for the current Versus match.
-    @Binding var match: GKMatch
+    @State var match: GKMatch
     /// The local player's avatar.
     @State var localPlayerAvatar: UIImage? = nil
     /// The opponents' avatars by their display names.
@@ -106,11 +106,11 @@ struct VersusGameView: View {
                                         ProgressView()
                                     }
                                     .frame(width: 40, height: 40)
-                                    
-                                    Text("You")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
                                 }
+                                
+                                Text("You")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
                                 
                                 Spacer()
                                 
@@ -472,7 +472,7 @@ struct VersusGameView: View {
 
 struct VersusGameView_Previews: PreviewProvider {
     static var previews: some View {
-        VersusGameView(isShowingGameSequence: .constant(true), commandText: "Preview!")
+        VersusGameView(isShowingGameSequence: .constant(true), match: GKMatch(), commandText: "Preview!")
             .previewInterfaceOrientation(.landscapeRight)
     }
 }
