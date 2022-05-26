@@ -11,7 +11,7 @@ import UIKit
 import GameKit
 
 /// A SwiftUI view for displaying the Game Center matchmaker via a modal.
-struct GameCenterMatchmakerView: UIViewControllerRepresentable {
+struct MatchmakerView: UIViewControllerRepresentable {
     
     // MARK: View Variables
     @Binding var isShowingVersusGameSequence: Bool
@@ -43,16 +43,40 @@ struct GameCenterMatchmakerView: UIViewControllerRepresentable {
     }
     
     // MARK: Coordinator Class
-    class Coordinator: NSObject, GKMatchmakerViewControllerDelegate, GKLocalPlayerListener, UINavigationControllerDelegate {
-        var parent: GameCenterMatchmakerView
+    class Coordinator: NSObject, GKMatchmakerViewControllerDelegate, GKLocalPlayerListener, GKMatchDelegate, UINavigationControllerDelegate {
+        var parent: MatchmakerView
         
-        init(_ matchmakerController: GameCenterMatchmakerView) {
+        init(_ matchmakerController: MatchmakerView) {
             // Perform the instantiation
             self.parent = matchmakerController
             super.init()
             
             // Register for GKLocalPlayerListener callbacks
             GKLocalPlayer.local.register(self)
+        }
+        
+        // MARK: Match Delegate Functions
+        func match(_ match: GKMatch, player: GKPlayer, didChange state: GKPlayerConnectionState) {
+            print("[Match Player Connection State Change]")
+            switch state {
+            case .unknown:
+                print("\(player.displayName) did something unknown.")
+            case .connected:
+                print("\(player.displayName) connected!")
+            case .disconnected:
+                print("\(player.displayName) disconnected.")
+            @unknown default:
+                print("\(player.displayName) exists in an unknown player connection state!")
+            }
+        }
+        
+        func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
+            print("[Match Data Received From \(player.displayName)]")
+        }
+        
+        func match(_ match: GKMatch, shouldReinviteDisconnectedPlayer player: GKPlayer) -> Bool {
+            // Sets the match to not allow reinvitations after a disconnect
+            return false
         }
         
         // MARK: Matchmaker Delegate Functions
@@ -74,34 +98,43 @@ struct GameCenterMatchmakerView: UIViewControllerRepresentable {
             matchmakerController.dismiss(animated: true)
             
             // Set up the GKMatch object
+            match.delegate = self
             parent.match = match
+            parent.match.delegate = self
             
-            // Create an sorted list of players by ID
-            var playerList = match.players
-            playerList.append(GKLocalPlayer.local)
-            playerList.sort(by: { $0.teamPlayerID > $1.teamPlayerID })
+            // Create an sorted list of players by ID, with "" representing the local player
+            // FIXME: Change this to sort by display name instead of player ID
+            var playerIDList: [String] = []
+            playerIDList.append("")
+            for eachOpponent in match.players {
+                playerIDList.append(eachOpponent.gamePlayerID)
+            }
+            playerIDList.sort(by: { $0 > $1 })
             
             // Using seed 925, choose a random player to get the rules from
             var seededGenerator = SeededGenerator(seed: 925)
-            let randomIndex = Int.random(in: 0...(playerList.count - 1), using: &seededGenerator)
+            let randomIndex = Int.random(in: 0...(playerIDList.count - 1), using: &seededGenerator)
             
             // If the user is chosen, transmit the rules to everyone else
-            if playerList[randomIndex].gamePlayerID == GKLocalPlayer.local.teamPlayerID {
+            print("Comparing the selected ID \(playerIDList[randomIndex]) to the empty string; result = \(playerIDList[randomIndex] == "")")
+            if playerIDList[randomIndex] == "" {
                 // Prepare the data
                 let matchRules = MatchRules(task: parent.game.task, gameMode: parent.game.gameMode, difficulty: parent.game.difficulty, defaultCommandText: parent.game.defaultCommandText)
                 let rulesData = try! JSONSerialization.data(withJSONObject: matchRules, options: .prettyPrinted)
                 
                 // Transmit the data
+                print("[Rules Data Transmission]")
                 do {
                     try match.sendData(toAllPlayers: rulesData, with: .reliable)
+                    print("Data succesfully sent!")
                 } catch {
                     // FIXME: Handle rules transmission error
+                    print("Data failed to send.")
                 }
             } else {
                 // If the user is not chosen, set the GameState object to a template state to await receipt of rules data
                 parent.game.task = Task(category: .drawing, object: "", commandPhrase: "something!", genericDescription: "Waiting for rules transmission...", emoji: "")
             }
-            // FIXME: Receive rules data https://stackoverflow.com/questions/57281389/implement-delegates-within-swiftui-views
             
             // Execute a three second delay
             sleep(3)
