@@ -104,20 +104,19 @@ struct MatchmakerView: UIViewControllerRepresentable {
             
             // Create an sorted list of players by ID, with "" representing the local player
             // FIXME: Change this to sort by display name instead of player ID
-            var playerIDList: [String] = []
-            playerIDList.append("")
+            var playerNameList: [String] = []
+            playerNameList.append(GKLocalPlayer.local.displayName)
             for eachOpponent in match.players {
-                playerIDList.append(eachOpponent.gamePlayerID)
+                playerNameList.append(eachOpponent.displayName)
             }
-            playerIDList.sort(by: { $0 > $1 })
+            playerNameList.sort(by: { $0 > $1 })
             
             // Using seed 925, choose a random player to get the rules from
             var seededGenerator = SeededGenerator(seed: 925)
-            let randomIndex = Int.random(in: 0...(playerIDList.count - 1), using: &seededGenerator)
+            let randomIndex = Int.random(in: 0...(playerNameList.count - 1), using: &seededGenerator)
             
             // If the user is chosen, transmit the rules to everyone else
-            print("Comparing the selected ID \(playerIDList[randomIndex]) to the empty string; result = \(playerIDList[randomIndex] == "")")
-            if playerIDList[randomIndex] == "" {
+            if playerNameList[randomIndex] == "" {
                 // Prepare the data
                 let matchRules = MatchRules(task: parent.game.task, gameMode: parent.game.gameMode, difficulty: parent.game.difficulty, defaultCommandText: parent.game.defaultCommandText)
                 let rulesData = try! JSONSerialization.data(withJSONObject: matchRules, options: .prettyPrinted)
