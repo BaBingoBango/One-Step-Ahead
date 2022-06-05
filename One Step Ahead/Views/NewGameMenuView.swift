@@ -18,7 +18,7 @@ struct NewGameMenuView: View {
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
     /// Whether or not the user has enabled Unlock Assist. This value is persisted inside UserDefaults.
-    @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = false
+    @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = true
     /// The game state object for the game this view will launch.
     @State var game: GameState = GameState()
     /// Whether or not the game sequence is being presented as a full screen modal.

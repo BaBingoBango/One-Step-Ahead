@@ -34,24 +34,35 @@ struct RotatingSquare: View {
                 ))
                 .aspectRatio(1.0, contentMode: .fit)
                 .rotationEffect(.degrees(rotationDegrees))
+                .overlay(
+                    VStack(spacing: 0) {
+                        if iconName != nil {
+                            Image(systemName: iconName!)
+                                .foregroundColor(.white)
+                                .font(.largeTitle)
+                                .offset(y: -10)
+                        }
+                        
+                        if imageAssetName == nil {
+                            Text(text)
+                                .foregroundColor(.white)
+                                .font(.largeTitle)
+                                .fontWeight(.heavy)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.01)
+                                .padding(5)
+                        }
+                    }
+                )
             
             if imageAssetName == nil {
-                VStack {
-                    if iconName != nil {
-                        Image(systemName: iconName!)
-                            .foregroundColor(.white)
-                            .font(.largeTitle)
-                            .offset(y: -10)
-                    }
-                    
-                    Text(text)
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .multilineTextAlignment(.center)
-                        .minimumScaleFactor(0.1)
-                        .lineLimit(1)
-                }
+//                if iconName != nil {
+//                    Image(systemName: iconName!)
+//                        .foregroundColor(.white)
+//                        .font(.largeTitle)
+//                        .offset(y: -10)
+//                }
             } else {
                 Image(imageAssetName!)
                     .resizable()
@@ -80,6 +91,6 @@ struct RotatingSquare: View {
 
 struct RotatingRectangle_Previews: PreviewProvider {
     static var previews: some View {
-        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW\nGAME")
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
     }
 }

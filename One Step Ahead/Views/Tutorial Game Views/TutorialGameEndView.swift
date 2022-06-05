@@ -211,6 +211,12 @@ struct TutorialGameEndView: View {
             speakerColor2 = .yellow
             
         case 7:
+            // Award tutorial achievements
+            reportAchievementProgress("First_Step_Ahead")
+            if hasFinishedTutorial {
+                reportAchievementProgress("Back_to_Basics")
+            }
+            
             // End the tutorial sequence and return to the main menu
             playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
             hasFinishedTutorial = true

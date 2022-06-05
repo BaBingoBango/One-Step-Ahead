@@ -14,7 +14,7 @@ struct SettingsView: View {
     /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the user has enabled Unlock Assist. This value is persisted inside UserDefaults.
-    @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = false
+    @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = true
     /// Whether or not the view has triggered the Game Center authentication process.
     @State var shouldAuthenticateWithGameCenter = false
     
@@ -28,6 +28,12 @@ struct SettingsView: View {
                 Form {
                     Section(header: Text("Gallery"), footer: Text("Unlock Assist helps you make progress on the Gallery by forcing all new games to use drawings you haven't unlocked yet.")) {
                         Toggle("Unlock Assist", isOn: $isUnlockAssistOn)
+                            .onChange(of: isUnlockAssistOn) { newValue in
+                                // If the toggle is disabled, grant an achievement
+                                if newValue == false {
+                                    reportAchievementProgress("Look_Mom_No_Hands")
+                                }
+                            }
                     }
                     
                     if GKLocalPlayer.local.isAuthenticated {

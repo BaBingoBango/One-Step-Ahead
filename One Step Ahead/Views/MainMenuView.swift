@@ -30,7 +30,7 @@ struct MainMenuView: View {
     @State var tip = Tip.tipList.randomElement()!
     
     /// The amount of padding for each of the larger menu buttons.
-    var bigSquarePadding = 70.0
+    var bigSquarePadding = 100.0
     /// The amount of padding for each of the smaller menu buttons.
     var smallSquarePadding = 80.0
     
@@ -49,20 +49,21 @@ struct MainMenuView: View {
                             isShowingTutorialSequence = true
                         }) {
                             RotatingSquare(direction: .clockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
-                                .padding(smallSquarePadding)
+//                                .padding(smallSquarePadding)
                         }
                         .fullScreenCover(isPresented: $isShowingTutorialSequence) {
                             BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
                         }
                         
-                        Spacer()
+                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            .hidden()
                         
                         if GKLocalPlayer.local.isAuthenticated {
                             Button(action: {
                                 isShowingGameCenterDashboard = true
                             }) {
                                 RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GAME CENTER", imageAssetName: "Game Center Logo")
-                                    .padding(smallSquarePadding)
+//                                    .padding(smallSquarePadding)
                             }
                             .fullScreenCover(isPresented: $isShowingGameCenterDashboard) {
                                 GameCenterDashboardView()
@@ -74,13 +75,13 @@ struct MainMenuView: View {
                             }) {
                                 ZStack {
                                     RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GAME CENTER", imageAssetName: "Game Center Logo")
-                                        .padding(smallSquarePadding)
+//                                        .padding(smallSquarePadding)
                                     
                                     Image("Black And White Game Center Logo")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .opacity(0.7)
-                                        .padding(smallSquarePadding)
+//                                        .padding(smallSquarePadding)
                                         .padding()
                                         .padding()
                                 }
@@ -93,19 +94,41 @@ struct MainMenuView: View {
                     
                     Spacer()
                     
-                    if hasFinishedTutorial {
-                        NavigationLink(destination: NewGameMenuView()) {
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
-                                .padding(bigSquarePadding)
+                    HStack {
+                        VStack {
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
                         }
-                        .padding(.top, 150)
-                    } else {
-                        RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "NEW GAME", iconName: "lock.fill")
-                            .padding(bigSquarePadding)
+                            .hidden()
+                        
+                        if hasFinishedTutorial {
+                            NavigationLink(destination: NewGameMenuView()) {
+                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+    //                                .padding(bigSquarePadding)
+                                    .padding()
+                                    .padding()
+                            }
                             .padding(.top, 150)
+                        } else {
+                            RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "NEW GAME", iconName: "lock.fill")
+    //                            .padding(bigSquarePadding)
+                                .padding()
+                                .padding()
+                                .padding(.top, 150)
+                        }
+                        
+                        VStack {
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                        }
+                            .hidden()
                     }
-                    
-                    Spacer()
                     
                     if isShowingVersus {
                         Rectangle()
@@ -116,7 +139,7 @@ struct MainMenuView: View {
                             if GKLocalPlayer.local.isAuthenticated {
                                 NavigationLink(destination: NewVersusGameMenuView()) {
                                     RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
-                                        .padding(bigSquarePadding)
+//                                        .padding(bigSquarePadding)
                                 }
                                 .padding(.top, 110)
                             } else {
@@ -124,7 +147,7 @@ struct MainMenuView: View {
                                     isShowingGameCenterInfoView = true
                                 }) {
                                     RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
-                                        .padding(bigSquarePadding)
+//                                        .padding(bigSquarePadding)
                                 }
                                 .sheet(isPresented: $isShowingGameCenterInfoView) {
                                     GameCenterInfoView(isShowingVersus: $isShowingVersus)
@@ -133,7 +156,7 @@ struct MainMenuView: View {
                             }
                         } else {
                             RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "VERSUS", iconName: "lock.fill")
-                                .padding(bigSquarePadding)
+//                                .padding(bigSquarePadding)
                             .padding(.top, 110)
                         }
                     }
@@ -144,20 +167,21 @@ struct MainMenuView: View {
                         if hasFinishedTutorial {
                             NavigationLink(destination: GalleryView()) {
                                 RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY")
-                                    .padding(smallSquarePadding)
+//                                    .padding(smallSquarePadding)
                             }
                         } else {
                             RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GALLERY", iconName: "lock.fill")
-                                .padding(smallSquarePadding)
+//                                .padding(smallSquarePadding)
                         }
                         
-                        Spacer()
+                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            .hidden()
                         
                         Button(action: {
                             isShowingSettings = true
                         }) {
                             RotatingSquare(direction: .clockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS")
-                                .padding(smallSquarePadding)
+//                                .padding(smallSquarePadding)
                         }
                         .sheet(isPresented: $isShowingSettings) {
                             SettingsView()
@@ -166,6 +190,11 @@ struct MainMenuView: View {
                     
                     Spacer()
                 }
+                .padding(.horizontal)
+                .padding(.horizontal)
+                .padding(.horizontal)
+                .padding(.vertical)
+                .padding(.vertical)
                 
                 Spacer()
                 

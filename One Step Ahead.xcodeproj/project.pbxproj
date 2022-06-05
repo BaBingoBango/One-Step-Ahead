@@ -17,6 +17,7 @@
 		AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */; };
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
+		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
 		AAC000DF28371D3A00C89FCE /* Gallery View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */; };
@@ -104,6 +105,7 @@
 		AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameState.swift; sourceTree = "<group>"; };
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
+		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				AAF0A6652832F9DF00E84330 /* MathServices.swift */,
 				AAF0A6662832F9DF00E84330 /* AudioServices.swift */,
 				AA6835D8283F386A0024B859 /* SeededGenerator.swift */,
+				AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */,
 			);
 			path = "Data Helpers";
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				AACF8B272839B98200D9025C /* GameCenterDashboardView.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,
 				AAF0A6B82832F9F900E84330 /* TutorialGameEndView.swift in Sources */,
+				AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */,
 				AAF0A6782832F9DF00E84330 /* DiskServices.swift in Sources */,
 				AA1ADF09283FF5B500D13D92 /* MatchDelegateView.swift in Sources */,
 				AAF0A68E2832F9E200E84330 /* Tip.swift in Sources */,

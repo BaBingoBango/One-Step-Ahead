@@ -444,6 +444,10 @@ struct VersusGameView: View {
             if !userTaskRecords.records.keys.contains(game.task.object) {
                 // If the task is locked, unlock it
                 userTaskRecords.records[game.task.object] = ["timesPlayed" : 0, "highScore" : 0]
+                
+                // Grant Gallery unlock-based achievements
+                reportAchievementProgress("Art_Aficionado", progress: 1.0 / Double(Task.taskList.count) * 100.0 * 2)
+                reportAchievementProgress("Museum_Curator", progress: 1.0 / Double(Task.taskList.count) * 100.0)
             }
             userTaskRecords.records[game.task.object]!["timesPlayed"]! += 1
             userTaskRecords.records[game.task.object]!["highScore"] = game.gameScore

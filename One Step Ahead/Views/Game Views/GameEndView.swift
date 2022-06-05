@@ -157,6 +157,26 @@ struct GameEndView: View {
                 playAudioOnce(fileName: winner == .player ? "Victory Jingle" : "Defeat Jingle", type: "mp3")
                 hasPlayedJingle = true
             }
+            
+            // Award game-end achievements
+            if winner == .player && game.difficulty == .easy && game.gameMode == .demystify {
+                reportAchievementProgress("A_Minor_Test_of_Strength")
+            }
+            if winner == .player && game.difficulty == .lunatic && game.gameMode == .flyingBlind {
+                reportAchievementProgress("A_Major_Test_of_Strength")
+            }
+            if winner == .player && game.currentRound == 1 {
+                reportAchievementProgress("Formula_Won")
+            }
+            if winner == .AI && game.currentRound == 1 {
+                reportAchievementProgress("Formula_Lost")
+            }
+            if game.currentRound >= 10 {
+                reportAchievementProgress("The_Long_Haul")
+            }
+            if game.currentRound >= 20 {
+                reportAchievementProgress("The_Really_Long_Haul")
+            }
         }
         
         // MARK: Navigation Bar Settings

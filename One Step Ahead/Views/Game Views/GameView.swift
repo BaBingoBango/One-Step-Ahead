@@ -390,17 +390,34 @@ struct GameView: View {
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
         let newAIscore = 50.0
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
+        
+        // Award drawing score-based achievements
+        if game.playerScores.last! == 0.0 {
+            reportAchievementProgress("Definitely_Not_Right")
+        }
+        if game.playerScores.last! == 100.0 {
+            reportAchievementProgress("Beyond_a_Reasonable_Doubt")
+        }
+        if game.AIscores.last! == 0.0 {
+            reportAchievementProgress("Skynet_Online")
+        }
+        if game.AIscores.last! == 100.0 {
+            reportAchievementProgress("Runtime_Error")
+        }
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
     func finishRound() {
         // Check if a winner exists
         if game.playerScores.last! > Double(game.playerWinThreshold) || game.AIscores.last! > Double(game.AIwinThreshold) {
             // If one does, the game is over!
-            
             // Record the task and player score to the user's save data
             if !userTaskRecords.records.keys.contains(game.task.object) {
                 // If the task is locked, unlock it
                 userTaskRecords.records[game.task.object] = ["timesPlayed" : 0, "highScore" : 0]
+                
+                // Grant Gallery unlock-based achievements
+                reportAchievementProgress("Art_Aficionado", progress: 1.0 / Double(Task.taskList.count) * 100.0 * 2)
+                reportAchievementProgress("Museum_Curator", progress: 1.0 / Double(Task.taskList.count) * 100.0)
             }
             userTaskRecords.records[game.task.object]!["timesPlayed"]! += 1
             userTaskRecords.records[game.task.object]!["highScore"] = game.gameScore

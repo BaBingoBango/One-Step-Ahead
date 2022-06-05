@@ -263,6 +263,14 @@ struct PracticeView: View {
         
         // Reset the elapsed time
         elapsedTime = 0.0
+        
+        // Award practice mode drawing score-based achievements
+        if currentPlayerScore == 0.0 {
+            reportAchievementProgress("Practice_Makes_Imperfect")
+        }
+        if currentPlayerScore == 100.0 {
+            reportAchievementProgress("Practice_Makes_Perfect")
+        }
     }
     
 }

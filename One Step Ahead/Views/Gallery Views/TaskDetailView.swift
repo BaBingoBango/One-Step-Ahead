@@ -82,6 +82,10 @@ struct TaskDetailView: View {
                 
                 HStack {
                     Button(action: {
+                        // Award the Enter The Dojo achievement
+                        reportAchievementProgress("Enter_The_Dojo")
+                        
+                        // Show the practice view
                         isShowingPracticeView = true
                     }) {
                         HStack {
@@ -103,6 +107,9 @@ struct TaskDetailView: View {
                     Button(action: {
                         // Set the Gallery View's state variable
                         taskToPresent = task
+                        
+                        // Award the Interactive Exhibit achievement
+                        reportAchievementProgress("Interactive_Art")
                         
                         // Dismiss this modal
                         self.presentationMode.wrappedValue.dismiss()
