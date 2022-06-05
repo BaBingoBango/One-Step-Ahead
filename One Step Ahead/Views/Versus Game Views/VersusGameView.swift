@@ -23,7 +23,7 @@ struct VersusGameView: View {
     @Binding var isShowingGameSequence: Bool
     
     /// The `GKMatch` object for the current Versus match.
-    @State var match: GKMatch
+    @Binding var match: GKMatch
     /// The local player's avatar.
     @State var localPlayerAvatar: UIImage? = nil
     /// The opponents' avatars by their display names.
@@ -54,6 +54,8 @@ struct VersusGameView: View {
     @State var allDrawings: [PKDrawing] = []
     /// Whether or not a canvas undo operation is currently taking place.
     @State var isDeletingDrawing = false
+    /// The UIKit view object for the opponent's drawing canvas.
+    @Binding var opponentCanvasView: PKCanvasView
     
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.
@@ -152,7 +154,15 @@ struct VersusGameView: View {
                                     }
                                     
                                     // When the canvas is changed, send the drawing to all other players
-                                    // ??????
+                                    let drawingData = try! JSONEncoder().encode(canvasView.drawing)
+                                    print("[Drawing Data Transmission]")
+                                    do {
+                                        try match.sendData(toAllPlayers: drawingData, with: .reliable)
+                                        print("Data succesfully sent!")
+                                    } catch {
+                                        // FIXME: Handle rules transmission error
+                                        print("Data failed to send.")
+                                    }
                                 })
                             }
                             .aspectRatio(1.0, contentMode: .fit)
@@ -214,6 +224,9 @@ struct VersusGameView: View {
                             .padding(.bottom, 5)
                             
                             ZStack {
+                                CanvasView(canvasView: $opponentCanvasView, onSaved: {})
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                
                                 Rectangle()
                                     .opacity(0.2)
                                     .aspectRatio(1.0, contentMode: .fit)
@@ -475,7 +488,7 @@ struct VersusGameView: View {
 
 struct VersusGameView_Previews: PreviewProvider {
     static var previews: some View {
-        VersusGameView(isShowingGameSequence: .constant(true), match: GKMatch(), commandText: "Preview!")
+        VersusGameView(isShowingGameSequence: .constant(true), match: .constant(GKMatch()), commandText: "Preview!", opponentCanvasView: .constant(PKCanvasView()))
             .previewInterfaceOrientation(.landscapeRight)
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 import SpriteKit
 import GameKit
+import PencilKit
 
 struct NewVersusGameMenuView: View {
     
@@ -22,6 +23,8 @@ struct NewVersusGameMenuView: View {
     @State var game: GameState = GameState()
     /// The `GKMatch` object for the Versus match this view will launch.
     @State var match: GKMatch = GKMatch()
+    /// The UIKit view object for the opponent's drawing canvas.
+    @State var opponentCanvasView = PKCanvasView()
     /// Whether or not the Versus game sequence is being presented as a full screen modal.
     @State var isShowingVersusGameSequence = false
     /// The match request object to send to the Game Center matchmaker view. If it is `nil`, the Onwards! button has not been tapped yet.
@@ -140,11 +143,11 @@ struct NewVersusGameMenuView: View {
                         .padding(.top, 50)
                 }
                 .fullScreenCover(isPresented: $isShowingMatchmaker) {
-                    MatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, match: $match, game: $game, matchRequest: matchRequest)
+                    MatchmakerView(isShowingVersusGameSequence: $isShowingVersusGameSequence, match: $match, game: $game, opponentCanvasView: $opponentCanvasView, matchRequest: matchRequest)
                         .edgesIgnoringSafeArea(.all)
                 }
                 .fullScreenCover(isPresented: $isShowingVersusGameSequence) {
-                    VersusGameView(isShowingGameSequence: $isShowingVersusGameSequence, match: match, game: game, commandText: game.defaultCommandText)
+                    VersusGameView(isShowingGameSequence: $isShowingVersusGameSequence, match: $match, game: game, commandText: game.defaultCommandText, opponentCanvasView: $opponentCanvasView)
                 }
             }
         }

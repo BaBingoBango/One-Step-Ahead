@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import UIKit
 import GameKit
+import PencilKit
 
 /// A SwiftUI view for displaying the Game Center matchmaker via a modal.
 struct MatchmakerView: UIViewControllerRepresentable {
@@ -17,6 +18,7 @@ struct MatchmakerView: UIViewControllerRepresentable {
     @Binding var isShowingVersusGameSequence: Bool
     @Binding var match: GKMatch
     @Binding var game: GameState
+    @Binding var opponentCanvasView: PKCanvasView
     var matchRequest: GKMatchRequest
     
     // MARK: View Controller Generator
@@ -73,9 +75,10 @@ struct MatchmakerView: UIViewControllerRepresentable {
         func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
             print("[Match Data Received From \(player.displayName)]")
             
+            // Attempt to decode the data as a set of match rules
             do {
-                // Attempt to decode the match data as a set of match rules
                 let rulesData = try JSONDecoder().decode(MatchRules.self, from: data)
+                print("The data was decoded as a set of rules!")
                 
                 // If successful, set the user's rules to match the received ones
                 parent.game.task = rulesData.task
@@ -83,8 +86,18 @@ struct MatchmakerView: UIViewControllerRepresentable {
                 parent.game.difficulty = rulesData.difficulty
                 parent.game.defaultCommandText = rulesData.defaultCommandText
             } catch {
-                print("[Match Data Decode Error]")
-                print(error.localizedDescription)
+                print("The data couldn't be decoded as a set of rules.")
+            }
+            
+            // Attempt to decode the data as a canvas drawing
+            do {
+                let drawingData = try JSONDecoder().decode(PKDrawing.self, from: data)
+                print("The data was decoded as a PencilKit drawing!")
+                
+                // If successful, update the opponent's canvas
+                parent.opponentCanvasView.drawing = drawingData
+            } catch {
+                print("The data couldn't be decoded as a PencilKit drawing.")
             }
         }
         
