@@ -150,6 +150,9 @@ struct VersusGameView: View {
                                     if !isDeletingDrawing {
                                         allDrawings.append(canvasView.drawing)
                                     }
+                                    
+                                    // When the canvas is changed, send the drawing to all other players
+                                    // ??????
                                 })
                             }
                             .aspectRatio(1.0, contentMode: .fit)

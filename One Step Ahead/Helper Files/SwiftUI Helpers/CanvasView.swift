@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import PencilKit
+import GameKit
 
 /// A SwiftUI view for a PencilKit canvas.
 struct CanvasView {

@@ -72,6 +72,20 @@ struct MatchmakerView: UIViewControllerRepresentable {
         
         func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
             print("[Match Data Received From \(player.displayName)]")
+            
+            do {
+                // Attempt to decode the match data as a set of match rules
+                let rulesData = try JSONDecoder().decode(MatchRules.self, from: data)
+                
+                // If successful, set the user's rules to match the received ones
+                parent.game.task = rulesData.task
+                parent.game.gameMode = rulesData.gameMode
+                parent.game.difficulty = rulesData.difficulty
+                parent.game.defaultCommandText = rulesData.defaultCommandText
+            } catch {
+                print("[Match Data Decode Error]")
+                print(error.localizedDescription)
+            }
         }
         
         func match(_ match: GKMatch, shouldReinviteDisconnectedPlayer player: GKPlayer) -> Bool {
@@ -102,8 +116,7 @@ struct MatchmakerView: UIViewControllerRepresentable {
             parent.match = match
             parent.match.delegate = self
             
-            // Create an sorted list of players by ID, with "" representing the local player
-            // FIXME: Change this to sort by display name instead of player ID
+            // Create an sorted list of players by display name
             var playerNameList: [String] = []
             playerNameList.append(GKLocalPlayer.local.displayName)
             for eachOpponent in match.players {
@@ -116,10 +129,10 @@ struct MatchmakerView: UIViewControllerRepresentable {
             let randomIndex = Int.random(in: 0...(playerNameList.count - 1), using: &seededGenerator)
             
             // If the user is chosen, transmit the rules to everyone else
-            if playerNameList[randomIndex] == "" {
+            if playerNameList[randomIndex] == GKLocalPlayer.local.displayName {
                 // Prepare the data
                 let matchRules = MatchRules(task: parent.game.task, gameMode: parent.game.gameMode, difficulty: parent.game.difficulty, defaultCommandText: parent.game.defaultCommandText)
-                let rulesData = try! JSONSerialization.data(withJSONObject: matchRules, options: .prettyPrinted)
+                let rulesData = try! JSONEncoder().encode(matchRules)
                 
                 // Transmit the data
                 print("[Rules Data Transmission]")
