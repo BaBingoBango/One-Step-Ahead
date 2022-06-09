@@ -27,6 +27,36 @@ class One_Step_AheadUITests: XCTestCase {
     func testAppExistence() throws {
         let app = XCUIApplication()
         app.launch()
+        
         XCTAssert(app.exists)
+    }
+    
+    func testTitleScreen() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        if app.buttons["Cancel"].exists {
+            app.buttons["Cancel"].tap()
+        }
+        
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = "Title Screen"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    
+    func testInfoView() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        if app.buttons["Cancel"].exists {
+            app.buttons["Cancel"].tap()
+        }
+        app.buttons["Info"].tap()
+        
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = "Main Menu"
+        attachment.lifetime = .keepAlways
+        add(attachment)
     }
 }
