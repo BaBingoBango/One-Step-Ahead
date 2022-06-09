@@ -14,6 +14,7 @@
 		AA6835DB283F3C630024B859 /* MatchRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835DA283F3C630024B859 /* MatchRules.swift */; };
 		AA6835DD283F3CE20024B859 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835DC283F3CE20024B859 /* GameMode.swift */; };
 		AA6835DF283F3CE70024B859 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6835DE283F3CE70024B859 /* Difficulty.swift */; };
+		AA7061AD285185A900F8A2E5 /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7061AC285185A900F8A2E5 /* SendMailView.swift */; };
 		AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */; };
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
@@ -102,6 +103,7 @@
 		AA6835DA283F3C630024B859 /* MatchRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRules.swift; sourceTree = "<group>"; };
 		AA6835DC283F3CE20024B859 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		AA6835DE283F3CE70024B859 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		AA7061AC285185A900F8A2E5 /* SendMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
 		AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameState.swift; sourceTree = "<group>"; };
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */,
 				AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */,
 				AACF8B262839B98200D9025C /* GameCenterDashboardView.swift */,
+				AA7061AC285185A900F8A2E5 /* SendMailView.swift */,
 			);
 			path = "SwiftUI Helpers";
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */,
 				AAF0A6792832F9DF00E84330 /* ColorServices.swift in Sources */,
 				AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */,
+				AA7061AD285185A900F8A2E5 /* SendMailView.swift in Sources */,
 				AAF0A6B32832F9F900E84330 /* AppInfoView.swift in Sources */,
 				AAF0A6B62832F9F900E84330 /* BackstoryView.swift in Sources */,
 				AAF0A67E2832F9DF00E84330 /* CanvasView.swift in Sources */,

@@ -46,26 +46,26 @@ struct NewGameMenuView: View {
                                     game.gameMode = .demystify
                                     game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
-                                    IconButtonView(imageName: "wand.and.stars.inverse", text: "Demystify", isBlue: game.gameMode == .demystify)
+                                    IconButtonView(color: .green, imageName: "wand.and.stars.inverse", text: "Demystify", isColored: game.gameMode == .demystify)
                                 }
                                 .padding(.leading, 100)
                                 Button(action: {
                                     game.gameMode = .batch
                                     game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
-                                    IconButtonView(imageName: "square.grid.2x2.fill", text: "Batch", isBlue: game.gameMode == .batch)
+                                    IconButtonView(color: .blue, imageName: "square.grid.2x2.fill", text: "Batch", isColored: game.gameMode == .batch)
                                 }
                                 Button(action: {
                                     game.gameMode = .cluedIn
                                     game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
-                                    IconButtonView(imageName: "person.fill.questionmark", text: "Clued In", isBlue: game.gameMode == .cluedIn)
+                                    IconButtonView(color: .orange, imageName: "person.fill.questionmark", text: "Clued In", isColored: game.gameMode == .cluedIn)
                                 }
                                 Button(action: {
                                     game.gameMode = .flyingBlind
                                     game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
-                                    IconButtonView(imageName: "eye.slash.fill", text: "Flying Blind", isBlue: game.gameMode == .flyingBlind)
+                                    IconButtonView(color: .red, imageName: "eye.slash.fill", text: "Flying Blind", isColored: game.gameMode == .flyingBlind)
                                 }
                             }
                         }
@@ -89,23 +89,23 @@ struct NewGameMenuView: View {
                                 Button(action: {
                                     game.difficulty = .easy
                                 }) {
-                                    IconButtonView(imageName: "sun.max.fill", text: "Easy", isBlue: game.difficulty == .easy)
+                                    IconButtonView(color: .green, imageName: "sun.max.fill", text: "Easy", isColored: game.difficulty == .easy)
                                 }
                                 .padding(.leading, 100)
                                 Button(action: {
                                     game.difficulty = .normal
                                 }) {
-                                    IconButtonView(imageName: "leaf.fill", text: "Normal", isBlue: game.difficulty == .normal)
+                                    IconButtonView(color: .blue, imageName: "leaf.fill", text: "Normal", isColored: game.difficulty == .normal)
                                 }
                                 Button(action: {
                                     game.difficulty = .hard
                                 }) {
-                                    IconButtonView(imageName: "bolt.fill", text: "Hard", isBlue: game.difficulty == .hard)
+                                    IconButtonView(color: .orange, imageName: "bolt.fill", text: "Hard", isColored: game.difficulty == .hard)
                                 }
                                 Button(action: {
                                     game.difficulty = .lunatic
                                 }) {
-                                    IconButtonView(imageName: "flame.fill", text: "Lunatic", isBlue: game.difficulty == .lunatic)
+                                    IconButtonView(color: .red, imageName: "flame.fill", text: "Lunatic", isColored: game.difficulty == .lunatic)
                                 }
                             }
                         }
@@ -242,9 +242,10 @@ struct NewGameMenuView_Previews: PreviewProvider {
 struct IconButtonView: View {
     
     // Variables
+    var color: Color = .blue
     var imageName: String = ""
     var text: String = ""
-    var isBlue: Bool = false
+    var isColored: Bool = false
     var number: Int?
     
     var body: some View {
@@ -262,7 +263,7 @@ struct IconButtonView: View {
                     .padding(.top, 5)
             }
         }
-        .modifier(RectangleWrapper(fixedHeight: 80, color: isBlue ? .blue : nil, opacity: isBlue ? 1.0 : 0.1))
+        .modifier(RectangleWrapper(fixedHeight: 80, color: isColored ? color : nil, opacity: isColored ? 1.0 : 0.1))
         .frame(width: 120)
     }
 }

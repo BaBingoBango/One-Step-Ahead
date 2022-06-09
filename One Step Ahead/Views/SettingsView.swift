@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GameKit
+import MessageUI
 
 struct SettingsView: View {
     
@@ -17,6 +18,10 @@ struct SettingsView: View {
     @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = true
     /// Whether or not the view has triggered the Game Center authentication process.
     @State var shouldAuthenticateWithGameCenter = false
+    /// Whether or not the mail sender view is being presented.
+    @State var isShowingMailSender = false
+    /// Whether or not the feedback email has been copied yet.
+    @State var hasCopiedFeedbackEmail = false
     
     var body: some View {
         NavigationView {
@@ -43,6 +48,30 @@ struct SettingsView: View {
                     } else {
                         Section(header: Text("Game Center"), footer: Text("If you would like to re-attempt Game Center sign-in, please completely restart the game.")) {
                             HStack { Text("Status"); Spacer(); Text("Not Authenticated").foregroundColor(.secondary) }
+                        }
+                    }
+                    
+                    Section(header: Text("Feedback")) {
+                        if MFMailComposeViewController.canSendMail() {
+                            Button(action: {
+                                isShowingMailSender = true
+                            }) {
+                                HStack { Image(systemName: "exclamationmark.bubble.fill").imageScale(.large); Text("Send Feedback Mail") }
+                            }
+                            .sheet(isPresented: $isShowingMailSender) {
+                                MailSenderView(recipients: ["proper.griffon-0s@icloud.com"], subject: "One Step Ahead Feedback", body: "Please provide your feedback below. Feature suggestions, bug reports, and more are all appreciated! :)\n\n(If applicable, you may be contacted for more information or for follow-up questions.)\n\n\n")
+                            }
+                        } else {
+                            Button(action: {
+                                UIPasteboard.general.string = "proper.griffon-0s@icloud.com"
+                                hasCopiedFeedbackEmail = true
+                            }) {
+                                HStack { Image(systemName: "exclamationmark.bubble.fill").imageScale(.large); Text(!hasCopiedFeedbackEmail ? "Copy Feedback Email" : "Feedback Email Copied!") }
+                            }
+                        }
+                        
+                        Link(destination: URL(string: "https://apps.apple.com/us/app/one-step-ahead/id1620737001")!) {
+                            HStack { Image(systemName: "star.bubble.fill").imageScale(.large); Text("Rate on the App Store") }
                         }
                     }
                     
