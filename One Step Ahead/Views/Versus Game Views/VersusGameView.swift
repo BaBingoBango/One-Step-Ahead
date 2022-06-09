@@ -42,6 +42,8 @@ struct VersusGameView: View {
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     /// The current status of the end-of-round score evaluation process.
     @State var scoreEvaluationStatus : ScoreEvaluationStatus = .notEvaluating
+    /// Whether or not the drawing canvas is disabled.
+    @State var isCanvasDisabled = false
     
     /// The text displaying at the top of the view under the round number.
     @State var commandText: String
@@ -146,9 +148,11 @@ struct VersusGameView: View {
                             .padding(.bottom, 5)
                             
                             ZStack {
-                                Rectangle()
-                                    .opacity(0.2)
-                                    .aspectRatio(1.0, contentMode: .fit)
+                                if !isCanvasDisabled {
+                                    Rectangle()
+                                        .opacity(0.2)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                }
                                 
                                 CanvasView(canvasView: $canvasView, onSaved: {
                                     if !isDeletingDrawing {
@@ -166,6 +170,12 @@ struct VersusGameView: View {
                                         print("Data failed to send.")
                                     }
                                 })
+                                
+                                if isCanvasDisabled {
+                                    Rectangle()
+                                        .opacity(0.2)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                }
                             }
                             .aspectRatio(1.0, contentMode: .fit)
                             
@@ -355,6 +365,7 @@ struct VersusGameView: View {
             
             // If the time has reached zero, update the UI
             if game.timeLeft == 0.0 && scoreEvaluationStatus == .notEvaluating {
+                isCanvasDisabled = true
                 commandText = "Judging your drawing..."
                 AItext = GameView.getTrainingAIMessage()
                 isTrainingAImodel = true
@@ -374,6 +385,7 @@ struct VersusGameView: View {
             
             // If we have finished scoring, finish out the round
             if game.timeLeft == 0.0 && scoreEvaluationStatus == .evaluationComplete {
+                isCanvasDisabled = false
                 isTrainingAImodel = false
                 scoreEvaluationStatus = .notEvaluating
                 finishRound()

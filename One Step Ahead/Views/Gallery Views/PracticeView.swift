@@ -31,6 +31,8 @@ struct PracticeView: View {
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     /// The current status of the end-of-round score evaluation process.
     @State var scoreEvaluationStatus : ScoreEvaluationStatus = .notEvaluating
+    /// Whether or not the drawing canvas is disabled.
+    @State var isCanvasDisabled = false
     
     /// The UIKit view object for the drawing canvas.
     @State var canvasView = PKCanvasView()
@@ -93,15 +95,23 @@ struct PracticeView: View {
                         .padding(.horizontal, 40)
                         
                         ZStack {
-                            Rectangle()
-                                .opacity(0.2)
-                                .aspectRatio(1.0, contentMode: .fit)
+                            if !isCanvasDisabled {
+                                Rectangle()
+                                    .opacity(0.2)
+                                    .aspectRatio(1.0, contentMode: .fit)
+                            }
                             
                             CanvasView(canvasView: $canvasView, onSaved: {
                                 if !isDeletingDrawing {
                                     allDrawings.append(canvasView.drawing)
                                 }
                             })
+                            
+                            if isCanvasDisabled {
+                                Rectangle()
+                                    .opacity(0.2)
+                                    .aspectRatio(1.0, contentMode: .fit)
+                            }
                         }
                         .aspectRatio(1.0, contentMode: .fit)
                         

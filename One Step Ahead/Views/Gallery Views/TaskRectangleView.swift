@@ -25,7 +25,7 @@ struct TaskRectangleView: View {
     var index: Int
     /// A 3-digit string version of the task list index of the task represented by this view.
     var indexString: String {
-        switch String(index).count {
+        switch String(index + 1).count {
         case 1:
             return "00\(index + 1)"
         case 2:
@@ -37,6 +37,7 @@ struct TaskRectangleView: View {
     
     var body: some View {
         
+        /// Whether or not the task represented by this view is unlocked.
         let isTaskUnlocked = userTaskRecords.records.keys.contains(task.object)
         
         Button(action: {
@@ -60,12 +61,14 @@ struct TaskRectangleView: View {
                     Text(isTaskUnlocked ? task.emoji : "🔒")
                         .font(.system(size: 60))
                     
-                    Text(isTaskUnlocked ? task.object : "??????")
-                        .font(.system(size: 25))
-                        .fontWeight(.bold)
-                        .minimumScaleFactor(0.1)
-                        .lineLimit(1)
-                        .foregroundColor(.white)
+                    if isTaskUnlocked {
+                        Text(task.object)
+                            .font(.system(size: 25))
+                            .fontWeight(.bold)
+                            .minimumScaleFactor(0.1)
+                            .lineLimit(1)
+                            .foregroundColor(.white)
+                    }
                 }
             }
         }
