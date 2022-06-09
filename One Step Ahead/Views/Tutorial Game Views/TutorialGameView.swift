@@ -47,6 +47,8 @@ struct TutorialGameView: View {
     // Game View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
+    /// The number of games the user has won to date.
+    @AppStorage("gamesWon") var gamesWon: Int = 0
     /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the game end view is showing.
@@ -451,8 +453,26 @@ struct TutorialGameView: View {
                 reportAchievementProgress("Art_Aficionado", progress: 1.0 / Double(Task.taskList.count) * 100.0 * 2)
                 reportAchievementProgress("Museum_Curator", progress: 1.0 / Double(Task.taskList.count) * 100.0)
             }
+            
+            // Update the save data
             userTaskRecords.records[game.task.object]!["timesPlayed"]! += 1
-            userTaskRecords.records[game.task.object]!["highScore"] = game.gameScore
+            if game.gameScore > userTaskRecords.records[game.task.object]!["highScore"]! {
+                userTaskRecords.records[game.task.object]!["highScore"] = game.gameScore
+            }
+            gamesWon += 1
+            
+            // Update the Sum of High Scores, Games Finished, and Games Won leaderboards
+            var scoreSum = 0
+            var gamesFinished = 0
+            for eachTask in Task.taskList {
+                if userTaskRecords.records.keys.contains(eachTask.object) {
+                    scoreSum += userTaskRecords.records[eachTask.object]!["highScore"]!
+                    gamesFinished += userTaskRecords.records[game.task.object]!["timesPlayed"]!
+                }
+            }
+            uploadLeaderboardScore("Sum_of_High_Scores", score: scoreSum)
+            uploadLeaderboardScore("Games_Finished", score: gamesFinished)
+            uploadLeaderboardScore("Games_Won", score: gamesWon)
             
             // Update the command, trigger the navigation link, and disable the timer
             commandText = "That's a wrap!"

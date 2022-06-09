@@ -20,6 +20,8 @@ struct PracticeView: View {
     /// The task list index of the task that this view provides practice for.
     var index: Int
     
+    /// The all-time number of practice drawings the user has made.
+    @AppStorage("practiceDrawingsMade") var practiceDrawingsMade: Int = 0
     /// The user's most recent drawing score.
     @State var currentPlayerScore: Double? = nil
     /// The elapsed time for the user's current attempt.
@@ -255,6 +257,12 @@ struct PracticeView: View {
             print("[Judge Model Prediction Error]")
             print(error.localizedDescription)
             print(error)
+        }
+        
+        // Update the Practice Drawings Made leaderboard and the save data only if the drawing is not empty
+        if !canvasView.drawing.strokes.isEmpty {
+            practiceDrawingsMade += 1;
+            uploadLeaderboardScore("Practice_Drawings_Made", score: practiceDrawingsMade)
         }
         
         // Reset the canvas

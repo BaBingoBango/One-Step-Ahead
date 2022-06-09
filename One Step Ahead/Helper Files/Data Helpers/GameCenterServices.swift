@@ -48,3 +48,17 @@ func reportAchievementProgress(_ achievementID: String, progress: Double = 100.0
         }
     })
 }
+
+/// Uploads the given score to the given Game Center leaderboard for the local player.
+///
+/// Source code for this function is taken from https://developer.apple.com/documentation/gamekit/creating_recurring_leaderboards
+/// - Parameters:
+///   - leaderboardID: The ID of the leaderboard to upload the score to.
+///   - score: The score to upload to the leaderboard.
+func uploadLeaderboardScore(_ leaderboardID: String, score: Int) {
+    GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
+        leaderboardIDs: [leaderboardID]) { error in
+        print("[Leaderboard Score Upload Error]")
+        print(error?.localizedDescription ?? "There is no error object!")
+    }
+}
