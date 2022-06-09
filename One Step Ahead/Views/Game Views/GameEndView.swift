@@ -54,11 +54,18 @@ struct GameEndView: View {
                     .font(.system(size: 70))
                     .fontWeight(.black)
                     .padding(.top)
+                
                 Text("Correct Drawing: \(game.task.object)")
                     .foregroundColor(.white)
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .padding(.top, 3)
+                
+                Text("\(game.gameScore) pts.")
+                    .foregroundColor(.gold)
+                    .font(.system(size: 40))
+                    .fontWeight(.heavy)
+                    .padding(.top)
                 
                 HStack(alignment: .center) {
                     Spacer()

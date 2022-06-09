@@ -53,7 +53,7 @@ struct GameState {
     var gameScore: Int {
         let playerPoints = playerScores.last! * 100.0
         let AIpoints = AIscores.last! * 100.0
-        return Int(((playerPoints - AIpoints + 10_000) / Double(currentRound)) * 5.0)
+        return Int(((playerPoints - (currentRound == 1 ? 0 : AIpoints) + 10_000) / Double(currentRound)) * 5.0)
     }
     /// The drawing score required for the player to win the game.
     var playerWinThreshold: Int {

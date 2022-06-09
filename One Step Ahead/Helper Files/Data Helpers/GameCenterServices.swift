@@ -30,6 +30,9 @@ func reportAchievementProgress(_ achievementID: String, progress: Double = 100.0
         // Add the new progress to the achievement
         achievement!.percentComplete += progress
         
+        // Enable banner display
+        achievement!.showsCompletionBanner = true
+        
         // Report the achievement to Game Center
         GKAchievement.report([achievement!], withCompletionHandler: {(error: Error?) in
             if error != nil {

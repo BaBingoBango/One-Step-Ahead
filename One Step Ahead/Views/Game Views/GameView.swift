@@ -399,10 +399,10 @@ struct GameView: View {
             reportAchievementProgress("Beyond_a_Reasonable_Doubt")
         }
         if game.AIscores.last! == 0.0 {
-            reportAchievementProgress("Skynet_Online")
+            reportAchievementProgress("Runtime_Error")
         }
         if game.AIscores.last! == 100.0 {
-            reportAchievementProgress("Runtime_Error")
+            reportAchievementProgress("Skynet_Online")
         }
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
