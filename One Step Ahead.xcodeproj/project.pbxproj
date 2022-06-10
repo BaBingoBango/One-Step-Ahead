@@ -18,6 +18,8 @@
 		AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */; };
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
+		AA926C302853D42100C95A58 /* LicensingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA926C2F2853D42100C95A58 /* LicensingView.swift */; };
+		AA926C322853D73E00C95A58 /* LicensingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA926C312853D73E00C95A58 /* LicensingDetailView.swift */; };
 		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
@@ -107,6 +109,8 @@
 		AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameState.swift; sourceTree = "<group>"; };
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
+		AA926C2F2853D42100C95A58 /* LicensingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingView.swift; sourceTree = "<group>"; };
+		AA926C312853D73E00C95A58 /* LicensingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingDetailView.swift; sourceTree = "<group>"; };
 		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
@@ -214,6 +218,16 @@
 				AA1ADF08283FF5B500D13D92 /* MatchDelegateView.swift */,
 			);
 			path = "Versus Game Views";
+			sourceTree = "<group>";
+		};
+		AA926C332853D74800C95A58 /* Settings Views */ = {
+			isa = PBXGroup;
+			children = (
+				AACF8B1D2839627D00D9025C /* SettingsView.swift */,
+				AA926C2F2853D42100C95A58 /* LicensingView.swift */,
+				AA926C312853D73E00C95A58 /* LicensingDetailView.swift */,
+			);
+			path = "Settings Views";
 			sourceTree = "<group>";
 		};
 		AAC000E028371E8500C89FCE /* Gallery Views */ = {
@@ -403,7 +417,7 @@
 				AAF5228D2839CFA70027E95B /* NewVersusGameMenuView.swift */,
 				AA82CEFF283B208F003FC070 /* Versus Game Views */,
 				AAC000E028371E8500C89FCE /* Gallery Views */,
-				AACF8B1D2839627D00D9025C /* SettingsView.swift */,
+				AA926C332853D74800C95A58 /* Settings Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -585,6 +599,7 @@
 				AAF0A67F2832F9DF00E84330 /* RectangleWrapper.swift in Sources */,
 				AAF0A6B12832F9F900E84330 /* GameEndView.swift in Sources */,
 				AAF0A67B2832F9DF00E84330 /* MathServices.swift in Sources */,
+				AA926C302853D42100C95A58 /* LicensingView.swift in Sources */,
 				AAF0A6882832F9DF00E84330 /* ImagePredictor.swift in Sources */,
 				AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */,
 				AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */,
@@ -600,6 +615,7 @@
 				AAF0A68F2832F9E200E84330 /* GameState.swift in Sources */,
 				AAF0A6802832F9DF00E84330 /* HidingServices.swift in Sources */,
 				AACF8B23283971F000D9025C /* GameCenterAuthenticationController.swift in Sources */,
+				AA926C322853D73E00C95A58 /* LicensingDetailView.swift in Sources */,
 				AACF8B252839A68D00D9025C /* GameCenterInfoView.swift in Sources */,
 				AADED59E28387B19009558AC /* PracticeView.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,

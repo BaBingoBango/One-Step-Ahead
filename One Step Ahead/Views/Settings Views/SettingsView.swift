@@ -76,6 +76,10 @@ struct SettingsView: View {
                     }
                     
                     Section(header: Text("About")) {
+                        NavigationLink(destination: LicensingView()) {
+                            Text("Licensing and Credit")
+                        }
+                        
                         HStack { Text("Game Version"); Spacer(); Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String).foregroundColor(.secondary) }
                         
                         HStack { Text("Build Number"); Spacer(); Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String).foregroundColor(.secondary) }
@@ -97,12 +101,12 @@ struct SettingsView: View {
             })
             
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
