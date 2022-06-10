@@ -55,7 +55,7 @@ class One_Step_AheadUITests: XCTestCase {
         app.buttons["Info"].tap()
         
         let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "Main Menu"
+        attachment.name = "Info View"
         attachment.lifetime = .keepAlways
         add(attachment)
     }
