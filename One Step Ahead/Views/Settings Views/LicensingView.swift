@@ -12,15 +12,11 @@ struct LicensingView: View {
     var body: some View {
         Form {
             Section(header: Text("Images")) {
-                Button(action: {
-                    // ???
-                }) {
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Blue Background Image", assetType: .image, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")) {
                     HStack { Image(systemName: "photo").imageScale(.large); Text("Blue Background Image") }
                 }
                 
-                Button(action: {
-                    // ???
-                }) {
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Space Background Image", assetType: .image, assetCatalogName: "star background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/qVotvbsuM_c", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")) {
                     HStack { Image(systemName: "photo").imageScale(.large); Text("Space Background Image") }
                 }
             }
@@ -70,6 +66,7 @@ struct LicensingView: View {
         
         // MARK: Navigation View Settings
         .navigationTitle("Licensing and Credit")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
