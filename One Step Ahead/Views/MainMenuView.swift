@@ -48,7 +48,7 @@ struct MainMenuView: View {
                         Button(action: {
                             isShowingTutorialSequence = true
                         }) {
-                            RotatingSquare(direction: .clockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL")
+                            RotatingSquare(direction: .clockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL", iconName: "graduationcap.fill")
 //                                .padding(smallSquarePadding)
                         }
                         .fullScreenCover(isPresented: $isShowingTutorialSequence) {
@@ -106,7 +106,7 @@ struct MainMenuView: View {
                         
                         if hasFinishedTutorial {
                             NavigationLink(destination: NewGameMenuView()) {
-                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", iconName: "play.circle.fill")
     //                                .padding(bigSquarePadding)
                                     .padding()
                                     .padding()
@@ -166,7 +166,7 @@ struct MainMenuView: View {
                     VStack {
                         if hasFinishedTutorial {
                             NavigationLink(destination: GalleryView()) {
-                                RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY")
+                                RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY", iconName: "photo.artframe")
 //                                    .padding(smallSquarePadding)
                             }
                         } else {
@@ -180,7 +180,7 @@ struct MainMenuView: View {
                         Button(action: {
                             isShowingSettings = true
                         }) {
-                            RotatingSquare(direction: .clockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS")
+                            RotatingSquare(direction: .clockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS", iconName: "gearshape.fill")
 //                                .padding(smallSquarePadding)
                         }
                         .sheet(isPresented: $isShowingSettings) {
