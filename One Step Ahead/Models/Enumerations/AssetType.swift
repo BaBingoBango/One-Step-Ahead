@@ -13,4 +13,5 @@ enum AssetType {
     case music
     case soundEffect
     case drawingDataset
+    case software
 }

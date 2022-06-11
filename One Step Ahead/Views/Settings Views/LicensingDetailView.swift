@@ -63,6 +63,14 @@ struct LicensingDetailView: View {
                             .shadow(radius: 10)
                             .shadow(radius: 10)
                             .frame(width: 90, height: 90)
+                    case .software:
+                        Image(systemName: "curlybraces")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.blue)
+                            .shadow(radius: 10)
+                            .shadow(radius: 10)
+                            .frame(width: 90, height: 90)
                     }
                 }
                 
@@ -82,6 +90,8 @@ struct LicensingDetailView: View {
                         Text("Sound Effect Source")
                     case .drawingDataset:
                         Text("Dataset Source")
+                    case .software:
+                        Text("Software Source")
                     }
                     
                     Spacer()
@@ -138,6 +148,8 @@ struct LicensingDetailView: View {
                         Text("Sound Effect License")
                     case .drawingDataset:
                         Text("Dataset License")
+                    case .software:
+                        Text("Software License")
                     }
                     
                     Spacer()
@@ -188,7 +200,7 @@ struct LicensingDetailView: View {
 
 struct LicensingDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LicensingDetailView(assetTitle: "Preview Image", assetType: .drawingDataset, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
+        LicensingDetailView(assetTitle: "Preview Image", assetType: .software, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
             .previewInterfaceOrientation(.portraitUpsideDown)
     }
 }

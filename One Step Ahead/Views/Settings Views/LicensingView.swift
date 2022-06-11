@@ -54,6 +54,12 @@ struct LicensingView: View {
                     HStack { Image(systemName: "scribble.variable").imageScale(.large); Text("Google Quick, Draw! Dataset") }
                 }
             }
+            
+            Section(header: Text("Software")) {
+                NavigationLink(destination: LicensingDetailView(assetTitle: "MKiCloudSync", assetType: .software, assetCatalogName: "", sourceTitle: "Steinlogic", sourceLink: "https://github.com/MugunthKumar/MKiCloudSync", licenseTitle: "Custom License", licenseLink: "https://github.com/MugunthKumar/MKiCloudSync")) {
+                    HStack { Image(systemName: "curlybraces").imageScale(.large); Text("MKiCloudSync") }
+                }
+            }
         }
         
         // MARK: Navigation View Settings

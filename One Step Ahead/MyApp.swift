@@ -35,6 +35,10 @@ struct MyApp: App {
             case .active:
                 print("[Application Life Cycle] The app is active!")
                 
+                // Sync UserDefaults data over iCloud
+                // FIXME: this isn't working!
+                MKiCloudSync.start(withPrefix: "")
+                
                 if !hasStartedAuthenticatingWithGameCenter {
                     // Reset the Game Center authentication status if authentication has not yet happened
                     hasAuthenticatedWithGameCenter = false
@@ -45,6 +49,9 @@ struct MyApp: App {
                 
             case .inactive:
                 print("[Application Life Cycle] The app is inactive!")
+                
+                // Sync UserDefaults data over iCloud
+                MKiCloudSync.start(withPrefix: "")
             
             default:
                 print("[Application Life Cycle] Unknown application life cycle value received.")
