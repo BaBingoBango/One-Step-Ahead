@@ -11,16 +11,20 @@ import SwiftUI
 struct RotatingSquare: View {
     
     // Pass-In Variables
+    /// The direction the square is rotating.
     var direction: RotationDirection
+    /// The bottom color of the square's color gradient.
     var firstColor: Color
+    /// The top color of the square's color gradient.
     var secondColor: Color
+    /// The text written in the square.
     var text: String
+    /// The name of the optional SF Symbol above the text in the square.
     var iconName: String?
+    /// The Asset Catalog name of the optional image to include instead of text.
     var imageAssetName: String?
-    
-    // Timer Variables
-    @State var rotationDegrees = 0.0
-    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+    /// The current amount of degrees that each square button is rotated.
+    @Binding var rotationDegrees: Double
     
     var body: some View {
         ZStack {
@@ -71,13 +75,6 @@ struct RotatingSquare: View {
                     .padding()
             }
         }
-        .onReceive(timer) { input in
-            if direction == .clockwise {
-                rotationDegrees += 0.1
-            } else {
-                rotationDegrees -= 0.1
-            }
-        }
     }
     
     // Enumeration
@@ -91,6 +88,6 @@ struct RotatingSquare: View {
 
 struct RotatingRectangle_Previews: PreviewProvider {
     static var previews: some View {
-        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME")
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(0))
     }
 }

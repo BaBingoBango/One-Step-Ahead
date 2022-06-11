@@ -29,6 +29,15 @@ struct MainMenuView: View {
     /// The tip currently being displayed at the bottom of the view.
     @State var tip = Tip.tipList.randomElement()!
     
+    /// The timer that manages the shared rotation of the clockwise square buttons.
+    let clockwiseRotatingSquareTimer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+    /// The current amount of degrees that each clockwise square button is rotated.
+    @State var clockwiseRotationDegrees: Double = 0.0
+    /// The timer that manages the shared rotation of the clockwise square buttons.
+    let counterclockwiseRotatingSquareTimer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+    /// The current amount of degrees that each clockwise square button is rotated.
+    @State var counterclockwiseRotationDegrees: Double = 0.0
+    
     /// The amount of padding for each of the larger menu buttons.
     var bigSquarePadding = 100.0
     /// The amount of padding for each of the smaller menu buttons.
@@ -48,21 +57,21 @@ struct MainMenuView: View {
                         Button(action: {
                             isShowingTutorialSequence = true
                         }) {
-                            RotatingSquare(direction: .clockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL", iconName: "graduationcap.fill")
+                            RotatingSquare(direction: .clockwise, firstColor: .green, secondColor: .mint, text: "TUTORIAL", iconName: "graduationcap.fill", rotationDegrees: $clockwiseRotationDegrees)
 //                                .padding(smallSquarePadding)
                         }
                         .fullScreenCover(isPresented: $isShowingTutorialSequence) {
                             BackstoryView(isShowingTutorialSequence: $isShowingTutorialSequence)
                         }
                         
-                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
                             .hidden()
                         
                         if GKLocalPlayer.local.isAuthenticated {
                             Button(action: {
                                 isShowingGameCenterDashboard = true
                             }) {
-                                RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GAME CENTER", imageAssetName: "Game Center Logo")
+                                RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .pink, text: "GAME CENTER", imageAssetName: "Game Center Logo", rotationDegrees: $clockwiseRotationDegrees)
 //                                    .padding(smallSquarePadding)
                             }
                             .fullScreenCover(isPresented: $isShowingGameCenterDashboard) {
@@ -74,7 +83,7 @@ struct MainMenuView: View {
                                 isShowingGameCenterInfoView = true
                             }) {
                                 ZStack {
-                                    RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GAME CENTER", imageAssetName: "Game Center Logo")
+                                    RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GAME CENTER", imageAssetName: "Game Center Logo", rotationDegrees: $clockwiseRotationDegrees)
 //                                        .padding(smallSquarePadding)
                                     
                                     Image("Black And White Game Center Logo")
@@ -96,24 +105,24 @@ struct MainMenuView: View {
                     
                     HStack {
                         VStack {
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
                         }
                             .hidden()
                         
                         if hasFinishedTutorial {
                             NavigationLink(destination: NewGameMenuView()) {
-                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", iconName: "play.circle.fill")
+                                RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", iconName: "play.circle.fill", rotationDegrees: $clockwiseRotationDegrees)
     //                                .padding(bigSquarePadding)
                                     .padding()
                                     .padding()
                             }
                             .padding(.top, 150)
                         } else {
-                            RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "NEW GAME", iconName: "lock.fill")
+                            RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "NEW GAME", iconName: "lock.fill", rotationDegrees: $clockwiseRotationDegrees)
     //                            .padding(bigSquarePadding)
                                 .padding()
                                 .padding()
@@ -121,11 +130,11 @@ struct MainMenuView: View {
                         }
                         
                         VStack {
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
-                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
+                            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
                         }
                             .hidden()
                     }
@@ -138,7 +147,7 @@ struct MainMenuView: View {
                         if hasFinishedTutorial {
                             if GKLocalPlayer.local.isAuthenticated {
                                 NavigationLink(destination: NewVersusGameMenuView()) {
-                                    RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                                    RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS", rotationDegrees: $counterclockwiseRotationDegrees)
 //                                        .padding(bigSquarePadding)
                                 }
                                 .padding(.top, 110)
@@ -146,7 +155,7 @@ struct MainMenuView: View {
                                 Button(action: {
                                     isShowingGameCenterInfoView = true
                                 }) {
-                                    RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS")
+                                    RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS", rotationDegrees: $counterclockwiseRotationDegrees)
 //                                        .padding(bigSquarePadding)
                                 }
                                 .sheet(isPresented: $isShowingGameCenterInfoView) {
@@ -155,7 +164,7 @@ struct MainMenuView: View {
                                 .padding(.top, 110)
                             }
                         } else {
-                            RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "VERSUS", iconName: "lock.fill")
+                            RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "VERSUS", iconName: "lock.fill", rotationDegrees: $counterclockwiseRotationDegrees)
 //                                .padding(bigSquarePadding)
                             .padding(.top, 110)
                         }
@@ -166,21 +175,21 @@ struct MainMenuView: View {
                     VStack {
                         if hasFinishedTutorial {
                             NavigationLink(destination: GalleryView()) {
-                                RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY", iconName: "photo.artframe")
+                                RotatingSquare(direction: .clockwise, firstColor: .purple, secondColor: .indigo, text: "GALLERY", iconName: "photo.artframe", rotationDegrees: $clockwiseRotationDegrees)
 //                                    .padding(smallSquarePadding)
                             }
                         } else {
-                            RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GALLERY", iconName: "lock.fill")
+                            RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GALLERY", iconName: "lock.fill", rotationDegrees: $clockwiseRotationDegrees)
 //                                .padding(smallSquarePadding)
                         }
                         
-                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "")
+                        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .blue, text: "", rotationDegrees: $clockwiseRotationDegrees)
                             .hidden()
                         
                         Button(action: {
                             isShowingSettings = true
                         }) {
-                            RotatingSquare(direction: .clockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS", iconName: "gearshape.fill")
+                            RotatingSquare(direction: .clockwise, firstColor: .white, secondColor: .gray, text: "SETTINGS", iconName: "gearshape.fill", rotationDegrees: $clockwiseRotationDegrees)
 //                                .padding(smallSquarePadding)
                         }
                         .sheet(isPresented: $isShowingSettings) {
@@ -230,6 +239,13 @@ struct MainMenuView: View {
                 Spacer()
             }
             .padding(.top, 55)
+        }
+        // MARK: Square Button Rotation Timer Responses
+        .onReceive(clockwiseRotatingSquareTimer) { input in
+            clockwiseRotationDegrees += 0.1
+        }
+        .onReceive(counterclockwiseRotatingSquareTimer) { input in
+            counterclockwiseRotationDegrees -= 0.1
         }
         .onAppear {
             // MARK: View Launch Code
