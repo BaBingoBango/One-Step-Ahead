@@ -22,12 +22,15 @@ struct BackstoryView: View {
     /// Whether or not the view is currently being collapsed by the End Game View.
     @State var isDismissing = false
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Backstory View Graphics")!
+    
     var body: some View {
         NavigationView {
             ZStack {
                 NavigationLink(destination: TutorialGameView(isShowingTutorialSequence: $isShowingTutorialSequence, game: game, commandText: game.defaultCommandText), isActive: $isShowingTutorialGameView) { EmptyView() }
                 
-                SpriteView(scene: SKScene(fileNamed: "Backstory View Graphics")!)
+                SpriteView(scene: graphicsScene)
                     .edgesIgnoringSafeArea(.all)
             }
             .onTapGesture {
@@ -48,7 +51,7 @@ struct BackstoryView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
-                        playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                        playAudio(fileName: "The Big Beat 80s", type: "wav")
                     }) {
                         Text("Quit Tutorial")
                             .fontWeight(.bold)

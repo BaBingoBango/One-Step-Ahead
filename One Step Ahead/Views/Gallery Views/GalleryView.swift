@@ -24,6 +24,8 @@ struct GalleryView: View {
     @State var isShowingTaskDetail = false
     /// The task list, sorted alphabetically.
     var sortedTaskList = Task.taskList.sorted(by: { $0.object < $1.object })
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Gallery View Graphics")!
     
     var body: some View {
         let galleryProgress = Double(userTaskRecords.records.count) / Double(Task.taskList.count)
@@ -32,7 +34,7 @@ struct GalleryView: View {
             
             NavigationLink(destination: NewGameMenuView(enforcedGameTask: taskToPresent), isActive: $isShowingNewGameView) { EmptyView() }
             
-            SpriteView(scene: SKScene(fileNamed: "Gallery View Graphics")!)
+            SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {

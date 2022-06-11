@@ -37,6 +37,9 @@ struct TutorialGameEndView: View {
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Game End View Graphics")!
+    
     // Computed Properties
     /// The player score from the last round of play.
     var lastPlayerScore: Double {
@@ -63,7 +66,7 @@ struct TutorialGameEndView: View {
     
     var body: some View {
         ZStack {
-            SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
+            SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -218,7 +221,7 @@ struct TutorialGameEndView: View {
             }
             
             // End the tutorial sequence and return to the main menu
-            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+            playAudio(fileName: "The Big Beat 80s", type: "wav")
             hasFinishedTutorial = true
             isShowingTutorialSequence = false
             

@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import GameKit
 
 @main
@@ -6,6 +7,8 @@ struct MyApp: App {
     
     /// The system-provided ScenePhase object  used for app launching.
     @Environment(\.scenePhase) var scenePhase
+    /// A custom app delegate which launches the root view and dims the home indicator.
+    @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
     /// Whether or not GameKit has started the Game Center authentication process for this run of the app.
     @State var hasStartedAuthenticatingWithGameCenter: Bool = false
     /// Whether or not GameKit has completed the Game Center authentication process.
@@ -22,7 +25,8 @@ struct MyApp: App {
                     }
                 
                 // MARK: Entry Point View
-                TitleScreenView()
+                // The entry point view is actually provided below in the MyAppDelegate class.
+                // TitleScreenView()
             }
         }
         .onChange(of: scenePhase) { phase in
@@ -47,4 +51,41 @@ struct MyApp: App {
             }
         }
     }
+}
+
+/// A custom app delegate class which helps dim the home indicator.
+///
+/// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
+class MyAppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        let config = UISceneConfiguration(name: "My Scene Delegate", sessionRole: connectingSceneSession.role)
+        config.delegateClass = MySceneDelegate.self
+        return config
+    }
+}
+
+/// A custom scene delegate class which helps dim the home indicator.
+///
+/// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
+class MySceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            let rootView = TitleScreenView()
+            let hostingController = HostingController(rootView: rootView)
+            window.rootViewController = hostingController
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+    }
+}
+
+/// A custom hosting controller class which helps dim the home indicator.
+///
+/// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
+class HostingController: UIHostingController<TitleScreenView> {
+    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return [.bottom]
+     }
 }

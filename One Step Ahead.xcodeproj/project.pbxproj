@@ -22,6 +22,7 @@
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
 		AAA309AE2853E3D6007F4EC6 /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA309AD2853E3D6007F4EC6 /* AssetType.swift */; };
+		AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */; };
 		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
@@ -114,6 +115,7 @@
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
 		AAA309AD2853E3D6007F4EC6 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
+		AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "The Big Beat 80s.wav"; sourceTree = "<group>"; };
 		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
@@ -358,13 +360,13 @@
 		AAF0A66C2832F9DF00E84330 /* SpriteKit UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */,
-				AAF0A66D2832F9DF00E84330 /* Game View Graphics.sks */,
-				AAF0A66E2832F9DF00E84330 /* New Game Menu Graphics.sks */,
-				AAF0A66F2832F9DF00E84330 /* Main Menu Graphics.sks */,
 				AAF0A6702832F9DF00E84330 /* Title Screen Graphics.sks */,
+				AAF0A66F2832F9DF00E84330 /* Main Menu Graphics.sks */,
 				AAF0A6712832F9DF00E84330 /* Backstory View Graphics.sks */,
+				AAF0A66E2832F9DF00E84330 /* New Game Menu Graphics.sks */,
+				AAF0A66D2832F9DF00E84330 /* Game View Graphics.sks */,
 				AAF0A6722832F9DF00E84330 /* Game End View Graphics.sks */,
+				AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */,
 			);
 			path = "SpriteKit UI Helpers";
 			sourceTree = "<group>";
@@ -402,6 +404,7 @@
 				AAF0A6932832F9E600E84330 /* Powerup!.mp3 */,
 				AAF0A6942832F9E600E84330 /* Dun Dun Dun.wav */,
 				AAF0A6952832F9E600E84330 /* Victory Jingle.mp3 */,
+				AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */,
 				AAF0A6962832F9E600E84330 /* The Big Beat 80s (Spaced).wav */,
 			);
 			path = "Music & Sound Effects";
@@ -549,6 +552,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */,
 				AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */,
 				AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */,
 				AAF0A69A2832F9E600E84330 /* Victory Jingle.mp3 in Resources */,

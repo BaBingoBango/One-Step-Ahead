@@ -28,9 +28,12 @@ struct NewGameMenuView: View {
     /// Whether or not the view should include a "Return To Gallery" button.
     var shouldShowReturnToGalleryButton = false
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "New Game Menu Graphics")!
+    
     var body: some View {
         ZStack {
-            SpriteView(scene: SKScene(fileNamed: "New Game Menu Graphics")!)
+            SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 
@@ -146,7 +149,7 @@ struct NewGameMenuView: View {
             if audioPlayer != nil {
                 if !audioPlayer!.isPlaying || audioPlayer!.url!.absoluteString.contains("Powerup") {
                     stopAudio()
-                    playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                    playAudio(fileName: "The Big Beat 80s", type: "wav")
                 }
             }
             

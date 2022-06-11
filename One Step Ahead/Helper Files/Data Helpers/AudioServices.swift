@@ -22,7 +22,7 @@ func playAudio(fileName: String, type: String) {
             // Set the audio player to infinite loop
             audioPlayer?.numberOfLoops = -1
             // FIXME: re enable this
-//            audioPlayer?.play()
+            audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")
         }

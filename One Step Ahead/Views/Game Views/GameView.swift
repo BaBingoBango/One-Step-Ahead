@@ -54,6 +54,9 @@ struct GameView: View {
     /// Whether or not a canvas undo operation is currently taking place.
     @State var isDeletingDrawing = false
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Game View Graphics")!
+    
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.
     enum ScoreEvaluationStatus {
@@ -69,7 +72,7 @@ struct GameView: View {
                 // The programatically-triggered navigation link for the game end view
                 NavigationLink(destination: GameEndView(isShowingGameSequence: $isShowingGameSequence, game: game), isActive: $isShowingGameEndView) { EmptyView() }
                 
-                SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
+                SpriteView(scene: graphicsScene)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack(spacing: 0) {
@@ -303,7 +306,7 @@ struct GameView: View {
                         
                         Button(role: .destructive, action : {
                             stopAudio()
-                            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                            playAudio(fileName: "The Big Beat 80s", type: "wav")
                             isShowingGameSequence = false
                         }) {
                             Text("Quit Game")

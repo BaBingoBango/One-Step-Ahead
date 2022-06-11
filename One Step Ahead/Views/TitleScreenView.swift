@@ -19,10 +19,13 @@ struct TitleScreenView: View {
     /// Whether or not the app info view is being presented.
     @State var showingAppInfo = false
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Title Screen Graphics")!
+    
     var body: some View {
         NavigationView {
             ZStack {
-                SpriteView(scene: SKScene(fileNamed: "Title Screen Graphics")!)
+                SpriteView(scene: graphicsScene)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Rectangle()

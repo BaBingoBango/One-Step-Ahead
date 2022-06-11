@@ -43,9 +43,12 @@ struct MainMenuView: View {
     /// The amount of padding for each of the smaller menu buttons.
     var smallSquarePadding = 80.0
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Main Menu Graphics")!
+    
     var body: some View {
         ZStack {
-            SpriteView(scene: SKScene(fileNamed: "Main Menu Graphics")!)
+            SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
@@ -251,7 +254,7 @@ struct MainMenuView: View {
             // MARK: View Launch Code
             // If nothing is playing, start "The Big Beat 80s"
             if !(audioPlayer?.isPlaying ?? true) {
-                playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                playAudio(fileName: "The Big Beat 80s", type: "wav")
             }
         }
         

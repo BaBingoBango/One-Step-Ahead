@@ -20,6 +20,9 @@ struct GameEndView: View {
     /// Whether or not the victory/defeat jingle has played.
     @State var hasPlayedJingle = false
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Game End View Graphics")!
+    
     // Computed Properties
     /// The player score from the last round of play.
     var lastPlayerScore: Double {
@@ -46,7 +49,7 @@ struct GameEndView: View {
     
     var body: some View {
         ZStack {
-            SpriteView(scene: SKScene(fileNamed: "Game End View Graphics")!)
+            SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 Text(winner == .player ? "You win!" : "You lose...")
@@ -141,7 +144,7 @@ struct GameEndView: View {
                     }
                     
                     Button(action: {
-                        playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                        playAudio(fileName: "The Big Beat 80s", type: "wav")
                         isShowingGameSequence = false
                     }) {
                         Text("Return To Menu")

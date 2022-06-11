@@ -78,6 +78,9 @@ struct TutorialGameView: View {
     /// Whether or not the game is paused and the pause menu is showing.
     @State var isGamePaused = false
     
+    /// The SpriteKit scene for the graphics of this view.
+    @State var graphicsScene = SKScene(fileNamed: "Game View Graphics")!
+    
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.
     enum ScoreEvaluationStatus {
@@ -91,7 +94,7 @@ struct TutorialGameView: View {
             // The programatically-triggered navigation link for the game end view
             NavigationLink(destination: TutorialGameEndView(isShowingTutorialSequence: $isShowingTutorialSequence, game: game), isActive: $isShowingGameEndView) { EmptyView() }
             
-            SpriteView(scene: SKScene(fileNamed: "Game View Graphics")!)
+            SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -346,7 +349,7 @@ struct TutorialGameView: View {
                         
                         Button(role: .destructive, action : {
                             isShowingTutorialSequence = false
-                            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                            playAudio(fileName: "The Big Beat 80s", type: "wav")
                         }) {
                             Text("Quit Game")
                         }
