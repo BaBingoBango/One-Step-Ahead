@@ -28,6 +28,9 @@ struct GameView: View {
     /// Whether or not the view is currently being collapsed by the End Game View.
     @State var isDismissing = false
     
+    /// Whether or not the game is paused and the pause menu is showing.
+    @State var isGamePaused = false
+    
     /// The state of the app's currently running game, passed in from the New Game screen.
     @State var game: GameState = GameState()
     /// A 0.1-second-interval timer responsible for triggering game events.
@@ -274,13 +277,37 @@ struct GameView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        stopAudio()
-                        playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
-                        isShowingGameSequence = false
+                        isGamePaused = true
+                        game.shouldRunTimer = false
                     }) {
-                        Text("Quit Game")
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
+                        ZStack {
+                            Circle()
+                                .opacity(0.2)
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                            
+                            Image(systemName: "pause.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.blue)
+                                .frame(width: 20, height: 20)
+                        }
+                    }
+                    .alert("Game Paused", isPresented: $isGamePaused) {
+                        Button(role: .cancel, action : {
+                            isGamePaused = false
+                            game.shouldRunTimer = true
+                        }) {
+                            Text("Resume Game")
+                        }
+                        
+                        Button(role: .destructive, action : {
+                            stopAudio()
+                            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                            isShowingGameSequence = false
+                        }) {
+                            Text("Quit Game")
+                        }
                     }
                 }
             }

@@ -75,6 +75,8 @@ struct TutorialGameView: View {
     @State var allDrawings: [PKDrawing] = []
     /// Whether or not a canvas undo operation is currently taking place.
     @State var isDeletingDrawing = false
+    /// Whether or not the game is paused and the pause menu is showing.
+    @State var isGamePaused = false
     
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.
@@ -318,12 +320,36 @@ struct TutorialGameView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        isShowingTutorialSequence = false
-                        playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                        isGamePaused = true
+                        game.shouldRunTimer = false
                     }) {
-                        Text("Quit Tutorial")
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
+                        ZStack {
+                            Circle()
+                                .opacity(0.2)
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                            
+                            Image(systemName: "pause.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.blue)
+                                .frame(width: 20, height: 20)
+                        }
+                    }
+                    .alert("Game Paused", isPresented: $isGamePaused) {
+                        Button(role: .cancel, action : {
+                            isGamePaused = false
+                            game.shouldRunTimer = true
+                        }) {
+                            Text("Resume Game")
+                        }
+                        
+                        Button(role: .destructive, action : {
+                            isShowingTutorialSequence = false
+                            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+                        }) {
+                            Text("Quit Game")
+                        }
                     }
                 }
             }
