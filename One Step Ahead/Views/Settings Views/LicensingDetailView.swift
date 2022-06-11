@@ -27,7 +27,7 @@ struct LicensingDetailView: View {
                     Circle()
                         .frame(width: 150, height: 150)
                         .foregroundColor(.white)
-                        .opacity(0.3)
+                        .opacity(0.15)
                     
                     switch assetType {
                     case .image:
@@ -38,13 +38,31 @@ struct LicensingDetailView: View {
                             .frame(width: 100, height: 100)
                         
                     case .music:
-                        Image(assetCatalogName)
+                        Image(systemName: "music.quarternote.3")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.red)
+                            .shadow(radius: 10)
+                            .shadow(radius: 10)
+                            .frame(width: 90, height: 90)
                         
                     case .soundEffect:
-                        Image(assetCatalogName)
+                        Image(systemName: "music.note")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.red)
+                            .shadow(radius: 10)
+                            .shadow(radius: 10)
+                            .frame(width: 100, height: 100)
                         
                     case .drawingDataset:
-                        Image(assetCatalogName)
+                        Image(systemName: "scribble.variable")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.yellow)
+                            .shadow(radius: 10)
+                            .shadow(radius: 10)
+                            .frame(width: 90, height: 90)
                     }
                 }
                 
@@ -74,7 +92,7 @@ struct LicensingDetailView: View {
                     ZStack {
                         Rectangle()
                             .foregroundColor(.white)
-                            .opacity(0.3)
+                            .opacity(0.15)
                             .cornerRadius(25)
                         
                         HStack {
@@ -90,11 +108,16 @@ struct LicensingDetailView: View {
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.1)
                                 
                                 Text(sourceLink)
                                     .font(.headline)
                                     .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.1)
                             }
+                            .padding(.trailing)
                             
                             Spacer()
                         }
@@ -125,7 +148,7 @@ struct LicensingDetailView: View {
                     ZStack {
                         Rectangle()
                             .foregroundColor(.white)
-                            .opacity(0.3)
+                            .opacity(0.15)
                             .cornerRadius(25)
                         
                         HStack {
@@ -141,11 +164,16 @@ struct LicensingDetailView: View {
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.1)
                                 
                                 Text(licenseLink)
                                     .font(.headline)
                                     .foregroundColor(.white)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.1)
                             }
+                            .padding(.trailing)
                             
                             Spacer()
                         }
@@ -160,7 +188,7 @@ struct LicensingDetailView: View {
 
 struct LicensingDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LicensingDetailView(assetTitle: "Preview Image", assetType: .image, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
+        LicensingDetailView(assetTitle: "Preview Image", assetType: .drawingDataset, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
             .previewInterfaceOrientation(.portraitUpsideDown)
     }
 }

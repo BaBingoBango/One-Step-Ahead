@@ -36,30 +36,22 @@ struct LicensingView: View {
             }
             
             Section(header: Text("Sound Effects")) {
-                Button(action: {
-                    // ???
-                }) {
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Dun Dun Dun Sound Effect", assetType: .soundEffect, assetCatalogName: "", sourceTitle: "Freesound", sourceLink: "https://freesound.org/people/copyc4t/sounds/146434/", licenseTitle: "Creative Commons Attribution 4.0 International", licenseLink: "https://creativecommons.org/licenses/by/4.0/")) {
                     HStack { Image(systemName: "music.note").imageScale(.large); Text("Dun Dun Dun Sound Effect") }
                 }
                 
-                Button(action: {
-                    // ???
-                }) {
-                    HStack { Image(systemName: "music.note").imageScale(.large); Text("Game Win Jingle") }
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Game Victory Jingle", assetType: .soundEffect, assetCatalogName: "", sourceTitle: "Free Music Archive", sourceLink: "http://freemusicarchive.org/", licenseTitle: "Attribution-NonCommercial-NoDerivs 3.0 Unported", licenseLink: "https://creativecommons.org/licenses/by-nc-nd/3.0/")) {
+                    HStack { Image(systemName: "music.note").imageScale(.large); Text("Game Victory Jingle") }
                 }
                 
-                Button(action: {
-                    // ???
-                }) {
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Game Defeat Jingle", assetType: .soundEffect, assetCatalogName: "", sourceTitle: "Free Music Archive", sourceLink: "http://freemusicarchive.org/", licenseTitle: "Attribution-NonCommercial-NoDerivs 3.0 Unported", licenseLink: "https://creativecommons.org/licenses/by-nc-nd/3.0/")) {
                     HStack { Image(systemName: "music.note").imageScale(.large); Text("Game Defeat Jingle") }
                 }
             }
             
             Section(header: Text("Assets")) {
-                Button(action: {
-                    // ???
-                }) {
-                    HStack { Image(systemName: "scribble").imageScale(.large); Text("Google Quick, Draw! Dataset") }
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Google Quick, Draw! Dataset", assetType: .drawingDataset, assetCatalogName: "", sourceTitle: "Google", sourceLink: "https://quickdraw.withgoogle.com/data", licenseTitle: "Creative Commons Attribution 4.0 International", licenseLink: "https://creativecommons.org/licenses/by/4.0/")) {
+                    HStack { Image(systemName: "scribble.variable").imageScale(.large); Text("Google Quick, Draw! Dataset") }
                 }
             }
         }
