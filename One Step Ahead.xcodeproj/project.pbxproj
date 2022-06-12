@@ -24,6 +24,15 @@
 		AAA309AE2853E3D6007F4EC6 /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA309AD2853E3D6007F4EC6 /* AssetType.swift */; };
 		AAB1992328551E3B0073DCD7 /* Zephyr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB1992228551E3B0073DCD7 /* Zephyr.swift */; };
 		AAB472502855780000DD76B7 /* MKiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB4724D2855780000DD76B7 /* MKiCloudSync.m */; };
+		AAB4725D2855815700DD76B7 /* Autobahn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB472542855815600DD76B7 /* Autobahn.mp3 */; };
+		AAB4725E2855815700DD76B7 /* Protection of Me.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB472552855815600DD76B7 /* Protection of Me.mp3 */; };
+		AAB4725F2855815700DD76B7 /* Lounge Drum and Bass.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB472562855815700DD76B7 /* Lounge Drum and Bass.mp3 */; };
+		AAB472602855815700DD76B7 /* Dancing Racoons.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB472572855815700DD76B7 /* Dancing Racoons.mp3 */; };
+		AAB472612855815700DD76B7 /* Scandinavianz Palmtrees.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB472582855815700DD76B7 /* Scandinavianz Palmtrees.mp3 */; };
+		AAB472622855815700DD76B7 /* Acceleron.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB472592855815700DD76B7 /* Acceleron.mp3 */; };
+		AAB472632855815700DD76B7 /* Space Chillout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB4725A2855815700DD76B7 /* Space Chillout.mp3 */; };
+		AAB472642855815700DD76B7 /* Synthwave 80s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB4725B2855815700DD76B7 /* Synthwave 80s.mp3 */; };
+		AAB472652855815700DD76B7 /* Dragonfly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB4725C2855815700DD76B7 /* Dragonfly.mp3 */; };
 		AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */; };
 		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
@@ -121,6 +130,15 @@
 		AAB4724D2855780000DD76B7 /* MKiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKiCloudSync.m; sourceTree = "<group>"; };
 		AAB4724E2855780000DD76B7 /* MKiCloudSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKiCloudSync.h; sourceTree = "<group>"; };
 		AAB4724F2855780000DD76B7 /* One Step Ahead-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "One Step Ahead-Bridging-Header.h"; sourceTree = "<group>"; };
+		AAB472542855815600DD76B7 /* Autobahn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Autobahn.mp3; sourceTree = "<group>"; };
+		AAB472552855815600DD76B7 /* Protection of Me.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Protection of Me.mp3"; sourceTree = "<group>"; };
+		AAB472562855815700DD76B7 /* Lounge Drum and Bass.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Lounge Drum and Bass.mp3"; sourceTree = "<group>"; };
+		AAB472572855815700DD76B7 /* Dancing Racoons.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Dancing Racoons.mp3"; sourceTree = "<group>"; };
+		AAB472582855815700DD76B7 /* Scandinavianz Palmtrees.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Scandinavianz Palmtrees.mp3"; sourceTree = "<group>"; };
+		AAB472592855815700DD76B7 /* Acceleron.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Acceleron.mp3; sourceTree = "<group>"; };
+		AAB4725A2855815700DD76B7 /* Space Chillout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Space Chillout.mp3"; sourceTree = "<group>"; };
+		AAB4725B2855815700DD76B7 /* Synthwave 80s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Synthwave 80s.mp3"; sourceTree = "<group>"; };
+		AAB4725C2855815700DD76B7 /* Dragonfly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Dragonfly.mp3; sourceTree = "<group>"; };
 		AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "The Big Beat 80s.wav"; sourceTree = "<group>"; };
 		AAB4F2E02854615100676EC4 /* One Step Ahead.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "One Step Ahead.entitlements"; sourceTree = "<group>"; };
 		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
@@ -252,6 +270,40 @@
 			path = MKiCloudSync;
 			sourceTree = "<group>";
 		};
+		AAB472512855811800DD76B7 /* Sound Effects */ = {
+			isa = PBXGroup;
+			children = (
+				AAF0A6942832F9E600E84330 /* Dun Dun Dun.wav */,
+				AAF0A6952832F9E600E84330 /* Victory Jingle.mp3 */,
+				AAF0A6922832F9E600E84330 /* Defeat Jingle.mp3 */,
+			);
+			path = "Sound Effects";
+			sourceTree = "<group>";
+		};
+		AAB472532855813E00DD76B7 /* Version 1.0 Music */ = {
+			isa = PBXGroup;
+			children = (
+				AAF0A6932832F9E600E84330 /* Powerup!.mp3 */,
+				AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */,
+				AAF0A6962832F9E600E84330 /* The Big Beat 80s (Spaced).wav */,
+			);
+			path = "Version 1.0 Music";
+			sourceTree = "<group>";
+		};
+		AAB472662855815C00DD76B7 /* Battle Themes */ = {
+			isa = PBXGroup;
+			children = (
+				AAB472592855815700DD76B7 /* Acceleron.mp3 */,
+				AAB472542855815600DD76B7 /* Autobahn.mp3 */,
+				AAB472572855815700DD76B7 /* Dancing Racoons.mp3 */,
+				AAB4725C2855815700DD76B7 /* Dragonfly.mp3 */,
+				AAB472552855815600DD76B7 /* Protection of Me.mp3 */,
+				AAB472582855815700DD76B7 /* Scandinavianz Palmtrees.mp3 */,
+				AAB4725B2855815700DD76B7 /* Synthwave 80s.mp3 */,
+			);
+			path = "Battle Themes";
+			sourceTree = "<group>";
+		};
 		AAC000E028371E8500C89FCE /* Gallery Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,7 +362,7 @@
 				AAF0A6392832F7E600E84330 /* Assets.xcassets */,
 				AAF0A68A2832F9E200E84330 /* Models */,
 				AAF0A6A22832F9F900E84330 /* Views */,
-				AAF0A6912832F9E600E84330 /* Music & Sound Effects */,
+				AAF0A6912832F9E600E84330 /* Audio Files */,
 				AAF0A65F2832F9DF00E84330 /* Helper Files */,
 				AAC5D7532832FC070056E781 /* Preview Content */,
 			);
@@ -417,17 +469,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		AAF0A6912832F9E600E84330 /* Music & Sound Effects */ = {
+		AAF0A6912832F9E600E84330 /* Audio Files */ = {
 			isa = PBXGroup;
 			children = (
-				AAF0A6922832F9E600E84330 /* Defeat Jingle.mp3 */,
-				AAF0A6932832F9E600E84330 /* Powerup!.mp3 */,
-				AAF0A6942832F9E600E84330 /* Dun Dun Dun.wav */,
-				AAF0A6952832F9E600E84330 /* Victory Jingle.mp3 */,
-				AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */,
-				AAF0A6962832F9E600E84330 /* The Big Beat 80s (Spaced).wav */,
+				AAB472562855815700DD76B7 /* Lounge Drum and Bass.mp3 */,
+				AAB4725A2855815700DD76B7 /* Space Chillout.mp3 */,
+				AAB472662855815C00DD76B7 /* Battle Themes */,
+				AAB472512855811800DD76B7 /* Sound Effects */,
+				AAB472532855813E00DD76B7 /* Version 1.0 Music */,
 			);
-			path = "Music & Sound Effects";
+			path = "Audio Files";
 			sourceTree = "<group>";
 		};
 		AAF0A6A22832F9F900E84330 /* Views */ = {
@@ -575,20 +626,29 @@
 			files = (
 				AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */,
 				AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */,
+				AAB472632855815700DD76B7 /* Space Chillout.mp3 in Resources */,
+				AAB472642855815700DD76B7 /* Synthwave 80s.mp3 in Resources */,
 				AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */,
 				AAF0A69A2832F9E600E84330 /* Victory Jingle.mp3 in Resources */,
 				AAF0A6982832F9E600E84330 /* Powerup!.mp3 in Resources */,
 				AAF0A6832832F9DF00E84330 /* Main Menu Graphics.sks in Resources */,
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
+				AAB472602855815700DD76B7 /* Dancing Racoons.mp3 in Resources */,
 				AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */,
+				AAB4725E2855815700DD76B7 /* Protection of Me.mp3 in Resources */,
+				AAB472622855815700DD76B7 /* Acceleron.mp3 in Resources */,
 				AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */,
 				AAC000DF28371D3A00C89FCE /* Gallery View Graphics.sks in Resources */,
 				AAF0A6972832F9E600E84330 /* Defeat Jingle.mp3 in Resources */,
 				AAF0A6822832F9DF00E84330 /* New Game Menu Graphics.sks in Resources */,
 				AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */,
+				AAB472612855815700DD76B7 /* Scandinavianz Palmtrees.mp3 in Resources */,
 				AAF0A69F2832F9F300E84330 /* README.md in Resources */,
 				AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */,
+				AAB4725D2855815700DD76B7 /* Autobahn.mp3 in Resources */,
+				AAB4725F2855815700DD76B7 /* Lounge Drum and Bass.mp3 in Resources */,
 				AAF0A6992832F9E600E84330 /* Dun Dun Dun.wav in Resources */,
+				AAB472652855815700DD76B7 /* Dragonfly.mp3 in Resources */,
 				AAF0A69B2832F9E600E84330 /* The Big Beat 80s (Spaced).wav in Resources */,
 				AAF0A6812832F9DF00E84330 /* Game View Graphics.sks in Resources */,
 			);
