@@ -56,8 +56,8 @@ struct LicensingView: View {
             }
             
             Section(header: Text("Software")) {
-                NavigationLink(destination: LicensingDetailView(assetTitle: "MKiCloudSync", assetType: .software, assetCatalogName: "", sourceTitle: "Steinlogic", sourceLink: "https://github.com/MugunthKumar/MKiCloudSync", licenseTitle: "Custom License", licenseLink: "https://github.com/MugunthKumar/MKiCloudSync")) {
-                    HStack { Image(systemName: "curlybraces").imageScale(.large); Text("MKiCloudSync") }
+                NavigationLink(destination: LicensingDetailView(assetTitle: "Zephyr", assetType: .software, assetCatalogName: "", sourceTitle: "Ariel Sabintsev", sourceLink: "https://github.com/ArtSabintsev/Zephyr", licenseTitle: "MIT License", licenseLink: "https://github.com/ArtSabintsev/Zephyr/blob/master/LICENSE")) {
+                    HStack { Image(systemName: "curlybraces").imageScale(.large); Text("Zephyr") }
                 }
             }
         }

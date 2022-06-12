@@ -23,8 +23,8 @@
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
 		AAA309AE2853E3D6007F4EC6 /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA309AD2853E3D6007F4EC6 /* AssetType.swift */; };
 		AAB1992328551E3B0073DCD7 /* Zephyr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB1992228551E3B0073DCD7 /* Zephyr.swift */; };
+		AAB472502855780000DD76B7 /* MKiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB4724D2855780000DD76B7 /* MKiCloudSync.m */; };
 		AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */; };
-		AAB4F2DF285460A100676EC4 /* MKiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB4F2DD285460A100676EC4 /* MKiCloudSync.m */; };
 		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
@@ -118,10 +118,10 @@
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
 		AAA309AD2853E3D6007F4EC6 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		AAB1992228551E3B0073DCD7 /* Zephyr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephyr.swift; sourceTree = "<group>"; };
+		AAB4724D2855780000DD76B7 /* MKiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKiCloudSync.m; sourceTree = "<group>"; };
+		AAB4724E2855780000DD76B7 /* MKiCloudSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKiCloudSync.h; sourceTree = "<group>"; };
+		AAB4724F2855780000DD76B7 /* One Step Ahead-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "One Step Ahead-Bridging-Header.h"; sourceTree = "<group>"; };
 		AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "The Big Beat 80s.wav"; sourceTree = "<group>"; };
-		AAB4F2DC285460A000676EC4 /* One Step Ahead-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "One Step Ahead-Bridging-Header.h"; sourceTree = "<group>"; };
-		AAB4F2DD285460A100676EC4 /* MKiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKiCloudSync.m; sourceTree = "<group>"; };
-		AAB4F2DE285460A100676EC4 /* MKiCloudSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKiCloudSync.h; sourceTree = "<group>"; };
 		AAB4F2E02854615100676EC4 /* One Step Ahead.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "One Step Ahead.entitlements"; sourceTree = "<group>"; };
 		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -242,12 +242,12 @@
 			path = "Versus Game Views";
 			sourceTree = "<group>";
 		};
-		AAB4F2DB2854606F00676EC4 /* MKiCloudSync */ = {
+		AAB4724C2855779B00DD76B7 /* MKiCloudSync */ = {
 			isa = PBXGroup;
 			children = (
-				AAB4F2DE285460A100676EC4 /* MKiCloudSync.h */,
-				AAB4F2DD285460A100676EC4 /* MKiCloudSync.m */,
-				AAB4F2DC285460A000676EC4 /* One Step Ahead-Bridging-Header.h */,
+				AAB4724F2855780000DD76B7 /* One Step Ahead-Bridging-Header.h */,
+				AAB4724E2855780000DD76B7 /* MKiCloudSync.h */,
+				AAB4724D2855780000DD76B7 /* MKiCloudSync.m */,
 			);
 			path = MKiCloudSync;
 			sourceTree = "<group>";
@@ -348,7 +348,7 @@
 		AAF0A6602832F9DF00E84330 /* Data Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AAB4F2DB2854606F00676EC4 /* MKiCloudSync */,
+				AAB4724C2855779B00DD76B7 /* MKiCloudSync */,
 				AAF0A6612832F9DF00E84330 /* MLServices.swift */,
 				AAF0A6622832F9DF00E84330 /* DiskServices.swift */,
 				AAF0A6632832F9DF00E84330 /* ColorServices.swift */,
@@ -649,7 +649,6 @@
 				AACF8B252839A68D00D9025C /* GameCenterInfoView.swift in Sources */,
 				AADED59E28387B19009558AC /* PracticeView.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,
-				AAB4F2DF285460A100676EC4 /* MKiCloudSync.m in Sources */,
 				AAC97EEC283ED23E00FEB54B /* VersusGameView.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
 				AAB1992328551E3B0073DCD7 /* Zephyr.swift in Sources */,
@@ -657,6 +656,7 @@
 				AACF8B272839B98200D9025C /* GameCenterDashboardView.swift in Sources */,
 				AAF0A6B02832F9F900E84330 /* GameView.swift in Sources */,
 				AAF0A6B82832F9F900E84330 /* TutorialGameEndView.swift in Sources */,
+				AAB472502855780000DD76B7 /* MKiCloudSync.m in Sources */,
 				AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */,
 				AAF0A6782832F9DF00E84330 /* DiskServices.swift in Sources */,
 				AA1ADF09283FF5B500D13D92 /* MatchDelegateView.swift in Sources */,
