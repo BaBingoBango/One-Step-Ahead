@@ -14,6 +14,9 @@ struct MyApp: App {
     /// Whether or not GameKit has completed the Game Center authentication process.
     @AppStorage("hasAuthenticatedWithGameCenter") var hasAuthenticatedWithGameCenter: Bool = false
     
+    /// The names of the keys from UserDefaults that will sync across the user's devices via iCloud.
+    var userDefaultsKeysToSync = ["hasFinishedTutorial", "userTaskRecords", "gamesWon", "isUnlockAssistOn", "practiceDrawingsMade"]
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -34,15 +37,14 @@ struct MyApp: App {
             // MARK: Application Life Cycle Code
             case .active:
                 print("[Application Life Cycle] The app is active!")
-                
-                // Sync UserDefaults data over iCloud
-                // FIXME: this isn't working!
-                MKiCloudSync.start(withPrefix: "")
-                
+    
                 if !hasStartedAuthenticatingWithGameCenter {
                     // Reset the Game Center authentication status if authentication has not yet happened
                     hasAuthenticatedWithGameCenter = false
                 }
+                
+                // Use Zephyr to sync data across the user's devices with iCloud
+                Zephyr.sync(keys: userDefaultsKeysToSync)
                 
             case .background:
                 print("[Application Life Cycle] The app is in the background!")
@@ -50,8 +52,8 @@ struct MyApp: App {
             case .inactive:
                 print("[Application Life Cycle] The app is inactive!")
                 
-                // Sync UserDefaults data over iCloud
-                MKiCloudSync.start(withPrefix: "")
+                // Use Zephyr to sync data across the user's devices with iCloud
+                Zephyr.sync(keys: userDefaultsKeysToSync)
             
             default:
                 print("[Application Life Cycle] Unknown application life cycle value received.")
