@@ -22,16 +22,40 @@ struct LicensingView: View {
             }
             
             Section(header: Text("Music")) {
-                Button(action: {
-                    // ???
-                }) {
-                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Powerup\"") }
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Lounge Drum and Bass\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/drum-n-bass-lounge-drum-and-bass-108785/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Lounge Drum and Bass\"") }
                 }
                 
-                Button(action: {
-                    // ???
-                }) {
-                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"The Big Beat 80s\"") }
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Space Chillout\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/upbeat-space-chillout-14194/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Space Chillout\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Acceleron\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/synthwave-acceleron-109122/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Acceleron\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Autobahn\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/house-autobahn-99109/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Autobahn\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Dancing Racoons\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/soft-house-dancing-racoons-20793/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Dancing Racoons\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Dragonfly\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/deep-house-dragonfly-15128/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Dragonfly\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Protection of Me\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/deep-house-protection-of-me-by-nazartino-112859/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Protection of Me\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Scandinavianz Palmtrees\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/upbeat-scandinavianz-palmtrees-7326/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Scandinavianz Palmtrees\"") }
+                }
+                
+                NavigationLink(destination: LicensingDetailView(assetTitle: "\"Synthwave 80s\"", assetType: .music, assetCatalogName: "", sourceTitle: "Pixabay", sourceLink: "https://pixabay.com/music/synthwave-synthwave-80s-110045/", licenseTitle: "Simplified Pixabay License", licenseLink: "https://pixabay.com/service/license/")) {
+                    HStack { Image(systemName: "music.quarternote.3").imageScale(.large); Text("\"Synthwave 80s\"") }
                 }
             }
             

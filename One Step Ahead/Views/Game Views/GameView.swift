@@ -306,7 +306,7 @@ struct GameView: View {
                         
                         Button(role: .destructive, action : {
                             stopAudio()
-                            playAudio(fileName: "The Big Beat 80s", type: "wav")
+                            playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                             isShowingGameSequence = false
                         }) {
                             Text("Quit Game")
@@ -325,7 +325,7 @@ struct GameView: View {
             // Start the battle music if not dismissing
             if !isDismissing {
                 stopAudio()
-                playAudio(fileName: "Powerup!", type: "mp3")
+                playAudio(fileName: getRandomBattleThemeFilename(), type: "mp3")
             }
             
             // Dismiss the view if we are currently collapsing the navigation chain

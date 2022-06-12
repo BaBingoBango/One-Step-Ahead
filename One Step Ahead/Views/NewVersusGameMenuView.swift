@@ -166,7 +166,7 @@ struct NewVersusGameMenuView: View {
             if audioPlayer != nil {
                 if !audioPlayer!.isPlaying || audioPlayer!.url!.absoluteString.contains("Powerup") {
                     stopAudio()
-                    playAudio(fileName: "The Big Beat 80s", type: "wav")
+                    playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                 }
             }
             

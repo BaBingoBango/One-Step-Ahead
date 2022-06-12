@@ -86,12 +86,20 @@ struct LicensingDetailView: View {
                             .fontWeight(.bold)
                     case .music:
                         Text("Music Source")
+                            .font(.title)
+                            .fontWeight(.bold)
                     case .soundEffect:
                         Text("Sound Effect Source")
+                            .font(.title)
+                            .fontWeight(.bold)
                     case .drawingDataset:
                         Text("Dataset Source")
+                            .font(.title)
+                            .fontWeight(.bold)
                     case .software:
                         Text("Software Source")
+                            .font(.title)
+                            .fontWeight(.bold)
                     }
                     
                     Spacer()
@@ -144,12 +152,20 @@ struct LicensingDetailView: View {
                             .fontWeight(.bold)
                     case .music:
                         Text("Music License")
+                            .font(.title)
+                            .fontWeight(.bold)
                     case .soundEffect:
                         Text("Sound Effect License")
+                            .font(.title)
+                            .fontWeight(.bold)
                     case .drawingDataset:
                         Text("Dataset License")
+                            .font(.title)
+                            .fontWeight(.bold)
                     case .software:
                         Text("Software License")
+                            .font(.title)
+                            .fontWeight(.bold)
                     }
                     
                     Spacer()
@@ -200,7 +216,7 @@ struct LicensingDetailView: View {
 
 struct LicensingDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LicensingDetailView(assetTitle: "Preview Image", assetType: .software, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
+        LicensingDetailView(assetTitle: "Preview Asset", assetType: .software, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
             .previewInterfaceOrientation(.portraitUpsideDown)
     }
 }

@@ -51,7 +51,7 @@ struct BackstoryView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
-                        playAudio(fileName: "The Big Beat 80s", type: "wav")
+                        playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                     }) {
                         Text("Quit Tutorial")
                             .fontWeight(.bold)

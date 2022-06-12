@@ -254,7 +254,7 @@ struct MainMenuView: View {
             // MARK: View Launch Code
             // If nothing is playing, start "The Big Beat 80s"
             if !(audioPlayer?.isPlaying ?? true) {
-                playAudio(fileName: "The Big Beat 80s", type: "wav")
+                playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
             }
         }
         

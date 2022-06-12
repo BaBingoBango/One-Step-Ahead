@@ -76,7 +76,7 @@ struct TitleScreenView: View {
         .onAppear {
             // MARK: View Launch Code
             // Start the menu music
-            playAudio(fileName: "The Big Beat 80s (Spaced)", type: "wav")
+            playAudio(fileName: "Lounge Drum and Bass (Spaced)", type: "mp3")
         }
     }
 }

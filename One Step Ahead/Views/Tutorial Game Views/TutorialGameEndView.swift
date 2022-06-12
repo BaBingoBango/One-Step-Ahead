@@ -221,7 +221,7 @@ struct TutorialGameEndView: View {
             }
             
             // End the tutorial sequence and return to the main menu
-            playAudio(fileName: "The Big Beat 80s", type: "wav")
+            playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
             hasFinishedTutorial = true
             isShowingTutorialSequence = false
             

@@ -144,7 +144,7 @@ struct GameEndView: View {
                     }
                     
                     Button(action: {
-                        playAudio(fileName: "The Big Beat 80s", type: "wav")
+                        playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                         isShowingGameSequence = false
                     }) {
                         Text("Return To Menu")

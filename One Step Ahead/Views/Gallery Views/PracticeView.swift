@@ -213,7 +213,7 @@ struct PracticeView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         stopAudio()
-                        playAudio(fileName: "The Big Beat 80s", type: "wav")
+                        playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("End Practice")
@@ -231,7 +231,7 @@ struct PracticeView: View {
                 
                 // Start the battle music
                 stopAudio()
-                playAudio(fileName: "Powerup!", type: "mp3")
+                playAudio(fileName: getRandomBattleThemeFilename(), type: "mp3")
             }
             .onReceive(timer) { input in
                 // MARK: Timer Response
