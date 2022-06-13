@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA057F692856E5BE00B9FAFA /* UDC Judge.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA057F682856E5BE00B9FAFA /* UDC Judge.mlmodelc */; };
 		AA1ADF09283FF5B500D13D92 /* MatchDelegateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1ADF08283FF5B500D13D92 /* MatchDelegateView.swift */; };
 		AA1B82ED2853D9C800C6A192 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B82EA2853D9C800C6A192 /* SettingsView.swift */; };
 		AA1B82EE2853D9C800C6A192 /* LicensingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B82EB2853D9C800C6A192 /* LicensingDetailView.swift */; };
@@ -112,6 +113,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA057F682856E5BE00B9FAFA /* UDC Judge.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "UDC Judge.mlmodelc"; sourceTree = "<group>"; };
 		AA1ADF08283FF5B500D13D92 /* MatchDelegateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDelegateView.swift; sourceTree = "<group>"; };
 		AA1B82EA2853D9C800C6A192 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AA1B82EB2853D9C800C6A192 /* LicensingDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicensingDetailView.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			children = (
 				AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */,
 				AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */,
+				AA057F682856E5BE00B9FAFA /* UDC Judge.mlmodelc */,
 				AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */,
 				AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */,
 			);
@@ -628,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */,
+				AA057F692856E5BE00B9FAFA /* UDC Judge.mlmodelc in Resources */,
 				AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */,
 				AAB472632855815700DD76B7 /* Space Chillout.mp3 in Resources */,
 				AAB472642855815700DD76B7 /* Synthwave 80s.mp3 in Resources */,

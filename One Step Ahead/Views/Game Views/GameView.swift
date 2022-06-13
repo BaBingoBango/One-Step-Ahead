@@ -424,7 +424,8 @@ struct GameView: View {
             })
             
             // Add the score to the game state
-            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
+//            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
+            game.playerScores.append(Double(predictionProbabilities[game.task.object]!.replacingOccurrences(of: "%", with: ""))!)
         } catch {
             print("[Judge Model Prediction Error]")
             print(error.localizedDescription)

@@ -682,6 +682,7 @@ struct DialogueView: View {
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(.black)
+                    .minimumScaleFactor(0.1)
                     .padding(.horizontal, 90)
                     .padding(.trailing)
                     .padding(.top, 7)

@@ -104,7 +104,7 @@ struct MainMenuView: View {
                         }
                     }
                     
-                    Spacer()
+//                    Spacer()
                     
                     HStack {
                         VStack {
@@ -123,13 +123,14 @@ struct MainMenuView: View {
                                     .padding()
                                     .padding()
                             }
-                            .padding(.top, 150)
+//                            .padding()
+                            .padding()
+//                            .padding(.top, 150)
                         } else {
                             RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "NEW GAME", iconName: "lock.fill", rotationDegrees: $clockwiseRotationDegrees)
     //                            .padding(bigSquarePadding)
                                 .padding()
                                 .padding()
-                                .padding(.top, 150)
                         }
                         
                         VStack {
@@ -173,7 +174,7 @@ struct MainMenuView: View {
                         }
                     }
                     
-                    Spacer()
+//                    Spacer()
                     
                     VStack {
                         if hasFinishedTutorial {
@@ -203,45 +204,48 @@ struct MainMenuView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                .padding(.horizontal)
-                .padding(.horizontal)
+//                .padding(.vertical)
                 .padding(.vertical)
                 .padding(.vertical)
+//                .padding(.horizontal)
+//                .padding(.horizontal)
                 
-                Spacer()
-                
-                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: tip.speakerEmoji, characterName: tip.speakerName, dialogue: tip.tipText, color1: tip.speakerPrimaryColor, color2: tip.speakerSecondaryColor, height: 120, advancePrompt: "Another Tip ➤")
-                    .onTapGesture {
-                        var candidateTip = Tip.tipList.randomElement()!
-                        while candidateTip.tipText == tip.tipText {
-                            candidateTip = Tip.tipList.randomElement()!
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    Spacer()
+                    
+                    DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: tip.speakerEmoji, characterName: tip.speakerName, dialogue: tip.tipText, color1: tip.speakerPrimaryColor, color2: tip.speakerSecondaryColor, height: 120, advancePrompt: "Another Tip ➤")
+                        .onTapGesture {
+                            var candidateTip = Tip.tipList.randomElement()!
+                            while candidateTip.tipText == tip.tipText {
+                                candidateTip = Tip.tipList.randomElement()!
+                            }
+                            tip = candidateTip
                         }
-                        tip = candidateTip
-                    }
-                    .padding(.horizontal, 60)
+                        .padding(.horizontal, 60)
+                }
             }
             .padding(.horizontal)
             
-            VStack {
-                HStack(spacing: 220) {
-                    Image("Game Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .hidden()
-                    
-                    Image("Game Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                    
-                    Image("Game Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .hidden()
-                }
-                
-                Spacer()
-            }
-            .padding(.top, 55)
+//            VStack {
+//                HStack(spacing: 220) {
+//                    Image("Game Logo")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .hidden()
+//
+//                    Image("Game Logo")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//
+//                    Image("Game Logo")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .hidden()
+//                }
+//
+//                Spacer()
+//            }
+//            .padding(.top, 55)
         }
         // MARK: Square Button Rotation Timer Responses
         .onReceive(clockwiseRotatingSquareTimer) { input in
