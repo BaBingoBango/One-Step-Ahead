@@ -22,6 +22,7 @@
 		AA82CEFA283B1DD2003FC070 /* VersusGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */; };
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
+		AA88746D2858D933007E15C6 /* UDC Judge II.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA88746C2858D933007E15C6 /* UDC Judge II.mlmodelc */; };
 		AAA309AE2853E3D6007F4EC6 /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA309AD2853E3D6007F4EC6 /* AssetType.swift */; };
 		AAB1992328551E3B0073DCD7 /* Zephyr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB1992228551E3B0073DCD7 /* Zephyr.swift */; };
 		AAB472502855780000DD76B7 /* MKiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB4724D2855780000DD76B7 /* MKiCloudSync.m */; };
@@ -128,6 +129,7 @@
 		AA82CEF9283B1DD2003FC070 /* VersusGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameState.swift; sourceTree = "<group>"; };
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
+		AA88746C2858D933007E15C6 /* UDC Judge II.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "UDC Judge II.mlmodelc"; sourceTree = "<group>"; };
 		AAA309AD2853E3D6007F4EC6 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		AAB1992228551E3B0073DCD7 /* Zephyr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephyr.swift; sourceTree = "<group>"; };
 		AAB4724D2855780000DD76B7 /* MKiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKiCloudSync.m; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				AA215EF828341FB700D614DD /* Drawing Judge.mlmodelc */,
 				AA215EF628341F0100D614DD /* Drawing Judge II.mlmodelc */,
 				AA057F682856E5BE00B9FAFA /* UDC Judge.mlmodelc */,
+				AA88746C2858D933007E15C6 /* UDC Judge II.mlmodelc */,
 				AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */,
 				AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */,
 			);
@@ -638,6 +641,7 @@
 				AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */,
 				AAF0A69A2832F9E600E84330 /* Victory Jingle.mp3 in Resources */,
 				AAF0A6982832F9E600E84330 /* Powerup!.mp3 in Resources */,
+				AA88746D2858D933007E15C6 /* UDC Judge II.mlmodelc in Resources */,
 				AAF0A6832832F9DF00E84330 /* Main Menu Graphics.sks in Resources */,
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
 				AAB472602855815700DD76B7 /* Dancing Racoons.mp3 in Resources */,

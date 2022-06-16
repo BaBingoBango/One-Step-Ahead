@@ -1,0 +1,64 @@
+{
+  "layer_shapes" : {
+    "max_pooling2d_4_output" : {
+      "k" : 16,
+      "w" : 14,
+      "n" : 1,
+      "h" : 14
+    },
+    "embedding" : {
+      "k" : 128,
+      "w" : 1,
+      "n" : 1,
+      "h" : 1
+    },
+    "conv2d_6__activation___output" : {
+      "k" : 64,
+      "w" : 7,
+      "n" : 1,
+      "h" : 7
+    },
+    "conv2d_5__activation___output" : {
+      "k" : 32,
+      "w" : 14,
+      "n" : 1,
+      "h" : 14
+    },
+    "conv2d_4__activation___output" : {
+      "k" : 16,
+      "w" : 28,
+      "n" : 1,
+      "h" : 28
+    },
+    "drawing" : {
+      "k" : 1,
+      "w" : 28,
+      "n" : 1,
+      "h" : 28
+    },
+    "max_pooling2d_6_output" : {
+      "k" : 64,
+      "w" : 3,
+      "n" : 1,
+      "h" : 3
+    },
+    "dense_3_output" : {
+      "k" : 128,
+      "w" : 1,
+      "n" : 1,
+      "h" : 1
+    },
+    "max_pooling2d_5_output" : {
+      "k" : 32,
+      "w" : 7,
+      "n" : 1,
+      "h" : 7
+    },
+    "flatten_2_output" : {
+      "k" : 576,
+      "w" : 1,
+      "n" : 1,
+      "h" : 1
+    }
+  }
+}

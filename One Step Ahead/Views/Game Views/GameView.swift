@@ -94,42 +94,55 @@ struct GameView: View {
                     
                     HStack(alignment: .center, spacing: 37.5) {
                         VStack {
-                            HStack(alignment: .bottom) {
-                                Text("You")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                
-                                Spacer()
-                                
-                                Button(action: {
-                                    // Undo the canvas
-                                    isDeletingDrawing = true
-                                    canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
-                                    if allDrawings.count >= 1 {
-                                        allDrawings.removeLast()
-                                    }
-                                    isDeletingDrawing = false
-                                }) {
-                                    ZStack {
-                                        Rectangle()
-                                            .foregroundColor(.secondary)
-                                            .cornerRadius(50)
+                            ZStack {
+                                ZStack {
+                                    Rectangle()
+                                        .opacity(0.2)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                        .foregroundColor(.blue)
+                                        .hidden()
+                                    
+                                    VStack {
                                         HStack {
-                                            Image(systemName: "arrow.uturn.backward.circle")
-                                                .foregroundColor(.primary)
-                                            
-                                            Text("Undo")
+                                            Text("You")
+                                                .font(.title2)
                                                 .fontWeight(.bold)
-                                                .foregroundColor(.primary)
+                                            
+                                            Spacer()
+                                            
+                                            Button(action: {
+                                                // Undo the canvas
+                                                isDeletingDrawing = true
+                                                canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
+                                                if allDrawings.count >= 1 {
+                                                    allDrawings.removeLast()
+                                                }
+                                                isDeletingDrawing = false
+                                            }) {
+                                                ZStack {
+                                                    Rectangle()
+                                                        .foregroundColor(.secondary)
+                                                        .cornerRadius(50)
+                                                    HStack {
+                                                        Image(systemName: "arrow.uturn.backward.circle")
+                                                            .foregroundColor(.primary)
+                                                        
+                                                        Text("Undo")
+                                                            .fontWeight(.bold)
+                                                            .foregroundColor(.primary)
+                                                    }
+                                                }
+                                            }
+                                            .frame(width: 120, height: 40)
+                                            .offset(y: -5)
                                         }
+                                        
+                                        Spacer()
                                     }
                                 }
-                                .frame(width: 120, height: 40)
-                                .offset(y: 5)
-                            }
-                            .padding(.horizontal, 40)
-                            
-                            ZStack {
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .offset(y: -40)
+                                
                                 if !isCanvasDisabled {
                                     Rectangle()
                                         .opacity(0.2)
@@ -149,7 +162,7 @@ struct GameView: View {
                                         .aspectRatio(1.0, contentMode: .fit)
                                 }
                             }
-                            .aspectRatio(1.0, contentMode: .fit)
+                            .padding(.top, 45)
                             
                             Text("Current Score")
                                 .font(.title)
@@ -207,7 +220,6 @@ struct GameView: View {
                                     .font(.title2)
                                     .fontWeight(.bold)
                             }
-                            .padding(.horizontal, 40)
                             
                             ZStack {
                                 Rectangle()
@@ -273,47 +285,54 @@ struct GameView: View {
                     
                     Spacer()
                 }
+                
+                HStack {
+                    VStack {
+                        Button(action: {
+                            isGamePaused = true
+                            game.shouldRunTimer = false
+                        }) {
+                            ZStack {
+                                Circle()
+                                    .opacity(0.2)
+                                    .foregroundColor(.white)
+                                    .frame(width: 50, height: 50)
+                                
+                                Image(systemName: "pause.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.blue)
+                                    .frame(width: 20, height: 20)
+                            }
+                        }
+                        .padding([.top, .leading])
+                        .alert("Game Paused", isPresented: $isGamePaused) {
+                            Button(role: .cancel, action : {
+                                isGamePaused = false
+                                game.shouldRunTimer = true
+                            }) {
+                                Text("Resume Game")
+                            }
+                            
+                            Button(role: .destructive, action : {
+                                stopAudio()
+                                playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
+                                isShowingGameSequence = false
+                            }) {
+                                Text("Quit Game")
+                            }
+                        }
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
+                }
+                .edgesIgnoringSafeArea(.all)
             }
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        isGamePaused = true
-                        game.shouldRunTimer = false
-                    }) {
-                        ZStack {
-                            Circle()
-                                .opacity(0.2)
-                                .foregroundColor(.white)
-                                .frame(width: 50, height: 50)
-                            
-                            Image(systemName: "pause.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.blue)
-                                .frame(width: 20, height: 20)
-                        }
-                    }
-                    .alert("Game Paused", isPresented: $isGamePaused) {
-                        Button(role: .cancel, action : {
-                            isGamePaused = false
-                            game.shouldRunTimer = true
-                        }) {
-                            Text("Resume Game")
-                        }
-                        
-                        Button(role: .destructive, action : {
-                            stopAudio()
-                            playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
-                            isShowingGameSequence = false
-                        }) {
-                            Text("Quit Game")
-                        }
-                    }
-                }
-            }
         }
         .navigationViewStyle(.stack)
         .onAppear {

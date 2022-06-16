@@ -224,7 +224,7 @@ struct MainMenuView: View {
                         .padding(.horizontal, 60)
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 70)
             
 //            VStack {
 //                HStack(spacing: 220) {

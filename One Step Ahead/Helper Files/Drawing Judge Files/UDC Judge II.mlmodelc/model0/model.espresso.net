@@ -1,0 +1,229 @@
+{
+  "layers" : [
+    {
+      "pad_r" : 0,
+      "fused_relu" : 1,
+      "fused_tanh" : 0,
+      "debug_info" : "conv2d_4",
+      "pad_fill_mode" : 0,
+      "pad_b" : 0,
+      "pad_l" : 0,
+      "top" : "conv2d_4__activation___output",
+      "blob_weights" : 3,
+      "K" : 1,
+      "blob_biases" : 1,
+      "name" : "conv2d_4",
+      "has_batch_norm" : 0,
+      "type" : "convolution",
+      "n_groups" : 1,
+      "pad_t" : 0,
+      "has_biases" : 1,
+      "C" : 16,
+      "bottom" : "drawing",
+      "weights" : {
+
+      },
+      "Nx" : 3,
+      "pad_mode" : 1,
+      "pad_value" : 0,
+      "Ny" : 3,
+      "n_parallel" : 1
+    },
+    {
+      "pad_r" : 0,
+      "debug_info" : "max_pooling2d_4",
+      "pad_fill_mode" : 0,
+      "pad_b" : 0,
+      "pad_l" : 0,
+      "size_x" : 2,
+      "top" : "max_pooling2d_4_output",
+      "top_shape_style" : 0,
+      "stride_x" : 2,
+      "avg_or_max" : 1,
+      "average_count_exclude_padding" : 1,
+      "type" : "pool",
+      "name" : "max_pooling2d_4",
+      "pad_t" : 0,
+      "stride_y" : 2,
+      "bottom" : "conv2d_4__activation___output",
+      "weights" : {
+
+      },
+      "pad_mode" : 2,
+      "size_y" : 2,
+      "pad_value" : 0
+    },
+    {
+      "pad_r" : 0,
+      "fused_relu" : 1,
+      "fused_tanh" : 0,
+      "debug_info" : "conv2d_5",
+      "pad_fill_mode" : 0,
+      "pad_b" : 0,
+      "pad_l" : 0,
+      "top" : "conv2d_5__activation___output",
+      "blob_weights" : 7,
+      "K" : 16,
+      "blob_biases" : 5,
+      "name" : "conv2d_5",
+      "has_batch_norm" : 0,
+      "type" : "convolution",
+      "n_groups" : 1,
+      "pad_t" : 0,
+      "has_biases" : 1,
+      "C" : 32,
+      "bottom" : "max_pooling2d_4_output",
+      "weights" : {
+
+      },
+      "Nx" : 3,
+      "pad_mode" : 1,
+      "pad_value" : 0,
+      "Ny" : 3,
+      "n_parallel" : 1
+    },
+    {
+      "pad_r" : 0,
+      "debug_info" : "max_pooling2d_5",
+      "pad_fill_mode" : 0,
+      "pad_b" : 0,
+      "pad_l" : 0,
+      "size_x" : 2,
+      "top" : "max_pooling2d_5_output",
+      "top_shape_style" : 0,
+      "stride_x" : 2,
+      "avg_or_max" : 1,
+      "average_count_exclude_padding" : 1,
+      "type" : "pool",
+      "name" : "max_pooling2d_5",
+      "pad_t" : 0,
+      "stride_y" : 2,
+      "bottom" : "conv2d_5__activation___output",
+      "weights" : {
+
+      },
+      "pad_mode" : 2,
+      "size_y" : 2,
+      "pad_value" : 0
+    },
+    {
+      "pad_r" : 0,
+      "fused_relu" : 1,
+      "fused_tanh" : 0,
+      "debug_info" : "conv2d_6",
+      "pad_fill_mode" : 0,
+      "pad_b" : 0,
+      "pad_l" : 0,
+      "top" : "conv2d_6__activation___output",
+      "blob_weights" : 11,
+      "K" : 32,
+      "blob_biases" : 9,
+      "name" : "conv2d_6",
+      "has_batch_norm" : 0,
+      "type" : "convolution",
+      "n_groups" : 1,
+      "pad_t" : 0,
+      "has_biases" : 1,
+      "C" : 64,
+      "bottom" : "max_pooling2d_5_output",
+      "weights" : {
+
+      },
+      "Nx" : 3,
+      "pad_mode" : 1,
+      "pad_value" : 0,
+      "Ny" : 3,
+      "n_parallel" : 1
+    },
+    {
+      "pad_r" : 0,
+      "debug_info" : "max_pooling2d_6",
+      "pad_fill_mode" : 0,
+      "pad_b" : 0,
+      "pad_l" : 0,
+      "size_x" : 2,
+      "top" : "max_pooling2d_6_output",
+      "top_shape_style" : 0,
+      "stride_x" : 2,
+      "avg_or_max" : 1,
+      "average_count_exclude_padding" : 1,
+      "type" : "pool",
+      "name" : "max_pooling2d_6",
+      "pad_t" : 0,
+      "stride_y" : 2,
+      "bottom" : "conv2d_6__activation___output",
+      "weights" : {
+
+      },
+      "pad_mode" : 2,
+      "size_y" : 2,
+      "pad_value" : 0
+    },
+    {
+      "bottom" : "max_pooling2d_6_output",
+      "weights" : {
+
+      },
+      "mode" : 1,
+      "nd_axis" : 0,
+      "debug_info" : "flatten_2",
+      "top" : "flatten_2_output",
+      "type" : "flatten",
+      "name" : "flatten_2"
+    },
+    {
+      "nB" : 576,
+      "top" : "dense_3_output",
+      "has_biases" : 1,
+      "weights" : {
+
+      },
+      "nC" : 128,
+      "blob_weights" : 15,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "flatten_2_output",
+      "blob_biases" : 13,
+      "has_tanh" : 0,
+      "debug_info" : "dense_3",
+      "name" : "dense_3",
+      "has_prelu" : 0
+    },
+    {
+      "bottom" : "dense_3_output",
+      "weights" : {
+
+      },
+      "mode" : 0,
+      "debug_info" : "dense_3__activation__",
+      "top" : "embedding",
+      "type" : "activation",
+      "name" : "dense_3__activation__",
+      "attributes" : {
+        "is_output" : 1
+      }
+    }
+  ],
+  "transform_params" : {
+    "drawing" : {
+      "bias_a" : 0,
+      "bias_g" : 0,
+      "bias_r" : 0,
+      "bias_b" : 0,
+      "center_mean" : 0,
+      "is_network_bgr" : 0,
+      "scale" : 1
+    }
+  },
+  "storage" : "model.espresso.weights",
+  "metadata_in_weights" : [
+
+  ],
+  "properties" : {
+
+  },
+  "analyses" : {
+
+  },
+  "format_version" : 200
+}
