@@ -10,7 +10,7 @@ import SwiftUI
 /// A rotating rectangle with a gradient color fill and text.
 struct RotatingSquare: View {
     
-    // Pass-In Variables
+    // MARK: - View Variables
     /// The direction the square is rotating.
     var direction: RotationDirection
     /// The bottom color of the square's color gradient.
@@ -26,6 +26,7 @@ struct RotatingSquare: View {
     /// The current amount of degrees that each square button is rotated.
     @Binding var rotationDegrees: Double
     
+    // MARK: - View Body
     var body: some View {
         ZStack {
             Rectangle()
@@ -55,19 +56,12 @@ struct RotatingSquare: View {
                                 .multilineTextAlignment(.center)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.01)
-                                .padding(5)
+                                .padding(10)
                         }
                     }
                 )
             
-            if imageAssetName == nil {
-//                if iconName != nil {
-//                    Image(systemName: iconName!)
-//                        .foregroundColor(.white)
-//                        .font(.largeTitle)
-//                        .offset(y: -10)
-//                }
-            } else {
+            if imageAssetName != nil {
                 Image(imageAssetName!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -77,7 +71,7 @@ struct RotatingSquare: View {
         }
     }
     
-    // Enumeration
+    // MARK: - Enumeration
     /// The two ways in which a rotating square can turn.
     enum RotationDirection {
         case clockwise

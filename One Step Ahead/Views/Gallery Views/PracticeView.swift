@@ -61,43 +61,56 @@ struct PracticeView: View {
                 
                 HStack {
                     VStack {
-                        HStack(alignment: .bottom) {
-                            Text("You")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .hidden()
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                // Undo the canvas
-                                isDeletingDrawing = true
-                                canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
-                                if allDrawings.count >= 1 {
-                                    allDrawings.removeLast()
-                                }
-                                isDeletingDrawing = false
-                            }) {
-                                ZStack {
-                                    Rectangle()
-                                        .foregroundColor(.secondary)
-                                        .cornerRadius(50)
+                        ZStack {
+                            ZStack {
+                                Rectangle()
+                                    .opacity(0.2)
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .foregroundColor(.blue)
+                                    .hidden()
+                                
+                                VStack {
                                     HStack {
-                                        Image(systemName: "arrow.uturn.backward.circle")
-                                            .foregroundColor(.primary)
-                                        
-                                        Text("Undo")
+                                        Text("You")
+                                            .font(.title2)
                                             .fontWeight(.bold)
-                                            .foregroundColor(.primary)
+                                            .hidden()
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            // Undo the canvas
+                                            isDeletingDrawing = true
+                                            canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
+                                            if allDrawings.count >= 1 {
+                                                allDrawings.removeLast()
+                                            }
+                                            isDeletingDrawing = false
+                                        }) {
+                                            ZStack {
+                                                Rectangle()
+                                                    .foregroundColor(.secondary)
+                                                    .cornerRadius(50)
+                                                HStack {
+                                                    Image(systemName: "arrow.uturn.backward.circle")
+                                                        .foregroundColor(.primary)
+                                                    
+                                                    Text("Undo")
+                                                        .fontWeight(.bold)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                        }
+                                        .frame(width: 120, height: 40)
+                                        .offset(y: -5)
                                     }
+                                    
+                                    Spacer()
                                 }
                             }
-                            .frame(width: 120, height: 40)
-                            .offset(y: 5)
-                        }
-                        .padding(.horizontal, 40)
-                        
-                        ZStack {
+                            .aspectRatio(1.0, contentMode: .fit)
+                            .offset(y: -40)
+                            
                             if !isCanvasDisabled {
                                 Rectangle()
                                     .opacity(0.2)
@@ -109,6 +122,7 @@ struct PracticeView: View {
                                     allDrawings.append(canvasView.drawing)
                                 }
                             })
+                            .disabled(isCanvasDisabled)
                             
                             if isCanvasDisabled {
                                 Rectangle()
@@ -116,7 +130,7 @@ struct PracticeView: View {
                                     .aspectRatio(1.0, contentMode: .fit)
                             }
                         }
-                        .aspectRatio(1.0, contentMode: .fit)
+                        .padding()
                         
                         HStack {
                             Text("")
@@ -216,7 +230,7 @@ struct PracticeView: View {
                         playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        Text("End Practice")
+                        Text("Exit Practice")
                             .fontWeight(.bold)
                             .foregroundColor(.red)
                     }

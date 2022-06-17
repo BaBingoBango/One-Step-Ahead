@@ -114,44 +114,59 @@ struct TutorialGameView: View {
                         
                         Spacer()
                         
-                        HStack(alignment: .center, spacing: 37.5) {
+                        HStack(alignment: .center, spacing: 30) {
+                            Spacer()
+                            
                             VStack {
-                                HStack(alignment: .bottom) {
-                                    Text("You")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                    
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        // Undo the canvas
-                                        isDeletingDrawing = true
-                                        canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
-                                        if allDrawings.count >= 1 {
-                                            allDrawings.removeLast()
-                                        }
-                                        isDeletingDrawing = false
-                                    }) {
-                                        ZStack {
-                                            Rectangle()
-                                                .foregroundColor(.secondary)
-                                                .cornerRadius(50)
+                                ZStack {
+                                    ZStack {
+                                        Rectangle()
+                                            .opacity(0.2)
+                                            .aspectRatio(1.0, contentMode: .fit)
+                                            .foregroundColor(.blue)
+                                            .hidden()
+                                        
+                                        VStack {
                                             HStack {
-                                                Image(systemName: "arrow.uturn.backward.circle")
-                                                    .foregroundColor(.primary)
-                                                
-                                                Text("Undo")
+                                                Text("You")
+                                                    .font(.title2)
                                                     .fontWeight(.bold)
-                                                    .foregroundColor(.primary)
+                                                
+                                                Spacer()
+                                                
+                                                Button(action: {
+                                                    // Undo the canvas
+                                                    isDeletingDrawing = true
+                                                    canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
+                                                    if allDrawings.count >= 1 {
+                                                        allDrawings.removeLast()
+                                                    }
+                                                    isDeletingDrawing = false
+                                                }) {
+                                                    ZStack {
+                                                        Rectangle()
+                                                            .foregroundColor(.secondary)
+                                                            .cornerRadius(50)
+                                                        HStack {
+                                                            Image(systemName: "arrow.uturn.backward.circle")
+                                                                .foregroundColor(.primary)
+                                                            
+                                                            Text("Undo")
+                                                                .fontWeight(.bold)
+                                                                .foregroundColor(.primary)
+                                                        }
+                                                    }
+                                                }
+                                                .frame(width: 120, height: 40)
+                                                .offset(y: -5)
                                             }
+                                            
+                                            Spacer()
                                         }
                                     }
-                                    .frame(width: 120, height: 40)
-                                    .offset(y: 5)
-                                }
-                                .padding(.horizontal, 40)
-                                
-                                ZStack {
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .offset(y: -40)
+                                    
                                     if !isCanvasDisabled {
                                         Rectangle()
                                             .opacity(0.2)
@@ -163,6 +178,7 @@ struct TutorialGameView: View {
                                             allDrawings.append(canvasView.drawing)
                                         }
                                     })
+                                    .disabled(isCanvasDisabled)
                                     
                                     if isCanvasDisabled {
                                         Rectangle()
@@ -171,101 +187,143 @@ struct TutorialGameView: View {
                                     }
                                 }
                                 .aspectRatio(1.0, contentMode: .fit)
+                                .padding(.top, 45)
                                 
                                 Text("Current Score")
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .padding(.top)
                                 
-                                if game.currentRound != 1 {
-                                    Text("\(game.playerScores[game.currentRound - 2].description)%")
-                                        .font(.largeTitle)
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.green)
-                                } else {
-                                    Text("---")
-                                        .font(.title)
+                                HStack(spacing: 0) {
+                                    if game.currentRound != 1 {
+                                        Text("\(game.playerScores[game.currentRound - 2].description)%")
+                                            .font(.largeTitle)
+                                            .fontWeight(.heavy)
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Text("---")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Text("  /  \(game.playerWinThreshold)%")
+                                        .font(.title2)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(.green)
+                                        .opacity(0.6)
                                 }
                             }
-                            .isHidden(!isShowingPlayerBox)
+                            .isHidden(!isShowingPlayerBox, remove: false)
+                            
+                            Spacer()
                             
                             Text("VS")
                                 .font(.largeTitle)
                                 .fontWeight(.black)
                                 .padding(.bottom, 48)
-                                .isHidden(!isShowingPlayerBox)
+                                .isHidden(!isShowingPlayerBox, remove: false)
+                            
+                            Spacer()
                             
                             VStack {
-                                HStack {
+                                ZStack {
                                     ZStack {
                                         Rectangle()
-                                            .foregroundColor(.secondary)
-                                            .cornerRadius(50)
-                                        HStack {
-                                            Image(systemName: "arrow.uturn.backward.circle")
-                                                .foregroundColor(.primary)
-                                            
-                                            Text("Undo")
-                                                .fontWeight(.bold)
-                                                .foregroundColor(.primary)
-                                        }
-                                    }
-                                    .frame(width: 120, height: 40)
-                                    .offset(y: 5)
-                                    .hidden()
-                                    
-                                    Spacer()
-                                    
-                                    Text("The Machine")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                }
-                                .padding(.horizontal, 40)
-                                
-                                ZStack {
-                                    Rectangle()
-                                        .opacity(0.2)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                    
-                                    VStack {
-                                        if isTrainingAImodel {
-                                            ProgressView()
-                                                .scaleEffect(2.5)
-                                                .progressViewStyle(CircularProgressViewStyle())
-                                                .frame(width: 75, height: 75)
-                                        } else {
-                                            Image("robot")
-                                                .resizable()
-                                                .frame(width: 75, height: 75)
-                                        }
+                                            .opacity(0.2)
+                                            .aspectRatio(1.0, contentMode: .fit)
+                                            .foregroundColor(.blue)
+                                            .hidden()
                                         
-                                        Text(AItext)
-                                            .font(.headline)
-                                            .fontWeight(.bold)
-                                            .padding(.top)
+                                        VStack {
+                                            HStack {
+                                                ZStack {
+                                                    Rectangle()
+                                                        .foregroundColor(.secondary)
+                                                        .cornerRadius(50)
+                                                    HStack {
+                                                        Image(systemName: "arrow.uturn.backward.circle")
+                                                            .foregroundColor(.primary)
+                                                        
+                                                        Text("Undo")
+                                                            .fontWeight(.bold)
+                                                            .foregroundColor(.primary)
+                                                    }
+                                                }
+                                                .frame(width: 120, height: 40)
+                                                .hidden()
+                                                
+                                                Spacer()
+                                                
+                                                Text("The Machine")
+                                                    .font(.title2)
+                                                    .fontWeight(.bold)
+                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.1)
+                                            }
+                                            
+                                            Spacer()
+                                        }
+                                    }
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .offset(y: -40)
+                                    
+                                    ZStack {
+                                        Rectangle()
+                                            .opacity(0.2)
+                                            .aspectRatio(1.0, contentMode: .fit)
+                                        
+                                        VStack {
+                                            if isTrainingAImodel {
+                                                ProgressView()
+                                                    .scaleEffect(2.5)
+                                                    .progressViewStyle(CircularProgressViewStyle())
+                                                    .frame(width: 75, height: 75)
+                                            } else {
+                                                Image("robot")
+                                                    .resizable()
+                                                    .frame(width: 75, height: 75)
+                                            }
+                                            
+                                            Text(AItext)
+                                                .font(.title2)
+                                                .fontWeight(.bold)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.1)
+                                                .padding(.top)
+                                        }
                                     }
                                 }
+                                .padding(.top, 45)
                                 
                                 Text("Current Score")
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .padding(.top)
                                 
-                                if game.currentRound != 1 {
-                                    Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                                        .font(.largeTitle)
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.red)
-                                } else {
-                                    Text("---")
-                                        .font(.title)
+                                HStack {
+                                    if game.currentRound != 1 {
+                                        Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
+                                            .font(.largeTitle)
+                                            .fontWeight(.heavy)
+                                            .foregroundColor(.red)
+                                    } else {
+                                        Text("---")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Text("  /  \(game.AIwinThreshold)%")
+                                        .font(.title2)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(.red)
+                                        .opacity(0.6)
                                 }
                             }
-                            .isHidden(!isShowingAIbox)
+                            .isHidden(!isShowingAIbox, remove: false)
+                            
+                            Spacer()
                         }
                         .padding(.horizontal, 75)
                         

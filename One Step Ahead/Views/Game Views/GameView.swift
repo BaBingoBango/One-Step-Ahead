@@ -92,7 +92,9 @@ struct GameView: View {
                     
                     Spacer()
                     
-                    HStack(alignment: .center, spacing: 37.5) {
+                    HStack(alignment: .center, spacing: 30) {
+                        Spacer()
+                        
                         VStack {
                             ZStack {
                                 ZStack {
@@ -162,6 +164,7 @@ struct GameView: View {
                                         .aspectRatio(1.0, contentMode: .fit)
                                 }
                             }
+                            .aspectRatio(1.0, contentMode: .fit)
                             .padding(.top, 45)
                             
                             Text("Current Score")
@@ -190,60 +193,80 @@ struct GameView: View {
                             }
                         }
                         
+                        Spacer()
+                        
                         Text("VS")
                             .font(.largeTitle)
                             .fontWeight(.black)
                             .padding(.bottom, 48)
                         
+                        Spacer()
+                        
                         VStack {
-                            HStack {
+                            ZStack {
                                 ZStack {
                                     Rectangle()
-                                        .foregroundColor(.secondary)
-                                        .cornerRadius(50)
-                                    HStack {
-                                        Image(systemName: "arrow.uturn.backward.circle")
-                                            .foregroundColor(.primary)
-                                        
-                                        Text("Undo")
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.primary)
-                                    }
-                                }
-                                .frame(width: 120, height: 40)
-                                .offset(y: 5)
-                                .hidden()
-                                
-                                Spacer()
-                                
-                                Text("The Machine")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                            }
-                            
-                            ZStack {
-                                Rectangle()
-                                    .opacity(0.2)
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                
-                                VStack {
-                                    if isTrainingAImodel {
-                                        ProgressView()
-                                            .scaleEffect(2.5)
-                                            .progressViewStyle(CircularProgressViewStyle())
-                                            .frame(width: 75, height: 75)
-                                    } else {
-                                        Image("robot")
-                                            .resizable()
-                                            .frame(width: 75, height: 75)
-                                    }
+                                        .opacity(0.2)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                        .foregroundColor(.blue)
+                                        .hidden()
                                     
-                                    Text(AItext)
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                        .padding(.top)
+                                    VStack {
+                                        HStack {
+                                            ZStack {
+                                                Rectangle()
+                                                    .foregroundColor(.secondary)
+                                                    .cornerRadius(50)
+                                                HStack {
+                                                    Image(systemName: "arrow.uturn.backward.circle")
+                                                        .foregroundColor(.primary)
+                                                    
+                                                    Text("Undo")
+                                                        .fontWeight(.bold)
+                                                        .foregroundColor(.primary)
+                                                }
+                                            }
+                                            .frame(width: 120, height: 40)
+                                            .hidden()
+                                            
+                                            Spacer()
+                                            
+                                            Text("The Machine")
+                                                .font(.title2)
+                                                .fontWeight(.bold)
+                                        }
+                                        
+                                        Spacer()
+                                    }
+                                }
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .offset(y: -40)
+                                
+                                ZStack {
+                                    Rectangle()
+                                        .opacity(0.2)
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                    
+                                    VStack {
+                                        if isTrainingAImodel {
+                                            ProgressView()
+                                                .scaleEffect(2.5)
+                                                .progressViewStyle(CircularProgressViewStyle())
+                                                .frame(width: 75, height: 75)
+                                        } else {
+                                            Image("robot")
+                                                .resizable()
+                                                .frame(width: 75, height: 75)
+                                        }
+                                        
+                                        Text(AItext)
+                                            .font(.title2)
+                                            .fontWeight(.bold)
+                                            .padding(.top)
+                                    }
                                 }
                             }
+                            .padding(.top, 45)
                             
                             Text("Current Score")
                                 .font(.title)
@@ -270,6 +293,8 @@ struct GameView: View {
                                     .opacity(0.6)
                             }
                         }
+                        
+                        Spacer()
                     }
                     .padding(.horizontal, 75)
                     
@@ -285,54 +310,58 @@ struct GameView: View {
                     
                     Spacer()
                 }
-                
-                HStack {
-                    VStack {
-                        Button(action: {
-                            isGamePaused = true
-                            game.shouldRunTimer = false
-                        }) {
-                            ZStack {
-                                Circle()
-                                    .opacity(0.2)
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
+            }
+            
+            // MARK: Navigation View Settings
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    HStack {
+                        VStack {
+                            Button(action: {
+                                isGamePaused = true
+                                game.shouldRunTimer = false
+                            }) {
+                                ZStack {
+                                    Circle()
+                                        .opacity(0.2)
+                                        .foregroundColor(.white)
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Image(systemName: "pause.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.blue)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                            .alert("Game Paused", isPresented: $isGamePaused) {
+                                Button(role: .cancel, action : {
+                                    isGamePaused = false
+                                    game.shouldRunTimer = true
+                                }) {
+                                    Text("Resume Game")
+                                }
                                 
-                                Image(systemName: "pause.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(.blue)
-                                    .frame(width: 20, height: 20)
+                                Button(role: .destructive, action : {
+                                    stopAudio()
+                                    playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
+                                    isShowingGameSequence = false
+                                }) {
+                                    Text("Quit Game")
+                                }
                             }
-                        }
-                        .padding([.top, .leading])
-                        .alert("Game Paused", isPresented: $isGamePaused) {
-                            Button(role: .cancel, action : {
-                                isGamePaused = false
-                                game.shouldRunTimer = true
-                            }) {
-                                Text("Resume Game")
-                            }
+                            .padding(.leading, 10)
+                            .padding(.top, 30)
                             
-                            Button(role: .destructive, action : {
-                                stopAudio()
-                                playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
-                                isShowingGameSequence = false
-                            }) {
-                                Text("Quit Game")
-                            }
+                            Spacer()
                         }
                         
                         Spacer()
                     }
-                    
-                    Spacer()
                 }
-                .edgesIgnoringSafeArea(.all)
-            }
-            // MARK: Navigation View Settings
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
+            })
         }
         .navigationViewStyle(.stack)
         .onAppear {
