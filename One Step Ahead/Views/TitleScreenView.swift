@@ -20,7 +20,7 @@ struct TitleScreenView: View {
     @State var showingAppInfo = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "Title Screen Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Title Screen Graphics")!
     
     var body: some View {
         NavigationView {
@@ -29,7 +29,7 @@ struct TitleScreenView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Rectangle()
-                        .frame(width: 350, height: 350)
+                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 350 : 150, height: UIDevice.current.userInterfaceIdiom != .phone ? 350 : 150)
                         .hidden()
                     
                     if hasAuthenticatedWithGameCenter {

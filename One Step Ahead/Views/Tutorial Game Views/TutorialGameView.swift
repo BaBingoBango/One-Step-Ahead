@@ -79,7 +79,7 @@ struct TutorialGameView: View {
     @State var isGamePaused = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "Game View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Game View Graphics")!
     
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.

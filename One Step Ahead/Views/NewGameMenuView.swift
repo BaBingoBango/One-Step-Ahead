@@ -29,7 +29,7 @@ struct NewGameMenuView: View {
     var shouldShowReturnToGalleryButton = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "New Game Menu Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") New Game Menu Graphics")!
     
     var body: some View {
         ZStack {

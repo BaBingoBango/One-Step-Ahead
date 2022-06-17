@@ -21,7 +21,7 @@ struct GameEndView: View {
     @State var hasPlayedJingle = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "Game End View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Game End View Graphics")!
     
     // Computed Properties
     /// The player score from the last round of play.

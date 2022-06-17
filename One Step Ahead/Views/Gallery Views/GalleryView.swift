@@ -25,7 +25,7 @@ struct GalleryView: View {
     /// The task list, sorted alphabetically.
     var sortedTaskList = Task.taskList.sorted(by: { $0.object < $1.object })
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "Gallery View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Gallery View Graphics")!
     
     var body: some View {
         let galleryProgress = Double(userTaskRecords.records.count) / Double(Task.taskList.count)

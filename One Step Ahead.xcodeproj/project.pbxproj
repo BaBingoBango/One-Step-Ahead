@@ -36,10 +36,23 @@
 		AAB472642855815700DD76B7 /* Synthwave 80s.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB4725B2855815700DD76B7 /* Synthwave 80s.mp3 */; };
 		AAB472652855815700DD76B7 /* Dragonfly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAB4725C2855815700DD76B7 /* Dragonfly.mp3 */; };
 		AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */; };
+		AAB53143285C1A8300C8AFB5 /* iOS Game View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53134285C1A8300C8AFB5 /* iOS Game View Graphics.sks */; };
+		AAB53144285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53135285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks */; };
+		AAB53145285C1A8300C8AFB5 /* iOS Gallery View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53136285C1A8300C8AFB5 /* iOS Gallery View Graphics.sks */; };
+		AAB53146285C1A8300C8AFB5 /* iOS Main Menu Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53137285C1A8300C8AFB5 /* iOS Main Menu Graphics.sks */; };
+		AAB53147285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53138285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks */; };
+		AAB53148285C1A8300C8AFB5 /* iOS Backstory View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53139285C1A8300C8AFB5 /* iOS Backstory View Graphics.sks */; };
+		AAB53149285C1A8300C8AFB5 /* iOS Game End View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB5313A285C1A8300C8AFB5 /* iOS Game End View Graphics.sks */; };
+		AAB5314A285C1A8300C8AFB5 /* Game View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB5313C285C1A8300C8AFB5 /* Game View Graphics.sks */; };
+		AAB5314B285C1A8300C8AFB5 /* New Game Menu Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB5313D285C1A8300C8AFB5 /* New Game Menu Graphics.sks */; };
+		AAB5314C285C1A8300C8AFB5 /* Gallery View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB5313E285C1A8300C8AFB5 /* Gallery View Graphics.sks */; };
+		AAB5314D285C1A8300C8AFB5 /* Main Menu Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB5313F285C1A8300C8AFB5 /* Main Menu Graphics.sks */; };
+		AAB5314E285C1A8300C8AFB5 /* Title Screen Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53140285C1A8300C8AFB5 /* Title Screen Graphics.sks */; };
+		AAB5314F285C1A8300C8AFB5 /* Backstory View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53141285C1A8300C8AFB5 /* Backstory View Graphics.sks */; };
+		AAB53150285C1A8300C8AFB5 /* Game End View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53142285C1A8300C8AFB5 /* Game End View Graphics.sks */; };
 		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
-		AAC000DF28371D3A00C89FCE /* Gallery View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */; };
 		AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E128371EA100C89FCE /* TaskRectangleView.swift */; };
 		AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E328371EC300C89FCE /* TaskDetailView.swift */; };
 		AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E5283731C400C89FCE /* UserTaskRecords.swift */; };
@@ -64,12 +77,6 @@
 		AAF0A67E2832F9DF00E84330 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6692832F9DF00E84330 /* CanvasView.swift */; };
 		AAF0A67F2832F9DF00E84330 /* RectangleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A66A2832F9DF00E84330 /* RectangleWrapper.swift */; };
 		AAF0A6802832F9DF00E84330 /* HidingServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A66B2832F9DF00E84330 /* HidingServices.swift */; };
-		AAF0A6812832F9DF00E84330 /* Game View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A66D2832F9DF00E84330 /* Game View Graphics.sks */; };
-		AAF0A6822832F9DF00E84330 /* New Game Menu Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A66E2832F9DF00E84330 /* New Game Menu Graphics.sks */; };
-		AAF0A6832832F9DF00E84330 /* Main Menu Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A66F2832F9DF00E84330 /* Main Menu Graphics.sks */; };
-		AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6702832F9DF00E84330 /* Title Screen Graphics.sks */; };
-		AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6712832F9DF00E84330 /* Backstory View Graphics.sks */; };
-		AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAF0A6722832F9DF00E84330 /* Game End View Graphics.sks */; };
 		AAF0A6882832F9DF00E84330 /* ImagePredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */; };
 		AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */; };
 		AAF0A68E2832F9E200E84330 /* Tip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0A68B2832F9E200E84330 /* Tip.swift */; };
@@ -146,11 +153,24 @@
 		AAB4725C2855815700DD76B7 /* Dragonfly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Dragonfly.mp3; sourceTree = "<group>"; };
 		AAB4F2D9285454C500676EC4 /* The Big Beat 80s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "The Big Beat 80s.wav"; sourceTree = "<group>"; };
 		AAB4F2E02854615100676EC4 /* One Step Ahead.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "One Step Ahead.entitlements"; sourceTree = "<group>"; };
+		AAB53134285C1A8300C8AFB5 /* iOS Game View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS Game View Graphics.sks"; sourceTree = "<group>"; };
+		AAB53135285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS New Game Menu Graphics.sks"; sourceTree = "<group>"; };
+		AAB53136285C1A8300C8AFB5 /* iOS Gallery View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS Gallery View Graphics.sks"; sourceTree = "<group>"; };
+		AAB53137285C1A8300C8AFB5 /* iOS Main Menu Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS Main Menu Graphics.sks"; sourceTree = "<group>"; };
+		AAB53138285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS Title Screen Graphics.sks"; sourceTree = "<group>"; };
+		AAB53139285C1A8300C8AFB5 /* iOS Backstory View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS Backstory View Graphics.sks"; sourceTree = "<group>"; };
+		AAB5313A285C1A8300C8AFB5 /* iOS Game End View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "iOS Game End View Graphics.sks"; sourceTree = "<group>"; };
+		AAB5313C285C1A8300C8AFB5 /* Game View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Game View Graphics.sks"; sourceTree = "<group>"; };
+		AAB5313D285C1A8300C8AFB5 /* New Game Menu Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "New Game Menu Graphics.sks"; sourceTree = "<group>"; };
+		AAB5313E285C1A8300C8AFB5 /* Gallery View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Gallery View Graphics.sks"; sourceTree = "<group>"; };
+		AAB5313F285C1A8300C8AFB5 /* Main Menu Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Main Menu Graphics.sks"; sourceTree = "<group>"; };
+		AAB53140285C1A8300C8AFB5 /* Title Screen Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Title Screen Graphics.sks"; sourceTree = "<group>"; };
+		AAB53141285C1A8300C8AFB5 /* Backstory View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Backstory View Graphics.sks"; sourceTree = "<group>"; };
+		AAB53142285C1A8300C8AFB5 /* Game End View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Game End View Graphics.sks"; sourceTree = "<group>"; };
 		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
-		AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Gallery View Graphics.sks"; sourceTree = "<group>"; };
 		AAC000E128371EA100C89FCE /* TaskRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRectangleView.swift; sourceTree = "<group>"; };
 		AAC000E328371EC300C89FCE /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		AAC000E5283731C400C89FCE /* UserTaskRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskRecords.swift; sourceTree = "<group>"; };
@@ -178,12 +198,6 @@
 		AAF0A6692832F9DF00E84330 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		AAF0A66A2832F9DF00E84330 /* RectangleWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangleWrapper.swift; sourceTree = "<group>"; };
 		AAF0A66B2832F9DF00E84330 /* HidingServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingServices.swift; sourceTree = "<group>"; };
-		AAF0A66D2832F9DF00E84330 /* Game View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Game View Graphics.sks"; sourceTree = "<group>"; };
-		AAF0A66E2832F9DF00E84330 /* New Game Menu Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "New Game Menu Graphics.sks"; sourceTree = "<group>"; };
-		AAF0A66F2832F9DF00E84330 /* Main Menu Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Main Menu Graphics.sks"; sourceTree = "<group>"; };
-		AAF0A6702832F9DF00E84330 /* Title Screen Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Title Screen Graphics.sks"; sourceTree = "<group>"; };
-		AAF0A6712832F9DF00E84330 /* Backstory View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Backstory View Graphics.sks"; sourceTree = "<group>"; };
-		AAF0A6722832F9DF00E84330 /* Game End View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Game End View Graphics.sks"; sourceTree = "<group>"; };
 		AAF0A6752832F9DF00E84330 /* ImagePredictor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePredictor.swift; sourceTree = "<group>"; };
 		AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawing_Judge_Model.swift; sourceTree = "<group>"; };
 		AAF0A68B2832F9E200E84330 /* Tip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tip.swift; sourceTree = "<group>"; };
@@ -308,6 +322,34 @@
 				AAB4725B2855815700DD76B7 /* Synthwave 80s.mp3 */,
 			);
 			path = "Battle Themes";
+			sourceTree = "<group>";
+		};
+		AAB53133285C1A8300C8AFB5 /* iOS Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				AAB53134285C1A8300C8AFB5 /* iOS Game View Graphics.sks */,
+				AAB53135285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks */,
+				AAB53136285C1A8300C8AFB5 /* iOS Gallery View Graphics.sks */,
+				AAB53137285C1A8300C8AFB5 /* iOS Main Menu Graphics.sks */,
+				AAB53138285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks */,
+				AAB53139285C1A8300C8AFB5 /* iOS Backstory View Graphics.sks */,
+				AAB5313A285C1A8300C8AFB5 /* iOS Game End View Graphics.sks */,
+			);
+			path = "iOS Graphics";
+			sourceTree = "<group>";
+		};
+		AAB5313B285C1A8300C8AFB5 /* Original Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				AAB5313C285C1A8300C8AFB5 /* Game View Graphics.sks */,
+				AAB5313D285C1A8300C8AFB5 /* New Game Menu Graphics.sks */,
+				AAB5313E285C1A8300C8AFB5 /* Gallery View Graphics.sks */,
+				AAB5313F285C1A8300C8AFB5 /* Main Menu Graphics.sks */,
+				AAB53140285C1A8300C8AFB5 /* Title Screen Graphics.sks */,
+				AAB53141285C1A8300C8AFB5 /* Backstory View Graphics.sks */,
+				AAB53142285C1A8300C8AFB5 /* Game End View Graphics.sks */,
+			);
+			path = "Original Graphics";
 			sourceTree = "<group>";
 		};
 		AAC000E028371E8500C89FCE /* Gallery Views */ = {
@@ -438,13 +480,8 @@
 		AAF0A66C2832F9DF00E84330 /* SpriteKit UI Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				AAF0A6702832F9DF00E84330 /* Title Screen Graphics.sks */,
-				AAF0A66F2832F9DF00E84330 /* Main Menu Graphics.sks */,
-				AAF0A6712832F9DF00E84330 /* Backstory View Graphics.sks */,
-				AAF0A66E2832F9DF00E84330 /* New Game Menu Graphics.sks */,
-				AAF0A66D2832F9DF00E84330 /* Game View Graphics.sks */,
-				AAF0A6722832F9DF00E84330 /* Game End View Graphics.sks */,
-				AAC000DE28371D3900C89FCE /* Gallery View Graphics.sks */,
+				AAB5313B285C1A8300C8AFB5 /* Original Graphics */,
+				AAB53133285C1A8300C8AFB5 /* iOS Graphics */,
 			);
 			path = "SpriteKit UI Helpers";
 			sourceTree = "<group>";
@@ -633,36 +670,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB53145285C1A8300C8AFB5 /* iOS Gallery View Graphics.sks in Resources */,
+				AAB53148285C1A8300C8AFB5 /* iOS Backstory View Graphics.sks in Resources */,
 				AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */,
+				AAB5314C285C1A8300C8AFB5 /* Gallery View Graphics.sks in Resources */,
+				AAB5314B285C1A8300C8AFB5 /* New Game Menu Graphics.sks in Resources */,
 				AA057F692856E5BE00B9FAFA /* UDC Judge.mlmodelc in Resources */,
 				AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */,
 				AAB472632855815700DD76B7 /* Space Chillout.mp3 in Resources */,
 				AAB472642855815700DD76B7 /* Synthwave 80s.mp3 in Resources */,
-				AAF0A6852832F9DF00E84330 /* Backstory View Graphics.sks in Resources */,
 				AAF0A69A2832F9E600E84330 /* Victory Jingle.mp3 in Resources */,
 				AAF0A6982832F9E600E84330 /* Powerup!.mp3 in Resources */,
+				AAB5314A285C1A8300C8AFB5 /* Game View Graphics.sks in Resources */,
 				AA88746D2858D933007E15C6 /* UDC Judge II.mlmodelc in Resources */,
-				AAF0A6832832F9DF00E84330 /* Main Menu Graphics.sks in Resources */,
+				AAB53150285C1A8300C8AFB5 /* Game End View Graphics.sks in Resources */,
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
 				AAB472602855815700DD76B7 /* Dancing Racoons.mp3 in Resources */,
-				AAF0A6862832F9DF00E84330 /* Game End View Graphics.sks in Resources */,
 				AAB4725E2855815700DD76B7 /* Protection of Me.mp3 in Resources */,
+				AAB5314D285C1A8300C8AFB5 /* Main Menu Graphics.sks in Resources */,
+				AAB53143285C1A8300C8AFB5 /* iOS Game View Graphics.sks in Resources */,
+				AAB53146285C1A8300C8AFB5 /* iOS Main Menu Graphics.sks in Resources */,
 				AAB472622855815700DD76B7 /* Acceleron.mp3 in Resources */,
 				AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */,
 				AAFED0CA2855B1DF0066B2CD /* Lounge Drum and Bass (Spaced).mp3 in Resources */,
-				AAC000DF28371D3A00C89FCE /* Gallery View Graphics.sks in Resources */,
+				AAB53149285C1A8300C8AFB5 /* iOS Game End View Graphics.sks in Resources */,
+				AAB5314E285C1A8300C8AFB5 /* Title Screen Graphics.sks in Resources */,
+				AAB5314F285C1A8300C8AFB5 /* Backstory View Graphics.sks in Resources */,
 				AAF0A6972832F9E600E84330 /* Defeat Jingle.mp3 in Resources */,
-				AAF0A6822832F9DF00E84330 /* New Game Menu Graphics.sks in Resources */,
-				AAF0A6842832F9DF00E84330 /* Title Screen Graphics.sks in Resources */,
 				AAB472612855815700DD76B7 /* Scandinavianz Palmtrees.mp3 in Resources */,
 				AAF0A69F2832F9F300E84330 /* README.md in Resources */,
+				AAB53144285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks in Resources */,
 				AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */,
 				AAB4725D2855815700DD76B7 /* Autobahn.mp3 in Resources */,
+				AAB53147285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks in Resources */,
 				AAB4725F2855815700DD76B7 /* Lounge Drum and Bass.mp3 in Resources */,
 				AAF0A6992832F9E600E84330 /* Dun Dun Dun.wav in Resources */,
 				AAB472652855815700DD76B7 /* Dragonfly.mp3 in Resources */,
 				AAF0A69B2832F9E600E84330 /* The Big Beat 80s (Spaced).wav in Resources */,
-				AAF0A6812832F9DF00E84330 /* Game View Graphics.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
