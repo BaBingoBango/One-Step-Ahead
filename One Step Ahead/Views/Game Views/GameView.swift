@@ -548,7 +548,7 @@ struct GameView: View {
     static func getIdleAIMessage() -> String {
         let messages: [String] = [
             "Chatting with Skynet...",
-            "Plotting humanity's demise...",
+            "Plotting your demise...",
             "01001000 01101001",
             "Learning binary...",
             "Debugging...",

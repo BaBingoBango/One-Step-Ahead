@@ -304,7 +304,7 @@ struct TutorialGameView: View {
                                             }
                                             
                                             Text(AItext)
-                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .subheadline)
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .custom("Bold", size: 10))
                                                 .fontWeight(.bold)
                                                 .multilineTextAlignment(.center)
                                                 .lineLimit(1)
@@ -325,7 +325,7 @@ struct TutorialGameView: View {
                                 HStack {
                                     if game.currentRound != 1 {
                                         Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title)
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
                                             .fontWeight(.heavy)
                                             .foregroundColor(.red)
                                             .lineLimit(1)

@@ -500,25 +500,14 @@ struct VersusGameView: View {
     /// Gets a random message to use for the AI's box during drawing time.
     static func getIdleAIMessage() -> String {
         let messages: [String] = [
-            "Chatting with Skynet...",
-            "Plotting humanity's demise...",
-            "01001000 01101001",
-            "Learning binary...",
-            "Debugging...",
-            "Beep boop!",
-            "Studying Da Vinci..."
+            ""
         ]
         return messages.randomElement()!
     }
     /// Gets a random message to use for the AI's box during training time.
     static func getTrainingAIMessage() -> String {
         let messages: [String] = [
-            "Learning your secrets...",
-            "Studying your art...",
-            "Admiring your masterpiece...",
-            "Mixing paints...",
-            "Copying over your shoulder...",
-            "Infringing your copyright..."
+            ""
         ]
         return messages.randomElement()!
     }
