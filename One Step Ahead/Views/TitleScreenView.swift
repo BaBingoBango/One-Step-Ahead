@@ -20,7 +20,7 @@ struct TitleScreenView: View {
     @State var showingAppInfo = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Title Screen Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Title Screen Graphics")!
     
     var body: some View {
         NavigationView {

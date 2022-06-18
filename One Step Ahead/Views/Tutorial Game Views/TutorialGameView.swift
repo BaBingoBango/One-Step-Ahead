@@ -30,13 +30,13 @@ struct TutorialGameView: View {
     /// The current speaker's secondary representation color.
     @State var speakerColor2: Color = .yellow
     /// Whether or not the AI box is on-screen.
-    @State var isShowingAIbox = false
+    @State var isShowingAIbox = true // FIXME: Revert this!
     /// Whether or not the player box and "VS" text are on-screen.
-    @State var isShowingPlayerBox = false
+    @State var isShowingPlayerBox = true // FIXME: Revert this!
     /// Whether or not the round indicator is on-screen.
-    @State var isShowingRoundIndicator = false
+    @State var isShowingRoundIndicator = true // FIXME: Revert this!
     /// Whether or not the timer is on-screen.
-    @State var isShowingTimer = false
+    @State var isShowingTimer = true // FIXME: Revert this!
     /// Whether or not the "Tap" text is on-screen.
     @State var isShowingAdvancePrompt = true
     /// Whether or not the training explanation drawing is on-screen.
@@ -79,7 +79,7 @@ struct TutorialGameView: View {
     @State var isGamePaused = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Game View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
     
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.
@@ -102,13 +102,14 @@ struct TutorialGameView: View {
                     // MARK: Game View Start
                     VStack(spacing: 0) {
                         Text("- Round \(game.currentRound) -")
-                            .font(.largeTitle)
+                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
                             .fontWeight(.bold)
                             .padding(.bottom, 5)
+                            .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
                             .isHidden(!isShowingRoundIndicator)
                         
                         Text(game.timeLeft.truncate(places: 1).description + "s")
-                            .font(.largeTitle)
+                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
                             .fontWeight(.heavy)
                             .isHidden(!isShowingTimer)
                         
@@ -129,8 +130,10 @@ struct TutorialGameView: View {
                                         VStack {
                                             HStack {
                                                 Text("You")
-                                                    .font(.title2)
+                                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
                                                     .fontWeight(.bold)
+                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.1)
                                                 
                                                 Spacer()
                                                 
@@ -144,28 +147,35 @@ struct TutorialGameView: View {
                                                     isDeletingDrawing = false
                                                 }) {
                                                     ZStack {
-                                                        Rectangle()
-                                                            .foregroundColor(.secondary)
-                                                            .cornerRadius(50)
+                                                        if UIDevice.current.userInterfaceIdiom != .phone {
+                                                            Rectangle()
+                                                                .foregroundColor(.secondary)
+                                                                .cornerRadius(50)
+                                                        } else {
+                                                            Circle()
+                                                                .foregroundColor(.secondary)
+                                                        }
                                                         HStack {
                                                             Image(systemName: "arrow.uturn.backward.circle")
                                                                 .foregroundColor(.primary)
                                                             
-                                                            Text("Undo")
-                                                                .fontWeight(.bold)
-                                                                .foregroundColor(.primary)
+                                                            if UIDevice.current.userInterfaceIdiom != .phone {
+                                                                Text("Undo")
+                                                                    .fontWeight(.bold)
+                                                                    .foregroundColor(.primary)
+                                                            }
                                                         }
                                                     }
                                                 }
-                                                .frame(width: 120, height: 40)
-                                                .offset(y: -5)
+                                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 30, height: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 10)
+                                                .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -5 : 0)
                                             }
                                             
                                             Spacer()
                                         }
                                     }
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .offset(y: -40)
+                                    .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -40 : -25)
                                     
                                     if !isCanvasDisabled {
                                         Rectangle()
@@ -187,31 +197,39 @@ struct TutorialGameView: View {
                                     }
                                 }
                                 .aspectRatio(1.0, contentMode: .fit)
-                                .padding(.top, 45)
+                                .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0)
                                 
                                 Text("Current Score")
-                                    .font(.title)
+                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
                                     .fontWeight(.bold)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.1)
                                     .padding(.top)
                                 
                                 HStack(spacing: 0) {
                                     if game.currentRound != 1 {
                                         Text("\(game.playerScores[game.currentRound - 2].description)%")
-                                            .font(.largeTitle)
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
                                             .fontWeight(.heavy)
                                             .foregroundColor(.green)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.1)
                                     } else {
                                         Text("---")
-                                            .font(.title)
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                                             .fontWeight(.bold)
                                             .foregroundColor(.secondary)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.1)
                                     }
                                     
                                     Text("  /  \(game.playerWinThreshold)%")
-                                        .font(.title2)
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
                                         .fontWeight(.bold)
                                         .foregroundColor(.green)
                                         .opacity(0.6)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
                                 }
                             }
                             .isHidden(!isShowingPlayerBox, remove: false)
@@ -251,12 +269,12 @@ struct TutorialGameView: View {
                                                     }
                                                 }
                                                 .frame(width: 120, height: 40)
-                                                .hidden()
+                                                .isHidden(true, remove: true)
                                                 
                                                 Spacer()
                                                 
                                                 Text("The Machine")
-                                                    .font(.title2)
+                                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
                                                     .fontWeight(.bold)
                                                     .lineLimit(1)
                                                     .minimumScaleFactor(0.1)
@@ -266,7 +284,7 @@ struct TutorialGameView: View {
                                         }
                                     }
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .offset(y: -40)
+                                    .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -40 : -25)
                                     
                                     ZStack {
                                         Rectangle()
@@ -282,43 +300,52 @@ struct TutorialGameView: View {
                                             } else {
                                                 Image("robot")
                                                     .resizable()
-                                                    .frame(width: 75, height: 75)
+                                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35, height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35)
                                             }
                                             
                                             Text(AItext)
-                                                .font(.title2)
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .subheadline)
                                                 .fontWeight(.bold)
+                                                .multilineTextAlignment(.center)
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.1)
-                                                .padding(.top)
+                                                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 5)
                                         }
                                     }
                                 }
-                                .padding(.top, 45)
+                                .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0)
                                 
                                 Text("Current Score")
-                                    .font(.title)
+                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
                                     .fontWeight(.bold)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.1)
                                     .padding(.top)
                                 
                                 HStack {
                                     if game.currentRound != 1 {
                                         Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                                            .font(.largeTitle)
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title)
                                             .fontWeight(.heavy)
                                             .foregroundColor(.red)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.1)
                                     } else {
                                         Text("---")
-                                            .font(.title)
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                                             .fontWeight(.bold)
                                             .foregroundColor(.secondary)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.1)
                                     }
                                     
                                     Text("  /  \(game.AIwinThreshold)%")
-                                        .font(.title2)
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
                                         .fontWeight(.bold)
                                         .foregroundColor(.red)
                                         .opacity(0.6)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
                                 }
                             }
                             .isHidden(!isShowingAIbox, remove: false)
@@ -334,7 +361,7 @@ struct TutorialGameView: View {
                 
                 Spacer()
                 
-                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
+                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: UIDevice.current.userInterfaceIdiom != .phone ? 145 : 55)
                     .onTapGesture {
                         if stateID != 10 {
                             moveToNextState()
@@ -364,7 +391,7 @@ struct TutorialGameView: View {
                 
                 Spacer()
                 
-                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
+                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: UIDevice.current.userInterfaceIdiom != .phone ? 145 : 55)
                     .onTapGesture {
                         if stateID != 10 {
                             moveToNextState()
@@ -697,12 +724,19 @@ struct DialogueView: View {
                         endPoint: .init(x: 0.5, y: 0.6)
                     ))
                 
-                Image(emojiImageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: height - 35, height: height - 35)
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    Image(emojiImageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: height - 35, height: height - 35)
+                } else {
+                    Image(emojiImageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: height - 10, height: height - 10)
+                }
             }
-            .frame(width: height + 25, height: height + 25)
+            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? height + 25 : height + 15, height: UIDevice.current.userInterfaceIdiom != .phone ? height + 25 : height + 15)
             .padding(.trailing, -70)
             .foregroundColor(.gray)
             .zIndex(1)
@@ -725,10 +759,11 @@ struct DialogueView: View {
                                 .cornerRadius(10)
                             
                             Text(characterName)
-                                .font(.title3)
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .footnote)
                                 .fontWeight(.heavy)
                         }
-                        .frame(width: 200, height: 40)
+                        .frame(width: 150, height: UIDevice.current.userInterfaceIdiom != .phone ? 45 : 25)
+                        .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 7)
                         Spacer()
                     }
                     Spacer()
@@ -737,7 +772,7 @@ struct DialogueView: View {
                 .padding(.leading, 75)
                 
                 Text(dialogue)
-                    .font(.title2)
+                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .footnote)
                     .fontWeight(.medium)
                     .foregroundColor(.black)
                     .minimumScaleFactor(0.1)
@@ -750,7 +785,7 @@ struct DialogueView: View {
                     VStack {
                         Spacer()
                         Text(advancePrompt)
-                            .font(.title2)
+                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .footnote)
                             .fontWeight(.bold)
                             .foregroundColor(color1 != .white ? color1 : .gray)
                             .isHidden(!isShowingAdvancePrompt)

@@ -23,7 +23,7 @@ struct BackstoryView: View {
     @State var isDismissing = false
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Backstory View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Backstory View Graphics")!
     
     var body: some View {
         NavigationView {

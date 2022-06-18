@@ -62,7 +62,7 @@ struct VersusGameView: View {
     @Binding var opponentCanvasView: PKCanvasView
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Game View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
     
     // MARK: - Enumeration
     /// The different possible statuses of the end-of-round score evaluation process.

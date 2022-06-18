@@ -15,7 +15,7 @@ struct PlayerScoresView: View {
     /// The state of the app's currently running game, passed in from the Game End View.
     @State var game: GameState
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Game End View Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
     
     var body: some View {
         ZStack {

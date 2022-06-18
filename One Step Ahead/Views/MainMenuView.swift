@@ -44,7 +44,7 @@ struct MainMenuView: View {
     var smallSquarePadding = 80.0
     
     /// The SpriteKit scene for the graphics of this view.
-    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS" : "") Main Menu Graphics")!
+    @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Main Menu Graphics")!
     
     var body: some View {
         ZStack {
@@ -86,12 +86,20 @@ struct MainMenuView: View {
                                 ZStack {
                                     RotatingSquare(direction: .clockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "GAME CENTER", imageAssetName: "Game Center Logo", rotationDegrees: $clockwiseRotationDegrees)
                                     
-                                    Image("Black And White Game Center Logo")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .opacity(0.7)
-                                        .padding()
-                                        .padding()
+                                    if UIDevice.current.userInterfaceIdiom != .phone {
+                                        Image("Black And White Game Center Logo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .opacity(0.7)
+                                            .padding()
+                                            .padding()
+                                    } else {
+                                        Image("Black And White Game Center Logo")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .opacity(0.7)
+                                            .padding()
+                                    }
                                 }
                             }
                             .sheet(isPresented: $isShowingGameCenterInfoView) {
@@ -99,6 +107,8 @@ struct MainMenuView: View {
                             }
                         }
                     }
+                    
+                    Spacer()
                     
                     HStack {
                         if UIDevice.current.userInterfaceIdiom != .phone {
@@ -136,6 +146,8 @@ struct MainMenuView: View {
                                 .hidden()
                         }
                     }
+                    
+                    Spacer()
                     
                     if isShowingVersus {
                         Rectangle()
@@ -189,25 +201,21 @@ struct MainMenuView: View {
                     
                     Spacer()
                 }
-//                .padding(.horizontal)
                 .padding(.vertical)
-//                .padding(.vertical)
                 
-                if UIDevice.current.userInterfaceIdiom != .phone {
-                    Spacer()
-                    
-                    DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: tip.speakerEmoji, characterName: tip.speakerName, dialogue: tip.tipText, color1: tip.speakerPrimaryColor, color2: tip.speakerSecondaryColor, height: 120, advancePrompt: "Another Tip ➤")
-                        .onTapGesture {
-                            var candidateTip = Tip.tipList.randomElement()!
-                            while candidateTip.tipText == tip.tipText {
-                                candidateTip = Tip.tipList.randomElement()!
-                            }
-                            tip = candidateTip
+                Spacer()
+                
+                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: tip.speakerEmoji, characterName: tip.speakerName, dialogue: tip.tipText, color1: tip.speakerPrimaryColor, color2: tip.speakerSecondaryColor, height: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 55, advancePrompt: "Another Tip ➤")
+                    .onTapGesture {
+                        var candidateTip = Tip.tipList.randomElement()!
+                        while candidateTip.tipText == tip.tipText {
+                            candidateTip = Tip.tipList.randomElement()!
                         }
-                        .padding(.horizontal, 60)
-                }
+                        tip = candidateTip
+                    }
+                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 60 : 0)
             }
-            .padding(.horizontal, 70)
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 70 : 20)
         }
         // MARK: Square Button Rotation Timer Responses
         .onReceive(clockwiseRotatingSquareTimer) { input in
@@ -218,7 +226,7 @@ struct MainMenuView: View {
         }
         .onAppear {
             // MARK: View Launch Code
-            // If nothing is playing, start "The Big Beat 80s"
+            // If nothing is playing, start "Lounge Drum and Bass"
             if !(audioPlayer?.isPlaying ?? true) {
                 playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
             }

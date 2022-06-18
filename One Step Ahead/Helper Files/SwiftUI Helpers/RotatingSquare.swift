@@ -44,8 +44,7 @@ struct RotatingSquare: View {
                         if iconName != nil {
                             Image(systemName: iconName!)
                                 .foregroundColor(.white)
-                                .font(.largeTitle)
-                                .offset(y: -10)
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title2)
                         }
                         
                         if imageAssetName == nil {
@@ -56,17 +55,27 @@ struct RotatingSquare: View {
                                 .multilineTextAlignment(.center)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.01)
-                                .padding(10)
+                                .padding(UIDevice.current.userInterfaceIdiom != .phone ? .all : .horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 10 : 5)
+                                .padding(.vertical, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 2)
                         }
                     }
                 )
             
             if imageAssetName != nil {
-                Image(imageAssetName!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding()
-                    .padding()
+                HStack {
+                    if UIDevice.current.userInterfaceIdiom != .phone {
+                        Image(imageAssetName!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+                            .padding()
+                    } else {
+                        Image(imageAssetName!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+                    }
+                }
             }
         }
     }
@@ -82,6 +91,14 @@ struct RotatingSquare: View {
 
 struct RotatingRectangle_Previews: PreviewProvider {
     static var previews: some View {
-        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(0))
+        HStack {
+            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
+                .hidden()
+            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", iconName: "1.circle", rotationDegrees: .constant(90))
+            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
+                .hidden()
+            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
+                .hidden()
+        }
     }
 }
