@@ -63,10 +63,6 @@
 		AACF8B252839A68D00D9025C /* GameCenterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B242839A68D00D9025C /* GameCenterInfoView.swift */; };
 		AACF8B272839B98200D9025C /* GameCenterDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF8B262839B98200D9025C /* GameCenterDashboardView.swift */; };
 		AADED59E28387B19009558AC /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADED59D28387B19009558AC /* PracticeView.swift */; };
-		AAF0921B286022F400F6925C /* Super Drawing Judge I.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = AAF09217286022F300F6925C /* Super Drawing Judge I.mlmodel */; };
-		AAF0921C286022F400F6925C /* Super Drawing Judge IV.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = AAF09218286022F400F6925C /* Super Drawing Judge IV.mlmodel */; };
-		AAF0921D286022F400F6925C /* Super Drawing Judge III.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = AAF09219286022F400F6925C /* Super Drawing Judge III.mlmodel */; };
-		AAF0921E286022F400F6925C /* Super Drawing Judge II.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = AAF0921A286022F400F6925C /* Super Drawing Judge II.mlmodel */; };
 		AAF09225286023FA00F6925C /* Super Drawing Judge I.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAF09221286023F900F6925C /* Super Drawing Judge I.mlmodelc */; };
 		AAF09226286023FA00F6925C /* Super Drawing Judge III.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAF09222286023F900F6925C /* Super Drawing Judge III.mlmodelc */; };
 		AAF09227286023FA00F6925C /* Super Drawing Judge IV.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAF09223286023F900F6925C /* Super Drawing Judge IV.mlmodelc */; };
@@ -189,10 +185,6 @@
 		AACF8B242839A68D00D9025C /* GameCenterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterInfoView.swift; sourceTree = "<group>"; };
 		AACF8B262839B98200D9025C /* GameCenterDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterDashboardView.swift; sourceTree = "<group>"; };
 		AADED59D28387B19009558AC /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
-		AAF09217286022F300F6925C /* Super Drawing Judge I.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "Super Drawing Judge I.mlmodel"; sourceTree = "<group>"; };
-		AAF09218286022F400F6925C /* Super Drawing Judge IV.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "Super Drawing Judge IV.mlmodel"; sourceTree = "<group>"; };
-		AAF09219286022F400F6925C /* Super Drawing Judge III.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "Super Drawing Judge III.mlmodel"; sourceTree = "<group>"; };
-		AAF0921A286022F400F6925C /* Super Drawing Judge II.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "Super Drawing Judge II.mlmodel"; sourceTree = "<group>"; };
 		AAF09221286023F900F6925C /* Super Drawing Judge I.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Super Drawing Judge I.mlmodelc"; sourceTree = "<group>"; };
 		AAF09222286023F900F6925C /* Super Drawing Judge III.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Super Drawing Judge III.mlmodelc"; sourceTree = "<group>"; };
 		AAF09223286023F900F6925C /* Super Drawing Judge IV.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Super Drawing Judge IV.mlmodelc"; sourceTree = "<group>"; };
@@ -398,11 +390,10 @@
 		AAF09216286022CA00F6925C /* Super Drawing Judge */ = {
 			isa = PBXGroup;
 			children = (
-				AAF09220286023D100F6925C /* Compiled Models */,
-				AAF09217286022F300F6925C /* Super Drawing Judge I.mlmodel */,
-				AAF0921A286022F400F6925C /* Super Drawing Judge II.mlmodel */,
-				AAF09219286022F400F6925C /* Super Drawing Judge III.mlmodel */,
-				AAF09218286022F400F6925C /* Super Drawing Judge IV.mlmodel */,
+				AAF09221286023F900F6925C /* Super Drawing Judge I.mlmodelc */,
+				AAF09224286023FA00F6925C /* Super Drawing Judge II.mlmodelc */,
+				AAF09222286023F900F6925C /* Super Drawing Judge III.mlmodelc */,
+				AAF09223286023F900F6925C /* Super Drawing Judge IV.mlmodelc */,
 			);
 			path = "Super Drawing Judge";
 			sourceTree = "<group>";
@@ -416,17 +407,6 @@
 				AA88746C2858D933007E15C6 /* UDC Judge II.mlmodelc */,
 			);
 			path = "Old Judge Models";
-			sourceTree = "<group>";
-		};
-		AAF09220286023D100F6925C /* Compiled Models */ = {
-			isa = PBXGroup;
-			children = (
-				AAF09221286023F900F6925C /* Super Drawing Judge I.mlmodelc */,
-				AAF09224286023FA00F6925C /* Super Drawing Judge II.mlmodelc */,
-				AAF09222286023F900F6925C /* Super Drawing Judge III.mlmodelc */,
-				AAF09223286023F900F6925C /* Super Drawing Judge IV.mlmodelc */,
-			);
-			path = "Compiled Models";
 			sourceTree = "<group>";
 		};
 		AAF0A6292832F7E500E84330 = {
@@ -795,7 +775,6 @@
 				AA1B82EE2853D9C800C6A192 /* LicensingDetailView.swift in Sources */,
 				AA1B82ED2853D9C800C6A192 /* SettingsView.swift in Sources */,
 				AA1B82EF2853D9C800C6A192 /* LicensingView.swift in Sources */,
-				AAF0921D286022F400F6925C /* Super Drawing Judge III.mlmodel in Sources */,
 				AAF0A67F2832F9DF00E84330 /* RectangleWrapper.swift in Sources */,
 				AAF0A6B12832F9F900E84330 /* GameEndView.swift in Sources */,
 				AAF0A67B2832F9DF00E84330 /* MathServices.swift in Sources */,
@@ -818,7 +797,6 @@
 				AACF8B252839A68D00D9025C /* GameCenterInfoView.swift in Sources */,
 				AADED59E28387B19009558AC /* PracticeView.swift in Sources */,
 				AAF0A67A2832F9DF00E84330 /* ImageServices.swift in Sources */,
-				AAF0921B286022F400F6925C /* Super Drawing Judge I.mlmodel in Sources */,
 				AAC97EEC283ED23E00FEB54B /* VersusGameView.swift in Sources */,
 				AAF0A6AF2832F9F900E84330 /* MainMenuView.swift in Sources */,
 				AAB1992328551E3B0073DCD7 /* Zephyr.swift in Sources */,
@@ -829,12 +807,10 @@
 				AAB472502855780000DD76B7 /* MKiCloudSync.m in Sources */,
 				AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */,
 				AAF0A6782832F9DF00E84330 /* DiskServices.swift in Sources */,
-				AAF0921C286022F400F6925C /* Super Drawing Judge IV.mlmodel in Sources */,
 				AA1ADF09283FF5B500D13D92 /* MatchDelegateView.swift in Sources */,
 				AAF0A68E2832F9E200E84330 /* Tip.swift in Sources */,
 				AAF0A6B52832F9F900E84330 /* NewGameMenuView.swift in Sources */,
 				AAF0A69D2832F9EA00E84330 /* MyApp.swift in Sources */,
-				AAF0921E286022F400F6925C /* Super Drawing Judge II.mlmodel in Sources */,
 				AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */,
 				AA6835DD283F3CE20024B859 /* GameMode.swift in Sources */,
 				AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */,
