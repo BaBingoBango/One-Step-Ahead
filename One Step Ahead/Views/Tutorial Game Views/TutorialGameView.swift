@@ -775,6 +775,7 @@ struct DialogueView: View {
                     .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .footnote)
                     .fontWeight(.medium)
                     .foregroundColor(.black)
+                    .lineLimit(UIDevice.current.userInterfaceIdiom != .phone ? 1000 : 2)
                     .minimumScaleFactor(0.1)
                     .padding(.horizontal, 90)
                     .padding(.trailing)

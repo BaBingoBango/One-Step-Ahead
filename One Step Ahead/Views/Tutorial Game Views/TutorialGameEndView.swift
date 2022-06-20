@@ -74,21 +74,17 @@ struct TutorialGameEndView: View {
                 VStack(spacing: 0) {
                     Text(winner == .player ? "You win!" : "You lose...")
                         .foregroundColor(winner == .player ? .gold : .red)
-                        .font(.system(size: 70))
+                        .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 45))
                         .fontWeight(.black)
                         .padding(.top)
-                    Text("Correct Drawing: \(game.task.object)")
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .padding(.top, 3)
+                        .padding(.bottom, 10)
                     
                     HStack(alignment: .center) {
                         Spacer()
                         
                         VStack {
                             Text("Your Beautiful Artwork:")
-                                .font(.title)
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                                 .fontWeight(.bold)
                                 .padding(.bottom)
                             
@@ -96,11 +92,11 @@ struct TutorialGameEndView: View {
                                 Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
                                     .resizable()
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: 175)
+                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                     .cornerRadius(25)
                                     .padding(.trailing)
                                 
-                                PercentCircle(percent: lastPlayerScore.truncate(places: 1))
+                                PercentCircle(percent: lastPlayerScore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                             }
                         }
                         
@@ -116,7 +112,7 @@ struct TutorialGameEndView: View {
                         
                         VStack {
                             Text(winner == .player ? "\"My plans are foiled!\"" : "\"Ha, ha! I win!\"")
-                                .font(.title)
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                                 .fontWeight(.bold)
                                 .padding(.bottom)
                             
@@ -131,27 +127,29 @@ struct TutorialGameEndView: View {
                                             
                                         ))
                                         .aspectRatio(1.0, contentMode: .fit)
-                                        .frame(width: 175)
+                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                         .cornerRadius(25)
                                     
                                     Image("robot")
-                                        .scaleEffect(0.8)
+                                        .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 0.8 : 0.4)
+                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                 }
                                 .padding(.trailing)
                                 
-                                PercentCircle(percent: lastAIscore.truncate(places: 1), color: .red)
+                                PercentCircle(percent: lastAIscore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, color: .red)
                             }
                         }
                         
                         Spacer()
                     }
+                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
                 }
                 .padding(.top)
                 // MARK: Game End View END
                 
                 Spacer()
                 
-                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2)
+                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: UIDevice.current.userInterfaceIdiom != .phone ? 145 : 55)
                     .onTapGesture {
                         if stateID != 7 {
                             moveToNextState()

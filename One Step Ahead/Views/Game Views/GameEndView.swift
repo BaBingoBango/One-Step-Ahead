@@ -220,6 +220,9 @@ struct PercentCircle: View {
                 Text("\(percent.description)%")
                     .font(font)
                     .fontWeight(.heavy)
+                    .frame(width: circleWidth - 20)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.1)
             }
         }
     }
