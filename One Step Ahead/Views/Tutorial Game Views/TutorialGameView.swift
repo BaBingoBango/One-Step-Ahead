@@ -303,13 +303,13 @@ struct TutorialGameView: View {
                                                     .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35, height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35)
                                             }
                                             
-                                            Text(AItext)
-                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .custom("Bold", size: 10))
+                                            Text("Hello!")
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .custom("Roboto Mono", size: 20) : .custom("Roboto Mono", size: 10))
                                                 .fontWeight(.bold)
                                                 .multilineTextAlignment(.center)
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.1)
-                                                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 5)
+                                                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10)
                                         }
                                     }
                                 }

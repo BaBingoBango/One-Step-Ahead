@@ -23,6 +23,7 @@
 		AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */; };
 		AA82CF01283B20CF003FC070 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CF00283B20CF003FC070 /* MatchmakerView.swift */; };
 		AA88746D2858D933007E15C6 /* UDC Judge II.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AA88746C2858D933007E15C6 /* UDC Judge II.mlmodelc */; };
+		AA9976CF2860C87A001E554B /* Roboto Mono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA9976CE2860C75D001E554B /* Roboto Mono.ttf */; };
 		AAA309AE2853E3D6007F4EC6 /* AssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA309AD2853E3D6007F4EC6 /* AssetType.swift */; };
 		AAB1992328551E3B0073DCD7 /* Zephyr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB1992228551E3B0073DCD7 /* Zephyr.swift */; };
 		AAB472502855780000DD76B7 /* MKiCloudSync.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB4724D2855780000DD76B7 /* MKiCloudSync.m */; };
@@ -141,6 +142,7 @@
 		AA82CEFB283B1E4A003FC070 /* VersusPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusPlayerState.swift; sourceTree = "<group>"; };
 		AA82CF00283B20CF003FC070 /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
 		AA88746C2858D933007E15C6 /* UDC Judge II.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "UDC Judge II.mlmodelc"; sourceTree = "<group>"; };
+		AA9976CE2860C75D001E554B /* Roboto Mono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto Mono.ttf"; sourceTree = "<group>"; };
 		AAA309AD2853E3D6007F4EC6 /* AssetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetType.swift; sourceTree = "<group>"; };
 		AAB1992228551E3B0073DCD7 /* Zephyr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zephyr.swift; sourceTree = "<group>"; };
 		AAB4724D2855780000DD76B7 /* MKiCloudSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKiCloudSync.m; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 		AAF0A65F2832F9DF00E84330 /* Helper Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA9976CE2860C75D001E554B /* Roboto Mono.ttf */,
 				AAF0A6602832F9DF00E84330 /* Data Helpers */,
 				AAF0A6672832F9DF00E84330 /* SwiftUI Helpers */,
 				AAF0A66C2832F9DF00E84330 /* SpriteKit UI Helpers */,
@@ -731,6 +734,7 @@
 				AAB53144285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks in Resources */,
 				AAF09225286023FA00F6925C /* Super Drawing Judge I.mlmodelc in Resources */,
 				AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */,
+				AA9976CF2860C87A001E554B /* Roboto Mono.ttf in Resources */,
 				AAF09226286023FA00F6925C /* Super Drawing Judge III.mlmodelc in Resources */,
 				AAB4725D2855815700DD76B7 /* Autobahn.mp3 in Resources */,
 				AAB53147285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks in Resources */,
