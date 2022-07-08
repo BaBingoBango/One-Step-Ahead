@@ -159,9 +159,13 @@ struct GameCenterInfoView: View {
                     .padding(.top, 5)
                     
                     HStack {
-                        Link("To learn more about Game Center, tap here to visit Apple Support on the web.", destination: URL(string: "https://support.apple.com/en-us/HT210401")!)
-                            .font(.headline)
-                            .foregroundColor(Color.blue)
+                        Link(destination: URL(string: "https://support.apple.com/en-us/HT210401")!) {
+                            Text("To learn more about Game Center, tap here to visit Apple Support on the web.")
+                                .multilineTextAlignment(.leading)
+                                .font(.headline)
+                                .foregroundColor(Color.blue)
+                        }
+                        
                         Spacer()
                     }
                     .padding(.vertical)

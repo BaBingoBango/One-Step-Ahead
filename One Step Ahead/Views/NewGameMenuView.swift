@@ -38,20 +38,22 @@ struct NewGameMenuView: View {
             VStack {
                 
                 VStack {
-                    HStack(alignment: .bottom) {
+                    HStack(alignment: UIDevice.current.userInterfaceIdiom != .phone ? .bottom : .center, spacing: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10) {
                         VStack {
-                            Text("Game Mode")
-                                .font(.title)
+                            Text(UIDevice.current.userInterfaceIdiom != .phone ? "Game Mode" : "Game Mode & Difficulty")
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                                 .fontWeight(.bold)
-                                .padding(.leading, 100)
+                                .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                             HStack {
+                                Spacer()
+                                
                                 Button(action: {
                                     game.gameMode = .demystify
                                     game.defaultCommandText = game.getDefaultCommandText()
                                 }) {
                                     IconButtonView(color: .green, imageName: "wand.and.stars.inverse", text: "Demystify", isColored: game.gameMode == .demystify)
                                 }
-                                .padding(.leading, 100)
+                                .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                                 Button(action: {
                                     game.gameMode = .batch
                                     game.defaultCommandText = game.getDefaultCommandText()
@@ -72,29 +74,52 @@ struct NewGameMenuView: View {
                                 }
                             }
                         }
-                        Text(getGameModeDescription())
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .frame(width: 350)
-                            .padding(.horizontal, 100)
-                            .padding(.bottom, 5)
+                        
+                        Spacer()
+                        
+                        if UIDevice.current.userInterfaceIdiom != .phone {
+                            Text(getGameModeDescription())
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .frame(width: 350)
+                                .padding(.horizontal, 100)
+                                .padding(.bottom, 5)
+                        } else {
+                            HStack {
+                                Text(getGameModeDescription())
+                                    .font(.callout)
+                                    .fontWeight(.bold)
+                                    .lineLimit(UIDevice.current.userInterfaceIdiom != .phone ? 999 : 3)
+                                    .minimumScaleFactor(0.1)
+                                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                                    .padding(.bottom, 5)
+                                
+                                Spacer()
+                            }
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 350 : UIScreen.main.bounds.width / 2)
+                        }
                     }
                 }
+                .padding(.horizontal)
                 
                 VStack {
-                    HStack(alignment: .bottom) {
+                    HStack(alignment: UIDevice.current.userInterfaceIdiom != .phone ? .bottom : .center, spacing: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10) {
                         VStack {
-                            Text("Difficulty")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding(.leading, 100)
+                            if UIDevice.current.userInterfaceIdiom != .phone {
+                                Text("Difficulty")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                            }
                             HStack {
+                                Spacer()
+                                
                                 Button(action: {
                                     game.difficulty = .easy
                                 }) {
                                     IconButtonView(color: .green, imageName: "sun.max.fill", text: "Easy", isColored: game.difficulty == .easy)
                                 }
-                                .padding(.leading, 100)
+                                .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                                 Button(action: {
                                     game.difficulty = .normal
                                 }) {
@@ -112,14 +137,32 @@ struct NewGameMenuView: View {
                                 }
                             }
                         }
-                        Text(getDifficultyDescription())
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .frame(width: 350)
-                            .padding(.horizontal, 100)
-                            .padding(.bottom, 5)
+                        
+                        Spacer()
+                        
+                        if UIDevice.current.userInterfaceIdiom != .phone {
+                            Text(getDifficultyDescription())
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .frame(width: 350)
+                                .padding(.horizontal, 100)
+                                .padding(.bottom, 5)
+                        } else {
+                            HStack {
+                                Text(getDifficultyDescription())
+                                    .font(.callout)
+                                    .fontWeight(.bold)
+                                    .lineLimit(3)
+                                    .minimumScaleFactor(0.1)
+                                    .padding(.bottom, 5)
+                                
+                                Spacer()
+                            }
+                            .frame(width: UIScreen.main.bounds.width / 2)
+                        }
                     }
                 }
+                .padding(.horizontal)
                 .padding(.top)
                 
                 Button(action: {
@@ -130,7 +173,7 @@ struct NewGameMenuView: View {
                         .foregroundColor(Color.white)
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
                         .frame(width: 250)
-                        .padding(.top, 50)
+                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 20)
                 }
                 .fullScreenCover(isPresented: $isShowingGameSequence) {
                     GameView(isShowingGameSequence: $isShowingGameSequence, game: game, commandText: game.defaultCommandText)
@@ -257,16 +300,18 @@ struct IconButtonView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.primary)
-                .frame(height: number == nil ? 30 : 40)
+                .frame(height: number == nil ? (UIDevice.current.userInterfaceIdiom != .phone ? 30 : 15) : (UIDevice.current.userInterfaceIdiom != .phone ? 40 : 20))
             
             if number == nil {
                 Text(text)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                    .padding(.top, 5)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.1)
+                    .padding([.top, .horizontal], 5)
             }
         }
-        .modifier(RectangleWrapper(fixedHeight: 80, color: isColored ? color : nil, opacity: isColored ? 1.0 : 0.1))
-        .frame(width: 120)
+        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 80 : 60, color: isColored ? color : nil, opacity: isColored ? 1.0 : 0.1))
+        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 60)
     }
 }
