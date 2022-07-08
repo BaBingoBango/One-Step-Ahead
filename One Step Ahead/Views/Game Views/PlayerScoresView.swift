@@ -101,6 +101,7 @@ struct RoundScoreCard: View {
                 
                 Spacer()
             }
+            .padding(.horizontal, 40)
         }
         .frame(width: 325, height: 450)
     }

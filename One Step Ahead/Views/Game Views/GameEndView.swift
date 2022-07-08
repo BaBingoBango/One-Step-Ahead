@@ -51,43 +51,29 @@ struct GameEndView: View {
         ZStack {
             SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
+            
             VStack(spacing: 0) {
                 Text(winner == .player ? "You win!" : "You lose...")
                     .foregroundColor(winner == .player ? .gold : .red)
-                    .font(.system(size: 70))
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 45))
                     .fontWeight(.black)
                     .padding(.top)
-                
-                Text("Correct Drawing: \(game.task.object)")
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
-                    .fontWeight(.heavy)
-                    .padding(.top, 3)
-                
-                Text("\(game.gameScore) pts.")
-                    .foregroundColor(.gold)
-                    .font(.system(size: 40))
-                    .fontWeight(.heavy)
-                    .padding(.top)
+                    .padding(.bottom, 10)
                 
                 HStack(alignment: .center) {
                     Spacer()
                     
                     VStack {
-                        Text("Your Beautiful Artwork:")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(.bottom)
                         
                         HStack(alignment: .center, spacing: 0) {
                             Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
                                 .resizable()
                                 .aspectRatio(1.0, contentMode: .fit)
-                                .frame(width: 175)
+                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                 .cornerRadius(25)
                                 .padding(.trailing)
                             
-                            PercentCircle(percent: lastPlayerScore.truncate(places: 1))
+                            PercentCircle(percent: lastPlayerScore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                         }
                     }
                     
@@ -102,10 +88,6 @@ struct GameEndView: View {
                     Spacer()
                     
                     VStack {
-                        Text(winner == .player ? "\"My plans are foiled!\"" : "\"Ha, ha! I win!\"")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(.bottom)
                         
                         HStack(alignment: .center, spacing: 0) {
                             ZStack {
@@ -118,44 +100,62 @@ struct GameEndView: View {
                                         
                                     ))
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: 175)
+                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                     .cornerRadius(25)
                                 
                                 Image("robot")
-                                    .scaleEffect(0.8)
+                                    .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 0.8 : 0.4)
+                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                             }
                             .padding(.trailing)
                             
-                            PercentCircle(percent: lastAIscore.truncate(places: 1), color: .red)
+                            PercentCircle(percent: lastAIscore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, color: .red)
                         }
                     }
                     
                     Spacer()
                 }
+                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
                 
                 HStack(spacing: 30) {
                     NavigationLink(destination: PlayerScoresView(game: game)) {
-                        Text("View Round History")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                        .modifier(RectangleWrapper(fixedHeight: 60, color: .gray, opacity: 1.0))
-                        .frame(width: 375)
+                        if UIDevice.current.userInterfaceIdiom != .phone {
+                            Text("View Round History")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            .modifier(RectangleWrapper(fixedHeight: 60, color: .gray, opacity: 1.0))
+                            .frame(width: 375)
+                        } else {
+                            Text("View Round History")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                            .modifier(RectangleWrapper(fixedHeight: 50, color: .gray, opacity: 1.0))
+                        }
                     }
                     
                     Button(action: {
                         playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                         isShowingGameSequence = false
                     }) {
-                        Text("Return To Menu")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
-                            .frame(width: 375)
+                        if UIDevice.current.userInterfaceIdiom != .phone {
+                            Text("Return To Menu")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                                .frame(width: 375)
+                        } else {
+                            Text("Return To Menu")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
+                        }
                     }
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 10)
             }
             .padding(.top)
         }
