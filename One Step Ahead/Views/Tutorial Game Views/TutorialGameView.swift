@@ -30,13 +30,13 @@ struct TutorialGameView: View {
     /// The current speaker's secondary representation color.
     @State var speakerColor2: Color = .yellow
     /// Whether or not the AI box is on-screen.
-    @State var isShowingAIbox = false
+    @State var isShowingAIbox = true // !
     /// Whether or not the player box and "VS" text are on-screen.
-    @State var isShowingPlayerBox = false
+    @State var isShowingPlayerBox = true // !
     /// Whether or not the round indicator is on-screen.
-    @State var isShowingRoundIndicator = false
+    @State var isShowingRoundIndicator = true // !
     /// Whether or not the timer is on-screen.
-    @State var isShowingTimer = false
+    @State var isShowingTimer = true // !
     /// Whether or not the "Tap" text is on-screen.
     @State var isShowingAdvancePrompt = true
     /// Whether or not the training explanation drawing is on-screen.
@@ -116,7 +116,7 @@ struct TutorialGameView: View {
                         Spacer()
                         
                         HStack(alignment: .center, spacing: 30) {
-                            Spacer()
+//                            Spacer()
                             
                             VStack {
                                 ZStack {
@@ -234,7 +234,7 @@ struct TutorialGameView: View {
                             }
                             .isHidden(!isShowingPlayerBox, remove: false)
                             
-                            Spacer()
+//                            Spacer()
                             
                             Text("VS")
                                 .font(.largeTitle)
@@ -242,7 +242,7 @@ struct TutorialGameView: View {
                                 .padding(.bottom, 48)
                                 .isHidden(!isShowingPlayerBox, remove: false)
                             
-                            Spacer()
+//                            Spacer()
                             
                             VStack {
                                 ZStack {
@@ -350,11 +350,11 @@ struct TutorialGameView: View {
                             }
                             .isHidden(!isShowingAIbox, remove: false)
                             
-                            Spacer()
+//                            Spacer()
                         }
                         .padding(.horizontal, 75)
                         
-                        Spacer()
+//                        Spacer()
                     }
                     // MARK: Game View End
                 }

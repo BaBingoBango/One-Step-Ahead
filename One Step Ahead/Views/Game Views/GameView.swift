@@ -75,242 +75,268 @@ struct GameView: View {
                 SpriteView(scene: graphicsScene)
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack(spacing: 0) {
-                    Text("- Round \(game.currentRound) -")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 5)
-                    
-                    Text(commandText)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 5)
-                    
-                    Text(game.timeLeft.truncate(places: 1).description + "s")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                    
-                    Spacer()
-                    
-                    HStack(alignment: .center, spacing: 30) {
-                        Spacer()
-                        
-                        VStack {
-                            ZStack {
-                                ZStack {
-                                    Rectangle()
-                                        .opacity(0.2)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .foregroundColor(.blue)
-                                        .hidden()
-                                    
-                                    VStack {
-                                        HStack {
-                                            Text("You")
-                                                .font(.title2)
-                                                .fontWeight(.bold)
-                                            
-                                            Spacer()
-                                            
-                                            Button(action: {
-                                                // Undo the canvas
-                                                isDeletingDrawing = true
-                                                canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
-                                                if allDrawings.count >= 1 {
-                                                    allDrawings.removeLast()
-                                                }
-                                                isDeletingDrawing = false
-                                            }) {
-                                                ZStack {
-                                                    Rectangle()
-                                                        .foregroundColor(.secondary)
-                                                        .cornerRadius(50)
-                                                    HStack {
-                                                        Image(systemName: "arrow.uturn.backward.circle")
-                                                            .foregroundColor(.primary)
-                                                        
-                                                        Text("Undo")
-                                                            .fontWeight(.bold)
-                                                            .foregroundColor(.primary)
-                                                    }
-                                                }
-                                            }
-                                            .frame(width: 120, height: 40)
-                                            .offset(y: -5)
-                                        }
-                                        
-                                        Spacer()
-                                    }
-                                }
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .offset(y: -40)
-                                
-                                if !isCanvasDisabled {
-                                    Rectangle()
-                                        .opacity(0.2)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                }
-                                
-                                CanvasView(canvasView: $canvasView, onSaved: {
-                                    if !isDeletingDrawing {
-                                        allDrawings.append(canvasView.drawing)
-                                    }
-                                })
-                                .disabled(isCanvasDisabled)
-                                
-                                if isCanvasDisabled {
-                                    Rectangle()
-                                        .opacity(0.2)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                }
-                            }
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .padding(.top, 45)
-                            
-                            Text("Current Score")
-                                .font(.title)
+                VStack {
+                    VStack {
+                        VStack(spacing: 0) {
+                            Text("- Round \(game.currentRound) -")
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
                                 .fontWeight(.bold)
-                                .padding(.top)
+                                .padding(.bottom, 5)
+                                .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
                             
-                            HStack(spacing: 0) {
-                                if game.currentRound != 1 {
-                                    Text("\(game.playerScores[game.currentRound - 2].description)%")
-                                        .font(.largeTitle)
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.green)
-                                } else {
-                                    Text("---")
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.secondary)
-                                }
+                            Text(commandText)
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                .fontWeight(.bold)
+                                .padding(.bottom, 5)
+                            
+                            Text(game.timeLeft.truncate(places: 1).description + "s")
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                .fontWeight(.heavy)
+                            
+                            Spacer()
+                            
+                            HStack(alignment: .center, spacing: 30) {
+//                                Spacer()
                                 
-                                Text("  /  \(game.playerWinThreshold)%")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.green)
-                                    .opacity(0.6)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        Text("VS")
-                            .font(.largeTitle)
-                            .fontWeight(.black)
-                            .padding(.bottom, 48)
-                        
-                        Spacer()
-                        
-                        VStack {
-                            ZStack {
-                                ZStack {
-                                    Rectangle()
-                                        .opacity(0.2)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .foregroundColor(.blue)
-                                        .hidden()
-                                    
-                                    VStack {
-                                        HStack {
-                                            ZStack {
-                                                Rectangle()
-                                                    .foregroundColor(.secondary)
-                                                    .cornerRadius(50)
+                                VStack {
+                                    ZStack {
+                                        ZStack {
+                                            Rectangle()
+                                                .opacity(0.2)
+                                                .aspectRatio(1.0, contentMode: .fit)
+                                                .foregroundColor(.blue)
+                                                .hidden()
+                                            
+                                            VStack {
                                                 HStack {
-                                                    Image(systemName: "arrow.uturn.backward.circle")
-                                                        .foregroundColor(.primary)
-                                                    
-                                                    Text("Undo")
+                                                    Text("You")
+                                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
                                                         .fontWeight(.bold)
-                                                        .foregroundColor(.primary)
+                                                        .lineLimit(1)
+                                                        .minimumScaleFactor(0.1)
+                                                    
+                                                    Spacer()
+                                                    
+                                                    Button(action: {
+                                                        // Undo the canvas
+                                                        isDeletingDrawing = true
+                                                        canvasView.drawing = allDrawings.count >= 2 ? allDrawings[allDrawings.count - 2] : PKDrawing()
+                                                        if allDrawings.count >= 1 {
+                                                            allDrawings.removeLast()
+                                                        }
+                                                        isDeletingDrawing = false
+                                                    }) {
+                                                        ZStack {
+                                                            if UIDevice.current.userInterfaceIdiom != .phone {
+                                                                Rectangle()
+                                                                    .foregroundColor(.secondary)
+                                                                    .cornerRadius(50)
+                                                            } else {
+                                                                Circle()
+                                                                    .foregroundColor(.secondary)
+                                                            }
+                                                            HStack {
+                                                                Image(systemName: "arrow.uturn.backward.circle")
+                                                                    .foregroundColor(.primary)
+                                                                
+                                                                if UIDevice.current.userInterfaceIdiom != .phone {
+                                                                    Text("Undo")
+                                                                        .fontWeight(.bold)
+                                                                        .foregroundColor(.primary)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 30, height: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 10)
+                                                    .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -5 : 0)
                                                 }
+                                                
+                                                Spacer()
                                             }
-                                            .frame(width: 120, height: 40)
-                                            .hidden()
-                                            
-                                            Spacer()
-                                            
-                                            Text("The Machine")
-                                                .font(.title2)
-                                                .fontWeight(.bold)
                                         }
-                                        
-                                        Spacer()
-                                    }
-                                }
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .offset(y: -40)
-                                
-                                ZStack {
-                                    Rectangle()
-                                        .opacity(0.2)
                                         .aspectRatio(1.0, contentMode: .fit)
-                                    
-                                    VStack {
-                                        if isTrainingAImodel {
-                                            ProgressView()
-                                                .scaleEffect(2.5)
-                                                .progressViewStyle(CircularProgressViewStyle())
-                                                .frame(width: 75, height: 75)
-                                        } else {
-                                            Image("robot")
-                                                .resizable()
-                                                .frame(width: 75, height: 75)
+                                        .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -40 : -25)
+                                        
+                                        if !isCanvasDisabled {
+                                            Rectangle()
+                                                .opacity(0.2)
+                                                .aspectRatio(1.0, contentMode: .fit)
                                         }
                                         
-                                        Text(AItext)
-                                            .font(.title2)
+                                        CanvasView(canvasView: $canvasView, onSaved: {
+                                            if !isDeletingDrawing {
+                                                allDrawings.append(canvasView.drawing)
+                                            }
+                                        })
+                                        .disabled(isCanvasDisabled)
+                                        
+                                        if isCanvasDisabled {
+                                            Rectangle()
+                                                .opacity(0.2)
+                                                .aspectRatio(1.0, contentMode: .fit)
+                                        }
+                                    }
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0)
+                                    
+                                    Text("Current Score")
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                        .fontWeight(.bold)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
+                                        .padding(.top)
+                                    
+                                    HStack(spacing: 0) {
+                                        if game.currentRound != 1 {
+                                            Text("\(game.playerScores[game.currentRound - 2].description)%")
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                                .fontWeight(.heavy)
+                                                .foregroundColor(.green)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.1)
+                                        } else {
+                                            Text("---")
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.secondary)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.1)
+                                        }
+                                        
+                                        Text("  /  \(game.playerWinThreshold)%")
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
                                             .fontWeight(.bold)
-                                            .padding(.top)
+                                            .foregroundColor(.green)
+                                            .opacity(0.6)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.1)
                                     }
                                 }
-                            }
-                            .padding(.top, 45)
-                            
-                            Text("Current Score")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding(.top)
-                            
-                            HStack {
-                                if game.currentRound != 1 {
-                                    Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                                        .font(.largeTitle)
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.red)
-                                } else {
-                                    Text("---")
-                                        .font(.title)
+                                
+//                                Spacer()
+                                
+                                Text("VS")
+                                    .font(.largeTitle)
+                                    .fontWeight(.black)
+                                    .padding(.bottom, 48)
+                                
+//                                Spacer()
+                                
+                                VStack {
+                                    ZStack {
+                                        ZStack {
+                                            Rectangle()
+                                                .opacity(0.2)
+                                                .aspectRatio(1.0, contentMode: .fit)
+                                                .foregroundColor(.blue)
+                                                .hidden()
+                                            
+                                            VStack {
+                                                HStack {
+                                                    ZStack {
+                                                        Rectangle()
+                                                            .foregroundColor(.secondary)
+                                                            .cornerRadius(50)
+                                                        HStack {
+                                                            Image(systemName: "arrow.uturn.backward.circle")
+                                                                .foregroundColor(.primary)
+                                                            
+                                                            Text("Undo")
+                                                                .fontWeight(.bold)
+                                                                .foregroundColor(.primary)
+                                                        }
+                                                    }
+                                                    .frame(width: 120, height: 40)
+                                                    .isHidden(true, remove: true)
+                                                    
+                                                    Spacer()
+                                                    
+                                                    Text("The Machine")
+                                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
+                                                        .fontWeight(.bold)
+                                                        .lineLimit(1)
+                                                        .minimumScaleFactor(0.1)
+                                                }
+                                                
+                                                Spacer()
+                                            }
+                                        }
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                        .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -40 : -25)
+                                        
+                                        ZStack {
+                                            Rectangle()
+                                                .opacity(0.2)
+                                                .aspectRatio(1.0, contentMode: .fit)
+                                            
+                                            VStack {
+                                                if isTrainingAImodel {
+                                                    ProgressView()
+                                                        .scaleEffect(2.5)
+                                                        .progressViewStyle(CircularProgressViewStyle())
+                                                        .frame(width: 75, height: 75)
+                                                } else {
+                                                    Image("robot")
+                                                        .resizable()
+                                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35, height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35)
+                                                }
+                                                
+                                                Text("Hello!")
+                                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .custom("Roboto Mono", size: 20) : .custom("Roboto Mono", size: 10))
+                                                    .fontWeight(.bold)
+                                                    .multilineTextAlignment(.center)
+                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.1)
+                                                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10)
+                                            }
+                                        }
+                                    }
+                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0)
+                                    
+                                    Text("Current Score")
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.secondary)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.1)
+                                        .padding(.top)
+                                    
+                                    HStack {
+                                        if game.currentRound != 1 {
+                                            Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                                .fontWeight(.heavy)
+                                                .foregroundColor(.red)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.1)
+                                        } else {
+                                            Text("---")
+                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.secondary)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.1)
+                                        }
+                                        
+                                        Text("  /  \(game.AIwinThreshold)%")
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.red)
+                                            .opacity(0.6)
+                                            .lineLimit(1)
+                                            .minimumScaleFactor(0.1)
+                                    }
                                 }
                                 
-                                Text("  /  \(game.AIwinThreshold)%")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.red)
-                                    .opacity(0.6)
+//                                Spacer()
                             }
+                            .padding(.horizontal, 75)
+                            
+                            Spacer()
                         }
-                        
-                        Spacer()
                     }
-                    .padding(.horizontal, 75)
-                    
-                    Text("Game Score")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.gold)
-                    
-                    Text(game.currentRound != 1 ? "\(game.gameScore) pts." : "---")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .foregroundColor(game.currentRound != 1 ? .gold : .gray)
-                    
-                    Spacer()
                 }
             }
+            .edgesIgnoringSafeArea(.top)
             
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
