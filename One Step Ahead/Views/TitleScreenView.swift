@@ -58,18 +58,6 @@ struct TitleScreenView: View {
             
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showingAppInfo = true
-                    }) {
-                        Image(systemName: "info.circle")
-                    }
-                    .sheet(isPresented: $showingAppInfo) {
-                        AppInfoView()
-                    }
-                }
-            })
             
         }
         .navigationViewStyle(StackNavigationViewStyle())

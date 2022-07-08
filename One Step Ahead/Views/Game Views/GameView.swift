@@ -323,18 +323,11 @@ struct GameView: View {
                                 isGamePaused = true
                                 game.shouldRunTimer = false
                             }) {
-                                ZStack {
-                                    Circle()
-                                        .opacity(0.2)
-                                        .foregroundColor(.white)
-                                        .frame(width: 50, height: 50)
-                                    
-                                    Image(systemName: "pause.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.blue)
-                                        .frame(width: 20, height: 20)
-                                }
+                                Image(systemName: "pause.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.blue)
+                                    .frame(width: 20, height: 20)
                             }
                             .alert("Game Paused", isPresented: $isGamePaused) {
                                 Button(role: .cancel, action : {

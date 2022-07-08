@@ -83,10 +83,6 @@ struct TutorialGameEndView: View {
                         Spacer()
                         
                         VStack {
-                            Text("Your Beautiful Artwork:")
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
-                                .fontWeight(.bold)
-                                .padding(.bottom)
                             
                             HStack(alignment: .center, spacing: 0) {
                                 Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
@@ -111,10 +107,6 @@ struct TutorialGameEndView: View {
                         Spacer()
                         
                         VStack {
-                            Text(winner == .player ? "\"My plans are foiled!\"" : "\"Ha, ha! I win!\"")
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
-                                .fontWeight(.bold)
-                                .padding(.bottom)
                             
                             HStack(alignment: .center, spacing: 0) {
                                 ZStack {

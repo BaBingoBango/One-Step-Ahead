@@ -30,13 +30,13 @@ struct TutorialGameView: View {
     /// The current speaker's secondary representation color.
     @State var speakerColor2: Color = .yellow
     /// Whether or not the AI box is on-screen.
-    @State var isShowingAIbox = true // FIXME: Revert this!
+    @State var isShowingAIbox = false
     /// Whether or not the player box and "VS" text are on-screen.
-    @State var isShowingPlayerBox = true // FIXME: Revert this!
+    @State var isShowingPlayerBox = false
     /// Whether or not the round indicator is on-screen.
-    @State var isShowingRoundIndicator = true // FIXME: Revert this!
+    @State var isShowingRoundIndicator = false
     /// Whether or not the timer is on-screen.
-    @State var isShowingTimer = true // FIXME: Revert this!
+    @State var isShowingTimer = false
     /// Whether or not the "Tap" text is on-screen.
     @State var isShowingAdvancePrompt = true
     /// Whether or not the training explanation drawing is on-screen.
@@ -378,15 +378,15 @@ struct TutorialGameView: View {
                 Image("Training Explanation Art")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .cornerRadius(30)
-                    .padding(50)
+                    .cornerRadius(UIDevice.current.userInterfaceIdiom != .phone ? 30 : 10)
+                    .padding(UIDevice.current.userInterfaceIdiom != .phone ? 50 : 20)
                     .isHidden(!isShowingTrainingDataDrawing, remove: true)
                 
                 Image("Judge Explanation Art")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .cornerRadius(30)
-                    .padding(50)
+                    .cornerRadius(UIDevice.current.userInterfaceIdiom != .phone ? 30 : 10)
+                    .padding(UIDevice.current.userInterfaceIdiom != .phone ? 50 : 20)
                     .isHidden(!isShowingJudgeModelDrawing, remove: true)
                 
                 Spacer()
@@ -411,18 +411,11 @@ struct TutorialGameView: View {
                         isGamePaused = true
                         game.shouldRunTimer = false
                     }) {
-                        ZStack {
-                            Circle()
-                                .opacity(0.2)
-                                .foregroundColor(.white)
-                                .frame(width: 50, height: 50)
-                            
-                            Image(systemName: "pause.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.blue)
-                                .frame(width: 20, height: 20)
-                        }
+                        Image(systemName: "pause.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.blue)
+                            .frame(width: 20, height: 20)
                     }
                     .alert("Game Paused", isPresented: $isGamePaused) {
                         Button(role: .cancel, action : {
@@ -443,6 +436,7 @@ struct TutorialGameView: View {
             }
             
         }
+        .edgesIgnoringSafeArea(.top)
         .onAppear {
             // MARK: View Launch Code
             // Clear the documents and temporary directories

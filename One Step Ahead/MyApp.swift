@@ -7,7 +7,7 @@ struct MyApp: App {
     
     /// The system-provided ScenePhase object  used for app launching.
     @Environment(\.scenePhase) var scenePhase
-    /// A custom app delegate which launches the root view and dims the home indicator.
+    /// A custom app delegate which launches the root view.
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
     /// Whether or not GameKit has started the Game Center authentication process for this run of the app.
     @State var hasStartedAuthenticatingWithGameCenter: Bool = false

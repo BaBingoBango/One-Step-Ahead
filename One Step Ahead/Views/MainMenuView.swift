@@ -15,7 +15,8 @@ struct MainMenuView: View {
     
     // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
-    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
+    // FIXME: FIX!
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = true
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
     /// Whether or not the Game Center dashboard is being presented.
@@ -217,6 +218,8 @@ struct MainMenuView: View {
             }
             .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 70 : 20)
         }
+        .edgesIgnoringSafeArea(.top)
+        
         // MARK: Square Button Rotation Timer Responses
         .onReceive(clockwiseRotatingSquareTimer) { input in
             clockwiseRotationDegrees += 0.1
@@ -240,7 +243,9 @@ struct MainMenuView: View {
 
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenuView()
+        NavigationView {
+            MainMenuView()
+        }
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
