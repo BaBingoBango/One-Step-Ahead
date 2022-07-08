@@ -45,7 +45,9 @@ struct NewGameMenuView: View {
                                 .fontWeight(.bold)
                                 .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                             HStack {
-                                Spacer()
+                                if UIDevice.current.userInterfaceIdiom == .phone {
+                                    Spacer()
+                                }
                                 
                                 Button(action: {
                                     game.gameMode = .demystify
@@ -75,7 +77,9 @@ struct NewGameMenuView: View {
                             }
                         }
                         
-                        Spacer()
+                        if UIDevice.current.userInterfaceIdiom == .phone {
+                            Spacer()
+                        }
                         
                         if UIDevice.current.userInterfaceIdiom != .phone {
                             Text(getGameModeDescription())
@@ -112,7 +116,9 @@ struct NewGameMenuView: View {
                                     .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                             }
                             HStack {
-                                Spacer()
+                                if UIDevice.current.userInterfaceIdiom == .phone {
+                                    Spacer()
+                                }
                                 
                                 Button(action: {
                                     game.difficulty = .easy
@@ -138,7 +144,9 @@ struct NewGameMenuView: View {
                             }
                         }
                         
-                        Spacer()
+                        if UIDevice.current.userInterfaceIdiom == .phone {
+                            Spacer()
+                        }
                         
                         if UIDevice.current.userInterfaceIdiom != .phone {
                             Text(getDifficultyDescription())
@@ -268,7 +276,7 @@ struct NewGameMenuView: View {
         case .easy:
             return "You'll only need 80% drawing accuracy to win; the AI will need 90% to win!"
         case .normal:
-            return "Both you and the AI will need 90% drawing accuracy to win."
+            return "Both you and the AI will need 90% drawing accuracy to win; a standard match."
         case .hard:
             return "You'll need 97% drawing accuracy to win; the AI will only need 80% to win!"
         case .lunatic:
