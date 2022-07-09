@@ -13,7 +13,7 @@ struct DrawingCentralUploadView: View {
     var game: GameState
     @Environment(\.presentationMode) private var presentationMode
     @State var isUploading = false
-    @State var uploadSuccess = false
+    @Binding var uploadSuccess: Bool
     
     var body: some View {
         NavigationView {
@@ -38,7 +38,7 @@ struct DrawingCentralUploadView: View {
                     .font(.title)
                     .fontWeight(.bold)
                 
-                Text("Connect to the Internet to anonymously share your beautiful art and score with the world!Your drawing and score will be uploaded to the server and avaliable for other users to view.")
+                Text("Connect to the Internet to anonymously share your beautiful art and score with the world! Your drawing and score will be uploaded to the server and avaliable for other users to view.")
                     .padding(.top, 1)
                 
                 Spacer()
@@ -71,7 +71,7 @@ struct DrawingCentralUploadView: View {
                             
                             drawingRecord["Image"] = CKAsset(fileURL: URL(fileURLWithPath: paths.first!).appendingPathComponent("\(game.task.object).\(game.currentRound).png"))
                             drawingRecord["Object"] = game.task.object
-                            drawingRecord["Score"] = game.playerScores.last!.truncate(places: 1)
+                            drawingRecord["Score"] = game.playerScores.last!
                             
                             let uploadOperation = CKModifyRecordsOperation(recordsToSave: [drawingRecord])
                             
@@ -116,7 +116,7 @@ struct DrawingCentralUploadView: View {
 
 struct DrawingCentralUploadView_Previews: PreviewProvider {
     static var previews: some View {
-        DrawingCentralUploadView(game: GameState())
+        DrawingCentralUploadView(game: GameState(), uploadSuccess: .constant(false))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

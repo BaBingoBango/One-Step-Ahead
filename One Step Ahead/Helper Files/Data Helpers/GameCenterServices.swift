@@ -58,7 +58,7 @@ func reportAchievementProgress(_ achievementID: String, progress: Double = 100.0
 func uploadLeaderboardScore(_ leaderboardID: String, score: Int) {
     GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
         leaderboardIDs: [leaderboardID]) { error in
-        print("[Leaderboard Score Upload Error]")
+        print("[Leaderboard Score Upload Finished]")
         print(error?.localizedDescription ?? "There is no error object!")
     }
 }

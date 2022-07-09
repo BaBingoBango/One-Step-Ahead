@@ -84,7 +84,7 @@ struct NewGameMenuView: View {
                         
                         if UIDevice.current.userInterfaceIdiom != .phone {
                             Text(getGameModeDescription())
-                                .font(.callout)
+                                .font(.title3)
                                 .fontWeight(.bold)
                                 .frame(width: 350)
                                 .padding(.horizontal, 100)

@@ -31,7 +31,6 @@ struct GalleryView: View {
         let galleryProgress = Double(userTaskRecords.records.count) / Double(Task.taskList.count)
         
         ZStack {
-            
             NavigationLink(destination: NewGameMenuView(enforcedGameTask: taskToPresent), isActive: $isShowingNewGameView) { EmptyView() }
             
             SpriteView(scene: graphicsScene)

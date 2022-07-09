@@ -24,6 +24,8 @@ struct GameEndView: View {
     /// Whether or not the Drawing Central upload view is being presented.
     @State var showingUploadView = false
     
+    @State var uploadSuccess = false
+    
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
     
@@ -117,17 +119,20 @@ struct GameEndView: View {
                                     ZStack {
                                         Circle()
                                             .foregroundColor(.gray)
+                                            .opacity(uploadSuccess ? 0.5 : 1)
                                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
                                         
-                                        Image(systemName: "icloud.and.arrow.up")
+                                        Image(systemName: uploadSuccess ? "checkmark" : "icloud.and.arrow.up")
                                             .resizable()
                                             .foregroundColor(.white)
                                             .aspectRatio(contentMode: .fit)
+                                            .padding(uploadSuccess ? 3 : 0)
                                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
                                     }
                                 }
+                                .disabled(uploadSuccess)
                                 .sheet(isPresented: $showingUploadView) {
-                                    DrawingCentralUploadView(game: game)
+                                    DrawingCentralUploadView(game: game, uploadSuccess: $uploadSuccess)
                                 }
                                 
                                 Spacer()
