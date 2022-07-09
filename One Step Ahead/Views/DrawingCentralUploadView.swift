@@ -50,7 +50,7 @@ struct DrawingCentralUploadView: View {
                 } else {
                     if uploadSuccess {
                         HStack {
-                            Image(systemName: "checkmark")
+                            Image(systemName: "checkmark.icloud")
                                 .font(Font.body.weight(.bold))
                                 .imageScale(.large)
                             

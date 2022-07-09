@@ -122,7 +122,7 @@ struct GameEndView: View {
                                             .opacity(uploadSuccess ? 0.5 : 1)
                                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
                                         
-                                        Image(systemName: uploadSuccess ? "checkmark" : "icloud.and.arrow.up")
+                                        Image(systemName: uploadSuccess ? "checkmark.icloud" : "icloud.and.arrow.up")
                                             .resizable()
                                             .foregroundColor(.white)
                                             .aspectRatio(contentMode: .fit)
