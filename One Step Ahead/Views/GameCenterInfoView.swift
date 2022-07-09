@@ -22,7 +22,7 @@ struct GameCenterInfoView: View {
                     Image("Game Center Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 130)
+                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 130 : UIScreen.main.bounds.width / 8)
                         .padding(.bottom, 20)
                     
                     Text("Game Center")

@@ -39,11 +39,12 @@ struct NewGameMenuView: View {
                 
                 VStack {
                     HStack(alignment: UIDevice.current.userInterfaceIdiom != .phone ? .bottom : .center, spacing: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10) {
-                        VStack {
+                        VStack(alignment: .trailing) {
                             Text(UIDevice.current.userInterfaceIdiom != .phone ? "Game Mode" : "Game Mode & Difficulty")
                                 .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                                 .fontWeight(.bold)
                                 .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                                .padding(.trailing, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 23)
                             HStack {
                                 if UIDevice.current.userInterfaceIdiom == .phone {
                                     Spacer()
@@ -83,7 +84,7 @@ struct NewGameMenuView: View {
                         
                         if UIDevice.current.userInterfaceIdiom != .phone {
                             Text(getGameModeDescription())
-                                .font(.title3)
+                                .font(.callout)
                                 .fontWeight(.bold)
                                 .frame(width: 350)
                                 .padding(.horizontal, 100)
@@ -91,12 +92,12 @@ struct NewGameMenuView: View {
                         } else {
                             HStack {
                                 Text(getGameModeDescription())
-                                    .font(.callout)
+                                    .font(.caption)
                                     .fontWeight(.bold)
-                                    .lineLimit(UIDevice.current.userInterfaceIdiom != .phone ? 999 : 3)
+                                    .lineLimit(3)
                                     .minimumScaleFactor(0.1)
-                                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
                                     .padding(.bottom, 5)
+                                    .padding(.trailing, 30)
                                 
                                 Spacer()
                             }
@@ -104,7 +105,6 @@ struct NewGameMenuView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
                 
                 VStack {
                     HStack(alignment: UIDevice.current.userInterfaceIdiom != .phone ? .bottom : .center, spacing: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10) {
@@ -158,11 +158,12 @@ struct NewGameMenuView: View {
                         } else {
                             HStack {
                                 Text(getDifficultyDescription())
-                                    .font(.callout)
+                                    .font(.caption)
                                     .fontWeight(.bold)
                                     .lineLimit(3)
                                     .minimumScaleFactor(0.1)
                                     .padding(.bottom, 5)
+                                    .padding(.trailing, 30)
                                 
                                 Spacer()
                             }
@@ -170,7 +171,6 @@ struct NewGameMenuView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
                 .padding(.top)
                 
                 Button(action: {
@@ -187,6 +187,7 @@ struct NewGameMenuView: View {
                     GameView(isShowingGameSequence: $isShowingGameSequence, game: game, commandText: game.defaultCommandText)
                 }
             }
+            .padding(.leading)
         }
         .onChange(of: isShowingGameSequence) { newValue in
             if newValue == false {

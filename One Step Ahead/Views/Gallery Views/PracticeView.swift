@@ -60,8 +60,8 @@ struct PracticeView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 HStack {
-                    VStack {
-                        ZStack {
+                    VStack(spacing: 0) {
+                        let canvasViewBody = ZStack {
                             ZStack {
                                 Rectangle()
                                     .opacity(0.2)
@@ -91,17 +91,19 @@ struct PracticeView: View {
                                                 Rectangle()
                                                     .foregroundColor(.secondary)
                                                     .cornerRadius(50)
+                                                
                                                 HStack {
                                                     Image(systemName: "arrow.uturn.backward.circle")
                                                         .foregroundColor(.primary)
                                                     
                                                     Text("Undo")
+                                                        .font (UIDevice.current.userInterfaceIdiom != .phone ? .body : .body)
                                                         .fontWeight(.bold)
                                                         .foregroundColor(.primary)
                                                 }
                                             }
                                         }
-                                        .frame(width: 120, height: 40)
+                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 30)
                                         .offset(y: -5)
                                     }
                                     
@@ -130,28 +132,39 @@ struct PracticeView: View {
                                     .aspectRatio(1.0, contentMode: .fit)
                             }
                         }
-                        .padding()
                         
-                        HStack {
+                        if UIDevice.current.userInterfaceIdiom != .phone {
+                            canvasViewBody
+                                .padding()
+                        } else {
+                            canvasViewBody
+                                .aspectRatio(1, contentMode: .fit)
+                                .frame(width: UIScreen.main.bounds.width / 4)
+                                .padding()
+                        }
+                        
+                        HStack(spacing: 0) {
+                            let buttonFixedHeight = UIDevice.current.userInterfaceIdiom != .phone ? 60 : 40
+                            
                             Text("")
-                                .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                                .modifier(RectangleWrapper(fixedHeight: buttonFixedHeight, color: .blue, opacity: 1.0))
                                 .hidden()
                             
                             Button(action: {
                                 processAttempt(canvasBounds: canvasView.bounds)
                             }) {
                                 Text("Done!")
-                                    .font(.title2)
+                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
-                                    .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                                    .modifier(RectangleWrapper(fixedHeight: buttonFixedHeight, color: .blue, opacity: 1.0))
                             }
                             
                             Text("")
-                                .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                                .modifier(RectangleWrapper(fixedHeight: buttonFixedHeight, color: .blue, opacity: 1.0))
                                 .hidden()
                         }
-                        .padding(.top)
+                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 0)
                     }
                     .padding()
                     .padding()
@@ -167,32 +180,37 @@ struct PracticeView: View {
                             
                             HStack {
                                 Text(task.emoji)
-                                    .font(.system(size: 70))
+                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 35.5))
                                 
                                 VStack(alignment: .leading) {
                                     Text(task.object)
-                                        .font(.largeTitle)
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title)
                                         .fontWeight(.bold)
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.1)
                                     
                                     Text("No. \(index + 1)")
-                                        .font(.title)
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
                                         .fontWeight(.bold)
                                         .foregroundColor(.gray)
                                 }
                                 .padding(.leading)
                             }
+                            .padding(.horizontal, 5)
                         }
                         
                         HStack {
                             VStack {
-                                Text("Elapsed Time")
+                                Text(UIDevice.current.userInterfaceIdiom != .phone ? "Elapsed Time" : "Time")
                                     .foregroundColor(.cyan)
-                                    .font(.system(size: 40))
+                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 20))
                                     .fontWeight(.bold)
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.1)
                                 
                                 Text(elapsedTime.truncate(places: 1).description + "s")
                                     .foregroundColor(.cyan)
-                                    .font(.system(size: 60))
+                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 30))
                                     .fontWeight(.heavy)
                             }
                             
@@ -201,12 +219,12 @@ struct PracticeView: View {
                             VStack {
                                 Text("Accuracy")
                                     .foregroundColor(.green)
-                                    .font(.system(size: 40))
+                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 20))
                                     .fontWeight(.bold)
                                 
                                 Text(currentPlayerScore != nil ? currentPlayerScore!.truncate(places: 2).description + "%" : "---")
                                     .foregroundColor(currentPlayerScore != nil ? .green : .secondary)
-                                    .font(.system(size: 60))
+                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 30))
                                     .fontWeight(currentPlayerScore != nil ? .heavy : .regular)
                             }
                         }
@@ -312,7 +330,7 @@ struct PracticeView: View {
 
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
-        PracticeView(task: Task.taskList[0], index: 1)
+        PracticeView(task: Task.taskList[0], index: 0)
             .previewInterfaceOrientation(.landscapeRight)
     }
 }

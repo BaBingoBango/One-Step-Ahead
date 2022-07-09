@@ -31,17 +31,19 @@ struct TaskDetailView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Spacer()
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    Spacer()
+                }
                 
                 Text(task.emoji)
-                    .font(.system(size: 100))
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 100 : 50))
                 
                 Text(task.object)
-                    .font(.largeTitle)
+                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title)
                     .fontWeight(.bold)
                 
                 Text("No. \(index + 1)")
-                    .font(.title)
+                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
                 
@@ -50,12 +52,12 @@ struct TaskDetailView: View {
                     
                     VStack {
                         Text("Times Played")
-                            .font(.title)
+                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
                             .fontWeight(.bold)
                             .foregroundColor(.cyan)
                         
                         Text("\(userTaskRecords.records[task.object]?["timesPlayed"] ?? 0)")
-                            .font(.system(size: 50))
+                            .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 25))
                             .fontWeight(.bold)
                             .foregroundColor(.cyan)
                     }
@@ -64,12 +66,12 @@ struct TaskDetailView: View {
                     
                     VStack {
                         Text("High Score")
-                            .font(.title)
+                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
                             .fontWeight(.bold)
                             .foregroundColor(.gold)
                         
                         Text("\(userTaskRecords.records[task.object]?["highScore"] ?? 0)")
-                            .font(.system(size: 50))
+                            .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 25))
                             .fontWeight(.bold)
                             .foregroundColor(.gold)
                     }
@@ -98,7 +100,7 @@ struct TaskDetailView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }
-                        .modifier(RectangleWrapper(fixedHeight: 60, color: .green, opacity: 1.0))
+                        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .green, opacity: 1.0))
                     }
                     .fullScreenCover(isPresented: $isShowingPracticeView) {
                         PracticeView(task: task, index: index)
@@ -124,7 +126,7 @@ struct TaskDetailView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }
-                        .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .blue, opacity: 1.0))
                     }
                 }
                 .padding([.leading, .bottom, .trailing])
@@ -152,5 +154,6 @@ struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
         TaskDetailView(taskToPresent: .constant(nil), isTaskDetailAutoDismissing: .constant(false), task: Task.taskList[2], index: 2)
             .previewInterfaceOrientation(.landscapeLeft)
+            .navigationViewStyle(StackNavigationViewStyle())
     }
 }

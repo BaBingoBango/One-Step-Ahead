@@ -24,8 +24,11 @@ struct LicensingDetailView: View {
         ScrollView {
             VStack {
                 ZStack {
+                    let widthBySeven = UIScreen.main.bounds.width / 7
+                    
                     Circle()
-                        .frame(width: 150, height: 150)
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 150 : widthBySeven, height: UIDevice.current.userInterfaceIdiom != .phone ? 150 : widthBySeven)
                         .foregroundColor(.white)
                         .opacity(0.15)
                     
@@ -35,7 +38,7 @@ struct LicensingDetailView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(10)
-                            .frame(width: 100, height: 100)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5)
                         
                     case .music:
                         Image(systemName: "music.quarternote.3")
@@ -44,7 +47,7 @@ struct LicensingDetailView: View {
                             .foregroundColor(.red)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: 90, height: 90)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5)
                         
                     case .soundEffect:
                         Image(systemName: "music.note")
@@ -53,7 +56,7 @@ struct LicensingDetailView: View {
                             .foregroundColor(.red)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: 100, height: 100)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5)
                         
                     case .drawingDataset:
                         Image(systemName: "scribble.variable")
@@ -62,7 +65,7 @@ struct LicensingDetailView: View {
                             .foregroundColor(.yellow)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: 90, height: 90)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5)
                     case .software:
                         Image(systemName: "curlybraces")
                             .resizable()
@@ -70,7 +73,7 @@ struct LicensingDetailView: View {
                             .foregroundColor(.blue)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: 90, height: 90)
+                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5)
                     }
                 }
                 
@@ -217,6 +220,6 @@ struct LicensingDetailView: View {
 struct LicensingDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LicensingDetailView(assetTitle: "Preview Asset", assetType: .software, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
-            .previewInterfaceOrientation(.portraitUpsideDown)
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }

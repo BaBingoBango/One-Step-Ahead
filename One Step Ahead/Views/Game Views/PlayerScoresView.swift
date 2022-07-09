@@ -30,7 +30,7 @@ struct PlayerScoresView: View {
                         ForEach(1...game.currentRound, id: \.self) { roundNumber in
                             
                             RoundScoreCard(roundNumber: roundNumber, playerScore: game.playerScores[roundNumber - 1], AIscore: game.AIscores[roundNumber - 1], object: game.task.object)
-                                .padding(.horizontal, 20)
+                                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 10)
                             
                         }
                     }
@@ -44,8 +44,13 @@ struct PlayerScoresView: View {
 
 struct PlayerScoresView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerScoresView(game: GameState(currentRound: 2, playerScores: [10, 20, 30], AIscores: [5, 30, 25]))
-            .previewInterfaceOrientation(.landscapeLeft)
+        NavigationView {
+            PlayerScoresView(game: GameState(currentRound: 2, playerScores: [10, 20, 30], AIscores: [5, 30, 25]))
+            
+                .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }
 
@@ -59,7 +64,7 @@ struct RoundScoreCard: View {
     var object: String
     
     var body: some View {
-        ZStack {
+        let viewBody = ZStack {
             Rectangle()
                 .cornerRadius(30)
             
@@ -67,15 +72,22 @@ struct RoundScoreCard: View {
                 Spacer()
                 
                 Text("- Round \(roundNumber) -")
-                    .font(.title)
+                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                     .padding(.bottom)
                 
-                Image(uiImage: getImageFromDocuments("\(object).\(roundNumber).png")!)
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .cornerRadius(10)
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    Image(uiImage: getImageFromDocuments("\(object).\(roundNumber).png")!)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(10)
+                } else {
+                    Image(uiImage: getImageFromDocuments("\(object).\(roundNumber).png")!)
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .cornerRadius(10)
+                }
                 
                 HStack(spacing: 30) {
                     VStack(spacing: 0) {
@@ -84,7 +96,7 @@ struct RoundScoreCard: View {
                             .fontWeight(.bold)
                             .foregroundColor(.green)
                         
-                        PercentCircle(percent: playerScore.truncate(places: 1), circleWidth: 95, circleHeight: 95, font: .title2)
+                        PercentCircle(percent: playerScore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 95 : 75, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 95 : 75, font: .title2)
                             .padding(.top, 5)
                     }
                     
@@ -94,15 +106,21 @@ struct RoundScoreCard: View {
                             .fontWeight(.bold)
                             .foregroundColor(.red)
                         
-                        PercentCircle(percent: AIscore.truncate(places: 1), circleWidth: 95, circleHeight: 95, color: .red, font: .title2)
+                        PercentCircle(percent: AIscore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 95 : 75, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 95 : 75, color: .red, font: .title2)
                             .padding(.top, 5)
                     }
                 }
+                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 15)
                 
                 Spacer()
             }
-            .padding(.horizontal, 40)
         }
-        .frame(width: 325, height: 450)
+        
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            viewBody
+                .frame(width: 325, height: 450)
+        } else {
+            viewBody
+        }
     }
 }

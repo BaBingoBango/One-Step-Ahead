@@ -45,15 +45,15 @@ struct GalleryView: View {
                         
                         VStack(alignment: .leading, spacing: -10) {
                             Text(galleryProgress != 1.0 ? "\((galleryProgress * 100.0).truncate(places: 1).description)%" : "100%")
-                                .font(.system(size: 120))
+                                .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 65))
                                 .fontWeight(.heavy)
                             Text(galleryProgress != 1.0 ? "Gallery Completion" : "Gallery Completion!")
-                                .font(.system(size: 40))
+                                .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 27))
                                 .fontWeight(.bold)
                         }
                     }
-                    .padding(.top, 75)
-                    .padding(.bottom, 75)
+                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 75 : 37.5)
+                    .padding(.bottom, UIDevice.current.userInterfaceIdiom != .phone ? 75 : 37.5)
                     .fixedSize(horizontal: true, vertical: false)
                     .frame(maxWidth: .infinity)
                     

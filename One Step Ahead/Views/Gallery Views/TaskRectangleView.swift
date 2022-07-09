@@ -48,26 +48,27 @@ struct TaskRectangleView: View {
                     .foregroundColor(.black)
                     .opacity(0.3)
                     .cornerRadius(10)
-                    .frame(height: 150)
+                    .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 150 : 75)
                 
                 Text(indexString)
                     .foregroundColor(.white)
                     .opacity(0.05)
-                    .font(.system(size: 115))
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 115 : 57.5))
                     .minimumScaleFactor(0.1)
                     .lineLimit(1)
                 
                 VStack(spacing: 5) {
                     Text(isTaskUnlocked ? task.emoji : "🔒")
-                        .font(.system(size: 60))
+                        .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 30))
                     
                     if isTaskUnlocked {
                         Text(task.object)
-                            .font(.system(size: 25))
+                            .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 25 : 12.5))
                             .fontWeight(.bold)
                             .minimumScaleFactor(0.1)
                             .lineLimit(1)
                             .foregroundColor(.white)
+                            .padding(.horizontal, 5)
                     }
                 }
             }

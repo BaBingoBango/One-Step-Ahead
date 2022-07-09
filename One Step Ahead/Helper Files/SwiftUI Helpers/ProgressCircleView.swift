@@ -35,11 +35,18 @@ public struct ProgressCircleView: View {
                 .foregroundColor(color)
                 .rotationEffect(Angle(degrees: 270.0))
             
-            Image(systemName: imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding()
-                .padding()
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                Image(systemName: imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .padding()
+            } else {
+                Image(systemName: imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+            }
         }
         .padding(.horizontal)
     }
