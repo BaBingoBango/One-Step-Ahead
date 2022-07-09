@@ -58,6 +58,9 @@
 		AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E128371EA100C89FCE /* TaskRectangleView.swift */; };
 		AAC000E428371EC300C89FCE /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E328371EC300C89FCE /* TaskDetailView.swift */; };
 		AAC000E6283731C400C89FCE /* UserTaskRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000E5283731C400C89FCE /* UserTaskRecords.swift */; };
+		AAC5A150287952DC00582ABA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC5A14F287952DC00582ABA /* CloudKit.framework */; };
+		AAC5A15428795C5100582ABA /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC5A15328795C5100582ABA /* ShareSheetView.swift */; };
+		AAC5A1562879601600582ABA /* DrawingCentralUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC5A1552879601600582ABA /* DrawingCentralUploadView.swift */; };
 		AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC5D7542832FC070056E781 /* Preview Assets.xcassets */; };
 		AAC97EEC283ED23E00FEB54B /* VersusGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC97EEB283ED23E00FEB54B /* VersusGameView.swift */; };
 		AACF8B2128396E1300D9025C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACF8B2028396E1300D9025C /* GameKit.framework */; };
@@ -181,6 +184,9 @@
 		AAC000E128371EA100C89FCE /* TaskRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRectangleView.swift; sourceTree = "<group>"; };
 		AAC000E328371EC300C89FCE /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		AAC000E5283731C400C89FCE /* UserTaskRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskRecords.swift; sourceTree = "<group>"; };
+		AAC5A14F287952DC00582ABA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		AAC5A15328795C5100582ABA /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
+		AAC5A1552879601600582ABA /* DrawingCentralUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCentralUploadView.swift; sourceTree = "<group>"; };
 		AAC5D7542832FC070056E781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AAC97EEB283ED23E00FEB54B /* VersusGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersusGameView.swift; sourceTree = "<group>"; };
 		AACF8B2028396E1300D9025C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -240,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AACF8B2128396E1300D9025C /* GameKit.framework in Frameworks */,
+				AAC5A150287952DC00582ABA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +392,7 @@
 		AACF8B1F28396E1300D9025C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAC5A14F287952DC00582ABA /* CloudKit.framework */,
 				AACF8B2028396E1300D9025C /* GameKit.framework */,
 			);
 			name = Frameworks;
@@ -507,6 +515,7 @@
 				AACF8B22283971F000D9025C /* GameCenterAuthenticationController.swift */,
 				AACF8B262839B98200D9025C /* GameCenterDashboardView.swift */,
 				AA7061AC285185A900F8A2E5 /* SendMailView.swift */,
+				AAC5A15328795C5100582ABA /* ShareSheetView.swift */,
 			);
 			path = "SwiftUI Helpers";
 			sourceTree = "<group>";
@@ -568,6 +577,7 @@
 				AAF0A6AB2832F9F900E84330 /* Tutorial Game Views */,
 				AAF0A6AA2832F9F900E84330 /* NewGameMenuView.swift */,
 				AAF0A6A42832F9F900E84330 /* Game Views */,
+				AAC5A1552879601600582ABA /* DrawingCentralUploadView.swift */,
 				AAF5228D2839CFA70027E95B /* NewVersusGameMenuView.swift */,
 				AA82CEFF283B208F003FC070 /* Versus Game Views */,
 				AAC000E028371E8500C89FCE /* Gallery Views */,
@@ -795,6 +805,7 @@
 				AAF0A6B72832F9F900E84330 /* TutorialGameView.swift in Sources */,
 				AA82CEFC283B1E4A003FC070 /* VersusPlayerState.swift in Sources */,
 				AAF0A6902832F9E200E84330 /* Task.swift in Sources */,
+				AAC5A15428795C5100582ABA /* ShareSheetView.swift in Sources */,
 				AAF0A68F2832F9E200E84330 /* GameState.swift in Sources */,
 				AAF0A6802832F9DF00E84330 /* HidingServices.swift in Sources */,
 				AACF8B23283971F000D9025C /* GameCenterAuthenticationController.swift in Sources */,
@@ -816,6 +827,7 @@
 				AAF0A6B52832F9F900E84330 /* NewGameMenuView.swift in Sources */,
 				AAF0A69D2832F9EA00E84330 /* MyApp.swift in Sources */,
 				AAF0A6892832F9DF00E84330 /* Drawing_Judge_Model.swift in Sources */,
+				AAC5A1562879601600582ABA /* DrawingCentralUploadView.swift in Sources */,
 				AA6835DD283F3CE20024B859 /* GameMode.swift in Sources */,
 				AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */,
 				AAF0A6772832F9DF00E84330 /* MLServices.swift in Sources */,

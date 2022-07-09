@@ -19,6 +19,8 @@ struct TutorialGameEndView: View {
     @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     /// Whether or not the victory/defeat jingle has played.
     @State var hasPlayedJingle = false
+    /// Whether or not the share sheet for this view is being presented.
+    @State var showingShareSheet = false
     
     // Current State Variables
     /// The name of the emoji representation of the current speaker.
@@ -83,17 +85,18 @@ struct TutorialGameEndView: View {
                         Spacer()
                         
                         VStack {
-                            
                             HStack(alignment: .center, spacing: 0) {
                                 Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
                                     .resizable()
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                     .cornerRadius(25)
-                                    .padding(.trailing)
-                                
-                                PercentCircle(percent: lastPlayerScore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                             }
+                            
+                            Text("\(String(lastPlayerScore.truncate(places: 1)))%")
+                                .font(.title)
+                                .foregroundColor(.green)
+                                .fontWeight(.heavy)
                         }
                         
                         Spacer()
@@ -107,7 +110,6 @@ struct TutorialGameEndView: View {
                         Spacer()
                         
                         VStack {
-                            
                             HStack(alignment: .center, spacing: 0) {
                                 ZStack {
                                     Rectangle()
@@ -126,10 +128,12 @@ struct TutorialGameEndView: View {
                                         .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 0.8 : 0.4)
                                         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                 }
-                                .padding(.trailing)
-                                
-                                PercentCircle(percent: lastAIscore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, color: .red)
                             }
+                            
+                            Text("\(String(lastAIscore.truncate(places: 1)))%")
+                                .font(.title)
+                                .foregroundColor(.red)
+                                .fontWeight(.heavy)
                         }
                         
                         Spacer()

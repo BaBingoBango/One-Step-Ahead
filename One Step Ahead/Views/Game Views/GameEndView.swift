@@ -19,6 +19,10 @@ struct GameEndView: View {
     @State var game: GameState
     /// Whether or not the victory/defeat jingle has played.
     @State var hasPlayedJingle = false
+    /// Whether or not the share sheet for this view is being presented.
+    @State var showingShareSheet = false
+    /// Whether or not the Drawing Central upload view is being presented.
+    @State var showingUploadView = false
     
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
@@ -64,17 +68,77 @@ struct GameEndView: View {
                     Spacer()
                     
                     VStack {
-                        
                         HStack(alignment: .center, spacing: 0) {
+                            GameEndShareButtonsView()
+                            
                             Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
                                 .resizable()
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                                 .cornerRadius(25)
-                                .padding(.trailing)
+                                .padding(.horizontal, 5)
                             
-                            PercentCircle(percent: lastPlayerScore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
+                            VStack {
+                                if UIDevice.current.userInterfaceIdiom == .phone {
+                                    Spacer()
+                                }
+                                
+                                let shareButtonView = Button(action: {
+                                    showingShareSheet = true
+                                }) {
+                                    ZStack {
+                                        Circle()
+                                            .foregroundColor(.gray)
+                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                                        
+                                        Image(systemName: "square.and.arrow.up")
+                                            .resizable()
+                                            .foregroundColor(.white)
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                                    }
+                                }
+                                
+                                if UIDevice.current.userInterfaceIdiom != .phone {
+                                    shareButtonView
+                                    .popover(isPresented: $showingShareSheet) {
+                                        ShareSheetView(itemsToShare: [getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!])
+                                    }
+                                } else {
+                                    shareButtonView
+                                    .sheet(isPresented: $showingShareSheet) {
+                                        ShareSheetView(itemsToShare: [getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!])
+                                    }
+                                }
+                                
+                                Button(action: {
+                                    showingUploadView = true
+                                }) {
+                                    ZStack {
+                                        Circle()
+                                            .foregroundColor(.gray)
+                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                                        
+                                        Image(systemName: "icloud.and.arrow.up")
+                                            .resizable()
+                                            .foregroundColor(.white)
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                                    }
+                                }
+                                .sheet(isPresented: $showingUploadView) {
+                                    DrawingCentralUploadView(game: game)
+                                }
+                                
+                                Spacer()
+                            }
+                            .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                         }
+                        
+                        Text("\(String(lastPlayerScore.truncate(places: 1)))%")
+                            .font(.title)
+                            .foregroundColor(.green)
+                            .fontWeight(.heavy)
                     }
                     
                     Spacer()
@@ -88,8 +152,9 @@ struct GameEndView: View {
                     Spacer()
                     
                     VStack {
-                        
                         HStack(alignment: .center, spacing: 0) {
+                            GameEndShareButtonsView()
+                            
                             ZStack {
                                 Rectangle()
                                     .fill(
@@ -107,10 +172,15 @@ struct GameEndView: View {
                                     .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 0.8 : 0.4)
                                     .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
                             }
-                            .padding(.trailing)
+                            .padding(.horizontal, 5)
                             
-                            PercentCircle(percent: lastAIscore.truncate(places: 1), circleWidth: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, circleHeight: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, color: .red)
+                            GameEndShareButtonsView()
                         }
+                        
+                        Text("\(String(lastAIscore.truncate(places: 1)))%")
+                            .font(.title)
+                            .foregroundColor(.red)
+                            .fontWeight(.heavy)
                     }
                     
                     Spacer()
@@ -225,5 +295,43 @@ struct PercentCircle: View {
                     .minimumScaleFactor(0.1)
             }
         }
+    }
+}
+
+struct GameEndShareButtonsView: View {
+    var body: some View {
+        VStack {
+            if UIDevice.current.userInterfaceIdiom != .phone {
+                Spacer()
+            }
+            
+            ZStack {
+                Circle()
+                    .foregroundColor(.gray)
+                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                
+                Image(systemName: "square.and.arrow.up")
+                    .resizable()
+                    .foregroundColor(.white)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+            }
+            
+            ZStack {
+                Circle()
+                    .foregroundColor(.gray)
+                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                
+                Image(systemName: "icloud.and.arrow.up")
+                    .resizable()
+                    .foregroundColor(.white)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+            }
+            
+            Spacer()
+        }
+        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
+        .hidden()
     }
 }
