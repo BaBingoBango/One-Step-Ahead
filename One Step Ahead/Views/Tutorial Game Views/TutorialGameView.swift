@@ -30,13 +30,13 @@ struct TutorialGameView: View {
     /// The current speaker's secondary representation color.
     @State var speakerColor2: Color = .yellow
     /// Whether or not the AI box is on-screen.
-    @State var isShowingAIbox = true // !
+    @State var isShowingAIbox = false
     /// Whether or not the player box and "VS" text are on-screen.
-    @State var isShowingPlayerBox = true // !
+    @State var isShowingPlayerBox = false
     /// Whether or not the round indicator is on-screen.
-    @State var isShowingRoundIndicator = true // !
+    @State var isShowingRoundIndicator = false
     /// Whether or not the timer is on-screen.
-    @State var isShowingTimer = true // !
+    @State var isShowingTimer = false
     /// Whether or not the "Tap" text is on-screen.
     @State var isShowingAdvancePrompt = true
     /// Whether or not the training explanation drawing is on-screen.
@@ -539,7 +539,17 @@ struct TutorialGameView: View {
             saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
             
             // Get the probabilities for every drawing
-            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
+            try ImagePredictor().makePredictions(with: {
+                if game.task.object <= "Duck" {
+                    return .I
+                } else if game.task.object <= "Ocean" {
+                    return .II
+                } else if game.task.object <= "Sword" {
+                    return .III
+                } else {
+                    return .IV
+                }
+            }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
                 }

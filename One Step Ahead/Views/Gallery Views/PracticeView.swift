@@ -290,7 +290,17 @@ struct PracticeView: View {
             let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
             
             // Get the probabilities for every drawing
-            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
+            try ImagePredictor().makePredictions(with: {
+                if task.object <= "Duck" {
+                    return .I
+                } else if task.object <= "Ocean" {
+                    return .II
+                } else if task.object <= "Sword" {
+                    return .III
+                } else {
+                    return .IV
+                }
+            }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
                 }

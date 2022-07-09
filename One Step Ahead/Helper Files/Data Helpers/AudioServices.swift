@@ -25,7 +25,7 @@ func playAudio(fileName: String, type: String) {
             // Set the audio player to infinite loop
             audioPlayer?.numberOfLoops = -1
             // FIXME: FIX!
-//            audioPlayer?.play()
+            audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")
         }
@@ -41,7 +41,7 @@ func playAudioOnce(fileName: String, type: String) {
             // Set the audio player to not loop
             audioPlayer?.numberOfLoops = 0
             // FIXME: FIX!
-//            audioPlayer?.play()
+            audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")
         }

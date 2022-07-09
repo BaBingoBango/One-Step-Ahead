@@ -19,12 +19,12 @@ import UIKit
 /// - Tag: ImagePredictor
 class ImagePredictor {
     /// - Tag: name
-    static func createImageClassifier() -> VNCoreMLModel {
+    static func createImageClassifier(superDrawingJudgeModel: SuperDrawingJudgeModel = .I) -> VNCoreMLModel {
         // Use a default model configuration.
         let defaultConfig = MLModelConfiguration()
 
         // Create an instance of the image classifier's wrapper class.
-        let imageClassifierWrapper = try? Drawing_Judge_Model(configuration: defaultConfig)
+        let imageClassifierWrapper = try? Drawing_Judge_Model(configuration: defaultConfig, superDrawingJudgeModel: superDrawingJudgeModel)
 
         guard let imageClassifier = imageClassifierWrapper else {
             fatalError("App failed to create an image classifier model instance.")
@@ -41,11 +41,29 @@ class ImagePredictor {
         return imageClassifierVisionModel
     }
 
-    /// A common image classifier instance that all Image Predictor instances use to generate predictions.
+    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge I.
     ///
     /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
     /// since each can be expensive in time and resources.
-    private static let imageClassifier = createImageClassifier()
+    private static let imageClassifierI = createImageClassifier(superDrawingJudgeModel: .I)
+    
+    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge II.
+    ///
+    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
+    /// since each can be expensive in time and resources.
+    private static let imageClassifierII = createImageClassifier(superDrawingJudgeModel: .II)
+    
+    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge III.
+    ///
+    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
+    /// since each can be expensive in time and resources.
+    private static let imageClassifierIII = createImageClassifier(superDrawingJudgeModel: .III)
+    
+    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge IV.
+    ///
+    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
+    /// since each can be expensive in time and resources.
+    private static let imageClassifierIV = createImageClassifier(superDrawingJudgeModel: .IV)
 
     /// Stores a classification name and confidence for an image classifier's prediction.
     /// - Tag: Prediction
@@ -66,27 +84,38 @@ class ImagePredictor {
     private var predictionHandlers = [VNRequest: ImagePredictionHandler]()
 
     /// Generates a new request instance that uses the Image Predictor's image classifier model.
-    private func createImageClassificationRequest() -> VNImageBasedRequest {
+    private func createImageClassificationRequest(superDrawingJudgeModel: SuperDrawingJudgeModel) -> VNImageBasedRequest {
         // Create an image classification request with an image classifier model.
 
-        let imageClassificationRequest = VNCoreMLRequest(model: ImagePredictor.imageClassifier,
-                                                         completionHandler: visionRequestHandler)
+        let imageClassificationRequest = VNCoreMLRequest(model: {
+            switch superDrawingJudgeModel {
+            case .I:
+                return ImagePredictor.imageClassifierI
+            case .II:
+                return ImagePredictor.imageClassifierII
+            case .III:
+                return ImagePredictor.imageClassifierIII
+            case .IV:
+                return ImagePredictor.imageClassifierIV
+            }
+        }(), completionHandler: visionRequestHandler)
 
         imageClassificationRequest.imageCropAndScaleOption = .centerCrop
         return imageClassificationRequest
     }
 
     /// Generates an image classification prediction for a photo.
+    /// - Parameter superDrawingJudgeModel: The model from the Super Drawing Judge to use for predictions.
     /// - Parameter photo: An image, typically of an object or a scene.
     /// - Tag: makePredictions
-    func makePredictions(for photo: UIImage, completionHandler: @escaping ImagePredictionHandler) throws {
+    func makePredictions(with superDrawingJudgeModel: SuperDrawingJudgeModel, for photo: UIImage, completionHandler: @escaping ImagePredictionHandler) throws {
         let orientation = CGImagePropertyOrientation(photo.imageOrientation)
 
         guard let photoImage = photo.cgImage else {
             fatalError("Photo doesn't have underlying CGImage.")
         }
 
-        let imageClassificationRequest = createImageClassificationRequest()
+        let imageClassificationRequest = createImageClassificationRequest(superDrawingJudgeModel: superDrawingJudgeModel)
         predictionHandlers[imageClassificationRequest] = completionHandler
 
         let handler = VNImageRequestHandler(cgImage: photoImage, orientation: orientation)

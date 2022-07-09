@@ -422,29 +422,29 @@ struct VersusGameView: View {
     func evaluateScores(canvasBounds: CGRect) {
         
         // Use the judge model to give the user a score
-        var predictionProbabilities: [String : String] = [:]
-        do {
-            // Layer the drawing on top of a white background
-            let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
-            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
-            
-            // Save the image to the AI's training data
-            saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
-            
-            // Get the probabilities for every drawing
-            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
-                for eachPrediction in predictions! {
-                    predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
-                }
-            })
-            
-            // Add the score to the game state
-            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
-        } catch {
-            print("[Judge Model Prediction Error]")
-            print(error.localizedDescription)
-            print(error)
-        }
+//        var predictionProbabilities: [String : String] = [:]
+//        do {
+//            // Layer the drawing on top of a white background
+//            let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
+//            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
+//            
+//            // Save the image to the AI's training data
+//            saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
+//            
+//            // Get the probabilities for every drawing
+//            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
+//                for eachPrediction in predictions! {
+//                    predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
+//                }
+//            })
+//            
+//            // Add the score to the game state
+//            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
+//        } catch {
+//            print("[Judge Model Prediction Error]")
+//            print(error.localizedDescription)
+//            print(error)
+//        }
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.

@@ -38,7 +38,7 @@ struct TaskRectangleView: View {
     var body: some View {
         
         /// Whether or not the task represented by this view is unlocked.
-        let isTaskUnlocked = userTaskRecords.records.keys.contains(task.object)
+        let isTaskUnlocked = !userTaskRecords.records.keys.contains(task.object) // FIXME: !
         
         Button(action: {
             isShowingTaskDetailView = true

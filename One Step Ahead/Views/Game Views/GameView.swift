@@ -484,7 +484,17 @@ struct GameView: View {
             saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
             
             // Get the probabilities for every drawing
-            try ImagePredictor().makePredictions(for: drawingImage, completionHandler: { predictions in
+            try ImagePredictor().makePredictions(with: {
+                if game.task.object <= "Duck" {
+                    return .I
+                } else if game.task.object <= "Ocean" {
+                    return .II
+                } else if game.task.object <= "Sword" {
+                    return .III
+                } else {
+                    return .IV
+                }
+            }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
                 }

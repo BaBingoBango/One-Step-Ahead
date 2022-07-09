@@ -96,6 +96,7 @@ class Drawing_Judge_ModelOutput : MLFeatureProvider {
 @available(watchOS, unavailable)
 class Drawing_Judge_Model {
     let model: MLModel
+    let superDrawingJudgeModel: SuperDrawingJudgeModel = .I
 
     /// URL of model assuming it was installed in the same bundle as this class
     class var urlOfModelInThisBundle : URL {
@@ -134,6 +135,35 @@ class Drawing_Judge_Model {
     */
     convenience init(configuration: MLModelConfiguration) throws {
         try self.init(contentsOf: type(of:self).urlOfModelInThisBundle, configuration: configuration)
+    }
+    
+    /**
+        Construct a model from a configuration and with a custom Super Drawing Judge model.
+
+        - parameters:
+           - configuration: the desired model configuration
+           - superDrawingJudgeModel: The Super Drawing Judge model to use.
+
+        - throws: an NSError object that describes the problem
+    */
+    convenience init(configuration: MLModelConfiguration, superDrawingJudgeModel: SuperDrawingJudgeModel) throws {
+        // Get the URL to the specified model file
+        let bundle = Bundle.main
+        let URL = bundle.url(forResource: {
+            switch superDrawingJudgeModel {
+            case .I:
+                return "Super Drawing Judge I"
+            case .II:
+                return "Super Drawing Judge II"
+            case .III:
+                return "Super Drawing Judge III"
+            case .IV:
+                return "Super Drawing Judge IV"
+            }
+        }(), withExtension: "mlmodelc")!
+        
+        // Continue the instantiation process with this URL instead of the default
+        try self.init(contentsOf: URL, configuration: configuration)
     }
 
     /**
