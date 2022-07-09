@@ -336,7 +336,7 @@ struct GameView: View {
                     }
                 }
             }
-            .edgesIgnoringSafeArea(.top)
+            .edgesIgnoringSafeArea(UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
             
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
@@ -501,7 +501,7 @@ struct GameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = 50.0
+        let newAIscore = getAIscore()
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
         
         // Award drawing score-based achievements
