@@ -154,6 +154,7 @@ struct NewVersusGameMenuView: View {
                 }
             }
         }
+        .dynamicTypeSize(.medium)
         .onChange(of: isShowingVersusGameSequence) { newValue in
             if newValue == false {
                 // Reset the current game state

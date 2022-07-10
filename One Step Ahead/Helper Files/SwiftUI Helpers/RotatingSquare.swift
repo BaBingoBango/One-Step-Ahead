@@ -78,6 +78,7 @@ struct RotatingSquare: View {
                 }
             }
         }
+        .dynamicTypeSize(.medium)
     }
     
     // MARK: - Enumeration

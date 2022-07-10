@@ -65,6 +65,7 @@ struct GalleryView: View {
                 }
             }
         }
+        .dynamicTypeSize(.medium)
         // FIXME: Issue #61
         .onChange(of: taskToPresent) { newValue in
             if newValue != nil {

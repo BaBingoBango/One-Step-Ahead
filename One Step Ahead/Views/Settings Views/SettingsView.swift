@@ -101,6 +101,7 @@ struct SettingsView: View {
             })
             
         }
+        .dynamicTypeSize(.medium)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

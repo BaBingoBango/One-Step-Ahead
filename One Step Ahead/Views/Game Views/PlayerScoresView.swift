@@ -37,6 +37,8 @@ struct PlayerScoresView: View {
                 }
             }
         }
+        .dynamicTypeSize(.medium)
+        
         // MARK: Navigation Bar Settings
         .navigationTitle("Round History")
     }
@@ -118,9 +120,11 @@ struct RoundScoreCard: View {
         
         if UIDevice.current.userInterfaceIdiom != .phone {
             viewBody
+                .dynamicTypeSize(.medium)
                 .frame(width: 325, height: 450)
         } else {
             viewBody
+                .dynamicTypeSize(.medium)
         }
     }
 }

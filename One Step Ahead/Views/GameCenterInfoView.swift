@@ -188,6 +188,7 @@ struct GameCenterInfoView: View {
             })
             
         }
+        .dynamicTypeSize(.medium)
         .navigationViewStyle(.stack)
     }
 }

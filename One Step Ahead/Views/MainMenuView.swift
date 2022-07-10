@@ -223,6 +223,7 @@ struct MainMenuView: View {
             }
             .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 70 : 20)
         }
+        .dynamicTypeSize(.medium)
         .edgesIgnoringSafeArea(UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
         
         // MARK: Square Button Rotation Timer Responses

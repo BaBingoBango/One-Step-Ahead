@@ -189,6 +189,7 @@ struct NewGameMenuView: View {
             }
             .padding(.leading)
         }
+        .dynamicTypeSize(.medium)
         .onChange(of: isShowingGameSequence) { newValue in
             if newValue == false {
                 // Reset the current game state
@@ -320,6 +321,7 @@ struct IconButtonView: View {
                     .padding([.top, .horizontal], 5)
             }
         }
+        .dynamicTypeSize(.medium)
         .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 80 : 60, color: isColored ? color : nil, opacity: isColored ? 1.0 : 0.1))
         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 60)
     }

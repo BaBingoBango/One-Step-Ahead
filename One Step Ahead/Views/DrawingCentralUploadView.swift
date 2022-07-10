@@ -113,6 +113,7 @@ struct DrawingCentralUploadView: View {
                 }
             })
         }
+        .dynamicTypeSize(.medium)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

@@ -48,6 +48,7 @@ public struct ProgressCircleView: View {
                     .padding()
             }
         }
+        .dynamicTypeSize(.medium)
         .padding(.horizontal)
     }
 }

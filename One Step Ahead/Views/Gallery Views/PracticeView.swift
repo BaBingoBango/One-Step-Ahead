@@ -276,6 +276,7 @@ struct PracticeView: View {
             .navigationBarBackButtonHidden(true)
             
         }
+        .dynamicTypeSize(.medium)
         .navigationViewStyle(.stack)
     }
     

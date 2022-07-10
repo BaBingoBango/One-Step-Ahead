@@ -71,6 +71,7 @@ struct BackstoryView: View {
             // MARK: View Vanish Code
             isDismissing = true
         }
+        .dynamicTypeSize(.medium)
     }
 }
 
