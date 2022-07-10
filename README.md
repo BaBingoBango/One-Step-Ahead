@@ -29,31 +29,31 @@ To view the third-party content used in the game, navigate to Settings > Licensi
 
 ## Images
 
-- Blue Background Image via the Unsplash License
-- Space Background Image via the Unsplash License
+- [Blue Background Image](https://unsplash.com/photos/_0eMNseqmYk) via the [Unsplash License](https://unsplash.com/license)
+- [Space Background Image](https://unsplash.com/photos/qVotvbsuM_c) via the [Unsplash License](https://unsplash.com/license)
 
 ## Music
 
-- "Lounge Drum and Bass" via Simplified Pixabay License
-- "Space Chillout" via
-- "Acceleron" via
-- "Autobahn" via
-- "Dancing Racoons" via
-- "Dragonfly" via
-- "Protection of Me" via
-- "Scandinavianz Palmtrees" via
-- "Synthwave 80s" via
+- ["Lounge Drum and Bass"](https://pixabay.com/music/drum-n-bass-lounge-drum-and-bass-108785/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Space Chillout"](https://pixabay.com/music/upbeat-space-chillout-14194/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Acceleron"](https://pixabay.com/music/synthwave-acceleron-109122/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Autobahn"](https://pixabay.com/music/house-autobahn-99109/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Dancing Racoons"](https://pixabay.com/music/soft-house-dancing-racoons-20793/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Dragonfly"](https://pixabay.com/music/deep-house-dragonfly-15128/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Protection of Me"](https://pixabay.com/music/deep-house-protection-of-me-by-nazartino-112859/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Scandinavianz Palmtrees"](https://pixabay.com/music/upbeat-scandinavianz-palmtrees-7326/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Synthwave 80s"](https://pixabay.com/music/synthwave-synthwave-80s-110045/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
 
 ## Sound Effects
 
-- Dun Dun Dun Sound Effect via
-- Game Victory Jingle via
-- Game Defeat Jingle via
+- [Dun Dun Dun Sound Effect](https://freesound.org/people/copyc4t/sounds/146434/) via [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+- [Game Victory Jingle](http://freemusicarchive.org/) via [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://creativecommons.org/licenses/by-nc-nd/3.0/)
+- [Game Defeat Jingle](http://freemusicarchive.org/) via [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://creativecommons.org/licenses/by-nc-nd/3.0/)
 
 ## Assets
 
-- Google Quick, Draw! Dataset via
+- [Google Quick, Draw! Dataset](https://quickdraw.withgoogle.com/data) via [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
 
 ## Software
 
-- Zephyr via
+- [Zephyr](https://github.com/ArtSabintsev/Zephyr) via [MIT License](https://github.com/ArtSabintsev/Zephyr/blob/master/LICENSE)
