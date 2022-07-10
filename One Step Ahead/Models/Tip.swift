@@ -60,7 +60,7 @@ struct Tip {
         
         Tip(speakerName: "Dr. Tim Bake", tipText: "All of the drawing types and training data are from Google's Quick, Draw! dataset.", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         
-        Tip(speakerName: "Dr. Tim Bake", tipText: "Since there are a lot of drawings, any accuracy over a few percent means you're getting close!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
+        Tip(speakerName: "Dr. Tim Bake", tipText: "Since there are a lot of drawing types, any accuracy over a few percent means you're getting close!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         
         Tip(speakerName: "The Machine", tipText: "Don't listen to that Dr. Bake guy. Trust me instead!", speakerEmoji: "robot", speakerPrimaryColor: .white, speakerSecondaryColor: .gray),
         

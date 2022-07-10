@@ -15,7 +15,7 @@ struct MainMenuView: View {
     
     // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
-    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = true // FIXME: !
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
     /// Whether or not the Game Center dashboard is being presented.

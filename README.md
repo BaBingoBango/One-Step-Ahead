@@ -25,7 +25,7 @@ To view options for getting game support and leaving feedback, visit the [Suppor
 To view the privacy policy for the game, visit the [Privacy Policy wiki page](https://github.com/BaBingoBango/One-Step-Ahead/wiki/Privacy-Policy).
 
 # Licensing and Credit
-To view the third-party content used in the game, navigate to Settings > Licensing and Credit. The information is also summarized below:
+To view the third-party content used in the app, navigate to Settings > Licensing and Credit from the game's main menu. The information is also summarized below:
 
 ## Images
 
