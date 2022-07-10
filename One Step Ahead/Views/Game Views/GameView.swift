@@ -511,7 +511,17 @@ struct GameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = getAIscore()
+        let newAIscore = getAIscore(superDrawingJudgeModel: {
+            if game.task.object <= "Duck" {
+                return .I
+            } else if game.task.object <= "Ocean" {
+                return .II
+            } else if game.task.object <= "Sword" {
+                return .III
+            } else {
+                return .IV
+            }
+        }())
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
         
         // Award drawing score-based achievements

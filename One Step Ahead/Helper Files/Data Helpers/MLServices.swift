@@ -23,10 +23,30 @@ extension GameView {
     /// If it is not the first round, the model is trained on the built-in testing data, plus the user's drawings. It is then evalauted on the built-in testing data. The returned score is the model's precision for the current task object.
     ///
     /// - Returns: The AI's score for the current round.
-    func getAIscore() -> Double {
-
-        // Get all the drawing objects
-        let drawingTypes = ["Apple", "Axe", "Bird", "Bowtie", "Broom", "Calculator", "Cat", "Clock", "Crown", "Door"]
+    /// - Parameter superDrawingJudgeModel: The model from the Super Drawing Judge that should be used.
+    func getAIscore(superDrawingJudgeModel: SuperDrawingJudgeModel) -> Double {
+        // Get all the drawing objects that the model can classify
+        var drawingTypes: [String] = []
+        for eachTask in Task.taskList {
+            switch superDrawingJudgeModel {
+            case .I:
+                if eachTask.object <= "Duck" {
+                    drawingTypes.append(eachTask.object)
+                }
+            case .II:
+                if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
+                    drawingTypes.append(eachTask.object)
+                }
+            case .III:
+                if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
+                    drawingTypes.append(eachTask.object)
+                }
+            case .IV:
+                if eachTask.object > "Sword" {
+                    drawingTypes.append(eachTask.object)
+                }
+            }
+        }
 
         // If this is the first round, add the training and testing data for all the drawings to the app's disk
         if game.currentRound == 1 {
@@ -87,10 +107,30 @@ extension TutorialGameView {
     /// If it is not the first round, the model is trained on the built-in testing data, plus the user's drawings. It is then evalauted on the built-in testing data. The returned score is the model's precision for the current task object.
     ///
     /// - Returns: The AI's score for the current round.
-    func getAIscore() -> Double {
-
-        // Get all the drawing objects
-        let drawingTypes = ["Apple", "Axe", "Bird", "Bowtie", "Broom", "Calculator", "Cat", "Clock", "Crown", "Door"]
+    /// - Parameter superDrawingJudgeModel: The model from the Super Drawing Judge that should be used.
+    func getAIscore(superDrawingJudgeModel: SuperDrawingJudgeModel) -> Double {
+        // Get all the drawing objects that the model can classify
+        var drawingTypes: [String] = []
+        for eachTask in Task.taskList {
+            switch superDrawingJudgeModel {
+            case .I:
+                if eachTask.object <= "Duck" {
+                    drawingTypes.append(eachTask.object)
+                }
+            case .II:
+                if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
+                    drawingTypes.append(eachTask.object)
+                }
+            case .III:
+                if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
+                    drawingTypes.append(eachTask.object)
+                }
+            case .IV:
+                if eachTask.object > "Sword" {
+                    drawingTypes.append(eachTask.object)
+                }
+            }
+        }
 
         // If this is the first round, add the training and testing data for all the drawings to the app's disk
         if game.currentRound == 1 {
