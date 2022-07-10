@@ -24,7 +24,6 @@ func playAudio(fileName: String, type: String) {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             // Set the audio player to infinite loop
             audioPlayer?.numberOfLoops = -1
-            // FIXME: FIX!
             audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")
@@ -40,7 +39,6 @@ func playAudioOnce(fileName: String, type: String) {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             // Set the audio player to not loop
             audioPlayer?.numberOfLoops = 0
-            // FIXME: FIX!
             audioPlayer?.play()
         } catch {
             print("Could not locate and play the sound file.")

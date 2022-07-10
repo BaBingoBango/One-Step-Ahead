@@ -12,8 +12,6 @@ struct GameCenterInfoView: View {
     
     // Variables
     @Environment(\.presentationMode) private var presentationMode
-    /// Whether or not to show the Versus button.
-    @Binding var isShowingVersus: Bool
     
     var body: some View {
         NavigationView {
@@ -43,106 +41,46 @@ struct GameCenterInfoView: View {
                     }
                     .padding(.top, 5)
                     
-                    if isShowingVersus {
-                        HStack(spacing: 50) {
-                            VStack {
-                                HStack(spacing: 30) {
-                                    Image("Achievements Icon")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(5)
-                                        .frame(width: 60, height: 60)
-                                    
-                                    Text("Achievements")
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                }
-                                    .padding(.top)
-                                
-                                HStack(spacing: 30) {
-                                    Image("Leaderboards Icon")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(5)
-                                        .frame(width: 60, height: 60)
-                                    
-                                    Text("Leaderboards")
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                }
-                            }
+                    HStack(spacing: 35) {
+                        VStack {
+                            Image("Achievements Icon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding(5)
+                                .frame(width: 60, height: 60)
                             
-                            VStack {
-                                HStack(spacing: 30) {
-                                    Image(systemName: "person.2.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(1)
-                                        .foregroundColor(.white)
-                                        .frame(width: 60, height: 60)
-                                    
-                                    Text("Multiplayer")
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                }
-                                    .padding(.top)
-                                
-                                HStack(spacing: 30) {
-                                    Image(systemName: "flag.filled.and.flag.crossed")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.white)
-                                        .frame(width: 60, height: 60)
-                                    
-                                    Text("Challenges")
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                }
-                            }
-                        }
-                        .padding(.top)
-                    } else {
-                        HStack(spacing: 35) {
-                            VStack {
-                                Image("Achievements Icon")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding(5)
-                                    .frame(width: 60, height: 60)
-                                
-                                Image("Leaderboards Icon")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding(5)
-                                    .frame(width: 60, height: 60)
-                                    .padding(.top, 5)
-                                
-                                Image(systemName: "flag.filled.and.flag.crossed")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(.white)
-                                    .frame(width: 60, height: 60)
-                                    .padding(.top, 5)
-                            }
+                            Image("Leaderboards Icon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding(5)
+                                .frame(width: 60, height: 60)
+                                .padding(.top, 5)
                             
-                            VStack(spacing: 35) {
-                                Text("Achievements")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                
-                                Text("Leaderboards")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .padding(.top, 5)
-                                
-                                Text("Challenges")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .padding(.top, 5)
-                            }
+                            Image(systemName: "flag.filled.and.flag.crossed")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .padding(.top, 5)
                         }
-                        .padding(.top, 40)
+                        
+                        VStack(spacing: 35) {
+                            Text("Achievements")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            
+                            Text("Leaderboards")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.top, 5)
+                            
+                            Text("Challenges")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.top, 5)
+                        }
                     }
+                    .padding(.top, 40)
                     
                     HStack {
                         Text("Signing In")
@@ -195,7 +133,7 @@ struct GameCenterInfoView: View {
 
 struct GameCenterInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        GameCenterInfoView(isShowingVersus: .constant(false))
+        GameCenterInfoView()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

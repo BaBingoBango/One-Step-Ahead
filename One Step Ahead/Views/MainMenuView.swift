@@ -15,7 +15,7 @@ struct MainMenuView: View {
     
     // MARK: View Variables
     /// Whether or not the user has finished the tutorial. This value is presisted inside UserDefaults.
-    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = true // FIXME: !
+    @AppStorage("hasFinishedTutorial") var hasFinishedTutorial = false
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @State var isShowingTutorialSequence = false
     /// Whether or not the Game Center dashboard is being presented.
@@ -24,8 +24,6 @@ struct MainMenuView: View {
     @State var isShowingGameCenterInfoView = false
     /// Whether or not the settings view is being presented.
     @State var isShowingSettings = false
-    /// Whether or not to show the Versus button.
-    @State var isShowingVersus = false
     /// The tip currently being displayed at the bottom of the view.
     @State var tip = Tip.tipList.randomElement()!
     /// The tips that have been viewed so far. It resets when all the tips have been seen.
@@ -105,7 +103,7 @@ struct MainMenuView: View {
                                 }
                             }
                             .sheet(isPresented: $isShowingGameCenterInfoView) {
-                                GameCenterInfoView(isShowingVersus: $isShowingVersus)
+                                GameCenterInfoView()
                             }
                         }
                     }
@@ -150,34 +148,6 @@ struct MainMenuView: View {
                     }
                     
                     Spacer()
-                    
-                    if isShowingVersus {
-                        Rectangle()
-                            .frame(width: 150, height: 100)
-                            .hidden()
-                        
-                        if hasFinishedTutorial {
-                            if GKLocalPlayer.local.isAuthenticated {
-                                NavigationLink(destination: NewVersusGameMenuView()) {
-                                    RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS", rotationDegrees: $counterclockwiseRotationDegrees)
-                                }
-                                .padding(.top, 110)
-                            } else {
-                                Button(action: {
-                                    isShowingGameCenterInfoView = true
-                                }) {
-                                    RotatingSquare(direction: .counterclockwise, firstColor: .yellow, secondColor: .orange, text: "VERSUS", rotationDegrees: $counterclockwiseRotationDegrees)
-                                }
-                                .sheet(isPresented: $isShowingGameCenterInfoView) {
-                                    GameCenterInfoView(isShowingVersus: $isShowingVersus)
-                                }
-                                .padding(.top, 110)
-                            }
-                        } else {
-                            RotatingSquare(direction: .counterclockwise, firstColor: .gray, secondColor: .gray.opacity(0.5), text: "VERSUS", iconName: "lock.fill", rotationDegrees: $counterclockwiseRotationDegrees)
-                            .padding(.top, 110)
-                        }
-                    }
                     
                     VStack {
                         if hasFinishedTutorial {
