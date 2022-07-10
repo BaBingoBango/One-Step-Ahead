@@ -62,13 +62,36 @@ struct GameEndView: View {
             SpriteView(scene: graphicsScene)
                 .edgesIgnoringSafeArea(.all)
             
+            HStack {
+                Spacer()
+                
+                VStack {
+                    Text("\(game.gameScore) pts.")
+                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title2)
+                        .fontWeight(.heavy)
+                        .foregroundColor(.gold)
+                        .padding([.top, .trailing])
+                    
+                    Spacer()
+                }
+            }
+            
             VStack(spacing: 0) {
                 Text(winner == .player ? "You win!" : "You lose...")
                     .foregroundColor(winner == .player ? .gold : .red)
                     .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 45))
                     .fontWeight(.black)
-                    .padding(.top)
-                    .padding(.bottom, 10)
+                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 0)
+                
+                HStack(spacing: 0) {
+                    Text("Solution: ")
+                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                        .fontWeight(UIDevice.current.userInterfaceIdiom != .phone ? .semibold : .regular)
+                    
+                    Text(game.task.object)
+                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                        .fontWeight(UIDevice.current.userInterfaceIdiom != .phone ? .heavy : .bold)
+                }
                 
                 HStack(alignment: .center) {
                     Spacer()

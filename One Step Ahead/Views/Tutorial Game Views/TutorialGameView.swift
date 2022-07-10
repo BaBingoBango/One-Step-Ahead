@@ -566,17 +566,18 @@ struct TutorialGameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = getAIscore(superDrawingJudgeModel: {
-            if game.task.object <= "Duck" {
-                return .I
-            } else if game.task.object <= "Ocean" {
-                return .II
-            } else if game.task.object <= "Sword" {
-                return .III
-            } else {
-                return .IV
-            }
-        }())
+//        let newAIscore = getAIscore(superDrawingJudgeModel: {
+//            if game.task.object <= "Duck" {
+//                return .I
+//            } else if game.task.object <= "Ocean" {
+//                return .II
+//            } else if game.task.object <= "Sword" {
+//                return .III
+//            } else {
+//                return .IV
+//            }
+//        }())
+        let newAIscore = 50.0
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
     }
     /// Updates the game state variables to end the current round of play (and possibly the entire game).
