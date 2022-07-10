@@ -27,23 +27,26 @@ extension GameView {
     func getAIscore(superDrawingJudgeModel: SuperDrawingJudgeModel) -> Double {
         // Get all the drawing objects that the model can classify
         var drawingTypes: [String] = []
+        drawingTypes.append(game.task.object)
         for eachTask in Task.taskList {
-            switch superDrawingJudgeModel {
-            case .I:
-                if eachTask.object <= "Duck" {
-                    drawingTypes.append(eachTask.object)
-                }
-            case .II:
-                if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
-                    drawingTypes.append(eachTask.object)
-                }
-            case .III:
-                if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
-                    drawingTypes.append(eachTask.object)
-                }
-            case .IV:
-                if eachTask.object > "Sword" {
-                    drawingTypes.append(eachTask.object)
+            if drawingTypes.count < 20 && eachTask.object != game.task.object {
+                switch superDrawingJudgeModel {
+                case .I:
+                    if eachTask.object <= "Duck" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .II:
+                    if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .III:
+                    if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .IV:
+                    if eachTask.object > "Sword" {
+                        drawingTypes.append(eachTask.object)
+                    }
                 }
             }
         }
@@ -111,23 +114,26 @@ extension TutorialGameView {
     func getAIscore(superDrawingJudgeModel: SuperDrawingJudgeModel) -> Double {
         // Get all the drawing objects that the model can classify
         var drawingTypes: [String] = []
+        drawingTypes.append(game.task.object)
         for eachTask in Task.taskList {
-            switch superDrawingJudgeModel {
-            case .I:
-                if eachTask.object <= "Duck" {
-                    drawingTypes.append(eachTask.object)
-                }
-            case .II:
-                if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
-                    drawingTypes.append(eachTask.object)
-                }
-            case .III:
-                if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
-                    drawingTypes.append(eachTask.object)
-                }
-            case .IV:
-                if eachTask.object > "Sword" {
-                    drawingTypes.append(eachTask.object)
+            if drawingTypes.count < 20 && eachTask.object != game.task.object {
+                switch superDrawingJudgeModel {
+                case .I:
+                    if eachTask.object <= "Duck" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .II:
+                    if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .III:
+                    if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .IV:
+                    if eachTask.object > "Sword" {
+                        drawingTypes.append(eachTask.object)
+                    }
                 }
             }
         }
