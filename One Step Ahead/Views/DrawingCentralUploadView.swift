@@ -10,6 +10,8 @@ import CloudKit
 
 struct DrawingCentralUploadView: View {
     
+    /// Whether or not the user has enabled Auto-Upload. This value is persisted inside UserDefaults.
+    @AppStorage("isAutoUploadOn") var isAutoUploadOn = false
     var game: GameState
     @Environment(\.presentationMode) private var presentationMode
     @Binding var uploadOperationStatus: CloudKitOperationStatus
@@ -50,7 +52,7 @@ struct DrawingCentralUploadView: View {
                 } else {
                     if uploadOperationStatus == .success {
                         HStack {
-                            Image(systemName: "checkmark.icloud")
+                            Image(systemName: "checkmark")
                                 .font(Font.body.weight(.bold))
                                 .imageScale(.large)
                             
@@ -61,32 +63,7 @@ struct DrawingCentralUploadView: View {
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .secondary, opacity: 1.0))
                     } else {
                         Button(action: {
-                            uploadOperationStatus = .inProgress
-                            
-                            let drawingRecord = CKRecord(recordType: CKRecord.RecordType("Drawing"))
-                            
-                            let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
-                            let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-                            let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
-                            
-                            drawingRecord["Image"] = CKAsset(fileURL: URL(fileURLWithPath: paths.first!).appendingPathComponent("\(game.task.object).\(game.currentRound).png"))
-                            drawingRecord["Object"] = game.task.object
-                            drawingRecord["Score"] = game.playerScores.last!
-                            
-                            let uploadOperation = CKModifyRecordsOperation(recordsToSave: [drawingRecord])
-                            
-                            uploadOperation.perRecordSaveBlock = { (_ recordID: CKRecord.ID, _ saveResult: Result<CKRecord, Error>) -> Void in
-                                switch saveResult {
-                                case .success(_):
-                                    uploadOperationStatus = .success
-                                case .failure(let error):
-                                    uploadOperationStatus = .failure
-                                    isShowingFailAlert = true
-                                    print(error.localizedDescription)
-                                }
-                            }
-                            
-                            CKContainer(identifier: "iCloud.One-Step-Ahead").publicCloudDatabase.add(uploadOperation)
+                            startUploadOperation()
                         }) {
                             Text("Upload Drawing")
                                 .fontWeight(.bold)
@@ -115,6 +92,42 @@ struct DrawingCentralUploadView: View {
         }
         .dynamicTypeSize(.medium)
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            if isAutoUploadOn {
+                startUploadOperation()
+            }
+        }
+    }
+    
+    // MARK: - View Functions
+    func startUploadOperation() {
+        uploadOperationStatus = .inProgress
+        
+        let drawingRecord = CKRecord(recordType: CKRecord.RecordType("Drawing"))
+        
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        
+        drawingRecord["Image"] = CKAsset(fileURL: URL(fileURLWithPath: paths.first!).appendingPathComponent("\(game.task.object).\(game.currentRound).png"))
+        drawingRecord["Object"] = game.task.object
+        drawingRecord["Score"] = game.playerScores.last!
+        
+        let uploadOperation = CKModifyRecordsOperation(recordsToSave: [drawingRecord])
+        
+        uploadOperation.perRecordSaveBlock = { (_ recordID: CKRecord.ID, _ saveResult: Result<CKRecord, Error>) -> Void in
+            switch saveResult {
+            case .success(_):
+                uploadOperationStatus = .success
+                self.presentationMode.wrappedValue.dismiss()
+            case .failure(let error):
+                uploadOperationStatus = .failure
+                isShowingFailAlert = true
+                print(error.localizedDescription)
+            }
+        }
+        
+        CKContainer(identifier: "iCloud.One-Step-Ahead").publicCloudDatabase.add(uploadOperation)
     }
 }
 

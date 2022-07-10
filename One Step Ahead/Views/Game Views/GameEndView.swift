@@ -26,6 +26,8 @@ struct GameEndView: View {
     
     @State var uploadOperationStatus = CloudKitOperationStatus.notStarted
     
+    /// Whether or not the user has enabled Auto-Upload. This value is persisted inside UserDefaults.
+    @AppStorage("isAutoUploadOn") var isAutoUploadOn = false
     @State var isShowingDrawingCentral = false
     
     /// The SpriteKit scene for the graphics of this view.
@@ -128,7 +130,6 @@ struct GameEndView: View {
                                             .resizable()
                                             .foregroundColor(.white)
                                             .aspectRatio(contentMode: .fit)
-                                            .padding(uploadOperationStatus == .success ? 3 : 0)
                                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
                                     }
                                 }
@@ -267,6 +268,11 @@ struct GameEndView: View {
             }
             if game.currentRound >= 20 {
                 reportAchievementProgress("The_Really_Long_Haul")
+            }
+            
+            // Launch the Drawing Central upload view if Auto-Upload is on
+            if isAutoUploadOn {
+                showingUploadView = true
             }
         }
         

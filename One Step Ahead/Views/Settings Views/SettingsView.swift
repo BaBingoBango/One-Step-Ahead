@@ -16,6 +16,8 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the user has enabled Unlock Assist. This value is persisted inside UserDefaults.
     @AppStorage("isUnlockAssistOn") var isUnlockAssistOn = true
+    /// Whether or not the user has enabled Auto-Upload. This value is persisted inside UserDefaults.
+    @AppStorage("isAutoUploadOn") var isAutoUploadOn = false
     /// Whether or not the view has triggered the Game Center authentication process.
     @State var shouldAuthenticateWithGameCenter = false
     /// Whether or not the mail sender view is being presented.
@@ -39,6 +41,10 @@ struct SettingsView: View {
                                     reportAchievementProgress("Look_Mom_No_Hands")
                                 }
                             }
+                    }
+                    
+                    Section(header: Text("Drawing Central"), footer: Text("With Auto-Upload enabled, your drawings will automatically be uploaded to Drawing Central after you finish games.")) {
+                        Toggle("Auto-Upload", isOn: $isAutoUploadOn)
                     }
                     
                     if GKLocalPlayer.local.isAuthenticated {
