@@ -28,6 +28,8 @@ struct MainMenuView: View {
     @State var isShowingVersus = false
     /// The tip currently being displayed at the bottom of the view.
     @State var tip = Tip.tipList.randomElement()!
+    /// The tips that have been viewed so far. It resets when all the tips have been seen.
+    @State var viewedTips: [Tip] = []
     
     /// The timer that manages the shared rotation of the clockwise square buttons.
     let clockwiseRotatingSquareTimer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
@@ -207,8 +209,12 @@ struct MainMenuView: View {
                 
                 DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: tip.speakerEmoji, characterName: tip.speakerName, dialogue: tip.tipText, color1: tip.speakerPrimaryColor, color2: tip.speakerSecondaryColor, height: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 55, advancePrompt: "Another Tip ➤")
                     .onTapGesture {
+                        viewedTips.append(tip)
+                        if viewedTips.count == Tip.tipList.count {
+                            viewedTips = []
+                        }
                         var candidateTip = Tip.tipList.randomElement()!
-                        while candidateTip.tipText == tip.tipText {
+                        while viewedTips.contains(where: { $0.tipText == candidateTip.tipText }) {
                             candidateTip = Tip.tipList.randomElement()!
                         }
                         tip = candidateTip
