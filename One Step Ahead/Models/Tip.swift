@@ -98,7 +98,9 @@ struct Tip {
         
         Tip(speakerName: "The Machine", tipText: "If Dr. Bake created me...who created Dr. Bake?", speakerEmoji: "robot", speakerPrimaryColor: .white, speakerSecondaryColor: .gray),
         
-        Tip(speakerName: "Dr. Tim Bake", tipText: "If Drawing Central isn't doing it for you, Google's Quick, Draw! site has tons more examples!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan)
+        Tip(speakerName: "Dr. Tim Bake", tipText: "If Drawing Central isn't doing it for you, Google's Quick, Draw! site has tons more examples!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
+        
+        Tip(speakerName: "Dr. Tim Bake", tipText: "Check out the sources of third-party content in Settings > Licensing and Credit!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan)
     ]
     
 }
