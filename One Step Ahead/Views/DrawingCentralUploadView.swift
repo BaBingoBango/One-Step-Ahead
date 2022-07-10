@@ -12,8 +12,8 @@ struct DrawingCentralUploadView: View {
     
     var game: GameState
     @Environment(\.presentationMode) private var presentationMode
-    @State var isUploading = false
-    @Binding var uploadSuccess: Bool
+    @Binding var uploadOperationStatus: CloudKitOperationStatus
+    @State var isShowingFailAlert = false
     
     var body: some View {
         NavigationView {
@@ -43,12 +43,12 @@ struct DrawingCentralUploadView: View {
                 
                 Spacer()
                 
-                if isUploading {
+                if uploadOperationStatus == .inProgress {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .secondary, opacity: 1.0))
                 } else {
-                    if uploadSuccess {
+                    if uploadOperationStatus == .success {
                         HStack {
                             Image(systemName: "checkmark.icloud")
                                 .font(Font.body.weight(.bold))
@@ -61,7 +61,7 @@ struct DrawingCentralUploadView: View {
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .secondary, opacity: 1.0))
                     } else {
                         Button(action: {
-                            isUploading = true
+                            uploadOperationStatus = .inProgress
                             
                             let drawingRecord = CKRecord(recordType: CKRecord.RecordType("Drawing"))
                             
@@ -78,10 +78,10 @@ struct DrawingCentralUploadView: View {
                             uploadOperation.perRecordSaveBlock = { (_ recordID: CKRecord.ID, _ saveResult: Result<CKRecord, Error>) -> Void in
                                 switch saveResult {
                                 case .success(_):
-                                    isUploading = false
-                                    uploadSuccess = true
+                                    uploadOperationStatus = .success
                                 case .failure(let error):
-                                    isUploading = false
+                                    uploadOperationStatus = .failure
+                                    isShowingFailAlert = true
                                     print(error.localizedDescription)
                                 }
                             }
@@ -97,6 +97,9 @@ struct DrawingCentralUploadView: View {
                 }
             }
             .padding([.leading, .bottom, .trailing])
+            .alert(isPresented: $isShowingFailAlert) {
+                Alert(title: Text("Drawing Upload Failed"), message: Text("Check that you are connected to the Internet and signed in to iCloud in Settings."), dismissButton: .default(Text("Close")))
+            }
             
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
@@ -116,7 +119,7 @@ struct DrawingCentralUploadView: View {
 
 struct DrawingCentralUploadView_Previews: PreviewProvider {
     static var previews: some View {
-        DrawingCentralUploadView(game: GameState(), uploadSuccess: .constant(false))
+        DrawingCentralUploadView(game: GameState(), uploadOperationStatus: .constant(.notStarted))
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

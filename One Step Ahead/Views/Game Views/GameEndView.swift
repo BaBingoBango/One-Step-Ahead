@@ -24,7 +24,9 @@ struct GameEndView: View {
     /// Whether or not the Drawing Central upload view is being presented.
     @State var showingUploadView = false
     
-    @State var uploadSuccess = false
+    @State var uploadOperationStatus = CloudKitOperationStatus.notStarted
+    
+    @State var isShowingDrawingCentral = false
     
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
@@ -119,20 +121,20 @@ struct GameEndView: View {
                                     ZStack {
                                         Circle()
                                             .foregroundColor(.gray)
-                                            .opacity(uploadSuccess ? 0.5 : 1)
+                                            .opacity(uploadOperationStatus == .success ? 0.5 : 1)
                                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
                                         
-                                        Image(systemName: uploadSuccess ? "checkmark.icloud" : "icloud.and.arrow.up")
+                                        Image(systemName: uploadOperationStatus == .success ? "checkmark.icloud" : "icloud.and.arrow.up")
                                             .resizable()
                                             .foregroundColor(.white)
                                             .aspectRatio(contentMode: .fit)
-                                            .padding(uploadSuccess ? 3 : 0)
+                                            .padding(uploadOperationStatus == .success ? 3 : 0)
                                             .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
                                     }
                                 }
-                                .disabled(uploadSuccess)
+                                .disabled(uploadOperationStatus == .success)
                                 .sheet(isPresented: $showingUploadView) {
-                                    DrawingCentralUploadView(game: game, uploadSuccess: $uploadSuccess)
+                                    DrawingCentralUploadView(game: game, uploadOperationStatus: $uploadOperationStatus)
                                 }
                                 
                                 Spacer()
@@ -211,29 +213,32 @@ struct GameEndView: View {
                     }
                     
                     Button(action: {
-                        playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
-                        isShowingGameSequence = false
+                        isShowingDrawingCentral = true
                     }) {
                         if UIDevice.current.userInterfaceIdiom != .phone {
-                            Text("Return To Menu")
+                            Text("View on Drawing Central")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                .modifier(RectangleWrapper(fixedHeight: 60, color: .blue, opacity: 1.0))
+                                .modifier(RectangleWrapper(fixedHeight: 60, color: .teal, opacity: 1.0))
                                 .frame(width: 375)
                         } else {
-                            Text("Return To Menu")
+                            Text("View on Drawing Central")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
+                                .modifier(RectangleWrapper(fixedHeight: 50, color: .teal, opacity: 1.0))
                         }
+                    }
+                    .fullScreenCover(isPresented: $isShowingDrawingCentral) {
+                        DrawingCentralView(task: game.task)
                     }
                 }
                 .padding(.bottom, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 10)
             }
             .padding(.top)
         }
+        .edgesIgnoringSafeArea(.top)
         .onAppear {
             // MARK: View Launch Code
             // Adjust the music
@@ -266,13 +271,28 @@ struct GameEndView: View {
         
         // MARK: Navigation Bar Settings
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
+                    isShowingGameSequence = false
+                }) {
+                    Text("Return To Menu")
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                }
+            }
+        }
     }
 }
 
 struct GameEndView_Previews: PreviewProvider {
     static var previews: some View {
-        GameEndView(isShowingGameSequence: .constant(true), game: GameState(playerScores: [99.9], AIscores: [69.4]))
-            .previewInterfaceOrientation(.landscapeLeft)
+        NavigationView {
+            GameEndView(isShowingGameSequence: .constant(true), game: GameState(playerScores: [99.9], AIscores: [69.4]))
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }
 

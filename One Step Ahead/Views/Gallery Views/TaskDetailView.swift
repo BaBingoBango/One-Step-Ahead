@@ -23,6 +23,8 @@ struct TaskDetailView: View {
     @State var isShowingPracticeView = false
     /// Whether or not the New Game view is being presented.
     @State var isShowingNewGameView = false
+    /// Whether or not the Drawing Central view is being presented.
+    @State var isShowingDrawingCentral = false
     /// The task represented by this view.
     var task: Task
     /// The task list index of the task represented by this view.
@@ -100,6 +102,7 @@ struct TaskDetailView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }
+                        .padding(.horizontal)
                         .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .green, opacity: 1.0))
                     }
                     .fullScreenCover(isPresented: $isShowingPracticeView) {
@@ -126,7 +129,30 @@ struct TaskDetailView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                         }
+                        .padding(.horizontal)
                         .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .blue, opacity: 1.0))
+                    }
+                    
+                    Button(action: {
+                        isShowingDrawingCentral = true
+                    }) {
+                        HStack {
+                            Image(systemName: "globe")
+                                .foregroundColor(.white)
+                                .imageScale(.large)
+
+                            Text("Drawing Central")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.1)
+                        }
+                        .padding(.horizontal)
+                        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .teal, opacity: 1.0))
+                    }
+                    .fullScreenCover(isPresented: $isShowingDrawingCentral) {
+                        DrawingCentralView(task: task)
                     }
                 }
                 .padding([.leading, .bottom, .trailing])

@@ -13,12 +13,14 @@ import CloudKit
 struct DrawingCentralView: View {
     
     // MARK: - View Variables
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Gallery View Graphics")!
     /// The task to show drawings for in this view.
     var task: Task
     @State var downloadedDrawings: [Drawing] = []
     @State var queryOperationStatus: CloudKitOperationStatus = .notStarted
+    @State var sortingAscending = false
     
     // MARK: - View Body
     var body: some View {
@@ -31,6 +33,7 @@ struct DrawingCentralView: View {
                 Text("Drawing Central")
                     .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20))
                     .fontWeight(.bold)
+                    .padding(.top)
                 
                 Text(task.object)
                     .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 30))
@@ -38,132 +41,176 @@ struct DrawingCentralView: View {
             }
         }
         
-        ZStack {
-            SpriteView(scene: graphicsScene)
-                .edgesIgnoringSafeArea(.all)
-            
-            ScrollView {
-                VStack {
-                    headerView
-                    
-                    if queryOperationStatus == .success {
-                        if downloadedDrawings.isEmpty {
+        NavigationView {
+            ZStack {
+                SpriteView(scene: graphicsScene)
+                    .edgesIgnoringSafeArea(.all)
+                
+                ScrollView {
+                    VStack {
+                        headerView
+                        
+                        if queryOperationStatus == .inProgress {
                             VStack {
-                                Image(systemName: "rectangle.portrait.on.rectangle.portrait.slash")
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 2 : 1.5)
+                                
+                                Text("Connecting...")
+                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
+                                    .foregroundColor(.secondary)
+                                    .fontWeight(.bold)
+                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 25 : 15)
+                                
+                                Spacer()
+                            }
+                        } else if queryOperationStatus == .failure {
+                            VStack {
+                                Image(systemName: "xmark.icloud.fill")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(.secondary)
-                                    .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 50)
+                                    .frame(height: 50)
                                 
-                                Text("No Drawings Yet!")
-                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                Text("Could Not Connect")
+                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
                                     .foregroundColor(.secondary)
                                     .fontWeight(.bold)
-                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 5)
+                                    .padding(.top, 5)
                                 
-                                Text("Perhaps the first great artist is you!")
-                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                Text("Check you are connected to the Internet and try again.")
+                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .callout)
                                     .foregroundColor(.secondary)
-                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
-                            }
-                        } else {
-                            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 6)) {
-                                ForEach(downloadedDrawings, id: \.ID) { eachDrawing in
-                                    ZStack {
-                                        Image(uiImage: UIImage(data: try! Data(contentsOf: eachDrawing.image.fileURL!))!)
-                                            .resizable()
-                                            .aspectRatio(1, contentMode: .fit)
-                                            .cornerRadius(20)
+                                
+                                Button(action: {
+                                    launchQueryOperation()
+                                }) {
+                                    HStack {
+                                        let tryAgainButton =
+                                        Text("Try Again")
+                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .body)
+                                            .foregroundColor(.white)
+                                            .fontWeight(.bold)
+                                            .modifier(RectangleWrapper(fixedHeight: 45, color: .blue, opacity: 1.0))
                                         
-                                        VStack {
-                                            Spacer()
+                                        tryAgainButton
+                                            .hidden()
+                                        
+                                        tryAgainButton
+                                        
+                                        tryAgainButton
+                                            .hidden()
+                                    }
+                                }
+                                
+                                Spacer()
+                            }
+                        }
+                        
+                        if queryOperationStatus == .success {
+                            if downloadedDrawings.isEmpty {
+                                VStack {
+                                    Image(systemName: "rectangle.portrait.on.rectangle.portrait.slash")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.secondary)
+                                        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 50)
+                                    
+                                    Text("No Drawings Yet!")
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                        .foregroundColor(.secondary)
+                                        .fontWeight(.bold)
+                                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 5)
+                                    
+                                    Text("Perhaps the first great artist is you!")
+                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
+                                        .foregroundColor(.secondary)
+                                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
+                                }
+                            } else {
+                                HStack(spacing: 0) {
+                                    let sortButtonRectangle =
+                                    Rectangle()
+                                        .frame(height: 40)
+                                        .foregroundColor(.black)
+                                        .opacity(0.25)
+                                        .cornerRadius(13)
+                                    
+                                    Button(action: {
+                                        sortingAscending.toggle()
+                                        launchQueryOperation()
+                                    }) {
+                                        ZStack {
+                                            sortButtonRectangle
                                             
-                                            ZStack {
-                                                Rectangle()
-                                                    .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
-                                                    .foregroundColor(.green)
-                                                    .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+                                            HStack {
+                                                Image(systemName: sortingAscending ? "arrow.up" : "arrow.down")
+                                                    .foregroundColor(.white)
                                                 
-                                                Text("\(String(eachDrawing.score.truncate(places: 1)))%")
-                                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .callout)
-                                                    .fontWeight(.bold)
+                                                Text("Sorting \(sortingAscending ? "Low to High" : "High to Low")")
+                                                    .foregroundColor(.white)
+                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.1)
+                                            }
+                                            .padding(.horizontal)
+                                        }
+                                    }
+                                    
+                                    sortButtonRectangle
+                                        .hidden()
+                                    
+                                    sortButtonRectangle
+                                        .hidden()
+                                }
+                                .padding(.horizontal)
+                                .padding(.bottom, 5)
+                                
+                                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 6)) {
+                                    ForEach(downloadedDrawings, id: \.ID) { eachDrawing in
+                                        ZStack {
+                                            Image(uiImage: UIImage(data: try! Data(contentsOf: eachDrawing.image.fileURL!))!)
+                                                .resizable()
+                                                .aspectRatio(1, contentMode: .fit)
+                                                .cornerRadius(20)
+                                            
+                                            VStack {
+                                                Spacer()
+                                                
+                                                ZStack {
+                                                    Rectangle()
+                                                        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                                                        .foregroundColor(.green)
+                                                        .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+                                                    
+                                                    Text("\(String(eachDrawing.score.truncate(places: 1)))%")
+                                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .callout)
+                                                        .fontWeight(.bold)
+                                                }
                                             }
                                         }
                                     }
                                 }
+                                .padding([.leading, .bottom, .trailing])
                             }
-                            .padding([.leading, .bottom, .trailing])
                         }
                     }
                 }
             }
+            .edgesIgnoringSafeArea(.top)
             
-            if queryOperationStatus == .inProgress {
-                VStack {
-                    headerView
-                        .hidden()
-
-//                    Spacer()
-                    
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 2 : 1.5)
-                    
-                    Text("Connecting...")
-                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
-                        .foregroundColor(.secondary)
-                        .fontWeight(.bold)
-                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 25 : 15)
-                    
-                    Spacer()
-                }
-//                .padding(.bottom)
-            } else if queryOperationStatus == .failure {
-                VStack {
-                    headerView
-                        .hidden()
-                    
-                    Image(systemName: "xmark.icloud.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.secondary)
-                        .frame(height: 50)
-                    
-                    Text("Could Not Connect")
-                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
-                        .foregroundColor(.secondary)
-                        .fontWeight(.bold)
-                        .padding(.top, 5)
-                    
-                    Text("Check you are connected to the Internet and try again.")
-                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
-                        .foregroundColor(.secondary)
-                    
+            // MARK: - Navigation View Settings
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        launchQueryOperation()
+                        self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        HStack {
-                            let tryAgainButton =
-                            Text("Try Again")
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .body)
-                                .foregroundColor(.white)
-                                .fontWeight(.bold)
-                                .modifier(RectangleWrapper(fixedHeight: 45, color: .blue, opacity: 1.0))
-                            
-                            tryAgainButton
-                                .hidden()
-                            
-                            tryAgainButton
-                            
-                            tryAgainButton
-                                .hidden()
-                        }
+                        Text("Done")
+                            .fontWeight(.bold)
                     }
-                    
-                    Spacer()
                 }
-            }
+            })
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         
         // MARK: - View Launch Code
         .onAppear {
@@ -176,7 +223,9 @@ struct DrawingCentralView: View {
         queryOperationStatus = .inProgress
         var drawingsToAdd: [Drawing] = []
         
-        let queryOperation = CKQueryOperation(query: CKQuery(recordType: "Drawing", predicate: NSPredicate(format: "Object = %@", task.object)))
+        let query = CKQuery(recordType: "Drawing", predicate: NSPredicate(format: "Object = %@", task.object))
+        query.sortDescriptors = [NSSortDescriptor(key: "Score", ascending: sortingAscending)]
+        let queryOperation = CKQueryOperation(query: query)
         
         queryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
             switch recordResult {

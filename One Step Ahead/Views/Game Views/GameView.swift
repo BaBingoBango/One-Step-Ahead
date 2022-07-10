@@ -272,7 +272,7 @@ struct GameView: View {
                                             VStack {
                                                 if isTrainingAImodel {
                                                     ProgressView()
-                                                        .scaleEffect(2.5)
+                                                        .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 2.5 : 1.5)
                                                         .progressViewStyle(CircularProgressViewStyle())
                                                         .frame(width: 75, height: 75)
                                                 } else {
