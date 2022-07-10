@@ -1,6 +1,7 @@
-![One Step Ahead App Icon](https://user-images.githubusercontent.com/40375449/178131610-8551a5ed-1ab4-4d58-8e07-1e5d76b86769.png)
+<img src="https://user-images.githubusercontent.com/40375449/178133939-f280d6d1-8d37-4115-9470-516c1df1ae3b.png" alt="gameLogo" width="100"/>
 
 **One Step Ahead**<br>
+
 By Ethan Marshall :)
 
 # Quick Start
