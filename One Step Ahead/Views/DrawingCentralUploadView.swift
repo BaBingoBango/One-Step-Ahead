@@ -90,7 +90,7 @@ struct DrawingCentralUploadView: View {
                 }
             })
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             if isAutoUploadOn {

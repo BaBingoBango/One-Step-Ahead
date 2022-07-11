@@ -85,7 +85,7 @@ struct LicensingView: View {
                 }
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         
         // MARK: Navigation View Settings
         .navigationTitle("Licensing and Credit")

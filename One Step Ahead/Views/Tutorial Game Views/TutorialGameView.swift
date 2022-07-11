@@ -449,7 +449,7 @@ struct TutorialGameView: View {
             }
             
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .edgesIgnoringSafeArea(UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
         .onAppear {
             // MARK: View Launch Code
@@ -827,6 +827,6 @@ struct DialogueView: View {
                 .padding([.bottom, .trailing])
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
     }
 }

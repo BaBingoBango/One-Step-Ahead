@@ -65,7 +65,7 @@ struct GalleryView: View {
                 }
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .onChange(of: taskToPresent) { newValue in
             if newValue != nil {
                 // We have a value from a task detail view! Time to activate a navigation link!

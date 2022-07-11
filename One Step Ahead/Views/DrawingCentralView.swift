@@ -210,7 +210,7 @@ struct DrawingCentralView: View {
                 }
             })
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .navigationViewStyle(StackNavigationViewStyle())
         
         // MARK: - View Launch Code

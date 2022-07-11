@@ -163,7 +163,7 @@ struct TutorialGameEndView: View {
                 hasPlayedJingle = true
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         
         // MARK: Navigation Bar Settings
         .navigationBarBackButtonHidden(true)

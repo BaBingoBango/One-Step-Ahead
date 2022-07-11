@@ -121,7 +121,7 @@ struct SettingsView: View {
             })
             
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

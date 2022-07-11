@@ -173,7 +173,7 @@ struct TaskDetailView: View {
             })
             
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
     }
 }
 

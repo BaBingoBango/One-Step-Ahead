@@ -71,7 +71,7 @@ struct BackstoryView: View {
             // MARK: View Vanish Code
             isDismissing = true
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
     }
 }
 

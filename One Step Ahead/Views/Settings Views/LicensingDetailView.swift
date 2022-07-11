@@ -214,7 +214,7 @@ struct LicensingDetailView: View {
                 .frame(height: 75)
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
     }
 }
 

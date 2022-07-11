@@ -262,7 +262,7 @@ struct GameEndView: View {
             }
             .padding(.top)
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .edgesIgnoringSafeArea(.top)
         .onAppear {
             // MARK: View Launch Code
@@ -350,7 +350,7 @@ struct PercentCircle: View {
                     .minimumScaleFactor(0.1)
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
     }
 }
 
@@ -387,7 +387,7 @@ struct GameEndShareButtonsView: View {
             
             Spacer()
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
         .hidden()
     }

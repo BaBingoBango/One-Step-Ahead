@@ -60,7 +60,7 @@ struct TitleScreenView: View {
             .navigationBarTitleDisplayMode(.inline)
             
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             // MARK: View Launch Code

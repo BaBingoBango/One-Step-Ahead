@@ -48,7 +48,7 @@ public struct ProgressCircleView: View {
                     .padding()
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .padding(.horizontal)
     }
 }

@@ -396,7 +396,7 @@ struct GameView: View {
                 }
             })
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .navigationViewStyle(.stack)
         .onAppear {
             // MARK: View Launch Code

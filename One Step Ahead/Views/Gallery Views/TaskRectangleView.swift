@@ -72,7 +72,7 @@ struct TaskRectangleView: View {
                 }
             }
         }
-        .dynamicTypeSize(.medium)
+        .dynamicTypeSize(.medium).statusBar(hidden: true)
         .disabled(!isTaskUnlocked)
         .sheet(isPresented: $isShowingTaskDetailView) {
             TaskDetailView(taskToPresent: $taskToPresent, isTaskDetailAutoDismissing: $isTaskDetailAutoDismissing, task: task, index: index)
