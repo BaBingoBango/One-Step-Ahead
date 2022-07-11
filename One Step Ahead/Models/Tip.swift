@@ -92,7 +92,7 @@ struct Tip {
         
         Tip(speakerName: "Dr. Tim Bake", tipText: "One Step Ahead is avaliable on iPhone, iPad, and Macs with Apple Silicon!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         
-        Tip(speakerName: "Dr. Tim Bake", tipText: "Sources tell me apple is the easiest drawing type, but it's up to you to know for sure!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
+        Tip(speakerName: "Dr. Tim Bake", tipText: "Sources tell me ladder is the easiest drawing type, but it's up to you to know for sure!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         
         Tip(speakerName: "Dr. Tim Bake", tipText: "The One Step Ahead source code is avaliable on GitHub!", speakerEmoji: "doctor", speakerPrimaryColor: .blue, speakerSecondaryColor: .cyan),
         

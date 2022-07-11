@@ -293,8 +293,8 @@ struct GameEndView: View {
                 reportAchievementProgress("The_Really_Long_Haul")
             }
             
-            // Launch the Drawing Central upload view if Auto-Upload is on
-            if isAutoUploadOn {
+            // Launch the Drawing Central upload view if Auto-Upload is on and if we haven't already attempted an upload
+            if isAutoUploadOn && uploadOperationStatus == .notStarted {
                 showingUploadView = true
             }
         }

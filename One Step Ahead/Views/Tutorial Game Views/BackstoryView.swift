@@ -18,7 +18,7 @@ struct BackstoryView: View {
     /// Whether or not the tutorial game view is being presented.
     @State var isShowingTutorialGameView = false
     /// The state of the app's currently running game.
-    @State var game: GameState = GameState()
+    @State var game: GameState = GameState(defaultCommandText: "Draw something you use to climb!")
     /// Whether or not the view is currently being collapsed by the End Game View.
     @State var isDismissing = false
     
@@ -35,9 +35,9 @@ struct BackstoryView: View {
             }
             .onTapGesture {
                 // Configure settings for the tutorial game
-                game.task = Task.taskList.first(where: { $0.object == "Apple" })!
+                game.task = Task.taskList.first(where: { $0.object == "Ladder" })!
                 game.gameMode = .cluedIn
-                game.difficulty = .hard
+                game.difficulty = .normal
                 
                 // Present the tutorial game
                 game.shouldRunTimer = false

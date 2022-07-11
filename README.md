@@ -34,26 +34,26 @@ To view the third-party content used in the app, navigate to Settings > Licensin
 
 ## Music
 
-- ["Lounge Drum and Bass"](https://pixabay.com/music/drum-n-bass-lounge-drum-and-bass-108785/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Space Chillout"](https://pixabay.com/music/upbeat-space-chillout-14194/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Acceleron"](https://pixabay.com/music/synthwave-acceleron-109122/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Autobahn"](https://pixabay.com/music/house-autobahn-99109/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Dancing Racoons"](https://pixabay.com/music/soft-house-dancing-racoons-20793/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Dragonfly"](https://pixabay.com/music/deep-house-dragonfly-15128/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Protection of Me"](https://pixabay.com/music/deep-house-protection-of-me-by-nazartino-112859/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Scandinavianz Palmtrees"](https://pixabay.com/music/upbeat-scandinavianz-palmtrees-7326/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
-- ["Synthwave 80s"](https://pixabay.com/music/synthwave-synthwave-80s-110045/) via [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Lounge Drum and Bass"](https://pixabay.com/music/drum-n-bass-lounge-drum-and-bass-108785/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Space Chillout"](https://pixabay.com/music/upbeat-space-chillout-14194/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Acceleron"](https://pixabay.com/music/synthwave-acceleron-109122/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Autobahn"](https://pixabay.com/music/house-autobahn-99109/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Dancing Racoons"](https://pixabay.com/music/soft-house-dancing-racoons-20793/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Dragonfly"](https://pixabay.com/music/deep-house-dragonfly-15128/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Protection of Me"](https://pixabay.com/music/deep-house-protection-of-me-by-nazartino-112859/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Scandinavianz Palmtrees"](https://pixabay.com/music/upbeat-scandinavianz-palmtrees-7326/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
+- ["Synthwave 80s"](https://pixabay.com/music/synthwave-synthwave-80s-110045/) via the [Simplified Pixabay License](https://pixabay.com/service/license/)
 
 ## Sound Effects
 
-- [Dun Dun Dun Sound Effect](https://freesound.org/people/copyc4t/sounds/146434/) via [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
-- [Game Victory Jingle](http://freemusicarchive.org/) via [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://creativecommons.org/licenses/by-nc-nd/3.0/)
-- [Game Defeat Jingle](http://freemusicarchive.org/) via [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://creativecommons.org/licenses/by-nc-nd/3.0/)
+- [Dun Dun Dun Sound Effect](https://freesound.org/people/copyc4t/sounds/146434/) via the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+- [Game Victory Jingle](http://freemusicarchive.org/) via the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://creativecommons.org/licenses/by-nc-nd/3.0/)
+- [Game Defeat Jingle](http://freemusicarchive.org/) via the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://creativecommons.org/licenses/by-nc-nd/3.0/)
 
 ## Assets
 
-- [Google Quick, Draw! Dataset](https://quickdraw.withgoogle.com/data) via [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+- [Google Quick, Draw! Dataset](https://quickdraw.withgoogle.com/data) via the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
 
 ## Software
 
-- [Zephyr](https://github.com/ArtSabintsev/Zephyr) via [MIT License](https://github.com/ArtSabintsev/Zephyr/blob/master/LICENSE)
+- [Zephyr](https://github.com/ArtSabintsev/Zephyr) via the [MIT License](https://github.com/ArtSabintsev/Zephyr/blob/master/LICENSE)

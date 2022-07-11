@@ -59,24 +59,24 @@ struct GameState {
     var playerWinThreshold: Int {
         switch difficulty {
         case .easy:
-            return 80
+            return 50
         case .normal:
-            return 90
+            return 70
         case .hard:
-            return 97
+            return 80
         case .lunatic:
-            return 99
+            return 95
         }
     }
     /// The drawing score required for the AI to win the game.
     var AIwinThreshold: Int {
         switch difficulty {
         case .easy:
-            return 90
+            return 95
         case .normal:
-            return 90
+            return 85
         case .hard:
-            return 80
+            return 70
         case .lunatic:
             return 50
         }

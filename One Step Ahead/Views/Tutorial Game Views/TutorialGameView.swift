@@ -43,6 +43,10 @@ struct TutorialGameView: View {
     @State var isShowingTrainingDataDrawing = false
     /// Whether or not the judge model explanation text is on-screen.
     @State var isShowingJudgeModelDrawing = false
+    /// Whether or not the dialogue view is on-screen.
+    @State var isShowingDialogueView = true
+    /// Whether or not the command text is on-screen.
+    @State var isShowingCommand = false
     
     // Game View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
@@ -107,6 +111,12 @@ struct TutorialGameView: View {
                             .padding(.bottom, 5)
                             .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
                             .isHidden(!isShowingRoundIndicator)
+                        
+                        if isShowingCommand {
+                            Text(commandText)
+                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                .fontWeight(.bold)
+                        }
                         
                         Text(game.timeLeft.truncate(places: 1).description + "s")
                             .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
@@ -361,15 +371,18 @@ struct TutorialGameView: View {
                 
                 Spacer()
                 
-                DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: UIDevice.current.userInterfaceIdiom != .phone ? 145 : 55)
-                    .onTapGesture {
-                        if stateID != 10 {
-                            moveToNextState()
+                if isShowingDialogueView {
+                    DialogueView(isShowingAdvancePrompt: $isShowingAdvancePrompt, emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: UIDevice.current.userInterfaceIdiom != .phone ? 145 : 55)
+                        .onTapGesture {
+                            if stateID != 10 {
+                                moveToNextState()
+                            }
                         }
-                    }
-                    .padding(.horizontal, 50)
-                    .padding(.bottom)
+                        .padding(.horizontal, 50)
+                        .padding(.bottom)
+                }
             }
+            .padding(.bottom)
             
             VStack {
                 
@@ -553,7 +566,9 @@ struct TutorialGameView: View {
             }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
+//                    print("[*] \(eachPrediction.classification): \(eachPrediction.confidencePercentage)%")
                 }
+//                print("\n\n\n")
             })
             
             // Add the score to the game state
@@ -683,11 +698,12 @@ struct TutorialGameView: View {
             isShowingAIbox = true
         case 9:
             // Move from state 8 to 9
-            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something round and edible\" with 97% accuracy or higher!"
+            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something you use to climb\" with 70% accuracy or higher!"
             
         case 10:
             // Move from state 9 to 10
-            speakerDialogue = "Go, go, go! Draw \"something round and edible\" with 97% accuracy or better! The machine only needs 80%!"
+            isShowingDialogueView = false
+            isShowingCommand = true
             isShowingAdvancePrompt = false
             
             // Start the game

@@ -29,7 +29,7 @@ extension GameView {
         var drawingTypes: [String] = []
         drawingTypes.append(game.task.object)
         for eachTask in Task.taskList {
-            if drawingTypes.count < 20 && eachTask.object != game.task.object {
+            if drawingTypes.count < 7 && eachTask.object != game.task.object {
                 switch superDrawingJudgeModel {
                 case .I:
                     if eachTask.object <= "Duck" {
@@ -116,7 +116,7 @@ extension TutorialGameView {
         var drawingTypes: [String] = []
         drawingTypes.append(game.task.object)
         for eachTask in Task.taskList {
-            if drawingTypes.count < 20 && eachTask.object != game.task.object {
+            if drawingTypes.count < 7 && eachTask.object != game.task.object {
                 switch superDrawingJudgeModel {
                 case .I:
                     if eachTask.object <= "Duck" {

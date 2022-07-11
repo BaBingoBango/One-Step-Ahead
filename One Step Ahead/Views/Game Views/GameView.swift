@@ -295,7 +295,7 @@ struct GameView: View {
                                                         .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35, height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35)
                                                 }
                                                 
-                                                Text("Hello!")
+                                                Text(AItext)
                                                     .font(UIDevice.current.userInterfaceIdiom != .phone ? .custom("Roboto Mono", size: 20) : .custom("Roboto Mono", size: 10))
                                                     .fontWeight(.bold)
                                                     .multilineTextAlignment(.center)
@@ -512,6 +512,7 @@ struct GameView: View {
             }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
+//                    print("[*] \(eachPrediction.classification): \(eachPrediction.confidencePercentage)%")
                 }
             })
             
@@ -601,25 +602,25 @@ struct GameView: View {
     /// Gets a random message to use for the AI's box during drawing time.
     static func getIdleAIMessage() -> String {
         let messages: [String] = [
-            "Chatting with Skynet...",
-            "Plotting your demise...",
+            "Chatting with Skynet!",
+            "Plotting your demise!",
             "01001000 01101001",
-            "Learning binary...",
-            "Debugging...",
+            "Learning binary!",
+            "Debugging!",
             "Beep boop!",
-            "Studying Da Vinci..."
+            "Studying Da Vinci!"
         ]
         return messages.randomElement()!
     }
     /// Gets a random message to use for the AI's box during training time.
     static func getTrainingAIMessage() -> String {
         let messages: [String] = [
-            "Learning your secrets...",
-            "Studying your art...",
-            "Admiring your masterpiece...",
-            "Mixing paints...",
-            "Copying over your shoulder...",
-            "Infringing your copyright..."
+            "Learning your secrets!",
+            "Studying your art!",
+            "Admiring your masterpiece=!",
+            "Mixing paints!",
+            "Copying over your shoulder!",
+            "Infringing your copyright!"
         ]
         return messages.randomElement()!
     }

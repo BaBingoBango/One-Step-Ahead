@@ -19,7 +19,7 @@ func saveImageToDocuments(_ image: UIImage, name: String?) {
     if let data = image.pngData() {
         let filename = getDocumentsDirectory().appendingPathComponent(name ?? "image.png")
         try? data.write(to: filename)
-        print("Image saved to \(getDocumentsDirectory())")
+//        print("Image saved to \(getDocumentsDirectory())")
     }
 }
 
@@ -28,7 +28,7 @@ func saveImageToTemp(_ image: UIImage, name: String?) {
     if let data = image.pngData() {
         let filename = FileManager.default.temporaryDirectory.appendingPathComponent(name ?? "image.png")
         try? data.write(to: filename)
-        print("Image saved to \(FileManager.default.temporaryDirectory)")
+//        print("Image saved to \(FileManager.default.temporaryDirectory)")
     }
 }
 

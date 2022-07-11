@@ -64,7 +64,7 @@ struct Task: Equatable, Codable {
         Task(category: .drawing, object: "Axe", commandPhrase: "an axe!", genericDescription: "Draw something that chops!", emoji: "⛏"),
         Task(category: .drawing, object: "Backpack", commandPhrase: "a backpack!", genericDescription: "Draw a strapped container!", emoji: "🎒"),
         Task(category: .drawing, object: "Banana", commandPhrase: "a banana!", genericDescription: "Draw a yellow food!", emoji: "🍌"),
-        Task(category: .drawing, object: "Bandage", commandPhrase: "a bandage!", genericDescription: "Draw a head accessory!", emoji: "🩹"),
+        Task(category: .drawing, object: "Bandage", commandPhrase: "a bandage!", genericDescription: "Draw a adhesive healer!", emoji: "🩹"),
         Task(category: .drawing, object: "Barn", commandPhrase: "a barn!", genericDescription: "Draw a farm building!", emoji: "🧑‍🌾"),
         Task(category: .drawing, object: "Baseball", commandPhrase: "a baseball!", genericDescription: "Draw a sports ball!", emoji: "⚾️"),
         Task(category: .drawing, object: "Baseball Bat", commandPhrase: "a baseball bat!", genericDescription: "Draw a long sports instrument!", emoji: "🏏"),
