@@ -81,6 +81,20 @@ struct SettingsView: View {
                         }
                     }
                     
+                    Section(header: Text("Resources")) {
+                        Link(destination: URL(string: "https://github.com/BaBingoBango/One-Step-Ahead/wiki/Privacy-Policy")!) {
+                            HStack { Image(systemName: "hand.raised.fill").imageScale(.large); Text("Privacy Policy") }
+                        }
+                        
+                        Link(destination: URL(string: "https://github.com/BaBingoBango/One-Step-Ahead/wiki/Support-Center")!) {
+                            HStack { Image(systemName: "questionmark.circle.fill").imageScale(.large); Text("Support Center") }
+                        }
+                        
+                        Link(destination: URL(string: "https://github.com/BaBingoBango/One-Step-Ahead")!) {
+                            HStack { Image(systemName: "curlybraces").imageScale(.large); Text("One Step Ahead on GitHub") }
+                        }
+                    }
+                    
                     Section(header: Text("About")) {
                         NavigationLink(destination: LicensingView()) {
                             Text("Licensing and Credit")
