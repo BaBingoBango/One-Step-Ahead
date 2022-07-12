@@ -135,6 +135,7 @@ struct PracticeView: View {
                         
                         if UIDevice.current.userInterfaceIdiom != .phone {
                             canvasViewBody
+                                .aspectRatio(1, contentMode: .fit)
                                 .padding()
                         } else {
                             canvasViewBody
