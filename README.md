@@ -5,7 +5,7 @@
 By Ethan Marshall :)
 
 # Quick Start
-The game is designed for iPhone, iPad, and Apple Silicon Macs! To start up the app, you can either download and run the Xcode project or download the game right from the App Store!
+The game is designed for iPhone, iPad, and Apple Silicon Macs! To start up the app, you can either download and run the Xcode project or get the game right from the [App Store](https://apps.apple.com/us/app/one-step-ahead/id1620737001)!
 
 > **Warning**<br>
 > Standard gameplay is not compatible with the Xcode Simulator, since the app relies on the Create ML framework. Please be sure to build and run the app on a physical device.
