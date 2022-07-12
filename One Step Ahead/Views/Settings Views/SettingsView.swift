@@ -76,8 +76,8 @@ struct SettingsView: View {
                             }
                         }
                         
-                        Link(destination: URL(string: "https://apps.apple.com/us/app/one-step-ahead/id1620737001")!) {
-                            HStack { Image(systemName: "star.bubble.fill").imageScale(.large); Text("Rate on the App Store") }
+                        Link(destination: URL(string: "https://apps.apple.com/us/app/one-step-ahead/id1620737001?action=write-review")!) {
+                            HStack { Image(systemName: "star.bubble.fill").imageScale(.large); Text("Review on the App Store") }
                         }
                     }
                     
