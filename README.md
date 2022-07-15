@@ -10,7 +10,7 @@ The game is designed for iPhone, iPad, and Apple Silicon Macs! To start up the a
 > **Warning**<br>
 > Standard gameplay is not compatible with the Xcode Simulator, since the app relies on the Create ML framework. Please be sure to build and run the app on a physical device.
 
-# Running on Simulator
+# Running with Simulator
 If you would like to run the game with the Xcode Simulator or use SwiftUI previews, use the following steps to disable AI judging:
 
 1. Find all uses of the `getAIscore()` function and replace them with a static `50.0`, or whichever substitute score you would like to assign the AI during games.
