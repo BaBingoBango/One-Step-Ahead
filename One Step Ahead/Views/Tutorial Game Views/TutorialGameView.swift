@@ -12,7 +12,7 @@ import PencilKit
 /// The version of the game view used in the tutorial; it has dialogue and a much more guided feel.
 struct TutorialGameView: View {
     
-    // View Variables
+    // MARK: - View Variables
     /// The ID number of the tutorial's current state. When the state ID is incremented, the view responds by changing UI elements appropriately.
     @State var stateID: Int = 1
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
@@ -85,14 +85,7 @@ struct TutorialGameView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
     
-    // MARK: - Enumeration
-    /// The different possible statuses of the end-of-round score evaluation process.
-    enum ScoreEvaluationStatus {
-        case notEvaluating
-        case evaluating
-        case evaluationComplete
-    }
-    
+    // MARK: - View Body
     var body: some View {
         ZStack {
             // The programatically-triggered navigation link for the game end view
@@ -103,7 +96,6 @@ struct TutorialGameView: View {
             
             VStack {
                 VStack {
-                    // MARK: Game View Start
                     VStack(spacing: 0) {
                         Text("- Round \(game.currentRound) -")
                             .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
@@ -126,8 +118,6 @@ struct TutorialGameView: View {
                         Spacer()
                         
                         HStack(alignment: .center, spacing: 30) {
-//                            Spacer()
-                            
                             VStack {
                                 ZStack {
                                     ZStack {
@@ -244,15 +234,11 @@ struct TutorialGameView: View {
                             }
                             .isHidden(!isShowingPlayerBox, remove: false)
                             
-//                            Spacer()
-                            
                             Text("VS")
                                 .font(.largeTitle)
                                 .fontWeight(.black)
                                 .padding(.bottom, 48)
                                 .isHidden(!isShowingPlayerBox, remove: false)
-                            
-//                            Spacer()
                             
                             VStack {
                                 ZStack {
@@ -359,14 +345,9 @@ struct TutorialGameView: View {
                                 }
                             }
                             .isHidden(!isShowingAIbox, remove: false)
-                            
-//                            Spacer()
                         }
                         .padding(.horizontal, 75)
-                        
-//                        Spacer()
                     }
-                    // MARK: Game View End
                 }
                 
                 Spacer()
@@ -566,9 +547,7 @@ struct TutorialGameView: View {
             }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
-//                    print("[*] \(eachPrediction.classification): \(eachPrediction.confidencePercentage)%")
                 }
-//                print("\n\n\n")
             })
             
             // Add the score to the game state

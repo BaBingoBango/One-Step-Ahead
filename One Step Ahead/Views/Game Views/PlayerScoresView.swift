@@ -11,12 +11,13 @@ import SpriteKit
 /// The view displaying the history of the player's scores for the current round. It is avaliable after a game has finished.
 struct PlayerScoresView: View {
     
-    // Variables
+    // MARK: - View Variables
     /// The state of the app's currently running game, passed in from the Game End View.
     @State var game: GameState
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
     
+    // MARK: - View Body
     var body: some View {
         ZStack {
             SpriteView(scene: graphicsScene)

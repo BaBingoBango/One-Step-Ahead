@@ -9,6 +9,7 @@ import SwiftUI
 import GameKit
 import MessageUI
 
+/// The view which surfaces controls for game preferences and provides general information about the app.
 struct SettingsView: View {
     
     // MARK: View Variables
@@ -25,6 +26,7 @@ struct SettingsView: View {
     /// Whether or not the feedback email has been copied yet.
     @State var hasCopiedFeedbackEmail = false
     
+    // MARK: - View Body
     var body: some View {
         NavigationView {
             ZStack {

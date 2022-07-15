@@ -21,20 +21,20 @@ extension UIColor {
 
 extension UIImage {
     /// Merges two images, emulating the effect of a ZStack.
-  func mergeWith(topImage: UIImage) -> UIImage {
-    let bottomImage = self
+    func mergeWith(topImage: UIImage) -> UIImage {
+        let bottomImage = self
 
-    UIGraphicsBeginImageContext(size)
+        UIGraphicsBeginImageContext(size)
 
 
-    let areaSize = CGRect(x: 0, y: 0, width: bottomImage.size.width, height: bottomImage.size.height)
-    bottomImage.draw(in: areaSize)
+        let areaSize = CGRect(x: 0, y: 0, width: bottomImage.size.width, height: bottomImage.size.height)
+        bottomImage.draw(in: areaSize)
 
-    topImage.draw(in: areaSize, blendMode: .normal, alpha: 1.0)
+        topImage.draw(in: areaSize, blendMode: .normal, alpha: 1.0)
 
-    let mergedImage = UIGraphicsGetImageFromCurrentImageContext()!
-    UIGraphicsEndImageContext()
-    return mergedImage
+        let mergedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return mergedImage
   }
 }
 

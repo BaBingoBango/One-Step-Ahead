@@ -10,11 +10,16 @@ import CloudKit
 
 struct DrawingCentralUploadView: View {
     
+    // MARK: - View Variables
     /// Whether or not the user has enabled Auto-Upload. This value is persisted inside UserDefaults.
     @AppStorage("isAutoUploadOn") var isAutoUploadOn = false
+    /// The game state of the game that acted as the source for this view.
     var game: GameState
+    /// The system `PresentationMode` variable for this view.
     @Environment(\.presentationMode) private var presentationMode
+    /// The status of this view's CloudKit upload operation.
     @Binding var uploadOperationStatus: CloudKitOperationStatus
+    /// Whether or not an alert representing upload failure is being presented.
     @State var isShowingFailAlert = false
     
     var body: some View {

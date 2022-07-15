@@ -30,6 +30,7 @@ struct TaskDetailView: View {
     /// The task list index of the task represented by this view.
     var index: Int
     
+    // MARK: - View Body
     var body: some View {
         NavigationView {
             VStack {

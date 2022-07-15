@@ -12,7 +12,7 @@ import SpriteKit
 /// The view for configuring a new game's options; originates from the main menu.
 struct NewGameMenuView: View {
     
-    // Variables
+    // MARK: - View Variables
     /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) private var presentationMode
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
@@ -31,6 +31,7 @@ struct NewGameMenuView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")New Game Menu Graphics")!
     
+    // MARK: - View Body
     var body: some View {
         ZStack {
             SpriteView(scene: graphicsScene)

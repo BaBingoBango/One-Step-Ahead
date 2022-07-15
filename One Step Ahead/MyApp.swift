@@ -5,15 +5,14 @@ import GameKit
 @main
 struct MyApp: App {
     
-    /// The system-provided ScenePhase object  used for app launching.
+    /// The system-provided `ScenePhase` object  used for app launching.
     @Environment(\.scenePhase) var scenePhase
     /// A custom app delegate which launches the root view.
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
-    /// Whether or not GameKit has started the Game Center authentication process for this run of the app.
-    @State var hasStartedAuthenticatingWithGameCenter: Bool = false
     /// Whether or not GameKit has completed the Game Center authentication process.
     @AppStorage("hasAuthenticatedWithGameCenter") var hasAuthenticatedWithGameCenter: Bool = false
-    
+    /// Whether or not GameKit has started the Game Center authentication process for this run of the app.
+    @State var hasStartedAuthenticatingWithGameCenter: Bool = false
     /// The names of the keys from UserDefaults that will sync across the user's devices via iCloud.
     var userDefaultsKeysToSync = ["hasFinishedTutorial", "userTaskRecords", "gamesWon", "isUnlockAssistOn", "practiceDrawingsMade"]
     
@@ -73,7 +72,7 @@ class MyAppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-/// A custom scene delegate class which helps dim the home indicator.
+/// A custom scene delegate class which helps dim the home indicator and set the minimum macOS window size.
 ///
 /// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
 class MySceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -84,6 +83,7 @@ class MySceneDelegate: UIResponder, UIWindowSceneDelegate {
             windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1200, height: 800)
         }
         
+        // Configure the root view
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             let rootView = TitleScreenView()

@@ -13,7 +13,7 @@ import SpriteKit
 /// The view displaying the elements of the currently running game; originates from the New Game screen.
 struct GameView: View {
     
-    // MARK: - Variables
+    // MARK: - View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
     /// The number of games the user has won to date.
@@ -56,14 +56,6 @@ struct GameView: View {
     
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
-    
-    // MARK: - Enumeration
-    /// The different possible statuses of the end-of-round score evaluation process.
-    enum ScoreEvaluationStatus {
-        case notEvaluating
-        case evaluating
-        case evaluationComplete
-    }
     
     // MARK: - View Body
     var body: some View {
@@ -110,8 +102,6 @@ struct GameView: View {
                             Spacer()
                             
                             HStack(alignment: .center, spacing: 30) {
-//                                Spacer()
-                                
                                 VStack {
                                     ZStack {
                                         ZStack {
@@ -226,15 +216,10 @@ struct GameView: View {
                                             .minimumScaleFactor(0.1)
                                     }
                                 }
-                                
-//                                Spacer()
-                                
                                 Text("VS")
                                     .font(.largeTitle)
                                     .fontWeight(.black)
                                     .padding(.bottom, 48)
-                                
-//                                Spacer()
                                 
                                 VStack {
                                     ZStack {
@@ -340,8 +325,6 @@ struct GameView: View {
                                             .minimumScaleFactor(0.1)
                                     }
                                 }
-                                
-//                                Spacer()
                             }
                             .padding(.horizontal, 75)
                             
@@ -512,12 +495,10 @@ struct GameView: View {
             }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
                     predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
-//                    print("[*] \(eachPrediction.classification): \(eachPrediction.confidencePercentage)%")
                 }
             })
             
             // Add the score to the game state
-//            game.playerScores.append(Double(predictionProbabilities[game.task.object]!)!)
             game.playerScores.append(Double(predictionProbabilities[game.task.object]!.replacingOccurrences(of: "%", with: ""))!)
         } catch {
             print("[Judge Model Prediction Error]")

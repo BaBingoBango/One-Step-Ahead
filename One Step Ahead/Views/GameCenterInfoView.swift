@@ -11,6 +11,7 @@ import SwiftUI
 struct GameCenterInfoView: View {
     
     // Variables
+    /// The system `PresentationMode` variable for this view.
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {

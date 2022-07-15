@@ -18,7 +18,6 @@ var audioPlayer: AVAudioPlayer?
 ///   - fileName: The name of the audio file to play.
 ///   - type: The file extension of the audio file to play, without the dot, e.g. `"wav"`
 func playAudio(fileName: String, type: String) {
-    
     if let path = Bundle.main.path(forResource: fileName, ofType: type) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
@@ -32,8 +31,10 @@ func playAudio(fileName: String, type: String) {
 }
 
 /// Uses the global player to play the given audio file once.
+/// - Parameters:
+///   - fileName: The name of the audio file to play.
+///   - type: The file extension of the audio file to play, without the dot, e.g. `"wav"`
 func playAudioOnce(fileName: String, type: String) {
-    
     if let path = Bundle.main.path(forResource: fileName, ofType: type) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))

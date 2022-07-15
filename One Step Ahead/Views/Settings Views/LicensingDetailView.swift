@@ -19,7 +19,8 @@ struct LicensingDetailView: View {
     var sourceLink: String
     var licenseTitle: String
     var licenseLink: String
-
+    
+    // MARK: - View Body
     var body: some View {
         ScrollView {
             VStack {

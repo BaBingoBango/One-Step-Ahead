@@ -36,6 +36,7 @@ struct UserTaskRecords: RawRepresentable {
     init() {
         records = [:]
     }
+    
     // RawRepresentable Initalizer
     init?(rawValue: String) {
         records = try! JSONSerialization.jsonObject(with: rawValue.data(using: .utf8)!, options: []) as! [String: [String : Int]]

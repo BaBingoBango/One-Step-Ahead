@@ -27,6 +27,7 @@ struct GalleryView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Gallery View Graphics")!
     
+    // MARK: - View Body
     var body: some View {
         let galleryProgress = Double(userTaskRecords.records.count) / Double(Task.taskList.count)
         

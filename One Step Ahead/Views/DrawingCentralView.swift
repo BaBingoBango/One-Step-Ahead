@@ -13,13 +13,17 @@ import CloudKit
 struct DrawingCentralView: View {
     
     // MARK: - View Variables
+    /// The system `PresentationMode` variable for this view.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Gallery View Graphics")!
     /// The task to show drawings for in this view.
     var task: Task
+    /// The set of drawings that have been downloaded from Drawing Central.
     @State var downloadedDrawings: [Drawing] = []
+    /// The status of this view's CloudKit query operation.
     @State var queryOperationStatus: CloudKitOperationStatus = .notStarted
+    /// Whether or not the user has chosen ascending sort for the scores of the downloaded drawings.
     @State var sortingAscending = false
     
     // MARK: - View Body

@@ -12,7 +12,7 @@ import PencilKit
 /// A view allowing users to practice a specific drawing and be scored by the judge independent of a formal game or the AI.
 struct PracticeView: View {
     
-    // MARK: - Variables
+    // MARK: - View Variables
     /// The presentation status variable for this view's modal presentation.
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// The task that this view provides practice for.
@@ -43,14 +43,6 @@ struct PracticeView: View {
     
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
-    
-    // MARK: - Enumeration
-    /// The different possible statuses of the end-of-round score evaluation process.
-    enum ScoreEvaluationStatus {
-        case notEvaluating
-        case evaluating
-        case evaluationComplete
-    }
     
     // MARK: - View Body
     var body: some View {

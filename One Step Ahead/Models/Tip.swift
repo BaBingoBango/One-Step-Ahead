@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-/// A helpful tidbit about the game or machine learning, shown on the main menu and on the tips view.
+/// A helpful tidbit about the game or machine learning, shown on the main menu.
 struct Tip {
     
     // MARK: Variables

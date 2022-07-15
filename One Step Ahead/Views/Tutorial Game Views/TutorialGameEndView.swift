@@ -8,9 +8,10 @@
 import SwiftUI
 import SpriteKit
 
+/// The version of the standard game end view used in the tutorial. It contains game elements as well as a dialogue box.
 struct TutorialGameEndView: View {
     
-    // View Variables
+    // MARK: - View Variables
     /// The ID number of the tutorial's current state. When the state ID is incremented, the view responds by changing UI elements appropriately.
     @State var stateID: Int = 1
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
@@ -42,7 +43,7 @@ struct TutorialGameEndView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
     
-    // Computed Properties
+    // MARK: - Computed Properties
     /// The player score from the last round of play.
     var lastPlayerScore: Double {
         game.playerScores.last ?? 69.3974934
@@ -59,13 +60,7 @@ struct TutorialGameEndView: View {
         }
     }
     
-    // Enumeration
-    /// The types of combatants in a game, that is, the player and the AI.
-    enum Combatant {
-        case player
-        case AI
-    }
-    
+    // MARK: - View Body
     var body: some View {
         ZStack {
             SpriteView(scene: graphicsScene)

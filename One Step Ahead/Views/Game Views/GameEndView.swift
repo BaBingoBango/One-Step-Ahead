@@ -11,7 +11,7 @@ import SpriteKit
 /// The screen displayed when a game finishes.
 struct GameEndView: View {
     
-    // Variables
+    // MARK: - View Variables
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     /// Whether or not the game sequence is being presented as a full screen modal.
     @Binding var isShowingGameSequence: Bool
@@ -23,7 +23,7 @@ struct GameEndView: View {
     @State var showingShareSheet = false
     /// Whether or not the Drawing Central upload view is being presented.
     @State var showingUploadView = false
-    
+    /// The status of
     @State var uploadOperationStatus = CloudKitOperationStatus.notStarted
     
     /// Whether or not the user has enabled Auto-Upload. This value is persisted inside UserDefaults.
@@ -33,7 +33,7 @@ struct GameEndView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
     
-    // Computed Properties
+    // MARK: - Computed Properties
     /// The player score from the last round of play.
     var lastPlayerScore: Double {
         game.playerScores.last!
@@ -50,13 +50,7 @@ struct GameEndView: View {
         }
     }
     
-    // Enumeration
-    /// The types of combatants in a game, that is, the player and the AI.
-    enum Combatant {
-        case player
-        case AI
-    }
-    
+    // MARK: - View Body
     var body: some View {
         ZStack {
             SpriteView(scene: graphicsScene)
@@ -326,6 +320,7 @@ struct GameEndView_Previews: PreviewProvider {
     }
 }
 
+/// A view representing progress towards a goal via a colored circle and text.
 struct PercentCircle: View {
     
     // Variables
@@ -354,6 +349,7 @@ struct PercentCircle: View {
     }
 }
 
+/// The buttons used in the game end view to access share and upload options.
 struct GameEndShareButtonsView: View {
     var body: some View {
         VStack {
