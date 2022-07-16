@@ -476,7 +476,10 @@ struct GameView: View {
         do {
             // Layer the drawing on top of a white background
             let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
-            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
+            var drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
+            
+            // Resize the image
+            drawingImage = drawingImage.resizeImage(image: drawingImage, newWidth: 256)!
             
             // Save the image to the AI's training data
             saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")

@@ -281,7 +281,10 @@ struct PracticeView: View {
         do {
             // Layer the drawing on top of a white background
             let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
-            let drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
+            var drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
+            
+            // Resize the image
+            drawingImage = drawingImage.resizeImage(image: drawingImage, newWidth: 256)!
             
             // Get the probabilities for every drawing
             try ImagePredictor().makePredictions(with: {

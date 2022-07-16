@@ -36,8 +36,8 @@ struct BackstoryView: View {
             .onTapGesture {
                 // Configure settings for the tutorial game
                 game.task = Task.taskList.first(where: { $0.object == "Ladder" })!
-                game.gameMode = .cluedIn
-                game.difficulty = .normal
+                game.gameMode = .demystify
+                game.difficulty = .easy
                 
                 // Present the tutorial game
                 game.shouldRunTimer = false
