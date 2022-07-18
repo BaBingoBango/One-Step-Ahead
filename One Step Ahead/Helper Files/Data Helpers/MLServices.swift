@@ -23,28 +23,120 @@ extension GameView {
     /// If it is not the first round, the model is trained on the built-in testing data, plus the user's drawings. It is then evalauted on the built-in testing data. The returned score is the model's precision for the current task object.
     ///
     /// - Returns: The AI's score for the current round.
-    /// - Parameter superDrawingJudgeModel: The model from the Super Drawing Judge that should be used.
-    func getAIscore(superDrawingJudgeModel: SuperDrawingJudgeModel) -> Double {
+    /// - Parameter ultraDrawingJudgeModel: The model from the Ultra Drawing Judge that should be used.
+    func getAIscore(ultraDrawingJudgeModel: UltraDrawingJudgeModel) -> Double {
         // Get all the drawing objects that the model can classify
         var drawingTypes: [String] = []
         drawingTypes.append(game.task.object)
         for eachTask in Task.taskList {
             if drawingTypes.count < 7 && eachTask.object != game.task.object {
-                switch superDrawingJudgeModel {
-                case .I:
-                    if eachTask.object <= "Duck" {
+                switch ultraDrawingJudgeModel {
+                case .one:
+                    if eachTask.object <= "Backpack" {
                         drawingTypes.append(eachTask.object)
                     }
-                case .II:
-                    if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
+                case .two:
+                    if eachTask.object > "Backpack" && eachTask.object <= "Bed" {
                         drawingTypes.append(eachTask.object)
                     }
-                case .III:
-                    if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
+                case .three:
+                    if eachTask.object > "Bed" && eachTask.object <= "Bowtie" {
                         drawingTypes.append(eachTask.object)
                     }
-                case .IV:
-                    if eachTask.object > "Sword" {
+                case .four:
+                    if eachTask.object > "Bowtie" && eachTask.object <= "Cake" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .five:
+                    if eachTask.object > "Cake" && eachTask.object <= "Cat" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .six:
+                    if eachTask.object > "Cat" && eachTask.object <= "Computer" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .seven:
+                    if eachTask.object > "Computer" && eachTask.object <= "Diving Board" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .eight:
+                    if eachTask.object > "Diving Board" && eachTask.object <= "Elephant" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .nine:
+                    if eachTask.object > "Elephant" && eachTask.object <= "Fish" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .ten:
+                    if eachTask.object > "Fish" && eachTask.object <= "Giraffe" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .eleven:
+                    if eachTask.object > "Giraffe" && eachTask.object <= "Helicopter" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .tweleve:
+                    if eachTask.object > "Helicopter" && eachTask.object <= "Hurricane" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .thirteen:
+                    if eachTask.object > "Hurricane" && eachTask.object <= "Leg" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .fourteen:
+                    if eachTask.object > "Leg" && eachTask.object <= "Matches" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .fifteen:
+                    if eachTask.object > "Matches" && eachTask.object <= "Mug" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .sixteen:
+                    if eachTask.object > "Mug" && eachTask.object <= "Palm Tree" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .seventeen:
+                    if eachTask.object > "Palm Tree" && eachTask.object <= "Pickup Truck" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .eighteen:
+                    if eachTask.object > "Pickup Truck" && eachTask.object <= "Power Outlet" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .nineteen:
+                    if eachTask.object > "Power Outlet" && eachTask.object <= "Rollerskates" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twenty:
+                    if eachTask.object > "Rollerskates" && eachTask.object <= "Shoe" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyone:
+                    if eachTask.object > "Shoe" && eachTask.object <= "Snowman" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentytwo:
+                    if eachTask.object > "Snowman" && eachTask.object <= "Stereo" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentythree:
+                    if eachTask.object > "Stereo" && eachTask.object <= "Swing Set" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyfour:
+                    if eachTask.object > "Swing Set" && eachTask.object <= "Toe" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyfive:
+                    if eachTask.object > "Toe" && eachTask.object <= "Trumpet" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentysix:
+                    if eachTask.object > "Trumpet" && eachTask.object <= "Wine Glass" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyseven:
+                    if eachTask.object > "Wine Glass" {
                         drawingTypes.append(eachTask.object)
                     }
                 }
@@ -110,28 +202,120 @@ extension TutorialGameView {
     /// If it is not the first round, the model is trained on the built-in testing data, plus the user's drawings. It is then evalauted on the built-in testing data. The returned score is the model's precision for the current task object.
     ///
     /// - Returns: The AI's score for the current round.
-    /// - Parameter superDrawingJudgeModel: The model from the Super Drawing Judge that should be used.
-    func getAIscore(superDrawingJudgeModel: SuperDrawingJudgeModel) -> Double {
+    /// - Parameter ultraDrawingJudgeModel: The model from the Ultra Drawing Judge that should be used.
+    func getAIscore(ultraDrawingJudgeModel: UltraDrawingJudgeModel) -> Double {
         // Get all the drawing objects that the model can classify
         var drawingTypes: [String] = []
         drawingTypes.append(game.task.object)
         for eachTask in Task.taskList {
             if drawingTypes.count < 7 && eachTask.object != game.task.object {
-                switch superDrawingJudgeModel {
-                case .I:
-                    if eachTask.object <= "Duck" {
+                switch ultraDrawingJudgeModel {
+                case .one:
+                    if eachTask.object <= "Backpack" {
                         drawingTypes.append(eachTask.object)
                     }
-                case .II:
-                    if eachTask.object > "Duck" && eachTask.object <= "Ocean" {
+                case .two:
+                    if eachTask.object > "Backpack" && eachTask.object <= "Bed" {
                         drawingTypes.append(eachTask.object)
                     }
-                case .III:
-                    if eachTask.object > "Ocean" && eachTask.object <= "Sword" {
+                case .three:
+                    if eachTask.object > "Bed" && eachTask.object <= "Bowtie" {
                         drawingTypes.append(eachTask.object)
                     }
-                case .IV:
-                    if eachTask.object > "Sword" {
+                case .four:
+                    if eachTask.object > "Bowtie" && eachTask.object <= "Cake" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .five:
+                    if eachTask.object > "Cake" && eachTask.object <= "Cat" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .six:
+                    if eachTask.object > "Cat" && eachTask.object <= "Computer" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .seven:
+                    if eachTask.object > "Computer" && eachTask.object <= "Diving Board" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .eight:
+                    if eachTask.object > "Diving Board" && eachTask.object <= "Elephant" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .nine:
+                    if eachTask.object > "Elephant" && eachTask.object <= "Fish" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .ten:
+                    if eachTask.object > "Fish" && eachTask.object <= "Giraffe" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .eleven:
+                    if eachTask.object > "Giraffe" && eachTask.object <= "Helicopter" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .tweleve:
+                    if eachTask.object > "Helicopter" && eachTask.object <= "Hurricane" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .thirteen:
+                    if eachTask.object > "Hurricane" && eachTask.object <= "Leg" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .fourteen:
+                    if eachTask.object > "Leg" && eachTask.object <= "Matches" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .fifteen:
+                    if eachTask.object > "Matches" && eachTask.object <= "Mug" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .sixteen:
+                    if eachTask.object > "Mug" && eachTask.object <= "Palm Tree" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .seventeen:
+                    if eachTask.object > "Palm Tree" && eachTask.object <= "Pickup Truck" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .eighteen:
+                    if eachTask.object > "Pickup Truck" && eachTask.object <= "Power Outlet" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .nineteen:
+                    if eachTask.object > "Power Outlet" && eachTask.object <= "Rollerskates" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twenty:
+                    if eachTask.object > "Rollerskates" && eachTask.object <= "Shoe" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyone:
+                    if eachTask.object > "Shoe" && eachTask.object <= "Snowman" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentytwo:
+                    if eachTask.object > "Snowman" && eachTask.object <= "Stereo" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentythree:
+                    if eachTask.object > "Stereo" && eachTask.object <= "Swing Set" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyfour:
+                    if eachTask.object > "Swing Set" && eachTask.object <= "Toe" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyfive:
+                    if eachTask.object > "Toe" && eachTask.object <= "Trumpet" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentysix:
+                    if eachTask.object > "Trumpet" && eachTask.object <= "Wine Glass" {
+                        drawingTypes.append(eachTask.object)
+                    }
+                case .twentyseven:
+                    if eachTask.object > "Wine Glass" {
                         drawingTypes.append(eachTask.object)
                     }
                 }

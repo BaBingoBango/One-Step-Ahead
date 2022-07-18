@@ -19,6 +19,6 @@ struct Drawing {
     /// The object of the task the drawing was completed for.
     var object: String
     
-    /// The accuracy score the Super Drawing Judge assigned this drawing.
+    /// The accuracy score the Ultra Drawing Judge assigned this drawing.
     var score: Double
 }

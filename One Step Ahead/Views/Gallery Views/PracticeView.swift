@@ -288,14 +288,60 @@ struct PracticeView: View {
             
             // Get the probabilities for every drawing
             try ImagePredictor().makePredictions(with: {
-                if task.object <= "Duck" {
-                    return .I
-                } else if task.object <= "Ocean" {
-                    return .II
-                } else if task.object <= "Sword" {
-                    return .III
+                if task.object <= "Backpack" {
+                    return .one
+                } else if task.object <= "Bed" {
+                    return .two
+                } else if task.object <= "Bowtie" {
+                    return .three
+                } else if task.object <= "Cake" {
+                    return .four
+                } else if task.object <= "Cat" {
+                    return .five
+                } else if task.object <= "Computer" {
+                    return .six
+                } else if task.object <= "Diving Board" {
+                    return .seven
+                } else if task.object <= "Elephant" {
+                    return .eight
+                } else if task.object <= "Fish" {
+                    return .nine
+                } else if task.object <= "Giraffe" {
+                    return .ten
+                } else if task.object <= "Helicopter" {
+                    return .eleven
+                } else if task.object <= "Hurricane" {
+                    return .tweleve
+                } else if task.object <= "Leg" {
+                    return .thirteen
+                } else if task.object <= "Matches" {
+                    return .fourteen
+                } else if task.object <= "Mug" {
+                    return .fifteen
+                } else if task.object <= "Palm Tree" {
+                    return .sixteen
+                } else if task.object <= "Pickup Truck" {
+                    return .seventeen
+                } else if task.object <= "Power Outlet" {
+                    return .eighteen
+                } else if task.object <= "Rollerskates" {
+                    return .nineteen
+                } else if task.object <= "Shoe" {
+                    return .twenty
+                } else if task.object <= "Snowman" {
+                    return .twentyone
+                } else if task.object <= "Stereo" {
+                    return .twentytwo
+                } else if task.object <= "Swing Set" {
+                    return .twentythree
+                } else if task.object <= "Toe" {
+                    return .twentyfour
+                } else if task.object <= "Trumpet" {
+                    return .twentyfive
+                } else if task.object <= "Wine Glass" {
+                    return .twentysix
                 } else {
-                    return .IV
+                    return .twentyseven
                 }
             }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {

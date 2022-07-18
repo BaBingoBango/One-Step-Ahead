@@ -105,7 +105,7 @@ struct TutorialGameView: View {
                             .isHidden(!isShowingRoundIndicator)
                         
                         if isShowingCommand {
-                            Text("Draw a ladder!")
+                            Text("Draw something round and edible!")
                                 .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
                                 .fontWeight(.bold)
                         }
@@ -538,14 +538,60 @@ struct TutorialGameView: View {
             
             // Get the probabilities for every drawing
             try ImagePredictor().makePredictions(with: {
-                if game.task.object <= "Duck" {
-                    return .I
-                } else if game.task.object <= "Ocean" {
-                    return .II
-                } else if game.task.object <= "Sword" {
-                    return .III
+                if game.task.object <= "Backpack" {
+                    return .one
+                } else if game.task.object <= "Bed" {
+                    return .two
+                } else if game.task.object <= "Bowtie" {
+                    return .three
+                } else if game.task.object <= "Cake" {
+                    return .four
+                } else if game.task.object <= "Cat" {
+                    return .five
+                } else if game.task.object <= "Computer" {
+                    return .six
+                } else if game.task.object <= "Diving Board" {
+                    return .seven
+                } else if game.task.object <= "Elephant" {
+                    return .eight
+                } else if game.task.object <= "Fish" {
+                    return .nine
+                } else if game.task.object <= "Giraffe" {
+                    return .ten
+                } else if game.task.object <= "Helicopter" {
+                    return .eleven
+                } else if game.task.object <= "Hurricane" {
+                    return .tweleve
+                } else if game.task.object <= "Leg" {
+                    return .thirteen
+                } else if game.task.object <= "Matches" {
+                    return .fourteen
+                } else if game.task.object <= "Mug" {
+                    return .fifteen
+                } else if game.task.object <= "Palm Tree" {
+                    return .sixteen
+                } else if game.task.object <= "Pickup Truck" {
+                    return .seventeen
+                } else if game.task.object <= "Power Outlet" {
+                    return .eighteen
+                } else if game.task.object <= "Rollerskates" {
+                    return .nineteen
+                } else if game.task.object <= "Shoe" {
+                    return .twenty
+                } else if game.task.object <= "Snowman" {
+                    return .twentyone
+                } else if game.task.object <= "Stereo" {
+                    return .twentytwo
+                } else if game.task.object <= "Swing Set" {
+                    return .twentythree
+                } else if game.task.object <= "Toe" {
+                    return .twentyfour
+                } else if game.task.object <= "Trumpet" {
+                    return .twentyfive
+                } else if game.task.object <= "Wine Glass" {
+                    return .twentysix
                 } else {
-                    return .IV
+                    return .twentyseven
                 }
             }(), for: drawingImage, completionHandler: { predictions in
                 for eachPrediction in predictions! {
@@ -563,15 +609,61 @@ struct TutorialGameView: View {
         
         // Train a new AI model and get its training score, unless it is round 1, in which
         // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = getAIscore(superDrawingJudgeModel: {
-            if game.task.object <= "Duck" {
-                return .I
-            } else if game.task.object <= "Ocean" {
-                return .II
-            } else if game.task.object <= "Sword" {
-                return .III
+        let newAIscore = getAIscore(ultraDrawingJudgeModel: {
+            if game.task.object <= "Backpack" {
+                return .one
+            } else if game.task.object <= "Bed" {
+                return .two
+            } else if game.task.object <= "Bowtie" {
+                return .three
+            } else if game.task.object <= "Cake" {
+                return .four
+            } else if game.task.object <= "Cat" {
+                return .five
+            } else if game.task.object <= "Computer" {
+                return .six
+            } else if game.task.object <= "Diving Board" {
+                return .seven
+            } else if game.task.object <= "Elephant" {
+                return .eight
+            } else if game.task.object <= "Fish" {
+                return .nine
+            } else if game.task.object <= "Giraffe" {
+                return .ten
+            } else if game.task.object <= "Helicopter" {
+                return .eleven
+            } else if game.task.object <= "Hurricane" {
+                return .tweleve
+            } else if game.task.object <= "Leg" {
+                return .thirteen
+            } else if game.task.object <= "Matches" {
+                return .fourteen
+            } else if game.task.object <= "Mug" {
+                return .fifteen
+            } else if game.task.object <= "Palm Tree" {
+                return .sixteen
+            } else if game.task.object <= "Pickup Truck" {
+                return .seventeen
+            } else if game.task.object <= "Power Outlet" {
+                return .eighteen
+            } else if game.task.object <= "Rollerskates" {
+                return .nineteen
+            } else if game.task.object <= "Shoe" {
+                return .twenty
+            } else if game.task.object <= "Snowman" {
+                return .twentyone
+            } else if game.task.object <= "Stereo" {
+                return .twentytwo
+            } else if game.task.object <= "Swing Set" {
+                return .twentythree
+            } else if game.task.object <= "Toe" {
+                return .twentyfour
+            } else if game.task.object <= "Trumpet" {
+                return .twentyfive
+            } else if game.task.object <= "Wine Glass" {
+                return .twentysix
             } else {
-                return .IV
+                return .twentyseven
             }
         }())
         game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
@@ -680,7 +772,7 @@ struct TutorialGameView: View {
             isShowingAIbox = true
         case 9:
             // Move from state 8 to 9
-            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something you use to climb\" with 70% accuracy or higher!"
+            speakerDialogue = "All right, here we go! Once you tap, you'll have 10 seconds to try and draw \"something round and edible\" with 90% accuracy or higher!"
             
         case 10:
             // Move from state 9 to 10

@@ -277,13 +277,13 @@ struct NewGameMenuView: View {
     func getDifficultyDescription() -> String {
         switch game.difficulty {
         case .easy:
-            return "You'll only need 50% drawing accuracy to win; the AI will need 95% to win!"
+            return "You'll only need 80% drawing accuracy to win; the AI will need 90% to win!"
         case .normal:
-            return "You'll need 70% drawing accuracy to win, while the AI will need 85% to win; a standard match."
+            return "You'll need 90% drawing accuracy to win, while the AI will need 90% to win; a standard match."
         case .hard:
-            return "You'll need 80% drawing accuracy to win; the AI will only need 70% to win!"
+            return "You'll need 97% drawing accuracy to win; the AI will only need 80% to win!"
         case .lunatic:
-            return "The ultimate showdown; can you reach 95% accuracy before the machine reaches 50%?"
+            return "The ultimate showdown; can you reach 99% accuracy before the machine reaches 50%?"
         }
     }
     

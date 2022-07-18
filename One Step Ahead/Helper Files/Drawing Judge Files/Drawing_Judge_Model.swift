@@ -96,7 +96,7 @@ class Drawing_Judge_ModelOutput : MLFeatureProvider {
 @available(watchOS, unavailable)
 class Drawing_Judge_Model {
     let model: MLModel
-    let superDrawingJudgeModel: SuperDrawingJudgeModel = .I
+    let ultraDrawingJudgeModel: UltraDrawingJudgeModel = .one
 
     /// URL of model assuming it was installed in the same bundle as this class
     class var urlOfModelInThisBundle : URL {
@@ -138,27 +138,73 @@ class Drawing_Judge_Model {
     }
     
     /**
-        Construct a model from a configuration and with a custom Super Drawing Judge model.
+        Construct a model from a configuration and with a custom Ultra Drawing Judge model.
 
         - parameters:
            - configuration: the desired model configuration
-           - superDrawingJudgeModel: The Super Drawing Judge model to use.
+           - ultraDrawingJudgeModel: The Ultra Drawing Judge model to use.
 
         - throws: an NSError object that describes the problem
     */
-    convenience init(configuration: MLModelConfiguration, superDrawingJudgeModel: SuperDrawingJudgeModel) throws {
+    convenience init(configuration: MLModelConfiguration, ultraDrawingJudgeModel: UltraDrawingJudgeModel) throws {
         // Get the URL to the specified model file
         let bundle = Bundle.main
         let URL = bundle.url(forResource: {
-            switch superDrawingJudgeModel {
-            case .I:
-                return "Super Drawing Judge I"
-            case .II:
-                return "Super Drawing Judge II"
-            case .III:
-                return "Super Drawing Judge III"
-            case .IV:
-                return "Super Drawing Judge IV"
+            switch ultraDrawingJudgeModel {
+            case .one:
+                return "Ultra Drawing Judge 1"
+            case .two:
+                return "Ultra Drawing Judge 2"
+            case .three:
+                return "Ultra Drawing Judge 3"
+            case .four:
+                return "Ultra Drawing Judge 4"
+            case .five:
+                return "Ultra Drawing Judge 5"
+            case .six:
+                return "Ultra Drawing Judge 6"
+            case .seven:
+                return "Ultra Drawing Judge 7"
+            case .eight:
+                return "Ultra Drawing Judge 8"
+            case .nine:
+                return "Ultra Drawing Judge 9"
+            case .ten:
+                return "Ultra Drawing Judge 10"
+            case .eleven:
+                return "Ultra Drawing Judge 11"
+            case .tweleve:
+                return "Ultra Drawing Judge 12"
+            case .thirteen:
+                return "Ultra Drawing Judge 13"
+            case .fourteen:
+                return "Ultra Drawing Judge 14"
+            case .fifteen:
+                return "Ultra Drawing Judge 15"
+            case .sixteen:
+                return "Ultra Drawing Judge 16"
+            case .seventeen:
+                return "Ultra Drawing Judge 17"
+            case .eighteen:
+                return "Ultra Drawing Judge 18"
+            case .nineteen:
+                return "Ultra Drawing Judge 19"
+            case .twenty:
+                return "Ultra Drawing Judge 20"
+            case .twentyone:
+                return "Ultra Drawing Judge 21"
+            case .twentytwo:
+                return "Ultra Drawing Judge 22"
+            case .twentythree:
+                return "Ultra Drawing Judge 23"
+            case .twentyfour:
+                return "Ultra Drawing Judge 24"
+            case .twentyfive:
+                return "Ultra Drawing Judge 25"
+            case .twentysix:
+                return "Ultra Drawing Judge 26"
+            case .twentyseven:
+                return "Ultra Drawing Judge 27"
             }
         }(), withExtension: "mlmodelc")!
         

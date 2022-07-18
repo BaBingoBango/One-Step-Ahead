@@ -45,7 +45,34 @@
 		AAB5314E285C1A8300C8AFB5 /* Title Screen Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53140285C1A8300C8AFB5 /* Title Screen Graphics.sks */; };
 		AAB5314F285C1A8300C8AFB5 /* Backstory View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53141285C1A8300C8AFB5 /* Backstory View Graphics.sks */; };
 		AAB53150285C1A8300C8AFB5 /* Game End View Graphics.sks in Resources */ = {isa = PBXBuildFile; fileRef = AAB53142285C1A8300C8AFB5 /* Game End View Graphics.sks */; };
-		AAB5CE6E28793FCE00DC8CBE /* SuperDrawingJudgeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5CE6D28793FCE00DC8CBE /* SuperDrawingJudgeModel.swift */; };
+		AAB5CE6E28793FCE00DC8CBE /* UltraDrawingJudgeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5CE6D28793FCE00DC8CBE /* UltraDrawingJudgeModel.swift */; };
+		AAB736182885156800E44327 /* Ultra Drawing Judge 24.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736032885156800E44327 /* Ultra Drawing Judge 24.mlmodelc */; };
+		AAB736192885156800E44327 /* Ultra Drawing Judge 19.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736042885156800E44327 /* Ultra Drawing Judge 19.mlmodelc */; };
+		AAB7361A2885156800E44327 /* Ultra Drawing Judge 18.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736052885156800E44327 /* Ultra Drawing Judge 18.mlmodelc */; };
+		AAB7361B2885156800E44327 /* Ultra Drawing Judge 23.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736062885156800E44327 /* Ultra Drawing Judge 23.mlmodelc */; };
+		AAB7361C2885156800E44327 /* Ultra Drawing Judge 25.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736072885156800E44327 /* Ultra Drawing Judge 25.mlmodelc */; };
+		AAB7361D2885156800E44327 /* Ultra Drawing Judge 3.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736082885156800E44327 /* Ultra Drawing Judge 3.mlmodelc */; };
+		AAB7361E2885156800E44327 /* Ultra Drawing Judge 17.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736092885156800E44327 /* Ultra Drawing Judge 17.mlmodelc */; };
+		AAB7361F2885156800E44327 /* Ultra Drawing Judge 1.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7360A2885156800E44327 /* Ultra Drawing Judge 1.mlmodelc */; };
+		AAB736202885156800E44327 /* Ultra Drawing Judge 26.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7360B2885156800E44327 /* Ultra Drawing Judge 26.mlmodelc */; };
+		AAB736212885156800E44327 /* Ultra Drawing Judge 2.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7360C2885156800E44327 /* Ultra Drawing Judge 2.mlmodelc */; };
+		AAB736222885156800E44327 /* Ultra Drawing Judge 10.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7360D2885156800E44327 /* Ultra Drawing Judge 10.mlmodelc */; };
+		AAB736232885156800E44327 /* Ultra Drawing Judge 12.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7360E2885156800E44327 /* Ultra Drawing Judge 12.mlmodelc */; };
+		AAB736242885156800E44327 /* Ultra Drawing Judge 16.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7360F2885156800E44327 /* Ultra Drawing Judge 16.mlmodelc */; };
+		AAB736252885156800E44327 /* Ultra Drawing Judge 21.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736102885156800E44327 /* Ultra Drawing Judge 21.mlmodelc */; };
+		AAB736262885156800E44327 /* Ultra Drawing Judge 11.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736112885156800E44327 /* Ultra Drawing Judge 11.mlmodelc */; };
+		AAB736272885156800E44327 /* Ultra Drawing Judge 13.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736122885156800E44327 /* Ultra Drawing Judge 13.mlmodelc */; };
+		AAB736282885156800E44327 /* Ultra Drawing Judge 7.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736132885156800E44327 /* Ultra Drawing Judge 7.mlmodelc */; };
+		AAB736292885156800E44327 /* Ultra Drawing Judge 14.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736142885156800E44327 /* Ultra Drawing Judge 14.mlmodelc */; };
+		AAB7362A2885156800E44327 /* Ultra Drawing Judge 20.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736152885156800E44327 /* Ultra Drawing Judge 20.mlmodelc */; };
+		AAB7362B2885156800E44327 /* Ultra Drawing Judge 15.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736162885156800E44327 /* Ultra Drawing Judge 15.mlmodelc */; };
+		AAB7362C2885156800E44327 /* Ultra Drawing Judge 22.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736172885156800E44327 /* Ultra Drawing Judge 22.mlmodelc */; };
+		AAB736332885157500E44327 /* Ultra Drawing Judge 6.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7362D2885157500E44327 /* Ultra Drawing Judge 6.mlmodelc */; };
+		AAB736342885157500E44327 /* Ultra Drawing Judge 4.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7362E2885157500E44327 /* Ultra Drawing Judge 4.mlmodelc */; };
+		AAB736352885157500E44327 /* Ultra Drawing Judge 5.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB7362F2885157500E44327 /* Ultra Drawing Judge 5.mlmodelc */; };
+		AAB736362885157500E44327 /* Ultra Drawing Judge 8.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736302885157500E44327 /* Ultra Drawing Judge 8.mlmodelc */; };
+		AAB736372885157500E44327 /* Ultra Drawing Judge 27.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736312885157500E44327 /* Ultra Drawing Judge 27.mlmodelc */; };
+		AAB736382885157500E44327 /* Ultra Drawing Judge 9.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = AAB736322885157500E44327 /* Ultra Drawing Judge 9.mlmodelc */; };
 		AABCEB02284D3BE600A733E5 /* GameCenterServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */; };
 		AAC000DB2836BCBC00C89FCE /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DA2836BCBC00C89FCE /* GalleryView.swift */; };
 		AAC000DD2836BD3B00C89FCE /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC000DC2836BD3B00C89FCE /* ProgressCircleView.swift */; };
@@ -168,7 +195,34 @@
 		AAB53140285C1A8300C8AFB5 /* Title Screen Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Title Screen Graphics.sks"; sourceTree = "<group>"; };
 		AAB53141285C1A8300C8AFB5 /* Backstory View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Backstory View Graphics.sks"; sourceTree = "<group>"; };
 		AAB53142285C1A8300C8AFB5 /* Game End View Graphics.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = "Game End View Graphics.sks"; sourceTree = "<group>"; };
-		AAB5CE6D28793FCE00DC8CBE /* SuperDrawingJudgeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperDrawingJudgeModel.swift; sourceTree = "<group>"; };
+		AAB5CE6D28793FCE00DC8CBE /* UltraDrawingJudgeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UltraDrawingJudgeModel.swift; sourceTree = "<group>"; };
+		AAB736032885156800E44327 /* Ultra Drawing Judge 24.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 24.mlmodelc"; sourceTree = "<group>"; };
+		AAB736042885156800E44327 /* Ultra Drawing Judge 19.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 19.mlmodelc"; sourceTree = "<group>"; };
+		AAB736052885156800E44327 /* Ultra Drawing Judge 18.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 18.mlmodelc"; sourceTree = "<group>"; };
+		AAB736062885156800E44327 /* Ultra Drawing Judge 23.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 23.mlmodelc"; sourceTree = "<group>"; };
+		AAB736072885156800E44327 /* Ultra Drawing Judge 25.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 25.mlmodelc"; sourceTree = "<group>"; };
+		AAB736082885156800E44327 /* Ultra Drawing Judge 3.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 3.mlmodelc"; sourceTree = "<group>"; };
+		AAB736092885156800E44327 /* Ultra Drawing Judge 17.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 17.mlmodelc"; sourceTree = "<group>"; };
+		AAB7360A2885156800E44327 /* Ultra Drawing Judge 1.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 1.mlmodelc"; sourceTree = "<group>"; };
+		AAB7360B2885156800E44327 /* Ultra Drawing Judge 26.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 26.mlmodelc"; sourceTree = "<group>"; };
+		AAB7360C2885156800E44327 /* Ultra Drawing Judge 2.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 2.mlmodelc"; sourceTree = "<group>"; };
+		AAB7360D2885156800E44327 /* Ultra Drawing Judge 10.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 10.mlmodelc"; sourceTree = "<group>"; };
+		AAB7360E2885156800E44327 /* Ultra Drawing Judge 12.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 12.mlmodelc"; sourceTree = "<group>"; };
+		AAB7360F2885156800E44327 /* Ultra Drawing Judge 16.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 16.mlmodelc"; sourceTree = "<group>"; };
+		AAB736102885156800E44327 /* Ultra Drawing Judge 21.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 21.mlmodelc"; sourceTree = "<group>"; };
+		AAB736112885156800E44327 /* Ultra Drawing Judge 11.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 11.mlmodelc"; sourceTree = "<group>"; };
+		AAB736122885156800E44327 /* Ultra Drawing Judge 13.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 13.mlmodelc"; sourceTree = "<group>"; };
+		AAB736132885156800E44327 /* Ultra Drawing Judge 7.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 7.mlmodelc"; sourceTree = "<group>"; };
+		AAB736142885156800E44327 /* Ultra Drawing Judge 14.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 14.mlmodelc"; sourceTree = "<group>"; };
+		AAB736152885156800E44327 /* Ultra Drawing Judge 20.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 20.mlmodelc"; sourceTree = "<group>"; };
+		AAB736162885156800E44327 /* Ultra Drawing Judge 15.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 15.mlmodelc"; sourceTree = "<group>"; };
+		AAB736172885156800E44327 /* Ultra Drawing Judge 22.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 22.mlmodelc"; sourceTree = "<group>"; };
+		AAB7362D2885157500E44327 /* Ultra Drawing Judge 6.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 6.mlmodelc"; sourceTree = "<group>"; };
+		AAB7362E2885157500E44327 /* Ultra Drawing Judge 4.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 4.mlmodelc"; sourceTree = "<group>"; };
+		AAB7362F2885157500E44327 /* Ultra Drawing Judge 5.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 5.mlmodelc"; sourceTree = "<group>"; };
+		AAB736302885157500E44327 /* Ultra Drawing Judge 8.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 8.mlmodelc"; sourceTree = "<group>"; };
+		AAB736312885157500E44327 /* Ultra Drawing Judge 27.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 27.mlmodelc"; sourceTree = "<group>"; };
+		AAB736322885157500E44327 /* Ultra Drawing Judge 9.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Ultra Drawing Judge 9.mlmodelc"; sourceTree = "<group>"; };
 		AABCEB01284D3BE600A733E5 /* GameCenterServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterServices.swift; sourceTree = "<group>"; };
 		AAC000D92836BC1700C89FCE /* One-Step-Ahead-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "One-Step-Ahead-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AAC000DA2836BCBC00C89FCE /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -281,7 +335,7 @@
 				AAFC764F288104BF00617276 /* Combatant.swift */,
 				AAFC7651288107C800617276 /* ScoreEvaluationStatus.swift */,
 				AAA309AD2853E3D6007F4EC6 /* AssetType.swift */,
-				AAB5CE6D28793FCE00DC8CBE /* SuperDrawingJudgeModel.swift */,
+				AAB5CE6D28793FCE00DC8CBE /* UltraDrawingJudgeModel.swift */,
 				AAC82AC7287A1B4100337E2E /* CloudKitOperationStatus.swift */,
 			);
 			path = Enumerations;
@@ -357,6 +411,40 @@
 				AAB53142285C1A8300C8AFB5 /* Game End View Graphics.sks */,
 			);
 			path = "Original Graphics";
+			sourceTree = "<group>";
+		};
+		AAB735CC2885130400E44327 /* Ultra Drawing Judge */ = {
+			isa = PBXGroup;
+			children = (
+				AAB7360A2885156800E44327 /* Ultra Drawing Judge 1.mlmodelc */,
+				AAB7360C2885156800E44327 /* Ultra Drawing Judge 2.mlmodelc */,
+				AAB736082885156800E44327 /* Ultra Drawing Judge 3.mlmodelc */,
+				AAB7362E2885157500E44327 /* Ultra Drawing Judge 4.mlmodelc */,
+				AAB7362F2885157500E44327 /* Ultra Drawing Judge 5.mlmodelc */,
+				AAB7362D2885157500E44327 /* Ultra Drawing Judge 6.mlmodelc */,
+				AAB736132885156800E44327 /* Ultra Drawing Judge 7.mlmodelc */,
+				AAB736302885157500E44327 /* Ultra Drawing Judge 8.mlmodelc */,
+				AAB736322885157500E44327 /* Ultra Drawing Judge 9.mlmodelc */,
+				AAB7360D2885156800E44327 /* Ultra Drawing Judge 10.mlmodelc */,
+				AAB736112885156800E44327 /* Ultra Drawing Judge 11.mlmodelc */,
+				AAB7360E2885156800E44327 /* Ultra Drawing Judge 12.mlmodelc */,
+				AAB736122885156800E44327 /* Ultra Drawing Judge 13.mlmodelc */,
+				AAB736142885156800E44327 /* Ultra Drawing Judge 14.mlmodelc */,
+				AAB736162885156800E44327 /* Ultra Drawing Judge 15.mlmodelc */,
+				AAB7360F2885156800E44327 /* Ultra Drawing Judge 16.mlmodelc */,
+				AAB736092885156800E44327 /* Ultra Drawing Judge 17.mlmodelc */,
+				AAB736052885156800E44327 /* Ultra Drawing Judge 18.mlmodelc */,
+				AAB736042885156800E44327 /* Ultra Drawing Judge 19.mlmodelc */,
+				AAB736152885156800E44327 /* Ultra Drawing Judge 20.mlmodelc */,
+				AAB736102885156800E44327 /* Ultra Drawing Judge 21.mlmodelc */,
+				AAB736172885156800E44327 /* Ultra Drawing Judge 22.mlmodelc */,
+				AAB736062885156800E44327 /* Ultra Drawing Judge 23.mlmodelc */,
+				AAB736032885156800E44327 /* Ultra Drawing Judge 24.mlmodelc */,
+				AAB736072885156800E44327 /* Ultra Drawing Judge 25.mlmodelc */,
+				AAB7360B2885156800E44327 /* Ultra Drawing Judge 26.mlmodelc */,
+				AAB736312885157500E44327 /* Ultra Drawing Judge 27.mlmodelc */,
+			);
+			path = "Ultra Drawing Judge";
 			sourceTree = "<group>";
 		};
 		AAC000E028371E8500C89FCE /* Gallery Views */ = {
@@ -525,6 +613,7 @@
 				AAF0A6762832F9DF00E84330 /* Drawing_Judge_Model.swift */,
 				AAF0921F286023C300F6925C /* Old Judge Models */,
 				AAF09216286022CA00F6925C /* Super Drawing Judge */,
+				AAB735CC2885130400E44327 /* Ultra Drawing Judge */,
 			);
 			path = "Drawing Judge Files";
 			sourceTree = "<group>";
@@ -697,18 +786,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB736182885156800E44327 /* Ultra Drawing Judge 24.mlmodelc in Resources */,
 				AAB53145285C1A8300C8AFB5 /* iOS Gallery View Graphics.sks in Resources */,
 				AAB53148285C1A8300C8AFB5 /* iOS Backstory View Graphics.sks in Resources */,
 				AAB4F2DA285454C500676EC4 /* The Big Beat 80s.wav in Resources */,
+				AAB7362C2885156800E44327 /* Ultra Drawing Judge 22.mlmodelc in Resources */,
+				AAB736262885156800E44327 /* Ultra Drawing Judge 11.mlmodelc in Resources */,
+				AAB7361C2885156800E44327 /* Ultra Drawing Judge 25.mlmodelc in Resources */,
 				AAB5314C285C1A8300C8AFB5 /* Gallery View Graphics.sks in Resources */,
 				AAB5314B285C1A8300C8AFB5 /* New Game Menu Graphics.sks in Resources */,
+				AAB736342885157500E44327 /* Ultra Drawing Judge 4.mlmodelc in Resources */,
 				AA057F692856E5BE00B9FAFA /* UDC Judge.mlmodelc in Resources */,
+				AAB736352885157500E44327 /* Ultra Drawing Judge 5.mlmodelc in Resources */,
 				AA215EF728341F0100D614DD /* Drawing Judge II.mlmodelc in Resources */,
 				AAB472632855815700DD76B7 /* Space Chillout.mp3 in Resources */,
 				AAB472642855815700DD76B7 /* Synthwave 80s.mp3 in Resources */,
 				AAF0A69A2832F9E600E84330 /* Victory Jingle.mp3 in Resources */,
+				AAB736232885156800E44327 /* Ultra Drawing Judge 12.mlmodelc in Resources */,
 				AAF0A6982832F9E600E84330 /* Powerup!.mp3 in Resources */,
 				AAB5314A285C1A8300C8AFB5 /* Game View Graphics.sks in Resources */,
+				AAB736382885157500E44327 /* Ultra Drawing Judge 9.mlmodelc in Resources */,
 				AA88746D2858D933007E15C6 /* UDC Judge II.mlmodelc in Resources */,
 				AAB53150285C1A8300C8AFB5 /* Game End View Graphics.sks in Resources */,
 				AAF0A63A2832F7E600E84330 /* Assets.xcassets in Resources */,
@@ -720,25 +817,44 @@
 				AAB53146285C1A8300C8AFB5 /* iOS Main Menu Graphics.sks in Resources */,
 				AAB472622855815700DD76B7 /* Acceleron.mp3 in Resources */,
 				AAC5D7552832FC070056E781 /* Preview Assets.xcassets in Resources */,
+				AAB736372885157500E44327 /* Ultra Drawing Judge 27.mlmodelc in Resources */,
+				AAB736202885156800E44327 /* Ultra Drawing Judge 26.mlmodelc in Resources */,
+				AAB736212885156800E44327 /* Ultra Drawing Judge 2.mlmodelc in Resources */,
+				AAB736362885157500E44327 /* Ultra Drawing Judge 8.mlmodelc in Resources */,
 				AAFED0CA2855B1DF0066B2CD /* Lounge Drum and Bass (Spaced).mp3 in Resources */,
 				AAB53149285C1A8300C8AFB5 /* iOS Game End View Graphics.sks in Resources */,
 				AAB5314E285C1A8300C8AFB5 /* Title Screen Graphics.sks in Resources */,
 				AAB5314F285C1A8300C8AFB5 /* Backstory View Graphics.sks in Resources */,
+				AAB736252885156800E44327 /* Ultra Drawing Judge 21.mlmodelc in Resources */,
+				AAB7362A2885156800E44327 /* Ultra Drawing Judge 20.mlmodelc in Resources */,
 				AAF0A6972832F9E600E84330 /* Defeat Jingle.mp3 in Resources */,
 				AAB472612855815700DD76B7 /* Scandinavianz Palmtrees.mp3 in Resources */,
+				AAB7361D2885156800E44327 /* Ultra Drawing Judge 3.mlmodelc in Resources */,
+				AAB736222885156800E44327 /* Ultra Drawing Judge 10.mlmodelc in Resources */,
 				AAF0A69F2832F9F300E84330 /* README.md in Resources */,
+				AAB7361A2885156800E44327 /* Ultra Drawing Judge 18.mlmodelc in Resources */,
 				AAB53144285C1A8300C8AFB5 /* iOS New Game Menu Graphics.sks in Resources */,
 				AAF09225286023FA00F6925C /* Super Drawing Judge I.mlmodelc in Resources */,
 				AA215EF928341FB700D614DD /* Drawing Judge.mlmodelc in Resources */,
+				AAB736282885156800E44327 /* Ultra Drawing Judge 7.mlmodelc in Resources */,
 				AA9976CF2860C87A001E554B /* Roboto Mono.ttf in Resources */,
+				AAB736192885156800E44327 /* Ultra Drawing Judge 19.mlmodelc in Resources */,
 				AAF09226286023FA00F6925C /* Super Drawing Judge III.mlmodelc in Resources */,
+				AAB7361B2885156800E44327 /* Ultra Drawing Judge 23.mlmodelc in Resources */,
+				AAB736332885157500E44327 /* Ultra Drawing Judge 6.mlmodelc in Resources */,
+				AAB7361F2885156800E44327 /* Ultra Drawing Judge 1.mlmodelc in Resources */,
 				AAB4725D2855815700DD76B7 /* Autobahn.mp3 in Resources */,
 				AAB53147285C1A8300C8AFB5 /* iOS Title Screen Graphics.sks in Resources */,
 				AAF09227286023FA00F6925C /* Super Drawing Judge IV.mlmodelc in Resources */,
 				AAB4725F2855815700DD76B7 /* Lounge Drum and Bass.mp3 in Resources */,
+				AAB736242885156800E44327 /* Ultra Drawing Judge 16.mlmodelc in Resources */,
+				AAB736272885156800E44327 /* Ultra Drawing Judge 13.mlmodelc in Resources */,
 				AAF0A6992832F9E600E84330 /* Dun Dun Dun.wav in Resources */,
 				AAB472652855815700DD76B7 /* Dragonfly.mp3 in Resources */,
+				AAB7361E2885156800E44327 /* Ultra Drawing Judge 17.mlmodelc in Resources */,
+				AAB736292885156800E44327 /* Ultra Drawing Judge 14.mlmodelc in Resources */,
 				AAF0A69B2832F9E600E84330 /* The Big Beat 80s (Spaced).wav in Resources */,
+				AAB7362B2885156800E44327 /* Ultra Drawing Judge 15.mlmodelc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,7 +879,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAB5CE6E28793FCE00DC8CBE /* SuperDrawingJudgeModel.swift in Sources */,
+				AAB5CE6E28793FCE00DC8CBE /* UltraDrawingJudgeModel.swift in Sources */,
 				AAF0A67D2832F9DF00E84330 /* RotatingSquare.swift in Sources */,
 				AAC000E228371EA100C89FCE /* TaskRectangleView.swift in Sources */,
 				AAF0A6792832F9DF00E84330 /* ColorServices.swift in Sources */,
@@ -976,7 +1092,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"One Step Ahead/Preview Content\"";
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				ENABLE_PREVIEWS = YES;
@@ -996,7 +1112,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Marshall.One-Step-Ahead";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1021,7 +1137,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"One Step Ahead/Preview Content\"";
 				DEVELOPMENT_TEAM = GUDZ7ALN9J;
 				ENABLE_PREVIEWS = YES;
@@ -1041,7 +1157,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "Ethan-Marshall.One-Step-Ahead";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

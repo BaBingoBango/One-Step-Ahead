@@ -19,12 +19,12 @@ import UIKit
 /// - Tag: ImagePredictor
 class ImagePredictor {
     /// - Tag: name
-    static func createImageClassifier(superDrawingJudgeModel: SuperDrawingJudgeModel = .I) -> VNCoreMLModel {
+    static func createImageClassifier(ultraDrawingJudgeModel: UltraDrawingJudgeModel = .one) -> VNCoreMLModel {
         // Use a default model configuration.
         let defaultConfig = MLModelConfiguration()
 
         // Create an instance of the image classifier's wrapper class.
-        let imageClassifierWrapper = try? Drawing_Judge_Model(configuration: defaultConfig, superDrawingJudgeModel: superDrawingJudgeModel)
+        let imageClassifierWrapper = try? Drawing_Judge_Model(configuration: defaultConfig, ultraDrawingJudgeModel: ultraDrawingJudgeModel)
 
         guard let imageClassifier = imageClassifierWrapper else {
             fatalError("App failed to create an image classifier model instance.")
@@ -40,30 +40,34 @@ class ImagePredictor {
 
         return imageClassifierVisionModel
     }
-
-    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge I.
-    ///
-    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
-    /// since each can be expensive in time and resources.
-    private static let imageClassifierI = createImageClassifier(superDrawingJudgeModel: .I)
     
-    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge II.
-    ///
-    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
-    /// since each can be expensive in time and resources.
-    private static let imageClassifierII = createImageClassifier(superDrawingJudgeModel: .II)
-    
-    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge III.
-    ///
-    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
-    /// since each can be expensive in time and resources.
-    private static let imageClassifierIII = createImageClassifier(superDrawingJudgeModel: .III)
-    
-    /// One of the common image classifier instances that all Image Predictor instances use to generate predictions. It corresponds to Super Drawing Judge IV.
-    ///
-    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
-    /// since each can be expensive in time and resources.
-    private static let imageClassifierIV = createImageClassifier(superDrawingJudgeModel: .IV)
+    private static let imageClassifier1 = createImageClassifier(ultraDrawingJudgeModel: .one)
+    private static let imageClassifier2 = createImageClassifier(ultraDrawingJudgeModel: .two)
+    private static let imageClassifier3 = createImageClassifier(ultraDrawingJudgeModel: .three)
+    private static let imageClassifier4 = createImageClassifier(ultraDrawingJudgeModel: .four)
+    private static let imageClassifier5 = createImageClassifier(ultraDrawingJudgeModel: .five)
+    private static let imageClassifier6 = createImageClassifier(ultraDrawingJudgeModel: .six)
+    private static let imageClassifier7 = createImageClassifier(ultraDrawingJudgeModel: .seven)
+    private static let imageClassifier8 = createImageClassifier(ultraDrawingJudgeModel: .eight)
+    private static let imageClassifier9 = createImageClassifier(ultraDrawingJudgeModel: .nine)
+    private static let imageClassifier10 = createImageClassifier(ultraDrawingJudgeModel: .ten)
+    private static let imageClassifier11 = createImageClassifier(ultraDrawingJudgeModel: .eleven)
+    private static let imageClassifier12 = createImageClassifier(ultraDrawingJudgeModel: .tweleve)
+    private static let imageClassifier13 = createImageClassifier(ultraDrawingJudgeModel: .thirteen)
+    private static let imageClassifier14 = createImageClassifier(ultraDrawingJudgeModel: .fourteen)
+    private static let imageClassifier15 = createImageClassifier(ultraDrawingJudgeModel: .fifteen)
+    private static let imageClassifier16 = createImageClassifier(ultraDrawingJudgeModel: .sixteen)
+    private static let imageClassifier17 = createImageClassifier(ultraDrawingJudgeModel: .seventeen)
+    private static let imageClassifier18 = createImageClassifier(ultraDrawingJudgeModel: .eighteen)
+    private static let imageClassifier19 = createImageClassifier(ultraDrawingJudgeModel: .nineteen)
+    private static let imageClassifier20 = createImageClassifier(ultraDrawingJudgeModel: .twenty)
+    private static let imageClassifier21 = createImageClassifier(ultraDrawingJudgeModel: .twentyone)
+    private static let imageClassifier22 = createImageClassifier(ultraDrawingJudgeModel: .twentytwo)
+    private static let imageClassifier23 = createImageClassifier(ultraDrawingJudgeModel: .twentythree)
+    private static let imageClassifier24 = createImageClassifier(ultraDrawingJudgeModel: .twentyfour)
+    private static let imageClassifier25 = createImageClassifier(ultraDrawingJudgeModel: .twentyfive)
+    private static let imageClassifier26 = createImageClassifier(ultraDrawingJudgeModel: .twentysix)
+    private static let imageClassifier27 = createImageClassifier(ultraDrawingJudgeModel: .twentyseven)
 
     /// Stores a classification name and confidence for an image classifier's prediction.
     /// - Tag: Prediction
@@ -84,19 +88,65 @@ class ImagePredictor {
     private var predictionHandlers = [VNRequest: ImagePredictionHandler]()
 
     /// Generates a new request instance that uses the Image Predictor's image classifier model.
-    private func createImageClassificationRequest(superDrawingJudgeModel: SuperDrawingJudgeModel) -> VNImageBasedRequest {
+    private func createImageClassificationRequest(ultraDrawingJudgeModel: UltraDrawingJudgeModel) -> VNImageBasedRequest {
         // Create an image classification request with an image classifier model.
 
         let imageClassificationRequest = VNCoreMLRequest(model: {
-            switch superDrawingJudgeModel {
-            case .I:
-                return ImagePredictor.imageClassifierI
-            case .II:
-                return ImagePredictor.imageClassifierII
-            case .III:
-                return ImagePredictor.imageClassifierIII
-            case .IV:
-                return ImagePredictor.imageClassifierIV
+            switch ultraDrawingJudgeModel {
+            case .one:
+                return ImagePredictor.imageClassifier1
+            case .two:
+                return ImagePredictor.imageClassifier2
+            case .three:
+                return ImagePredictor.imageClassifier3
+            case .four:
+                return ImagePredictor.imageClassifier4
+            case .five:
+                return ImagePredictor.imageClassifier5
+            case .six:
+                return ImagePredictor.imageClassifier6
+            case .seven:
+                return ImagePredictor.imageClassifier7
+            case .eight:
+                return ImagePredictor.imageClassifier8
+            case .nine:
+                return ImagePredictor.imageClassifier9
+            case .ten:
+                return ImagePredictor.imageClassifier10
+            case .eleven:
+                return ImagePredictor.imageClassifier11
+            case .tweleve:
+                return ImagePredictor.imageClassifier12
+            case .thirteen:
+                return ImagePredictor.imageClassifier13
+            case .fourteen:
+                return ImagePredictor.imageClassifier14
+            case .fifteen:
+                return ImagePredictor.imageClassifier15
+            case .sixteen:
+                return ImagePredictor.imageClassifier16
+            case .seventeen:
+                return ImagePredictor.imageClassifier17
+            case .eighteen:
+                return ImagePredictor.imageClassifier18
+            case .nineteen:
+                return ImagePredictor.imageClassifier19
+            case .twenty:
+                return ImagePredictor.imageClassifier20
+            case .twentyone:
+                return ImagePredictor.imageClassifier21
+            case .twentytwo:
+                return ImagePredictor.imageClassifier22
+            case .twentythree:
+                return ImagePredictor.imageClassifier23
+            case .twentyfour:
+                return ImagePredictor.imageClassifier24
+            case .twentyfive:
+                return ImagePredictor.imageClassifier25
+            case .twentysix:
+                return ImagePredictor.imageClassifier26
+            case .twentyseven:
+                return ImagePredictor.imageClassifier27
             }
         }(), completionHandler: visionRequestHandler)
 
@@ -105,17 +155,17 @@ class ImagePredictor {
     }
 
     /// Generates an image classification prediction for a photo.
-    /// - Parameter superDrawingJudgeModel: The model from the Super Drawing Judge to use for predictions.
+    /// - Parameter ultraDrawingJudgeModel: The model from the Ultra Drawing Judge to use for predictions.
     /// - Parameter photo: An image, typically of an object or a scene.
     /// - Tag: makePredictions
-    func makePredictions(with superDrawingJudgeModel: SuperDrawingJudgeModel, for photo: UIImage, completionHandler: @escaping ImagePredictionHandler) throws {
+    func makePredictions(with ultraDrawingJudgeModel: UltraDrawingJudgeModel, for photo: UIImage, completionHandler: @escaping ImagePredictionHandler) throws {
         let orientation = CGImagePropertyOrientation(photo.imageOrientation)
 
         guard let photoImage = photo.cgImage else {
             fatalError("Photo doesn't have underlying CGImage.")
         }
 
-        let imageClassificationRequest = createImageClassificationRequest(superDrawingJudgeModel: superDrawingJudgeModel)
+        let imageClassificationRequest = createImageClassificationRequest(ultraDrawingJudgeModel: ultraDrawingJudgeModel)
         predictionHandlers[imageClassificationRequest] = completionHandler
 
         let handler = VNImageRequestHandler(cgImage: photoImage, orientation: orientation)
