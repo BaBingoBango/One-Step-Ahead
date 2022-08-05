@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/40375449/178133939-f280d6d1-8d37-4115-9470-516c1df1ae3b.png" alt="gameLogo" width="100"/>
+<img src="https://user-images.githubusercontent.com/40375449/182772451-f79f85d9-38a6-4436-9028-b9c9edc5cbfe.png" alt="gameLogo" width="100"/>
 
 **One Step Ahead**<br>
 
