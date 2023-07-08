@@ -7,7 +7,7 @@ A machine learning drawing game that pits you against a machine learning model t
 - Compete against AI models with varying levels of difficulty!
 - Draw over 300 objects and upload your results to Drawing Central!
 - Earn Game Center achievements and compete on leaderboards!
-- A winner of Apple’s [WWDC23 Swift Student Challenge](https://web.archive.org/web/20230404002347/https://developer.apple.com/wwdc23/swift-student-challenge/)!
+- A winner of Apple’s [WWDC22 Swift Student Challenge](https://web.archive.org/web/20220405160208/https://developer.apple.com/wwdc22/swift-student-challenge/)!
 
 ## Quick Start
 The game is designed for iPhone, iPad, and Apple Silicon Macs! To start up the app, you can either download and run the Xcode project or get the game right from the [App Store](https://apps.apple.com/us/app/one-step-ahead/id1620737001)!
