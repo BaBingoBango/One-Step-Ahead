@@ -10,6 +10,7 @@ import SpriteKit
 
 /// The version of the standard game end view used in the tutorial. It contains game elements as well as a dialogue box.
 struct TutorialGameEndView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
     /// The ID number of the tutorial's current state. When the state ID is incremented, the view responds by changing UI elements appropriately.
@@ -36,7 +37,7 @@ struct TutorialGameEndView: View {
     @State var speakerColor2: Color = .cyan
     
     // Game End View Variables
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
     
@@ -63,15 +64,14 @@ struct TutorialGameEndView: View {
     // MARK: - View Body
     var body: some View {
         ZStack {
-            SpriteView(scene: graphicsScene)
-                .edgesIgnoringSafeArea(.all)
+            GameBackground(scene: graphicsScene)
             
             VStack {
                 // MARK: Game End View START
                 VStack(spacing: 0) {
                     Text(winner == .player ? "You win!" : "You lose...")
-                        .foregroundColor(winner == .player ? .gold : .red)
-                        .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 45))
+                        .foregroundStyle(winner == .player ? Color.gold : .red)
+                        .font(.system(size: layout.isRegular ? 70 : 45))
                         .fontWeight(.black)
                         .padding(.top)
                         .padding(.bottom, 10)
@@ -84,22 +84,22 @@ struct TutorialGameEndView: View {
                                 Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
                                     .resizable()
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
-                                    .cornerRadius(25)
+                                    .frame(width: layout.isRegular ? 175 : 100)
+                                    .clipShape(.rect(cornerRadius: 25))
                             }
                             
                             Text("\(String(lastPlayerScore.truncate(places: 1)))%")
                                 .font(.title)
-                                .foregroundColor(.green)
+                                .foregroundStyle(.green)
                                 .fontWeight(.heavy)
                         }
                         
                         Spacer()
                         
                         Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .frame(width: 7)
-                            .cornerRadius(10)
+                            .clipShape(.rect(cornerRadius: 10))
                             .padding(.vertical, 70)
                         
                         Spacer()
@@ -116,31 +116,31 @@ struct TutorialGameEndView: View {
                                             
                                         ))
                                         .aspectRatio(1.0, contentMode: .fit)
-                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
-                                        .cornerRadius(25)
+                                        .frame(width: layout.isRegular ? 175 : 100, height: layout.isRegular ? 175 : 100)
+                                        .clipShape(.rect(cornerRadius: 25))
                                     
                                     Image("robot")
-                                        .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 0.8 : 0.4)
-                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
+                                        .scaleEffect(layout.isRegular ? 0.8 : 0.4)
+                                        .frame(width: layout.isRegular ? 175 : 100, height: layout.isRegular ? 175 : 100)
                                 }
                             }
                             
                             Text("\(String(lastAIscore.truncate(places: 1)))%")
                                 .font(.title)
-                                .foregroundColor(.red)
+                                .foregroundStyle(.red)
                                 .fontWeight(.heavy)
                         }
                         
                         Spacer()
                     }
-                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
+                    .padding(.horizontal, layout.isRegular ? 0 : 0)
                 }
                 .padding(.top)
                 // MARK: Game End View END
                 
                 Spacer()
                 
-                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: UIDevice.current.userInterfaceIdiom != .phone ? 145 : 55)
+                DialogueView(isShowingAdvancePrompt: .constant(true), emojiImageName: speakerEmoji, characterName: speakerName, dialogue: speakerDialogue, color1: speakerColor1, color2: speakerColor2, height: layout.isRegular ? 145 : 55)
                     .onTapGesture {
                         if stateID != 7 {
                             moveToNextState()
@@ -228,9 +228,6 @@ struct TutorialGameEndView: View {
     
 }
 
-struct TutorialGameEndView_Previews: PreviewProvider {
-    static var previews: some View {
-        TutorialGameEndView(isShowingTutorialSequence: .constant(true), game: GameState())
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+#Preview(traits: .landscapeLeft) {
+    TutorialGameEndView(isShowingTutorialSequence: .constant(true), game: GameState())
 }

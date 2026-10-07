@@ -7,7 +7,7 @@ struct MyApp: App {
     
     /// The system-provided `ScenePhase` object  used for app launching.
     @Environment(\.scenePhase) var scenePhase
-    /// A custom app delegate which launches the root view.
+    /// A custom app delegate which installs the scene delegate.
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
     /// Whether or not GameKit has completed the Game Center authentication process.
     @AppStorage("hasAuthenticatedWithGameCenter") var hasAuthenticatedWithGameCenter: Bool = false
@@ -21,17 +21,20 @@ struct MyApp: App {
             ZStack {
                 // This invisible "view" authenticates the user with Game Center when the app is opened
                 RepresentableGameCenterAuthenticationController()
+                    .frame(width: 0, height: 0)
                     .onAppear {
                         // Set the flag so authentication is not attempted multiple times
                         hasStartedAuthenticatingWithGameCenter = true
                     }
                 
                 // MARK: Entry Point View
-                // The entry point view is actually provided below in the MyAppDelegate class.
-                // TitleScreenView()
+                TitleScreenView()
             }
+            // Ask the system to require a second swipe before the Home indicator leaves the game
+            .measuringScreenLayout()
+            .defersSystemGestures(on: .bottom)
         }
-        .onChange(of: scenePhase) { phase in
+        .onChange(of: scenePhase) { _, phase in
             switch phase {
             // MARK: Application Life Cycle Code
             case .active:
@@ -61,9 +64,7 @@ struct MyApp: App {
     }
 }
 
-/// A custom app delegate class which helps dim the home indicator.
-///
-/// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
+/// A custom app delegate class which installs the scene delegate below.
 class MyAppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         let config = UISceneConfiguration(name: "My Scene Delegate", sessionRole: connectingSceneSession.role)
@@ -72,34 +73,17 @@ class MyAppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-/// A custom scene delegate class which helps dim the home indicator and set the minimum macOS window size.
-///
-/// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
+/// A custom scene delegate class which sets the minimum window size for macOS and resizable iPad windows.
 class MySceneDelegate: UIResponder, UIWindowSceneDelegate {
-    var window: UIWindow?
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Set the minimum size for Mac windows
-        UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
-            windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1200, height: 800)
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
         
-        // Configure the root view
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            let rootView = TitleScreenView()
-            let hostingController = HostingController(rootView: rootView)
-            window.rootViewController = hostingController
-            self.window = window
-            window.makeKeyAndVisible()
+        // Keep the game's windows from getting too small on the Mac; on iPad the system's own minimum applies, and every screen adapts down to it
+        if ProcessInfo.processInfo.isiOSAppOnMac || UIDevice.current.userInterfaceIdiom == .mac {
+            windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1200, height: 800)
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            // Anything smaller cannot fit the game's screens, even with their phone-sized layouts
+            windowScene.sizeRestrictions?.minimumSize = CGSize(width: 560, height: 440)
         }
     }
-}
-
-/// A custom hosting controller class which helps dim the home indicator.
-///
-/// This class was downloaded from https://stackoverflow.com/questions/57260051/iphone-x-home-indicator-dimming-undimming
-class HostingController: UIHostingController<TitleScreenView> {
-    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
-        return [.bottom]
-     }
 }

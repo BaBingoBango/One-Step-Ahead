@@ -18,9 +18,9 @@ var audioPlayer: AVAudioPlayer?
 ///   - fileName: The name of the audio file to play.
 ///   - type: The file extension of the audio file to play, without the dot, e.g. `"wav"`
 func playAudio(fileName: String, type: String) {
-    if let path = Bundle.main.path(forResource: fileName, ofType: type) {
+    if let url = Bundle.main.url(forResource: fileName, withExtension: type) {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
             // Set the audio player to infinite loop
             audioPlayer?.numberOfLoops = -1
             audioPlayer?.play()
@@ -35,9 +35,9 @@ func playAudio(fileName: String, type: String) {
 ///   - fileName: The name of the audio file to play.
 ///   - type: The file extension of the audio file to play, without the dot, e.g. `"wav"`
 func playAudioOnce(fileName: String, type: String) {
-    if let path = Bundle.main.path(forResource: fileName, ofType: type) {
+    if let url = Bundle.main.url(forResource: fileName, withExtension: type) {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
             // Set the audio player to not loop
             audioPlayer?.numberOfLoops = 0
             audioPlayer?.play()

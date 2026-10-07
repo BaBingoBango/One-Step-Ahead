@@ -9,16 +9,15 @@ import SwiftUI
 
 /// A view for showing details of a task. It is presented via modal.
 struct TaskDetailView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
-    /// The presentation status variable for this view's modal presentation.
-    @Environment(\.presentationMode) private var presentationMode
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
     /// The task that should be sent to a New Game view by the Gallery View.
-    @Binding var taskToPresent: Task?
-    /// Whether or not a task detail view is currently being auto-dismissed.
-    @Binding var isTaskDetailAutoDismissing: Bool
+    @Binding var taskToPresent: DrawingTask?
     /// Whether or not the Practice is being presented.
     @State var isShowingPracticeView = false
     /// Whether or not the New Game view is being presented.
@@ -26,57 +25,62 @@ struct TaskDetailView: View {
     /// Whether or not the Drawing Central view is being presented.
     @State var isShowingDrawingCentral = false
     /// The task represented by this view.
-    var task: Task
+    var task: DrawingTask
     /// The task list index of the task represented by this view.
     var index: Int
     
+    /// The arrangement of the buttons below the task's records, which stack vertically in narrow portrait windows.
+    private var taskButtonsLayout: AnyLayout {
+        layout.isCompact && layout.isPortrait ? AnyLayout(VStackLayout()) : AnyLayout(HStackLayout())
+    }
+    
     // MARK: - View Body
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                if UIDevice.current.userInterfaceIdiom != .phone {
+                if layout.isRegular {
                     Spacer()
                 }
                 
                 Text(task.emoji)
-                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 100 : 50))
+                    .font(.system(size: layout.isRegular ? 100 : 50))
                 
                 Text(task.object)
-                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title)
+                    .font(layout.isRegular ? .largeTitle : .title)
                     .fontWeight(.bold)
                 
                 Text("No. \(index + 1)")
-                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
+                    .font(layout.isRegular ? .title : .title2)
                     .fontWeight(.bold)
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                 
                 HStack(spacing: 0) {
                     Spacer()
                     
                     VStack {
                         Text("Times Played")
-                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
+                            .font(layout.isRegular ? .title : .title2)
                             .fontWeight(.bold)
-                            .foregroundColor(.cyan)
+                            .foregroundStyle(.cyan)
                         
                         Text("\(userTaskRecords.records[task.object]?["timesPlayed"] ?? 0)")
-                            .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 25))
+                            .font(.system(size: layout.isRegular ? 50 : 25))
                             .fontWeight(.bold)
-                            .foregroundColor(.cyan)
+                            .foregroundStyle(.cyan)
                     }
                     
                     Spacer()
                     
                     VStack {
                         Text("High Score")
-                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
+                            .font(layout.isRegular ? .title : .title2)
                             .fontWeight(.bold)
-                            .foregroundColor(.gold)
+                            .foregroundStyle(Color.gold)
                         
                         Text("\(userTaskRecords.records[task.object]?["highScore"] ?? 0)")
-                            .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 25))
+                            .font(.system(size: layout.isRegular ? 50 : 25))
                             .fontWeight(.bold)
-                            .foregroundColor(.gold)
+                            .foregroundStyle(Color.gold)
                     }
                     
                     Spacer()
@@ -85,7 +89,7 @@ struct TaskDetailView: View {
                 
                 Spacer()
                 
-                HStack {
+                taskButtonsLayout {
                     Button(action: {
                         // Award the Enter The Dojo achievement
                         reportAchievementProgress("Enter_The_Dojo")
@@ -95,19 +99,20 @@ struct TaskDetailView: View {
                     }) {
                         HStack {
                             Image(systemName: "scribble.variable")
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .imageScale(.large)
                             
                             Text("Practice")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                         }
                         .padding(.horizontal)
-                        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .green, opacity: 1.0))
+                        .modifier(RectangleWrapper(fixedHeight: layout.isRegular ? 60 : 50, color: .green, opacity: 1.0))
                     }
                     .fullScreenCover(isPresented: $isShowingPracticeView) {
                         PracticeView(task: task, index: index)
+                            .measuringScreenLayout()
                     }
 
                     Button(action: {
@@ -118,20 +123,20 @@ struct TaskDetailView: View {
                         reportAchievementProgress("Interactive_Art")
                         
                         // Dismiss this modal
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }) {
                         HStack {
                             Image(systemName: "play.fill")
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .imageScale(.large)
 
                             Text("New Game")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                         }
                         .padding(.horizontal)
-                        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .blue, opacity: 1.0))
+                        .modifier(RectangleWrapper(fixedHeight: layout.isRegular ? 60 : 50, color: .blue, opacity: 1.0))
                     }
                     
                     Button(action: {
@@ -139,33 +144,33 @@ struct TaskDetailView: View {
                     }) {
                         HStack {
                             Image(systemName: "globe")
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .imageScale(.large)
 
                             Text("Drawing Central")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.1)
                         }
                         .padding(.horizontal)
-                        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 50, color: .teal, opacity: 1.0))
+                        .modifier(RectangleWrapper(fixedHeight: layout.isRegular ? 60 : 50, color: .teal, opacity: 1.0))
                     }
                     .fullScreenCover(isPresented: $isShowingDrawingCentral) {
                         DrawingCentralView(task: task)
+                            .measuringScreenLayout()
                     }
                 }
                 .padding([.leading, .bottom, .trailing])
             }
             
             // MARK: Navigation View Settings
-            .navigationViewStyle(.stack)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }) {
                         Text("Done")
                             .fontWeight(.bold)
@@ -178,10 +183,6 @@ struct TaskDetailView: View {
     }
 }
 
-struct TaskDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskDetailView(taskToPresent: .constant(nil), isTaskDetailAutoDismissing: .constant(false), task: Task.taskList[2], index: 2)
-            .previewInterfaceOrientation(.landscapeLeft)
-            .navigationViewStyle(StackNavigationViewStyle())
-    }
+#Preview(traits: .landscapeLeft) {
+    TaskDetailView(taskToPresent: .constant(nil), task: DrawingTask.taskList[2], index: 2)
 }

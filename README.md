@@ -12,14 +12,10 @@ A machine learning drawing game that pits you against a machine learning model t
 ## Quick Start
 The game is designed for iPhone, iPad, and Apple Silicon Macs! To start up the app, you can either download and run the Xcode project or get the game right from the [App Store](https://apps.apple.com/us/app/one-step-ahead/id1620737001)!
 
-> **Warning**<br>
-> Standard gameplay is not compatible with the Xcode Simulator, since the app relies on the Create ML framework. Please be sure to build and run the app on a physical device.
+The project builds with Xcode 27 and runs on iOS 26 and later. It uses the Swift 6 language mode with main-actor default isolation, and SwiftUI previews are available for every view.
 
-## Running with Simulator
-If you would like to run the game with the Xcode Simulator or use SwiftUI previews, use the following steps to disable AI judging:
-
-1. Find all uses of the `getAIscore()` function and replace them with a static `50.0`, or whichever substitute score you would like to assign the AI during games.
-2. Comment out or delete all code in the `MLServices.swift` file.
+> **Note**<br>
+> The Machine is trained with the Create ML framework, which is not available on the iOS Simulator. Simulator builds automatically stand in a fixed score for the AI so the rest of the game (the Ultra Drawing Judge scoring, the Gallery, Game Center, and Drawing Central) can be tried out, but please build and run on a physical device for real gameplay.
 
 ## Support & Feedback
 

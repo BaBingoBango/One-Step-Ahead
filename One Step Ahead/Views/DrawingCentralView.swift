@@ -11,14 +11,15 @@ import CloudKit
 
 /// The view showing all the Drawing Central drawings for a particular task.
 struct DrawingCentralView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
-    /// The system `PresentationMode` variable for this view.
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Gallery View Graphics")!
     /// The task to show drawings for in this view.
-    var task: Task
+    var task: DrawingTask
     /// The set of drawings that have been downloaded from Drawing Central.
     @State var downloadedDrawings: [Drawing] = []
     /// The status of this view's CloudKit query operation.
@@ -30,25 +31,24 @@ struct DrawingCentralView: View {
     var body: some View {
         let headerView = HStack {
             Text(task.emoji)
-                .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 100 : 60))
+                .font(.system(size: layout.isRegular ? 100 : 60))
                 .padding([.trailing, .top])
             
             VStack(alignment: .leading) {
                 Text("Drawing Central")
-                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20))
+                    .font(.system(size: layout.isRegular ? 30 : 20))
                     .fontWeight(.bold)
                     .padding(.top)
                 
                 Text(task.object)
-                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 30))
+                    .font(.system(size: layout.isRegular ? 50 : 30))
                     .fontWeight(.bold)
             }
         }
         
-        NavigationView {
+        NavigationStack {
             ZStack {
-                SpriteView(scene: graphicsScene)
-                    .edgesIgnoringSafeArea(.all)
+                GameBackground(scene: graphicsScene)
                 
                 ScrollView {
                     VStack {
@@ -58,13 +58,13 @@ struct DrawingCentralView: View {
                             VStack {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle())
-                                    .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 2 : 1.5)
+                                    .scaleEffect(layout.isRegular ? 2 : 1.5)
                                 
                                 Text("Connecting...")
-                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
-                                    .foregroundColor(.secondary)
+                                    .font(layout.isRegular ? .title2 : .body)
+                                    .foregroundStyle(Color.secondary)
                                     .fontWeight(.bold)
-                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 25 : 15)
+                                    .padding(.top, layout.isRegular ? 25 : 15)
                                 
                                 Spacer()
                             }
@@ -73,18 +73,18 @@ struct DrawingCentralView: View {
                                 Image(systemName: "xmark.icloud.fill")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(.secondary)
+                                    .foregroundStyle(Color.secondary)
                                     .frame(height: 50)
                                 
                                 Text("Could Not Connect")
-                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
-                                    .foregroundColor(.secondary)
+                                    .font(layout.isRegular ? .title2 : .body)
+                                    .foregroundStyle(Color.secondary)
                                     .fontWeight(.bold)
                                     .padding(.top, 5)
                                 
                                 Text("Check you are connected to the Internet and try again.")
-                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .callout)
-                                    .foregroundColor(.secondary)
+                                    .font(layout.isRegular ? .title3 : .callout)
+                                    .foregroundStyle(Color.secondary)
                                 
                                 Button(action: {
                                     launchQueryOperation()
@@ -92,8 +92,8 @@ struct DrawingCentralView: View {
                                     HStack {
                                         let tryAgainButton =
                                         Text("Try Again")
-                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .body)
-                                            .foregroundColor(.white)
+                                            .font(layout.isRegular ? .title3 : .body)
+                                            .foregroundStyle(.white)
                                             .fontWeight(.bold)
                                             .modifier(RectangleWrapper(fixedHeight: 45, color: .blue, opacity: 1.0))
                                         
@@ -117,28 +117,28 @@ struct DrawingCentralView: View {
                                     Image(systemName: "rectangle.portrait.on.rectangle.portrait.slash")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(.secondary)
-                                        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 50)
+                                        .foregroundStyle(Color.secondary)
+                                        .frame(height: layout.isRegular ? 75 : 50)
                                     
                                     Text("No Drawings Yet!")
-                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
-                                        .foregroundColor(.secondary)
+                                        .font(layout.isRegular ? .title : .body)
+                                        .foregroundStyle(Color.secondary)
                                         .fontWeight(.bold)
-                                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 5)
+                                        .padding(.top, layout.isRegular ? 15 : 5)
                                     
                                     Text("Perhaps the first great artist is you!")
-                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
-                                        .foregroundColor(.secondary)
-                                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
+                                        .font(layout.isRegular ? .title2 : .callout)
+                                        .foregroundStyle(Color.secondary)
+                                        .padding(.top, layout.isRegular ? 0 : 0)
                                 }
                             } else {
                                 HStack(spacing: 0) {
                                     let sortButtonRectangle =
                                     Rectangle()
                                         .frame(height: 40)
-                                        .foregroundColor(.black)
+                                        .foregroundStyle(.black)
                                         .opacity(0.25)
-                                        .cornerRadius(13)
+                                        .clipShape(.rect(cornerRadius: 13))
                                     
                                     Button(action: {
                                         sortingAscending.toggle()
@@ -149,10 +149,10 @@ struct DrawingCentralView: View {
                                             
                                             HStack {
                                                 Image(systemName: sortingAscending ? "arrow.up" : "arrow.down")
-                                                    .foregroundColor(.white)
+                                                    .foregroundStyle(.white)
                                                 
                                                 Text("Sorting \(sortingAscending ? "Low to High" : "High to Low")")
-                                                    .foregroundColor(.white)
+                                                    .foregroundStyle(.white)
                                                     .lineLimit(1)
                                                     .minimumScaleFactor(0.1)
                                             }
@@ -169,25 +169,25 @@ struct DrawingCentralView: View {
                                 .padding(.horizontal)
                                 .padding(.bottom, 5)
                                 
-                                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 6)) {
-                                    ForEach(downloadedDrawings, id: \.ID) { eachDrawing in
+                                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: layout.width < ScreenLayout.regularMinimumWidth ? 3 : 6)) {
+                                    ForEach(downloadedDrawings) { eachDrawing in
                                         ZStack {
-                                            Image(uiImage: UIImage(data: try! Data(contentsOf: eachDrawing.image.fileURL!))!)
+                                            Image(uiImage: eachDrawing.uiImage ?? UIImage())
                                                 .resizable()
                                                 .aspectRatio(1, contentMode: .fit)
-                                                .cornerRadius(20)
+                                                .clipShape(.rect(cornerRadius: 20))
                                             
                                             VStack {
                                                 Spacer()
                                                 
                                                 ZStack {
                                                     Rectangle()
-                                                        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
-                                                        .foregroundColor(.green)
+                                                        .frame(height: layout.isRegular ? 30 : 20)
+                                                        .foregroundStyle(.green)
                                                         .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
                                                     
                                                     Text("\(String(eachDrawing.score.truncate(places: 1)))%")
-                                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title3 : .callout)
+                                                        .font(layout.isRegular ? .title3 : .callout)
                                                         .fontWeight(.bold)
                                                 }
                                             }
@@ -200,13 +200,13 @@ struct DrawingCentralView: View {
                     }
                 }
             }
-            .edgesIgnoringSafeArea(.top)
+            .ignoresSafeArea(edges: .top)
             
             // MARK: - Navigation View Settings
             .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }) {
                         Text("Done")
                             .fontWeight(.bold)
@@ -215,7 +215,6 @@ struct DrawingCentralView: View {
             })
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .navigationViewStyle(StackNavigationViewStyle())
         
         // MARK: - View Launch Code
         .onAppear {
@@ -224,49 +223,40 @@ struct DrawingCentralView: View {
     }
     
     // MARK: - View Functions
+    /// Downloads the Drawing Central drawings for this view's task, sorted by score.
     func launchQueryOperation() {
         queryOperationStatus = .inProgress
-        var drawingsToAdd: [Drawing] = []
         
         let query = CKQuery(recordType: "Drawing", predicate: NSPredicate(format: "Object = %@", task.object))
         query.sortDescriptors = [NSSortDescriptor(key: "Score", ascending: sortingAscending)]
-        let queryOperation = CKQueryOperation(query: query)
         
-        queryOperation.recordMatchedBlock = { (_ recordID: CKRecord.ID, _ recordResult: Result<CKRecord, Error>) -> Void in
-            switch recordResult {
-            case .success(let record):
-                let newImage = record["Image"] as! CKAsset
-                let newObject = record["Object"] as! String
-                let newScore = record["Score"] as! Double
+        Task {
+            do {
+                let (matchResults, _) = try await CKContainer(identifier: "iCloud.One-Step-Ahead").publicCloudDatabase.records(matching: query)
                 
-                let newDrawing = Drawing(image: newImage, object: newObject, score: newScore)
-                drawingsToAdd.append(newDrawing)
-            case .failure(let error):
-                queryOperationStatus = .failure
-                print(error.localizedDescription)
-            }
-        }
-        
-        queryOperation.queryResultBlock = { (_ operationResult: Result<CKQueryOperation.Cursor?, Error>) -> Void in
-            switch operationResult {
-            case .success(_):
-                queryOperationStatus = .success
+                var drawingsToAdd: [Drawing] = []
+                for (_, recordResult) in matchResults {
+                    switch recordResult {
+                    case .success(let record):
+                        if let newImage = record["Image"] as? CKAsset, let newObject = record["Object"] as? String, let newScore = record["Score"] as? Double {
+                            drawingsToAdd.append(Drawing(image: newImage, object: newObject, score: newScore))
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+                
                 downloadedDrawings = drawingsToAdd
-                print("")
-            case .failure(let error):
+                queryOperationStatus = .success
+            } catch {
                 queryOperationStatus = .failure
                 print(error.localizedDescription)
             }
         }
-        
-        CKContainer(identifier: "iCloud.One-Step-Ahead").publicCloudDatabase.add(queryOperation)
     }
 }
 
 // MARK: - View Preview
-struct DrawingCentralView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrawingCentralView(task: Task.taskList[Task.taskList.firstIndex(where: { $0.object == "Apple" })!])
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+#Preview(traits: .landscapeLeft) {
+    DrawingCentralView(task: DrawingTask.taskList[DrawingTask.taskList.firstIndex(where: { $0.object == "Apple" })!])
 }

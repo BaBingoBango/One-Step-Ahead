@@ -9,6 +9,7 @@ import SwiftUI
 
 /// A view for displaying information about a third-party asset.
 struct LicensingDetailView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: View Variables
     /// The title of the asset this view displays.
@@ -25,12 +26,12 @@ struct LicensingDetailView: View {
         ScrollView {
             VStack {
                 ZStack {
-                    let widthBySeven = UIScreen.main.bounds.width / 7
+                    let widthBySeven = screenWidth / 7
                     
                     Circle()
                         .aspectRatio(1, contentMode: .fit)
-                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 150 : widthBySeven, height: UIDevice.current.userInterfaceIdiom != .phone ? 150 : widthBySeven)
-                        .foregroundColor(.white)
+                        .frame(width: layout.isRegular ? 150 : widthBySeven, height: layout.isRegular ? 150 : widthBySeven)
+                        .foregroundStyle(.white)
                         .opacity(0.15)
                     
                     switch assetType {
@@ -38,43 +39,43 @@ struct LicensingDetailView: View {
                         Image(assetCatalogName)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .cornerRadius(10)
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5)
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(width: layout.isRegular ? 100 : widthBySeven / 1.5, height: layout.isRegular ? 100 : widthBySeven / 1.5)
                         
                     case .music:
                         Image(systemName: "music.quarternote.3")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5)
+                            .frame(width: layout.isRegular ? 90 : widthBySeven / 1.5, height: layout.isRegular ? 90 : widthBySeven / 1.5)
                         
                     case .soundEffect:
                         Image(systemName: "music.note")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 100 : widthBySeven / 1.5)
+                            .frame(width: layout.isRegular ? 100 : widthBySeven / 1.5, height: layout.isRegular ? 100 : widthBySeven / 1.5)
                         
                     case .drawingDataset:
                         Image(systemName: "scribble.variable")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.yellow)
+                            .foregroundStyle(.yellow)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5)
+                            .frame(width: layout.isRegular ? 90 : widthBySeven / 1.5, height: layout.isRegular ? 90 : widthBySeven / 1.5)
                     case .software:
                         Image(systemName: "curlybraces")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                             .shadow(radius: 10)
                             .shadow(radius: 10)
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5, height: UIDevice.current.userInterfaceIdiom != .phone ? 90 : widthBySeven / 1.5)
+                            .frame(width: layout.isRegular ? 90 : widthBySeven / 1.5, height: layout.isRegular ? 90 : widthBySeven / 1.5)
                     }
                 }
                 
@@ -113,15 +114,15 @@ struct LicensingDetailView: View {
                 Link(destination: URL(string: sourceLink)!) {
                     ZStack {
                         Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .opacity(0.15)
-                            .cornerRadius(25)
+                            .clipShape(.rect(cornerRadius: 25))
                         
                         HStack {
                             Image(systemName: "link")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                                 .padding()
                                 .padding(.leading, 7)
                             
@@ -129,13 +130,13 @@ struct LicensingDetailView: View {
                                 Text(sourceTitle)
                                     .font(.title)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundStyle(.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.1)
                                 
                                 Text(sourceLink)
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundStyle(.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.1)
                             }
@@ -179,15 +180,15 @@ struct LicensingDetailView: View {
                 Link(destination: URL(string: licenseLink)!) {
                     ZStack {
                         Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .opacity(0.15)
-                            .cornerRadius(25)
+                            .clipShape(.rect(cornerRadius: 25))
                         
                         HStack {
                             Image(systemName: "building.columns.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                                 .padding()
                                 .padding(.leading, 7)
                             
@@ -195,13 +196,13 @@ struct LicensingDetailView: View {
                                 Text(licenseTitle)
                                     .font(.title)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundStyle(.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.1)
                                 
                                 Text(licenseLink)
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundStyle(.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.1)
                             }
@@ -219,9 +220,6 @@ struct LicensingDetailView: View {
     }
 }
 
-struct LicensingDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        LicensingDetailView(assetTitle: "Preview Asset", assetType: .software, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
-            .previewInterfaceOrientation(.landscapeRight)
-    }
+#Preview(traits: .landscapeRight) {
+    LicensingDetailView(assetTitle: "Preview Asset", assetType: .software, assetCatalogName: "space background", sourceTitle: "Unsplash", sourceLink: "https://unsplash.com/photos/_0eMNseqmYk", licenseTitle: "Unsplash License", licenseLink: "https://unsplash.com/license")
 }

@@ -15,38 +15,31 @@ import GameKit
 ///   - achievementID: The ID string for the achievement to report on.
 ///   - progress: The progress to add towards the achievement, where `100.0` represents 100% completion.
 func reportAchievementProgress(_ achievementID: String, progress: Double = 100.0) {
-    // Load the player's active achievements
-    GKAchievement.loadAchievements(completionHandler: { (achievements: [GKAchievement]?, error: Error?) in
-        var achievement: GKAchievement? = nil
-        
-        // Find an existing achievement if one exists
-        achievement = achievements?.first(where: { $0.identifier == achievementID})
-        
-        // If not, create a new achievement
-        if achievement == nil {
-            achievement = GKAchievement(identifier: achievementID)
+    Task {
+        // Load the player's active achievements
+        var achievements: [GKAchievement] = []
+        do {
+            achievements = try await GKAchievement.loadAchievements()
+        } catch {
+            print("[Achievement Loading Error]")
+            print(error.localizedDescription)
         }
         
-        // Add the new progress to the achievement
-        achievement!.percentComplete += progress
+        // Find an existing achievement if one exists; if not, create a new achievement
+        let achievement = achievements.first(where: { $0.identifier == achievementID }) ?? GKAchievement(identifier: achievementID)
         
-        // Enable banner display
-        achievement!.showsCompletionBanner = true
+        // Add the new progress to the achievement and enable banner display
+        achievement.percentComplete += progress
+        achievement.showsCompletionBanner = true
         
         // Report the achievement to Game Center
-        GKAchievement.report([achievement!], withCompletionHandler: {(error: Error?) in
-            if error != nil {
-                print("[Achievement Reporting Error]")
-                print(error!.localizedDescription)
-            }
-        })
-        
-        // Print an error message if there is one
-        if error != nil {
-            print("[Achievement Loading Error]")
-            print(error!.localizedDescription)
+        do {
+            try await GKAchievement.report([achievement])
+        } catch {
+            print("[Achievement Reporting Error]")
+            print(error.localizedDescription)
         }
-    })
+    }
 }
 
 /// Uploads the given score to the given Game Center leaderboard for the local player.
@@ -56,9 +49,13 @@ func reportAchievementProgress(_ achievementID: String, progress: Double = 100.0
 ///   - leaderboardID: The ID of the leaderboard to upload the score to.
 ///   - score: The score to upload to the leaderboard.
 func uploadLeaderboardScore(_ leaderboardID: String, score: Int) {
-    GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local,
-        leaderboardIDs: [leaderboardID]) { error in
-        print("[Leaderboard Score Upload Finished]")
-        print(error?.localizedDescription ?? "There is no error object!")
+    Task {
+        do {
+            try await GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [leaderboardID])
+            print("[Leaderboard Score Upload Finished]")
+        } catch {
+            print("[Leaderboard Score Upload Error]")
+            print(error.localizedDescription)
+        }
     }
 }

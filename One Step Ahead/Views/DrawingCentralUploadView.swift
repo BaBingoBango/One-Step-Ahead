@@ -8,6 +8,7 @@
 import SwiftUI
 import CloudKit
 
+/// The view for uploading the player's final drawing of a game to Drawing Central.
 struct DrawingCentralUploadView: View {
     
     // MARK: - View Variables
@@ -15,30 +16,33 @@ struct DrawingCentralUploadView: View {
     @AppStorage("isAutoUploadOn") var isAutoUploadOn = false
     /// The game state of the game that acted as the source for this view.
     var game: GameState
-    /// The system `PresentationMode` variable for this view.
-    @Environment(\.presentationMode) private var presentationMode
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
     /// The status of this view's CloudKit upload operation.
     @Binding var uploadOperationStatus: CloudKitOperationStatus
     /// Whether or not an alert representing upload failure is being presented.
     @State var isShowingFailAlert = false
     
     var body: some View {
-        NavigationView {
+        /// The size of the circle behind the upload icon.
+        let circleSize = screenWidth / 7
+        
+        NavigationStack {
             VStack {
                 ZStack {
                     Circle()
                         .aspectRatio(1, contentMode: .fit)
-                        .frame(width: UIScreen.main.bounds.width / 7, height: UIScreen.main.bounds.width / 7)
-                        .foregroundColor(.white)
+                        .frame(width: circleSize, height: circleSize)
+                        .foregroundStyle(.white)
                         .opacity(0.15)
                     
                     Image(systemName: "icloud.and.arrow.up")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                         .shadow(radius: 10)
                         .shadow(radius: 10)
-                        .frame(width: UIScreen.main.bounds.width / 7 / 1.5, height: UIScreen.main.bounds.width / 7 / 1.5)
+                        .frame(width: circleSize / 1.5, height: circleSize / 1.5)
                 }
                 
                 Text("Upload to Drawing Central")
@@ -63,7 +67,7 @@ struct DrawingCentralUploadView: View {
                             
                             Text("Drawing Uploaded!")
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                         }
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .secondary, opacity: 1.0))
                     } else {
@@ -72,22 +76,24 @@ struct DrawingCentralUploadView: View {
                         }) {
                             Text("Upload Drawing")
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
                         }
                     }
                 }
             }
             .padding([.leading, .bottom, .trailing])
-            .alert(isPresented: $isShowingFailAlert) {
-                Alert(title: Text("Drawing Upload Failed"), message: Text("Check that you are connected to the Internet and signed in to iCloud in Settings."), dismissButton: .default(Text("Close")))
+            .alert("Drawing Upload Failed", isPresented: $isShowingFailAlert) {
+                Button("Close") {}
+            } message: {
+                Text("Check that you are connected to the Internet and signed in to iCloud in Settings.")
             }
             
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }) {
                         Text("Done")
                             .fontWeight(.bold)
@@ -96,7 +102,6 @@ struct DrawingCentralUploadView: View {
             })
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             if isAutoUploadOn {
                 startUploadOperation()
@@ -105,40 +110,29 @@ struct DrawingCentralUploadView: View {
     }
     
     // MARK: - View Functions
+    /// Uploads the player's final drawing and score to Drawing Central's public CloudKit database.
     func startUploadOperation() {
         uploadOperationStatus = .inProgress
         
         let drawingRecord = CKRecord(recordType: CKRecord.RecordType("Drawing"))
-        
-        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
-        
-        drawingRecord["Image"] = CKAsset(fileURL: URL(fileURLWithPath: paths.first!).appendingPathComponent("\(game.task.object).\(game.currentRound).png"))
+        drawingRecord["Image"] = CKAsset(fileURL: getDocumentsDirectory().appending(path: "\(game.task.object).\(game.currentRound).png"))
         drawingRecord["Object"] = game.task.object
-        drawingRecord["Score"] = game.playerScores.last!
+        drawingRecord["Score"] = game.playerScores.last ?? 0.0
         
-        let uploadOperation = CKModifyRecordsOperation(recordsToSave: [drawingRecord])
-        
-        uploadOperation.perRecordSaveBlock = { (_ recordID: CKRecord.ID, _ saveResult: Result<CKRecord, Error>) -> Void in
-            switch saveResult {
-            case .success(_):
+        Task {
+            do {
+                _ = try await CKContainer(identifier: "iCloud.One-Step-Ahead").publicCloudDatabase.save(drawingRecord)
                 uploadOperationStatus = .success
-                self.presentationMode.wrappedValue.dismiss()
-            case .failure(let error):
+                dismiss()
+            } catch {
                 uploadOperationStatus = .failure
                 isShowingFailAlert = true
                 print(error.localizedDescription)
             }
         }
-        
-        CKContainer(identifier: "iCloud.One-Step-Ahead").publicCloudDatabase.add(uploadOperation)
     }
 }
 
-struct DrawingCentralUploadView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrawingCentralUploadView(game: GameState(), uploadOperationStatus: .constant(.notStarted))
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+#Preview(traits: .landscapeLeft) {
+    DrawingCentralUploadView(game: GameState(), uploadOperationStatus: .constant(.notStarted))
 }

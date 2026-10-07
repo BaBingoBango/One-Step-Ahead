@@ -6,17 +6,21 @@
 //
 
 import SwiftUI
+import Combine
 import SpriteKit
 import PencilKit
 
 /// A view allowing users to practice a specific drawing and be scored by the judge independent of a formal game or the AI.
 struct PracticeView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
-    /// The presentation status variable for this view's modal presentation.
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
+    /// The display scale used to render the player's drawing for judging.
+    @Environment(\.displayScale) private var displayScale
     /// The task that this view provides practice for.
-    var task: Task
+    var task: DrawingTask
     /// The task list index of the task that this view provides practice for.
     var index: Int
     
@@ -44,32 +48,38 @@ struct PracticeView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
     
+    /// The arrangement of the drawing area and the task details: side by side, or stacked when the window is taller than it is wide.
+    private var panelLayout: AnyLayout {
+        layout.isPortrait ? AnyLayout(VStackLayout()) : AnyLayout(HStackLayout())
+    }
+    /// The size of the drawing area when it sits above the task details rather than beside them: as large as the window allows once the details have their room.
+    private var stackedCanvasSize: CGFloat { max(200, min(layout.width - 64, layout.height - 660)) }
+    
     // MARK: - View Body
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
-                SpriteView(scene: graphicsScene)
-                    .edgesIgnoringSafeArea(.all)
-                
-                HStack {
+                GameBackground(scene: graphicsScene)
+            
+                panelLayout {
                     VStack(spacing: 0) {
                         let canvasViewBody = ZStack {
                             ZStack {
                                 Rectangle()
                                     .opacity(0.2)
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .foregroundColor(.blue)
+                                    .foregroundStyle(.blue)
                                     .hidden()
-                                
+                            
                                 VStack {
                                     HStack {
                                         Text("You")
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .hidden()
-                                        
+                                    
                                         Spacer()
-                                        
+                                    
                                         Button(action: {
                                             // Undo the canvas
                                             isDeletingDrawing = true
@@ -81,147 +91,148 @@ struct PracticeView: View {
                                         }) {
                                             ZStack {
                                                 Rectangle()
-                                                    .foregroundColor(.secondary)
-                                                    .cornerRadius(50)
-                                                
+                                                    .foregroundStyle(Color.secondary)
+                                                    .clipShape(.rect(cornerRadius: 50))
+                                            
                                                 HStack {
                                                     Image(systemName: "arrow.uturn.backward.circle")
-                                                        .foregroundColor(.primary)
-                                                    
+                                                        .foregroundStyle(Color.primary)
+                                                
                                                     Text("Undo")
-                                                        .font (UIDevice.current.userInterfaceIdiom != .phone ? .body : .body)
+                                                        .font (layout.isRegular ? .body : .body)
                                                         .fontWeight(.bold)
-                                                        .foregroundColor(.primary)
+                                                        .foregroundStyle(Color.primary)
                                                 }
                                             }
                                         }
-                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 30)
+                                        .frame(width: layout.isRegular ? 120 : 100, height: layout.isRegular ? 40 : 30)
                                         .offset(y: -5)
                                     }
-                                    
+                                
                                     Spacer()
                                 }
                             }
                             .aspectRatio(1.0, contentMode: .fit)
                             .offset(y: -40)
-                            
+                        
                             if !isCanvasDisabled {
                                 Rectangle()
                                     .opacity(0.2)
                                     .aspectRatio(1.0, contentMode: .fit)
                             }
-                            
+                        
                             CanvasView(canvasView: $canvasView, onSaved: {
                                 if !isDeletingDrawing {
                                     allDrawings.append(canvasView.drawing)
                                 }
                             })
                             .disabled(isCanvasDisabled)
-                            
+                        
                             if isCanvasDisabled {
                                 Rectangle()
                                     .opacity(0.2)
                                     .aspectRatio(1.0, contentMode: .fit)
                             }
                         }
-                        
-                        if UIDevice.current.userInterfaceIdiom != .phone {
+                    
+                        if layout.isRegular {
                             canvasViewBody
                                 .aspectRatio(1, contentMode: .fit)
+                                .frame(width: layout.isPortrait ? stackedCanvasSize : nil, height: layout.isPortrait ? stackedCanvasSize : nil)
                                 .padding()
                         } else {
                             canvasViewBody
                                 .aspectRatio(1, contentMode: .fit)
-                                .frame(width: UIScreen.main.bounds.width / 4)
+                                .frame(width: layout.isPhone || !layout.isPortrait ? layout.width / 4 : layout.width * 0.6)
                                 .padding()
                         }
-                        
+                    
                         HStack(spacing: 0) {
-                            let buttonFixedHeight = UIDevice.current.userInterfaceIdiom != .phone ? 60 : 40
-                            
+                            let buttonFixedHeight = layout.isRegular ? 60 : 40
+                        
                             Text("")
                                 .modifier(RectangleWrapper(fixedHeight: buttonFixedHeight, color: .blue, opacity: 1.0))
                                 .hidden()
-                            
+                        
                             Button(action: {
-                                processAttempt(canvasBounds: canvasView.bounds)
+                                processAttempt()
                             }) {
                                 Text("Done!")
-                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
+                                    .font(layout.isRegular ? .title2 : .body)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundStyle(.white)
                                     .modifier(RectangleWrapper(fixedHeight: buttonFixedHeight, color: .blue, opacity: 1.0))
                             }
-                            
+                        
                             Text("")
                                 .modifier(RectangleWrapper(fixedHeight: buttonFixedHeight, color: .blue, opacity: 1.0))
                                 .hidden()
                         }
-                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 0)
+                        .padding(.top, layout.isRegular ? 15 : 0)
                     }
                     .padding()
                     .padding()
-                    
-                    VStack(spacing: 80) {
+                
+                    VStack(spacing: layout.isRegular && layout.isPortrait ? 30 : 80) {
                         Spacer()
-                        
+                    
                         ZStack {
                             Rectangle()
                                 .opacity(0.2)
                                 .frame(height: 100)
-                                .cornerRadius(30)
-                            
+                                .clipShape(.rect(cornerRadius: 30))
+                        
                             HStack {
                                 Text(task.emoji)
-                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 35.5))
-                                
+                                    .font(.system(size: layout.isRegular ? 70 : 35.5))
+                            
                                 VStack(alignment: .leading) {
                                     Text(task.object)
-                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title)
+                                        .font(layout.isRegular ? .largeTitle : .title)
                                         .fontWeight(.bold)
                                         .lineLimit(2)
                                         .minimumScaleFactor(0.1)
-                                    
+                                
                                     Text("No. \(index + 1)")
-                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title2)
+                                        .font(layout.isRegular ? .title : .title2)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.gray)
+                                        .foregroundStyle(.gray)
                                 }
                                 .padding(.leading)
                             }
                             .padding(.horizontal, 5)
                         }
-                        
+                    
                         HStack {
                             VStack {
-                                Text(UIDevice.current.userInterfaceIdiom != .phone ? "Elapsed Time" : "Time")
-                                    .foregroundColor(.cyan)
-                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 20))
+                                Text(layout.isRegular ? "Elapsed Time" : "Time")
+                                    .foregroundStyle(.cyan)
+                                    .font(.system(size: layout.isRegular ? 40 : 20))
                                     .fontWeight(.bold)
                                     .lineLimit(2)
                                     .minimumScaleFactor(0.1)
-                                
+                            
                                 Text(elapsedTime.truncate(places: 1).description + "s")
-                                    .foregroundColor(.cyan)
-                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 30))
+                                    .foregroundStyle(.cyan)
+                                    .font(.system(size: layout.isRegular ? 60 : 30))
                                     .fontWeight(.heavy)
                             }
-                            
+                        
                             Spacer()
-                            
+                        
                             VStack {
                                 Text("Accuracy")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 20))
+                                    .foregroundStyle(.green)
+                                    .font(.system(size: layout.isRegular ? 40 : 20))
                                     .fontWeight(.bold)
-                                
+                            
                                 Text(currentPlayerScore != nil ? currentPlayerScore!.truncate(places: 2).description + "%" : "---")
-                                    .foregroundColor(currentPlayerScore != nil ? .green : .secondary)
-                                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 60 : 30))
+                                    .foregroundStyle(currentPlayerScore != nil ? .green : Color.secondary)
+                                    .font(.system(size: layout.isRegular ? 60 : 30))
                                     .fontWeight(currentPlayerScore != nil ? .heavy : .regular)
                             }
                         }
-                        
+                    
                         Spacer()
                     }
                     .padding(.vertical)
@@ -231,19 +242,18 @@ struct PracticeView: View {
                 }
                 .padding(.all)
             }
+            // The content above needs more height than the screen offers, so SwiftUI centers it and lets it overflow. Sizing this view to the screen first keeps the chrome below pinned to the top edge rather than centered along with the content.
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                NavigationChromeBar {
+                    GlassCapsuleButton(title: "Exit Practice", tint: .red) {
                         stopAudio()
                         playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Exit Practice")
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
+                        dismiss()
                     }
                 }
             }
@@ -258,7 +268,7 @@ struct PracticeView: View {
                 stopAudio()
                 playAudio(fileName: getRandomBattleThemeFilename(), type: "mp3")
             }
-            .onReceive(timer) { input in
+            .onReceive(timer) { _ in
                 // MARK: Timer Response
                 // Increment the elapsed time
                 elapsedTime += 0.1
@@ -270,91 +280,18 @@ struct PracticeView: View {
             
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .navigationViewStyle(.stack)
     }
     
     // MARK: - Functions
     /// Processes a completed attempt by the user, to be called when the Done! button is pressed.
-    func processAttempt(canvasBounds: CGRect) {
-        // Use the judge model to give the user a score
-        var predictionProbabilities: [String : String] = [:]
-        do {
-            // Layer the drawing on top of a white background
-            let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
-            var drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
-            
-            // Resize the image
-            drawingImage = drawingImage.resizeImage(image: drawingImage, newWidth: 256)!
-            
-            // Get the probabilities for every drawing
-            try ImagePredictor().makePredictions(with: {
-                if task.object <= "Backpack" {
-                    return .one
-                } else if task.object <= "Bed" {
-                    return .two
-                } else if task.object <= "Bowtie" {
-                    return .three
-                } else if task.object <= "Cake" {
-                    return .four
-                } else if task.object <= "Cat" {
-                    return .five
-                } else if task.object <= "Computer" {
-                    return .six
-                } else if task.object <= "Diving Board" {
-                    return .seven
-                } else if task.object <= "Elephant" {
-                    return .eight
-                } else if task.object <= "Fish" {
-                    return .nine
-                } else if task.object <= "Giraffe" {
-                    return .ten
-                } else if task.object <= "Helicopter" {
-                    return .eleven
-                } else if task.object <= "Hurricane" {
-                    return .tweleve
-                } else if task.object <= "Leg" {
-                    return .thirteen
-                } else if task.object <= "Matches" {
-                    return .fourteen
-                } else if task.object <= "Mug" {
-                    return .fifteen
-                } else if task.object <= "Palm Tree" {
-                    return .sixteen
-                } else if task.object <= "Pickup Truck" {
-                    return .seventeen
-                } else if task.object <= "Power Outlet" {
-                    return .eighteen
-                } else if task.object <= "Rollerskates" {
-                    return .nineteen
-                } else if task.object <= "Shoe" {
-                    return .twenty
-                } else if task.object <= "Snowman" {
-                    return .twentyone
-                } else if task.object <= "Stereo" {
-                    return .twentytwo
-                } else if task.object <= "Swing Set" {
-                    return .twentythree
-                } else if task.object <= "Toe" {
-                    return .twentyfour
-                } else if task.object <= "Trumpet" {
-                    return .twentyfive
-                } else if task.object <= "Wine Glass" {
-                    return .twentysix
-                } else {
-                    return .twentyseven
-                }
-            }(), for: drawingImage, completionHandler: { predictions in
-                for eachPrediction in predictions! {
-                    predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
-                }
-            })
-            
+    func processAttempt() {
+        // Render the drawing and use the judge model to give the user a score
+        let canvasBounds = canvasView.bounds
+        let strokes = canvasView.drawing.image(from: canvasBounds, scale: displayScale)
+        let drawingImage = DrawingJudge.prepareDrawing(strokes: strokes, canvasSize: canvasBounds.size)
+        if let score = DrawingJudge.playerScore(for: drawingImage, object: task.object) {
             // Place the score into the UI
-            currentPlayerScore = Double(predictionProbabilities[task.object]!)!
-        } catch {
-            print("[Judge Model Prediction Error]")
-            print(error.localizedDescription)
-            print(error)
+            currentPlayerScore = score
         }
         
         // Update the Practice Drawings Made leaderboard and the save data only if the drawing is not empty
@@ -381,9 +318,6 @@ struct PracticeView: View {
     
 }
 
-struct PracticeView_Previews: PreviewProvider {
-    static var previews: some View {
-        PracticeView(task: Task.taskList[0], index: 0)
-            .previewInterfaceOrientation(.landscapeRight)
-    }
+#Preview(traits: .landscapeRight) {
+    PracticeView(task: DrawingTask.taskList[0], index: 0)
 }

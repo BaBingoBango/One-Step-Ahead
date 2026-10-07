@@ -7,7 +7,7 @@
 
 import XCTest
 
-class One_Step_AheadUITestsLaunchTests: XCTestCase {
+final class One_Step_AheadUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
@@ -17,6 +17,7 @@ class One_Step_AheadUITestsLaunchTests: XCTestCase {
         continueAfterFailure = false
     }
 
+    @MainActor
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()

@@ -10,6 +10,7 @@ import SwiftUI
 
 /// A customizable circular progress view which displays an SF symbol in the center.
 public struct ProgressCircleView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
     /// The amount of the circle to fill in, expressed as a Double between (and including) zero and one.
@@ -27,15 +28,15 @@ public struct ProgressCircleView: View {
             Circle()
                 .stroke(lineWidth: CGFloat(lineWidth))
                 .opacity(0.3)
-                .foregroundColor(color)
+                .foregroundStyle(color)
             
             Circle()
                 .trim(from: 0.0, to: CGFloat(min(self.progress, 1.0)))
                 .stroke(style: StrokeStyle(lineWidth: CGFloat(lineWidth), lineCap: .round, lineJoin: .round))
-                .foregroundColor(color)
+                .foregroundStyle(color)
                 .rotationEffect(Angle(degrees: 270.0))
             
-            if UIDevice.current.userInterfaceIdiom != .phone {
+            if layout.isRegular {
                 Image(systemName: imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

@@ -9,6 +9,7 @@ import SwiftUI
 
 /// A rotating rectangle with a gradient color fill and text.
 struct RotatingSquare: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
     /// The direction the square is rotating.
@@ -43,27 +44,27 @@ struct RotatingSquare: View {
                     VStack(spacing: 0) {
                         if iconName != nil {
                             Image(systemName: iconName!)
-                                .foregroundColor(.white)
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title2)
+                                .foregroundStyle(.white)
+                                .font(layout.isRegular ? .largeTitle : .title2)
                         }
                         
                         if imageAssetName == nil {
                             Text(text)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .font(.largeTitle)
                                 .fontWeight(.heavy)
                                 .multilineTextAlignment(.center)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.01)
-                                .padding(UIDevice.current.userInterfaceIdiom != .phone ? .all : .horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 10 : 5)
-                                .padding(.vertical, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 2)
+                                .padding(layout.isRegular ? .all : .horizontal, layout.isRegular ? 10 : 5)
+                                .padding(.vertical, layout.isRegular ? 0 : 2)
                         }
                     }
                 )
             
             if imageAssetName != nil {
                 HStack {
-                    if UIDevice.current.userInterfaceIdiom != .phone {
+                    if layout.isRegular {
                         Image(imageAssetName!)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -90,16 +91,14 @@ struct RotatingSquare: View {
     
 }
 
-struct RotatingRectangle_Previews: PreviewProvider {
-    static var previews: some View {
-        HStack {
-            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
-                .hidden()
-            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", iconName: "1.circle", rotationDegrees: .constant(90))
-            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
-                .hidden()
-            RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
-                .hidden()
-        }
+#Preview {
+    HStack {
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
+            .hidden()
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", iconName: "1.circle", rotationDegrees: .constant(90))
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
+            .hidden()
+        RotatingSquare(direction: .clockwise, firstColor: .blue, secondColor: .cyan, text: "NEW GAME", rotationDegrees: .constant(90))
+            .hidden()
     }
 }

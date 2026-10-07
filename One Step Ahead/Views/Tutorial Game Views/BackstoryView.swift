@@ -10,9 +10,10 @@ import SpriteKit
 
 /// The first view of the tutorial sequence, teling players about the game's backstory. It originates from the main menu view.
 struct BackstoryView: View {
+    @Environment(\.screenLayout) private var layout
     
     // Variables
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
     /// Whether or not the tutorial sequence is being presented as a full screen modal.
     @Binding var isShowingTutorialSequence: Bool
     /// Whether or not the tutorial game view is being presented.
@@ -26,16 +27,13 @@ struct BackstoryView: View {
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Backstory View Graphics")!
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
-                NavigationLink(destination: TutorialGameView(isShowingTutorialSequence: $isShowingTutorialSequence, game: game, commandText: game.defaultCommandText), isActive: $isShowingTutorialGameView) { EmptyView() }
-                
-                SpriteView(scene: graphicsScene)
-                    .edgesIgnoringSafeArea(.all)
+                GameBackground(scene: graphicsScene)
             }
             .onTapGesture {
                 // Configure settings for the tutorial game
-                game.task = Task.taskList.first(where: { $0.object == "Apple" })!
+                game.task = DrawingTask.taskList.first(where: { $0.object == "Apple" })!
                 game.gameMode = .cluedIn
                 game.difficulty = .normal
                 
@@ -45,17 +43,19 @@ struct BackstoryView: View {
             }
             
             // MARK: Navigation View Settings
-            .navigationViewStyle(.stack)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(isPresented: $isShowingTutorialGameView) {
+                TutorialGameView(isShowingTutorialSequence: $isShowingTutorialSequence, game: game, commandText: game.defaultCommandText)
+            }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                         playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                     }) {
                         Text("Quit Tutorial")
                             .fontWeight(.bold)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     }
                 }
             }
@@ -64,7 +64,7 @@ struct BackstoryView: View {
             // MARK: View Launch Code
             stopAudio()
             if isDismissing {
-                self.presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         }
         .onDisappear {
@@ -72,12 +72,13 @@ struct BackstoryView: View {
             isDismissing = true
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
+        .onChange(of: layout.size, initial: true) { _, _ in
+            // The story's longest line needs about 720 points of width before it starts getting cut off
+            graphicsScene.fitArtwork(toWidth: layout.width, designedWidth: 720)
+        }
     }
 }
 
-struct BackstoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        BackstoryView(isShowingTutorialSequence: .constant(true))
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+#Preview(traits: .landscapeLeft) {
+    BackstoryView(isShowingTutorialSequence: .constant(true))
 }

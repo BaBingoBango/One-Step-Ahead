@@ -10,20 +10,19 @@ import SpriteKit
 
 /// The screen displayed when a game finishes.
 struct GameEndView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
     /// Whether or not the game sequence is being presented as a full screen modal.
     @Binding var isShowingGameSequence: Bool
     /// The state of the app's currently running game, passed in from the Game View.
     @State var game: GameState
     /// Whether or not the victory/defeat jingle has played.
     @State var hasPlayedJingle = false
-    /// Whether or not the share sheet for this view is being presented.
-    @State var showingShareSheet = false
     /// Whether or not the Drawing Central upload view is being presented.
     @State var showingUploadView = false
-    /// The status of
+    /// The status of the Drawing Central upload operation.
     @State var uploadOperationStatus = CloudKitOperationStatus.notStarted
     
     /// Whether or not the user has enabled Auto-Upload. This value is persisted inside UserDefaults.
@@ -32,6 +31,11 @@ struct GameEndView: View {
     
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game End View Graphics")!
+    
+    /// The arrangement of the buttons below the results: side by side when the window is wide enough for both, and stacked otherwise.
+    private var endButtonsLayout: AnyLayout {
+        layout.isPhone || layout.width >= 800 ? AnyLayout(HStackLayout(spacing: 30)) : AnyLayout(VStackLayout(spacing: 15))
+    }
     
     // MARK: - Computed Properties
     /// The player score from the last round of play.
@@ -42,6 +46,11 @@ struct GameEndView: View {
     var lastAIscore: Double {
         game.AIscores.last!
     }
+    /// The player's drawing from the last round of play.
+    var playerDrawing: UIImage {
+        getImageFromDocuments("\(game.task.object).\(game.currentRound).png") ?? UIImage()
+    }
+    /// The combatant who won the game.
     var winner: Combatant {
         if lastPlayerScore >= lastAIscore && lastPlayerScore >= Double(game.playerWinThreshold) {
             return .player
@@ -53,17 +62,16 @@ struct GameEndView: View {
     // MARK: - View Body
     var body: some View {
         ZStack {
-            SpriteView(scene: graphicsScene)
-                .edgesIgnoringSafeArea(.all)
+            GameBackground(scene: graphicsScene)
             
             HStack {
                 Spacer()
                 
                 VStack {
                     Text("\(game.gameScore) pts.")
-                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title2)
+                        .font(layout.isRegular ? .largeTitle : .title2)
                         .fontWeight(.heavy)
-                        .foregroundColor(.gold)
+                        .foregroundStyle(Color.gold)
                         .padding([.top, .trailing])
                     
                     Spacer()
@@ -72,19 +80,19 @@ struct GameEndView: View {
             
             VStack(spacing: 0) {
                 Text(winner == .player ? "You win!" : "You lose...")
-                    .foregroundColor(winner == .player ? .gold : .red)
-                    .font(.system(size: UIDevice.current.userInterfaceIdiom != .phone ? 70 : 45))
+                    .foregroundStyle(winner == .player ? Color.gold : .red)
+                    .font(.system(size: layout.isRegular ? 70 : 45))
                     .fontWeight(.black)
-                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 15 : 0)
+                    .padding(.top, layout.isRegular ? 15 : 0)
                 
                 HStack(spacing: 0) {
                     Text("Solution: ")
-                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
-                        .fontWeight(UIDevice.current.userInterfaceIdiom != .phone ? .semibold : .regular)
+                        .font(layout.isRegular ? .title : .body)
+                        .fontWeight(layout.isRegular ? .semibold : .regular)
                     
                     Text(game.task.object)
-                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
-                        .fontWeight(UIDevice.current.userInterfaceIdiom != .phone ? .heavy : .bold)
+                        .font(layout.isRegular ? .title : .body)
+                        .fontWeight(layout.isRegular ? .heavy : .bold)
                 }
                 
                 HStack(alignment: .center) {
@@ -94,84 +102,72 @@ struct GameEndView: View {
                         HStack(alignment: .center, spacing: 0) {
                             GameEndShareButtonsView()
                             
-                            Image(uiImage: getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!)
+                            Image(uiImage: playerDrawing)
                                 .resizable()
                                 .aspectRatio(1.0, contentMode: .fit)
-                                .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
-                                .cornerRadius(25)
+                                .frame(width: layout.isRegular ? 175 : 100)
+                                .clipShape(.rect(cornerRadius: 25))
                                 .padding(.horizontal, 5)
                             
                             VStack {
-                                if UIDevice.current.userInterfaceIdiom == .phone {
+                                if layout.isCompact {
                                     Spacer()
                                 }
                                 
-                                let shareButtonView = Button(action: {
-                                    showingShareSheet = true
-                                }) {
+                                ShareLink(item: Image(uiImage: playerDrawing), preview: SharePreview(game.task.object, image: Image(uiImage: playerDrawing))) {
                                     ZStack {
                                         Circle()
-                                            .foregroundColor(.gray)
-                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                                            .foregroundStyle(.gray)
+                                            .frame(width: layout.isRegular ? 50 : 40, height: layout.isRegular ? 50 : 40)
                                         
                                         Image(systemName: "square.and.arrow.up")
                                             .resizable()
-                                            .foregroundColor(.white)
+                                            .foregroundStyle(.white)
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                                            .frame(width: layout.isRegular ? 30 : 20, height: layout.isRegular ? 30 : 20)
                                     }
                                 }
-                                
-                                if UIDevice.current.userInterfaceIdiom != .phone {
-                                    shareButtonView
-                                    .popover(isPresented: $showingShareSheet) {
-                                        ShareSheetView(itemsToShare: [getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!])
-                                    }
-                                } else {
-                                    shareButtonView
-                                    .sheet(isPresented: $showingShareSheet) {
-                                        ShareSheetView(itemsToShare: [getImageFromDocuments("\(game.task.object).\(game.currentRound).png")!])
-                                    }
-                                }
+                                .accessibilityLabel("Share Drawing")
                                 
                                 Button(action: {
                                     showingUploadView = true
                                 }) {
                                     ZStack {
                                         Circle()
-                                            .foregroundColor(.gray)
+                                            .foregroundStyle(.gray)
                                             .opacity(uploadOperationStatus == .success ? 0.5 : 1)
-                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                                            .frame(width: layout.isRegular ? 50 : 40, height: layout.isRegular ? 50 : 40)
                                         
                                         Image(systemName: uploadOperationStatus == .success ? "checkmark.icloud" : "icloud.and.arrow.up")
                                             .resizable()
-                                            .foregroundColor(.white)
+                                            .foregroundStyle(.white)
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                                            .frame(width: layout.isRegular ? 30 : 20, height: layout.isRegular ? 30 : 20)
                                     }
                                 }
                                 .disabled(uploadOperationStatus == .success)
+                                .accessibilityLabel("Upload to Drawing Central")
                                 .sheet(isPresented: $showingUploadView) {
                                     DrawingCentralUploadView(game: game, uploadOperationStatus: $uploadOperationStatus)
                                 }
                                 
                                 Spacer()
                             }
-                            .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
+                            .frame(height: layout.isRegular ? 175 : 100)
                         }
                         
                         Text("\(String(lastPlayerScore.truncate(places: 1)))%")
                             .font(.title)
-                            .foregroundColor(.green)
+                            .foregroundStyle(.green)
                             .fontWeight(.heavy)
                     }
                     
                     Spacer()
                     
                     Rectangle()
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .frame(width: 7)
-                        .cornerRadius(10)
+                        .clipShape(.rect(cornerRadius: 10))
                         .padding(.vertical, 70)
                     
                     Spacer()
@@ -190,12 +186,12 @@ struct GameEndView: View {
                                         
                                     ))
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
-                                    .cornerRadius(25)
+                                    .frame(width: layout.isRegular ? 175 : 100, height: layout.isRegular ? 175 : 100)
+                                    .clipShape(.rect(cornerRadius: 25))
                                 
                                 Image("robot")
-                                    .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 0.8 : 0.4)
-                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100, height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
+                                    .scaleEffect(layout.isRegular ? 0.8 : 0.4)
+                                    .frame(width: layout.isRegular ? 175 : 100, height: layout.isRegular ? 175 : 100)
                             }
                             .padding(.horizontal, 5)
                             
@@ -204,28 +200,28 @@ struct GameEndView: View {
                         
                         Text("\(String(lastAIscore.truncate(places: 1)))%")
                             .font(.title)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                             .fontWeight(.heavy)
                     }
                     
                     Spacer()
                 }
-                .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 0)
+                .padding(.horizontal, layout.isRegular ? 0 : 0)
                 
-                HStack(spacing: 30) {
+                endButtonsLayout {
                     NavigationLink(destination: PlayerScoresView(game: game)) {
-                        if UIDevice.current.userInterfaceIdiom != .phone {
+                        if layout.isRegular {
                             Text("View Round History")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                             .modifier(RectangleWrapper(fixedHeight: 60, color: .gray, opacity: 1.0))
                             .frame(width: 375)
                         } else {
                             Text("View Round History")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                             .modifier(RectangleWrapper(fixedHeight: 50, color: .gray, opacity: 1.0))
                         }
                     }
@@ -233,31 +229,32 @@ struct GameEndView: View {
                     Button(action: {
                         isShowingDrawingCentral = true
                     }) {
-                        if UIDevice.current.userInterfaceIdiom != .phone {
+                        if layout.isRegular {
                             Text("View on Drawing Central")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .modifier(RectangleWrapper(fixedHeight: 60, color: .teal, opacity: 1.0))
                                 .frame(width: 375)
                         } else {
                             Text("View on Drawing Central")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .modifier(RectangleWrapper(fixedHeight: 50, color: .teal, opacity: 1.0))
                         }
                     }
                     .fullScreenCover(isPresented: $isShowingDrawingCentral) {
                         DrawingCentralView(task: game.task)
+                            .measuringScreenLayout()
                     }
                 }
-                .padding(.bottom, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 10)
+                .padding(.bottom, layout.isRegular ? 50 : 10)
             }
             .padding(.top)
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .edgesIgnoringSafeArea(.top)
+        .ignoresSafeArea(edges: .top)
         .onAppear {
             // MARK: View Launch Code
             // Adjust the music
@@ -296,27 +293,23 @@ struct GameEndView: View {
         // MARK: Navigation Bar Settings
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
                     playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
                     isShowingGameSequence = false
                 }) {
                     Text("Return To Menu")
                         .fontWeight(.bold)
-                        .foregroundColor(.red)
+                        .foregroundStyle(.red)
                 }
             }
         }
     }
 }
 
-struct GameEndView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            GameEndView(isShowingGameSequence: .constant(true), game: GameState(playerScores: [99.9], AIscores: [69.4]))
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .previewInterfaceOrientation(.landscapeLeft)
+#Preview(traits: .landscapeLeft) {
+    NavigationStack {
+        GameEndView(isShowingGameSequence: .constant(true), game: GameState(playerScores: [99.9], AIscores: [69.4]))
     }
 }
 
@@ -334,7 +327,7 @@ struct PercentCircle: View {
         HStack(spacing: 50) {
             ZStack {
                 Circle()
-                    .foregroundColor(color)
+                    .foregroundStyle(color)
                     .frame(width: circleWidth, height: circleHeight)
                 
                 Text("\(percent.description)%")
@@ -351,40 +344,41 @@ struct PercentCircle: View {
 
 /// The buttons used in the game end view to access share and upload options.
 struct GameEndShareButtonsView: View {
+    @Environment(\.screenLayout) private var layout
     var body: some View {
         VStack {
-            if UIDevice.current.userInterfaceIdiom != .phone {
+            if layout.isRegular {
                 Spacer()
             }
             
             ZStack {
                 Circle()
-                    .foregroundColor(.gray)
-                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                    .foregroundStyle(.gray)
+                    .frame(width: layout.isRegular ? 50 : 40, height: layout.isRegular ? 50 : 40)
                 
                 Image(systemName: "square.and.arrow.up")
                     .resizable()
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                    .frame(width: layout.isRegular ? 30 : 20, height: layout.isRegular ? 30 : 20)
             }
             
             ZStack {
                 Circle()
-                    .foregroundColor(.gray)
-                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40, height: UIDevice.current.userInterfaceIdiom != .phone ? 50 : 40)
+                    .foregroundStyle(.gray)
+                    .frame(width: layout.isRegular ? 50 : 40, height: layout.isRegular ? 50 : 40)
                 
                 Image(systemName: "icloud.and.arrow.up")
                     .resizable()
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20, height: UIDevice.current.userInterfaceIdiom != .phone ? 30 : 20)
+                    .frame(width: layout.isRegular ? 30 : 20, height: layout.isRegular ? 30 : 20)
             }
             
             Spacer()
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .frame(height: UIDevice.current.userInterfaceIdiom != .phone ? 175 : 100)
+        .frame(height: layout.isRegular ? 175 : 100)
         .hidden()
     }
 }

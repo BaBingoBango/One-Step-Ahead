@@ -12,22 +12,23 @@ import UIKit
 #endif
 
 /// Enumerates the Local (`UserDefaults`) and Remote (`NSUNSUbiquitousKeyValueStore`) data stores
-private enum ZephyrDataStore {
+nonisolated private enum ZephyrDataStore {
     case local  // UserDefaults
     case remote // NSUbiquitousKeyValueStore
 }
 
+// Zephyr manages its own threading with a serial queue, so it opts out of the app's main-actor default isolation.
 @objcMembers
-public final class Zephyr: NSObject {
+public nonisolated final class Zephyr: NSObject, @unchecked Sendable {
     /// A debug flag.
     ///
     /// If **true**, then this will enable console log statements.
     ///
     /// By default, this flag is set to **false**.
-    public static var debugEnabled = false
+    public nonisolated(unsafe) static var debugEnabled = false
 
     /// If **true**, then `NSUbiquitousKeyValueStore.synchronize()` will be called immediately after any change is made.
-    public static var syncUbiquitousKeyValueStoreOnChange = true
+    public nonisolated(unsafe) static var syncUbiquitousKeyValueStoreOnChange = true
 
     /// A string containing the notification name that will be posted when Zephyr receives updated data from iCloud.
     public static let keysDidChangeOnCloudNotification = Notification.Name("ZephyrKeysDidChangeOnCloudNotification")
@@ -215,7 +216,7 @@ public final class Zephyr: NSObject {
 
 // MARK: - Helpers
 
-private extension Zephyr {
+nonisolated private extension Zephyr {
 
     /// Setup UIApplication and UIScene event state notifications.
     private func setupNotifications() {
@@ -277,7 +278,16 @@ private extension Zephyr {
 
 // MARK: - Synchronizers
 
-private extension Zephyr {
+nonisolated private extension Zephyr {
+
+    /// Sets a value in `UserDefaults` on the main thread.
+    ///
+    /// The values come straight from the property-list backed stores, so they are immutable and safe to hand to the main thread.
+    func setOnMainThread(_ value: Any?, forKey key: String, in defaults: UserDefaults) {
+        nonisolated(unsafe) let value = value
+        nonisolated(unsafe) let defaults = defaults
+        DispatchQueue.main.async { defaults.set(value, forKey: key) }
+    }
     /// Synchronizes specific keys to/from `NSUbiquitousKeyValueStore` and `UserDefaults`.
     ///
     /// - Parameters:
@@ -354,7 +364,7 @@ private extension Zephyr {
         guard let key = key else {
             for (key, value) in zephyrRemoteStoreDictionary {
                 unregisterObserver(key: key)
-                DispatchQueue.main.async { defaults.set(value, forKey: key) }
+                setOnMainThread(value, forKey: key, in: defaults)
                 Zephyr.printKeySyncStatus(key: key, value: value, destination: .local)
                 registerObserver(key: key)
             }
@@ -365,10 +375,10 @@ private extension Zephyr {
         unregisterObserver(key: key)
 
         if let value = value {
-            DispatchQueue.main.async { defaults.set(value, forKey: key) }
+            setOnMainThread(value, forKey: key, in: defaults)
             Zephyr.printKeySyncStatus(key: key, value: value, destination: .local)
         } else {
-            DispatchQueue.main.async { defaults.set(nil, forKey: key) }
+            setOnMainThread(nil, forKey: key, in: defaults)
             Zephyr.printKeySyncStatus(key: key, value: nil, destination: .local)
         }
 
@@ -381,7 +391,7 @@ private extension Zephyr {
 
 // MARK: - Observers
 
-extension Zephyr {
+nonisolated extension Zephyr {
 
     /// Adds key-value observation after synchronization of a specific key.
     ///
@@ -427,9 +437,10 @@ extension Zephyr {
         }
 
         // Synchronize changes if key is monitored and if key is currently registered to respond to changes
+        let changedUserDefaults = object is UserDefaults
         zephyrQueue.async {
             if self.registeredObservationKeys.contains(keyPath) {
-                if object is UserDefaults {
+                if changedUserDefaults {
                     self.userDefaults.set(Date(), forKey: self.ZephyrSyncKey)
                 }
 
@@ -442,7 +453,7 @@ extension Zephyr {
 // MARK: - Observers (Objective-C)
 
 @objc
-extension Zephyr {
+nonisolated extension Zephyr {
 
     /// Observation method for UIApplicationWillEnterForegroundNotification
     func willEnterForeground(notification: Notification) {
@@ -477,7 +488,7 @@ extension Zephyr {
 
 // MARK: - Loggers
 
-private extension Zephyr {
+nonisolated private extension Zephyr {
     /// Prints Zephyr's current sync status if
     ///
     /// - Parameters:

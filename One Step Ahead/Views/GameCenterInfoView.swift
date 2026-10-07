@@ -9,25 +9,26 @@ import SwiftUI
 
 /// A view with information about signing in to Game Center.
 struct GameCenterInfoView: View {
+    @Environment(\.screenLayout) private var layout
     
     // Variables
-    /// The system `PresentationMode` variable for this view.
-    @Environment(\.presentationMode) private var presentationMode
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
                     Image("Game Center Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 130 : UIScreen.main.bounds.width / 8)
+                        .frame(width: layout.isRegular ? 130 : screenWidth / 8)
                         .padding(.bottom, 20)
-                    
+                
                     Text("Game Center")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
-                    
+                
                     HStack {
                         Text("Game Center Features")
                             .font(.title2)
@@ -35,13 +36,13 @@ struct GameCenterInfoView: View {
                         Spacer()
                     }
                         .padding(.top)
-                    
+                
                     HStack {
                         Text("If you are not signed in to Game Center, you be unable to access the following Game Center-powered services:")
                         Spacer()
                     }
                     .padding(.top, 5)
-                    
+                
                     HStack(spacing: 35) {
                         VStack {
                             Image("Achievements Icon")
@@ -49,32 +50,32 @@ struct GameCenterInfoView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .padding(5)
                                 .frame(width: 60, height: 60)
-                            
+                        
                             Image("Leaderboards Icon")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .padding(5)
                                 .frame(width: 60, height: 60)
                                 .padding(.top, 5)
-                            
+                        
                             Image(systemName: "flag.filled.and.flag.crossed")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .frame(width: 60, height: 60)
                                 .padding(.top, 5)
                         }
-                        
+                    
                         VStack(spacing: 35) {
                             Text("Achievements")
                                 .font(.title)
                                 .fontWeight(.bold)
-                            
+                        
                             Text("Leaderboards")
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .padding(.top, 5)
-                            
+                        
                             Text("Challenges")
                                 .font(.title)
                                 .fontWeight(.bold)
@@ -82,7 +83,7 @@ struct GameCenterInfoView: View {
                         }
                     }
                     .padding(.top, 40)
-                    
+                
                     HStack {
                         Text("Signing In")
                             .font(.title2)
@@ -90,21 +91,21 @@ struct GameCenterInfoView: View {
                         Spacer()
                     }
                         .padding(.top, 30)
-                    
+                
                     HStack {
                         Text("To sign in to Game Center, visit the Settings app and select Game Center. From there, sign in with an Apple ID, at which point you will automatically be authenticated by Game Center for One Step Ahead!")
                         Spacer()
                     }
                     .padding(.top, 5)
-                    
+                
                     HStack {
                         Link(destination: URL(string: "https://support.apple.com/en-us/HT210401")!) {
                             Text("To learn more about Game Center, tap here to visit Apple Support on the web.")
                                 .multilineTextAlignment(.leading)
                                 .font(.headline)
-                                .foregroundColor(Color.blue)
+                                .foregroundStyle(Color.blue)
                         }
-                        
+                    
                         Spacer()
                     }
                     .padding(.vertical)
@@ -116,9 +117,9 @@ struct GameCenterInfoView: View {
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }) {
                         Text("Done")
                             .fontWeight(.bold)
@@ -128,13 +129,9 @@ struct GameCenterInfoView: View {
             
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .navigationViewStyle(.stack)
     }
 }
 
-struct GameCenterInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        GameCenterInfoView()
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+#Preview(traits: .landscapeLeft) {
+    GameCenterInfoView()
 }

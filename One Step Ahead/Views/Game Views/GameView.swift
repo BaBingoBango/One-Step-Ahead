@@ -6,20 +6,24 @@
 //
 
 import SwiftUI
+import Combine
 import PencilKit
 import CoreML
 import SpriteKit
 
 /// The view displaying the elements of the currently running game; originates from the New Game screen.
 struct GameView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
     /// The number of games the user has won to date.
     @AppStorage("gamesWon") var gamesWon: Int = 0
-    /// The presentation status variable for this view's modal presentation.
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
+    /// The display scale used to render the player's drawing for judging.
+    @Environment(\.displayScale) private var displayScale
     /// Whether or not the game sequence is being presented as a full screen modal.
     @Binding var isShowingGameSequence: Bool
     
@@ -57,24 +61,25 @@ struct GameView: View {
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")Game View Graphics")!
     
+    /// The space on either side of the two drawing boxes, which narrows when the window is tall or small.
+    private var canvasesPadding: CGFloat {
+        layout.isPhone ? 75 : (layout.isCompact ? 20 : (layout.isPortrait ? 30 : 75))
+    }
+    
     // MARK: - View Body
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
-                // The programatically-triggered navigation link for the game end view
-                NavigationLink(destination: GameEndView(isShowingGameSequence: $isShowingGameSequence, game: game), isActive: $isShowingGameEndView) { EmptyView() }
-                
-                SpriteView(scene: graphicsScene)
-                    .edgesIgnoringSafeArea(.all)
+                GameBackground(scene: graphicsScene)
                 
                 HStack {
                     Spacer()
                     
                     VStack {
                         Text(game.currentRound != 1 ? "\(game.gameScore) pts." : "---")
-                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title2)
+                            .font(layout.isRegular ? .largeTitle : .title2)
                             .fontWeight(.heavy)
-                            .foregroundColor(game.currentRound != 1 ? .gold : .gray)
+                            .foregroundStyle(game.currentRound != 1 ? Color.gold : .gray)
                             .padding([.top, .trailing])
                         
                         Spacer()
@@ -85,18 +90,18 @@ struct GameView: View {
                     VStack {
                         VStack(spacing: 0) {
                             Text("- Round \(game.currentRound) -")
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                .font(layout.isRegular ? .largeTitle : .title3)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
-                                .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 20 : 0)
+                                .padding(.top, layout.isRegular ? 20 : 0)
                             
                             Text(commandText)
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                .font(layout.isRegular ? .title : .body)
                                 .fontWeight(.bold)
                                 .padding(.bottom, 5)
                             
                             Text(game.timeLeft.truncate(places: 1).description + "s")
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                .font(layout.isRegular ? .largeTitle : .title3)
                                 .fontWeight(.heavy)
                             
                             Spacer()
@@ -108,13 +113,13 @@ struct GameView: View {
                                             Rectangle()
                                                 .opacity(0.2)
                                                 .aspectRatio(1.0, contentMode: .fit)
-                                                .foregroundColor(.blue)
+                                                .foregroundStyle(.blue)
                                                 .hidden()
                                             
                                             VStack {
                                                 HStack {
                                                     Text("You")
-                                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
+                                                        .font(layout.isRegular ? .title2 : .callout)
                                                         .fontWeight(.bold)
                                                         .lineLimit(1)
                                                         .minimumScaleFactor(0.1)
@@ -131,35 +136,36 @@ struct GameView: View {
                                                         isDeletingDrawing = false
                                                     }) {
                                                         ZStack {
-                                                            if UIDevice.current.userInterfaceIdiom != .phone {
+                                                            if layout.isRegular {
                                                                 Rectangle()
-                                                                    .foregroundColor(.secondary)
-                                                                    .cornerRadius(50)
+                                                                    .foregroundStyle(Color.secondary)
+                                                                    .clipShape(.rect(cornerRadius: 50))
                                                             } else {
                                                                 Circle()
-                                                                    .foregroundColor(.secondary)
+                                                                    .foregroundStyle(Color.secondary)
                                                             }
                                                             HStack {
                                                                 Image(systemName: "arrow.uturn.backward.circle")
-                                                                    .foregroundColor(.primary)
+                                                                    .foregroundStyle(Color.primary)
                                                                 
-                                                                if UIDevice.current.userInterfaceIdiom != .phone {
+                                                                if layout.isRegular {
                                                                     Text("Undo")
                                                                         .fontWeight(.bold)
-                                                                        .foregroundColor(.primary)
+                                                                        .foregroundStyle(Color.primary)
                                                                 }
                                                             }
                                                         }
                                                     }
-                                                    .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 30, height: UIDevice.current.userInterfaceIdiom != .phone ? 40 : 10)
-                                                    .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -5 : 0)
+                                                    .frame(width: layout.isRegular ? 120 : 30, height: layout.isRegular ? 40 : 10)
+                                                    .offset(y: layout.isRegular ? -5 : 0)
+                                                    .accessibilityLabel("Undo")
                                                 }
                                                 
                                                 Spacer()
                                             }
                                         }
                                         .aspectRatio(1.0, contentMode: .fit)
-                                        .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -40 : -25)
+                                        .offset(y: layout.isRegular ? -40 : -25)
                                         
                                         if !isCanvasDisabled {
                                             Rectangle()
@@ -181,10 +187,10 @@ struct GameView: View {
                                         }
                                     }
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0)
+                                    .padding(.top, layout.isRegular ? 45 : 0)
                                     
                                     Text("Current Score")
-                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                        .font(layout.isRegular ? .title : .body)
                                         .fontWeight(.bold)
                                         .lineLimit(1)
                                         .minimumScaleFactor(0.1)
@@ -193,24 +199,24 @@ struct GameView: View {
                                     HStack(spacing: 0) {
                                         if game.currentRound != 1 {
                                             Text("\(game.playerScores[game.currentRound - 2].description)%")
-                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                                .font(layout.isRegular ? .largeTitle : .title3)
                                                 .fontWeight(.heavy)
-                                                .foregroundColor(.green)
+                                                .foregroundStyle(.green)
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.1)
                                         } else {
                                             Text("---")
-                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
+                                                .font(layout.isRegular ? .title : .title3)
                                                 .fontWeight(.bold)
-                                                .foregroundColor(.secondary)
+                                                .foregroundStyle(Color.secondary)
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.1)
                                         }
                                         
                                         Text("  /  \(game.playerWinThreshold)%")
-                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
+                                            .font(layout.isRegular ? .title2 : .body)
                                             .fontWeight(.bold)
-                                            .foregroundColor(.green)
+                                            .foregroundStyle(.green)
                                             .opacity(0.6)
                                             .lineLimit(1)
                                             .minimumScaleFactor(0.1)
@@ -227,22 +233,22 @@ struct GameView: View {
                                             Rectangle()
                                                 .opacity(0.2)
                                                 .aspectRatio(1.0, contentMode: .fit)
-                                                .foregroundColor(.blue)
+                                                .foregroundStyle(.blue)
                                                 .hidden()
                                             
                                             VStack {
                                                 HStack {
                                                     ZStack {
                                                         Rectangle()
-                                                            .foregroundColor(.secondary)
-                                                            .cornerRadius(50)
+                                                            .foregroundStyle(Color.secondary)
+                                                            .clipShape(.rect(cornerRadius: 50))
                                                         HStack {
                                                             Image(systemName: "arrow.uturn.backward.circle")
-                                                                .foregroundColor(.primary)
+                                                                .foregroundStyle(Color.primary)
                                                             
                                                             Text("Undo")
                                                                 .fontWeight(.bold)
-                                                                .foregroundColor(.primary)
+                                                                .foregroundStyle(Color.primary)
                                                         }
                                                     }
                                                     .frame(width: 120, height: 40)
@@ -251,7 +257,7 @@ struct GameView: View {
                                                     Spacer()
                                                     
                                                     Text("The Machine")
-                                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .callout)
+                                                        .font(layout.isRegular ? .title2 : .callout)
                                                         .fontWeight(.bold)
                                                         .lineLimit(1)
                                                         .minimumScaleFactor(0.1)
@@ -261,7 +267,7 @@ struct GameView: View {
                                             }
                                         }
                                         .aspectRatio(1.0, contentMode: .fit)
-                                        .offset(y: UIDevice.current.userInterfaceIdiom != .phone ? -40 : -25)
+                                        .offset(y: layout.isRegular ? -40 : -25)
                                         
                                         ZStack {
                                             Rectangle()
@@ -271,29 +277,29 @@ struct GameView: View {
                                             VStack {
                                                 if isTrainingAImodel {
                                                     ProgressView()
-                                                        .scaleEffect(UIDevice.current.userInterfaceIdiom != .phone ? 2.5 : 1.5)
+                                                        .scaleEffect(layout.isRegular ? 2.5 : 1.5)
                                                         .progressViewStyle(CircularProgressViewStyle())
                                                         .frame(width: 75, height: 75)
                                                 } else {
                                                     Image("robot")
                                                         .resizable()
-                                                        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35, height: UIDevice.current.userInterfaceIdiom != .phone ? 75 : 35)
+                                                        .frame(width: layout.isRegular ? 75 : 35, height: layout.isRegular ? 75 : 35)
                                                 }
                                                 
                                                 Text(AItext)
-                                                    .font(UIDevice.current.userInterfaceIdiom != .phone ? .custom("Roboto Mono", size: 20) : .custom("Roboto Mono", size: 10))
+                                                    .font(layout.isRegular ? .custom("Roboto Mono", size: 20) : .custom("Roboto Mono", size: 10))
                                                     .fontWeight(.bold)
                                                     .multilineTextAlignment(.center)
                                                     .lineLimit(1)
                                                     .minimumScaleFactor(0.1)
-                                                    .padding(.horizontal, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10)
+                                                    .padding(.horizontal, layout.isRegular ? 0 : 10)
                                             }
                                         }
                                     }
-                                    .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 45 : 0)
+                                    .padding(.top, layout.isRegular ? 45 : 0)
                                     
                                     Text("Current Score")
-                                        .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .body)
+                                        .font(layout.isRegular ? .title : .body)
                                         .fontWeight(.bold)
                                         .lineLimit(1)
                                         .minimumScaleFactor(0.1)
@@ -302,85 +308,72 @@ struct GameView: View {
                                     HStack {
                                         if game.currentRound != 1 {
                                             Text("\(game.AIscores[game.currentRound - 2].truncate(places: 2).description)%")
-                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .largeTitle : .title3)
+                                                .font(layout.isRegular ? .largeTitle : .title3)
                                                 .fontWeight(.heavy)
-                                                .foregroundColor(.red)
+                                                .foregroundStyle(.red)
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.1)
                                         } else {
                                             Text("---")
-                                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
+                                                .font(layout.isRegular ? .title : .title3)
                                                 .fontWeight(.bold)
-                                                .foregroundColor(.secondary)
+                                                .foregroundStyle(Color.secondary)
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.1)
                                         }
                                         
                                         Text("  /  \(game.AIwinThreshold)%")
-                                            .font(UIDevice.current.userInterfaceIdiom != .phone ? .title2 : .body)
+                                            .font(layout.isRegular ? .title2 : .body)
                                             .fontWeight(.bold)
-                                            .foregroundColor(.red)
+                                            .foregroundStyle(.red)
                                             .opacity(0.6)
                                             .lineLimit(1)
                                             .minimumScaleFactor(0.1)
                                     }
                                 }
                             }
-                            .padding(.horizontal, 75)
+                            .padding(.horizontal, canvasesPadding)
                             
                             Spacer()
                         }
                     }
                 }
             }
-            .edgesIgnoringSafeArea(UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
+            .ignoresSafeArea(edges: UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
+            .navigationDestination(isPresented: $isShowingGameEndView) {
+                GameEndView(isShowingGameSequence: $isShowingGameSequence, game: game)
+            }
             
             // MARK: Navigation View Settings
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack {
-                        VStack {
-                            Button(action: {
-                                isGamePaused = true
-                                game.shouldRunTimer = false
-                            }) {
-                                Image(systemName: "pause.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(.blue)
-                                    .frame(width: 20, height: 20)
-                            }
-                            .alert("Game Paused", isPresented: $isGamePaused) {
-                                Button(role: .cancel, action : {
-                                    isGamePaused = false
-                                    game.shouldRunTimer = true
-                                }) {
-                                    Text("Resume Game")
-                                }
-                                
-                                Button(role: .destructive, action : {
-                                    stopAudio()
-                                    playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
-                                    isShowingGameSequence = false
-                                }) {
-                                    Text("Quit Game")
-                                }
-                            }
-                            .padding(.leading, 10)
-                            .padding(.top, 30)
-                            
-                            Spacer()
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                NavigationChromeBar {
+                    GlassCircleButton(systemImage: "pause.fill", accessibilityLabel: "Pause Game", symbolSize: 20, tint: .blue) {
+                        isGamePaused = true
+                        game.shouldRunTimer = false
+                    }
+                    .alert("Game Paused", isPresented: $isGamePaused) {
+                        Button(role: .cancel, action : {
+                            isGamePaused = false
+                            game.shouldRunTimer = true
+                        }) {
+                            Text("Resume Game")
                         }
-                        
-                        Spacer()
+                    
+                        Button(role: .destructive, action : {
+                            stopAudio()
+                            playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
+                            isShowingGameSequence = false
+                        }) {
+                            Text("Quit Game")
+                        }
                     }
                 }
-            })
+            }
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .navigationViewStyle(.stack)
         .onAppear {
             // MARK: View Launch Code
             // Clear the documents and temporary directories
@@ -395,14 +388,14 @@ struct GameView: View {
             
             // Dismiss the view if we are currently collapsing the navigation chain
             if isDismissing {
-                self.presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         }
         .onDisappear {
             // MARK: View Vanish Code
             isDismissing = true
         }
-        .onReceive(timer) { input in
+        .onReceive(timer) { _ in
             // MARK: Timer Response
             // Update the on-screen timer if it's running
             if game.shouldRunTimer {
@@ -424,14 +417,13 @@ struct GameView: View {
                 isTrainingAImodel = true
             }
             
-            // On the next 0.1 second, calculate the scores
+            // On the next 0.1 second, calculate the scores in the background
             if game.timeLeft == -0.1 {
                 scoreEvaluationStatus = .evaluating
                 game.timeLeft = 0.0
                 game.shouldRunTimer = false
-                let canvasBounds = canvasView.bounds
-                DispatchQueue.global(qos: .userInteractive).async {
-                    evaluateScores(canvasBounds: canvasBounds)
+                Task {
+                    await evaluateScores()
                     scoreEvaluationStatus = .evaluationComplete
                 }
             }
@@ -466,167 +458,32 @@ struct GameView: View {
         // Start the timer
         game.shouldRunTimer = true
     }
-    ///Evaluates the user and AI scores for this round.
+    /// Evaluates the user and AI scores for this round.
     ///
-    /// > Warning: This function should be run in a background thread. While doing this is technically optional, it absolutely should be done, since the ML training can take a long time and will lag the main thread.
-    func evaluateScores(canvasBounds: CGRect) {
+    /// The player's drawing is rendered on the main actor, then judged and used to train the Machine on a background thread, since the ML training can take a long time and would lag the main thread.
+    func evaluateScores() async {
+        // Render the player's strokes before leaving the main actor
+        let canvasBounds = canvasView.bounds
+        let strokes = canvasView.drawing.image(from: canvasBounds, scale: displayScale)
         
-        // Use the judge model to give the user a score
-        var predictionProbabilities: [String : String] = [:]
-        do {
-            // Layer the drawing on top of a white background
-            let background = UIColor.white.imageWithColor(width: canvasBounds.width, height: canvasBounds.height)
-            var drawingImage = background.mergeWith(topImage: canvasView.drawing.image(from: canvasBounds, scale: UIScreen.main.scale).tint(with: .black)!)
-            
-            // Resize the image
-            drawingImage = drawingImage.resizeImage(image: drawingImage, newWidth: 256)!
-            
-            // Save the image to the AI's training data
-            saveImageToDocuments(drawingImage, name: "\(game.task.object).\(game.currentRound).png")
-            
-            // Get the probabilities for every drawing
-            try ImagePredictor().makePredictions(with: {
-                if game.task.object <= "Backpack" {
-                    return .one
-                } else if game.task.object <= "Bed" {
-                    return .two
-                } else if game.task.object <= "Bowtie" {
-                    return .three
-                } else if game.task.object <= "Cake" {
-                    return .four
-                } else if game.task.object <= "Cat" {
-                    return .five
-                } else if game.task.object <= "Computer" {
-                    return .six
-                } else if game.task.object <= "Diving Board" {
-                    return .seven
-                } else if game.task.object <= "Elephant" {
-                    return .eight
-                } else if game.task.object <= "Fish" {
-                    return .nine
-                } else if game.task.object <= "Giraffe" {
-                    return .ten
-                } else if game.task.object <= "Helicopter" {
-                    return .eleven
-                } else if game.task.object <= "Hurricane" {
-                    return .tweleve
-                } else if game.task.object <= "Leg" {
-                    return .thirteen
-                } else if game.task.object <= "Matches" {
-                    return .fourteen
-                } else if game.task.object <= "Mug" {
-                    return .fifteen
-                } else if game.task.object <= "Palm Tree" {
-                    return .sixteen
-                } else if game.task.object <= "Pickup Truck" {
-                    return .seventeen
-                } else if game.task.object <= "Power Outlet" {
-                    return .eighteen
-                } else if game.task.object <= "Rollerskates" {
-                    return .nineteen
-                } else if game.task.object <= "Shoe" {
-                    return .twenty
-                } else if game.task.object <= "Snowman" {
-                    return .twentyone
-                } else if game.task.object <= "Stereo" {
-                    return .twentytwo
-                } else if game.task.object <= "Swing Set" {
-                    return .twentythree
-                } else if game.task.object <= "Toe" {
-                    return .twentyfour
-                } else if game.task.object <= "Trumpet" {
-                    return .twentyfive
-                } else if game.task.object <= "Wine Glass" {
-                    return .twentysix
-                } else {
-                    return .twentyseven
-                }
-            }(), for: drawingImage, completionHandler: { predictions in
-                for eachPrediction in predictions! {
-                    predictionProbabilities[eachPrediction.classification] = eachPrediction.confidencePercentage
-                }
-            })
-            
-            // Add the score to the game state
-            game.playerScores.append(Double(predictionProbabilities[game.task.object]!.replacingOccurrences(of: "%", with: ""))!)
-        } catch {
-            print("[Judge Model Prediction Error]")
-            print(error.localizedDescription)
-            print(error)
-        }
+        // Judge the drawing and train the Machine in the background
+        let verdict = await DrawingJudge.judgeRound(strokes: strokes, canvasSize: canvasBounds.size, object: game.task.object, round: game.currentRound, playerScores: game.playerScores)
         
-        // Train a new AI model and get its training score, unless it is round 1, in which
-        // case we simply copy the player score as the AI score. If the AI score to assign is NaN, use 0 as the score.
-        let newAIscore = getAIscore(ultraDrawingJudgeModel: {
-            if game.task.object <= "Backpack" {
-                return .one
-            } else if game.task.object <= "Bed" {
-                return .two
-            } else if game.task.object <= "Bowtie" {
-                return .three
-            } else if game.task.object <= "Cake" {
-                return .four
-            } else if game.task.object <= "Cat" {
-                return .five
-            } else if game.task.object <= "Computer" {
-                return .six
-            } else if game.task.object <= "Diving Board" {
-                return .seven
-            } else if game.task.object <= "Elephant" {
-                return .eight
-            } else if game.task.object <= "Fish" {
-                return .nine
-            } else if game.task.object <= "Giraffe" {
-                return .ten
-            } else if game.task.object <= "Helicopter" {
-                return .eleven
-            } else if game.task.object <= "Hurricane" {
-                return .tweleve
-            } else if game.task.object <= "Leg" {
-                return .thirteen
-            } else if game.task.object <= "Matches" {
-                return .fourteen
-            } else if game.task.object <= "Mug" {
-                return .fifteen
-            } else if game.task.object <= "Palm Tree" {
-                return .sixteen
-            } else if game.task.object <= "Pickup Truck" {
-                return .seventeen
-            } else if game.task.object <= "Power Outlet" {
-                return .eighteen
-            } else if game.task.object <= "Rollerskates" {
-                return .nineteen
-            } else if game.task.object <= "Shoe" {
-                return .twenty
-            } else if game.task.object <= "Snowman" {
-                return .twentyone
-            } else if game.task.object <= "Stereo" {
-                return .twentytwo
-            } else if game.task.object <= "Swing Set" {
-                return .twentythree
-            } else if game.task.object <= "Toe" {
-                return .twentyfour
-            } else if game.task.object <= "Trumpet" {
-                return .twentyfive
-            } else if game.task.object <= "Wine Glass" {
-                return .twentysix
-            } else {
-                return .twentyseven
-            }
-        }())
-        game.AIscores.append(newAIscore.isNaN ? 0.0 : newAIscore)
+        // Add the scores to the game state
+        game.playerScores.append(verdict.playerScore)
+        game.AIscores.append(verdict.AIscore)
         
         // Award drawing score-based achievements
-        if game.playerScores.last! == 0.0 {
+        if verdict.playerScore == 0.0 {
             reportAchievementProgress("Definitely_Not_Right")
         }
-        if game.playerScores.last! == 100.0 {
+        if verdict.playerScore == 100.0 {
             reportAchievementProgress("Beyond_a_Reasonable_Doubt")
         }
-        if game.AIscores.last! == 0.0 {
+        if verdict.AIscore == 0.0 {
             reportAchievementProgress("Runtime_Error")
         }
-        if game.AIscores.last! == 100.0 {
+        if verdict.AIscore == 100.0 {
             reportAchievementProgress("Skynet_Online")
         }
     }
@@ -641,8 +498,8 @@ struct GameView: View {
                 userTaskRecords.records[game.task.object] = ["timesPlayed" : 0, "highScore" : 0]
                 
                 // Grant Gallery unlock-based achievements
-                reportAchievementProgress("Art_Aficionado", progress: 1.0 / Double(Task.taskList.count) * 100.0 * 2)
-                reportAchievementProgress("Museum_Curator", progress: 1.0 / Double(Task.taskList.count) * 100.0)
+                reportAchievementProgress("Art_Aficionado", progress: 1.0 / Double(DrawingTask.taskList.count) * 100.0 * 2)
+                reportAchievementProgress("Museum_Curator", progress: 1.0 / Double(DrawingTask.taskList.count) * 100.0)
             }
             
             // Update the save data
@@ -655,7 +512,7 @@ struct GameView: View {
             // Update the Sum of High Scores, Games Finished, and Games Won leaderboards
             var scoreSum = 0
             var gamesFinished = 0
-            for eachTask in Task.taskList {
+            for eachTask in DrawingTask.taskList {
                 if userTaskRecords.records.keys.contains(eachTask.object) {
                     scoreSum += userTaskRecords.records[eachTask.object]!["highScore"]!
                     gamesFinished += userTaskRecords.records[game.task.object]!["timesPlayed"]!
@@ -703,9 +560,6 @@ struct GameView: View {
     
 }
 
-struct GameView_Previews: PreviewProvider {
-    static var previews: some View {
-        GameView(isShowingGameSequence: .constant(true), commandText: "Preview!")
-            .previewInterfaceOrientation(.landscapeRight)
-    }
+#Preview(traits: .landscapeRight) {
+    GameView(isShowingGameSequence: .constant(true), commandText: "Preview!")
 }

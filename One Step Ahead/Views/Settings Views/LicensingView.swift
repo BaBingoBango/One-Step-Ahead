@@ -93,8 +93,6 @@ struct LicensingView: View {
     }
 }
 
-struct LicensingView_Previews: PreviewProvider {
-    static var previews: some View {
-        LicensingView()
-    }
+#Preview {
+    LicensingView()
 }

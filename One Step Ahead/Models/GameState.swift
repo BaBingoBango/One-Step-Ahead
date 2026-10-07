@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import CoreML
-import PencilKit
 
 /// The state of a currently running game.
 struct GameState {
@@ -16,7 +14,7 @@ struct GameState {
     /// The task the player must complete for the game.
     ///
     /// By default, the task will be randomly selected from the task list.
-    var task: Task = Task.taskList.randomElement()!
+    var task: DrawingTask = DrawingTask.taskList.randomElement()!
     /// The selected game mode for the game.
     var gameMode: GameMode = .cluedIn
     /// The user-set difficulty level for the game.
@@ -35,10 +33,6 @@ struct GameState {
     var timeLeft: Double = 9.9
     /// Whether or not the on-screen timer should decrease.
     var shouldRunTimer: Bool = true
-    
-    // MARK: - ML Model Variable
-    /// The current model for the AI, trained on the player's task attempts.
-    var AImodel: MLModel = MLModel()
     
     // MARK: - Computed Properties
     /// The player's current score for the game. It can take any integer value from 0 to 100,000.
@@ -88,11 +82,11 @@ struct GameState {
             return task.genericDescription
         case .batch:
             // Remove the current object from the task list
-            var drawingList = Task.taskList
-            drawingList.remove(at: Task.taskList.firstIndex(where: { $0.object == task.object })!)
+            var drawingList = DrawingTask.taskList
+            drawingList.remove(at: DrawingTask.taskList.firstIndex(where: { $0.object == task.object })!)
             
             // Select 3 random objects to use as clues, along with the game task's object
-            var clues: [Task] = [task]
+            var clues: [DrawingTask] = [task]
             for _ in 1...3 {
                 let randomTask = drawingList.randomElement()!
                 drawingList.remove(at: drawingList.firstIndex(where: { $0.object == randomTask.object })!)

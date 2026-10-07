@@ -24,24 +24,25 @@ class GameCenterAuthenticationController: UIViewController {
     // MARK: Functions
     /// Attempts to authenticate the user with Game Center and may present an authentication view controller.
     func authenticateUserWithGameCenter() {
-        GKLocalPlayer.local.authenticateHandler = { viewController, error in
+        GKLocalPlayer.local.authenticateHandler = { [weak self] viewController, error in
+            guard let self else { return }
+            
             // Handle an authentication error
-            guard error == nil else {
-                print(error?.localizedDescription ?? "")
+            if let error {
+                print(error.localizedDescription)
                 
                 // Enable the Start Game button
-                self.hasAuthenticatedWithGameCenter = true
-                
+                hasAuthenticatedWithGameCenter = true
                 return
             }
             
             // If a view controller is received from GameKit, present it as long as the user hasn't blocked Game Center pop-ups
-            if viewController != nil {
-                self.present(viewController!, animated: true, completion: nil)
+            if let viewController {
+                present(viewController, animated: true)
             }
             
             // Enable the Start Game button
-            self.hasAuthenticatedWithGameCenter = true
+            hasAuthenticatedWithGameCenter = true
         }
     }
     
@@ -50,12 +51,10 @@ class GameCenterAuthenticationController: UIViewController {
 /// A SwiftUI view which attempts to authenticate the user with Game Center and may present an authentication view controller.
 struct RepresentableGameCenterAuthenticationController: UIViewControllerRepresentable {
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<RepresentableGameCenterAuthenticationController>) -> GameCenterAuthenticationController {
-        let viewController = GameCenterAuthenticationController()
-        return viewController
-        
+    func makeUIViewController(context: Context) -> GameCenterAuthenticationController {
+        GameCenterAuthenticationController()
     }
     
-    func updateUIViewController(_ uiViewController: GameCenterAuthenticationController, context: UIViewControllerRepresentableContext<RepresentableGameCenterAuthenticationController>) {}
+    func updateUIViewController(_ uiViewController: GameCenterAuthenticationController, context: Context) {}
     
 }

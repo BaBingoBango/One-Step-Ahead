@@ -17,7 +17,7 @@ import UIKit
 /// - Converts the prediction results in a completion handler
 /// - Updates the delegate's `predictions` property
 /// - Tag: ImagePredictor
-class ImagePredictor {
+nonisolated final class ImagePredictor {
     /// - Tag: name
     static func createImageClassifier(ultraDrawingJudgeModel: UltraDrawingJudgeModel = .one) -> VNCoreMLModel {
         // Use a default model configuration.
@@ -41,37 +41,30 @@ class ImagePredictor {
         return imageClassifierVisionModel
     }
     
-    private static let imageClassifier1 = createImageClassifier(ultraDrawingJudgeModel: .one)
-    private static let imageClassifier2 = createImageClassifier(ultraDrawingJudgeModel: .two)
-    private static let imageClassifier3 = createImageClassifier(ultraDrawingJudgeModel: .three)
-    private static let imageClassifier4 = createImageClassifier(ultraDrawingJudgeModel: .four)
-    private static let imageClassifier5 = createImageClassifier(ultraDrawingJudgeModel: .five)
-    private static let imageClassifier6 = createImageClassifier(ultraDrawingJudgeModel: .six)
-    private static let imageClassifier7 = createImageClassifier(ultraDrawingJudgeModel: .seven)
-    private static let imageClassifier8 = createImageClassifier(ultraDrawingJudgeModel: .eight)
-    private static let imageClassifier9 = createImageClassifier(ultraDrawingJudgeModel: .nine)
-    private static let imageClassifier10 = createImageClassifier(ultraDrawingJudgeModel: .ten)
-    private static let imageClassifier11 = createImageClassifier(ultraDrawingJudgeModel: .eleven)
-    private static let imageClassifier12 = createImageClassifier(ultraDrawingJudgeModel: .tweleve)
-    private static let imageClassifier13 = createImageClassifier(ultraDrawingJudgeModel: .thirteen)
-    private static let imageClassifier14 = createImageClassifier(ultraDrawingJudgeModel: .fourteen)
-    private static let imageClassifier15 = createImageClassifier(ultraDrawingJudgeModel: .fifteen)
-    private static let imageClassifier16 = createImageClassifier(ultraDrawingJudgeModel: .sixteen)
-    private static let imageClassifier17 = createImageClassifier(ultraDrawingJudgeModel: .seventeen)
-    private static let imageClassifier18 = createImageClassifier(ultraDrawingJudgeModel: .eighteen)
-    private static let imageClassifier19 = createImageClassifier(ultraDrawingJudgeModel: .nineteen)
-    private static let imageClassifier20 = createImageClassifier(ultraDrawingJudgeModel: .twenty)
-    private static let imageClassifier21 = createImageClassifier(ultraDrawingJudgeModel: .twentyone)
-    private static let imageClassifier22 = createImageClassifier(ultraDrawingJudgeModel: .twentytwo)
-    private static let imageClassifier23 = createImageClassifier(ultraDrawingJudgeModel: .twentythree)
-    private static let imageClassifier24 = createImageClassifier(ultraDrawingJudgeModel: .twentyfour)
-    private static let imageClassifier25 = createImageClassifier(ultraDrawingJudgeModel: .twentyfive)
-    private static let imageClassifier26 = createImageClassifier(ultraDrawingJudgeModel: .twentysix)
-    private static let imageClassifier27 = createImageClassifier(ultraDrawingJudgeModel: .twentyseven)
+    /// A thread-safe cache of the Ultra Drawing Judge's Vision models, each loaded the first time it is needed.
+    private final class ClassifierCache: @unchecked Sendable {
+        private let lock = NSLock()
+        private var classifiers: [UltraDrawingJudgeModel: VNCoreMLModel] = [:]
+        
+        /// Returns the Vision model for the given Ultra Drawing Judge model, loading it if necessary.
+        func classifier(for ultraDrawingJudgeModel: UltraDrawingJudgeModel) -> VNCoreMLModel {
+            lock.lock()
+            defer { lock.unlock() }
+            if let classifier = classifiers[ultraDrawingJudgeModel] {
+                return classifier
+            }
+            let classifier = ImagePredictor.createImageClassifier(ultraDrawingJudgeModel: ultraDrawingJudgeModel)
+            classifiers[ultraDrawingJudgeModel] = classifier
+            return classifier
+        }
+    }
+    
+    /// The shared cache of loaded Vision models.
+    private static let classifierCache = ClassifierCache()
 
     /// Stores a classification name and confidence for an image classifier's prediction.
     /// - Tag: Prediction
-    struct Prediction {
+    struct Prediction: Sendable {
         /// The name of the object or scene the image classifier recognizes in an image.
         let classification: String
 
@@ -90,65 +83,7 @@ class ImagePredictor {
     /// Generates a new request instance that uses the Image Predictor's image classifier model.
     private func createImageClassificationRequest(ultraDrawingJudgeModel: UltraDrawingJudgeModel) -> VNImageBasedRequest {
         // Create an image classification request with an image classifier model.
-
-        let imageClassificationRequest = VNCoreMLRequest(model: {
-            switch ultraDrawingJudgeModel {
-            case .one:
-                return ImagePredictor.imageClassifier1
-            case .two:
-                return ImagePredictor.imageClassifier2
-            case .three:
-                return ImagePredictor.imageClassifier3
-            case .four:
-                return ImagePredictor.imageClassifier4
-            case .five:
-                return ImagePredictor.imageClassifier5
-            case .six:
-                return ImagePredictor.imageClassifier6
-            case .seven:
-                return ImagePredictor.imageClassifier7
-            case .eight:
-                return ImagePredictor.imageClassifier8
-            case .nine:
-                return ImagePredictor.imageClassifier9
-            case .ten:
-                return ImagePredictor.imageClassifier10
-            case .eleven:
-                return ImagePredictor.imageClassifier11
-            case .tweleve:
-                return ImagePredictor.imageClassifier12
-            case .thirteen:
-                return ImagePredictor.imageClassifier13
-            case .fourteen:
-                return ImagePredictor.imageClassifier14
-            case .fifteen:
-                return ImagePredictor.imageClassifier15
-            case .sixteen:
-                return ImagePredictor.imageClassifier16
-            case .seventeen:
-                return ImagePredictor.imageClassifier17
-            case .eighteen:
-                return ImagePredictor.imageClassifier18
-            case .nineteen:
-                return ImagePredictor.imageClassifier19
-            case .twenty:
-                return ImagePredictor.imageClassifier20
-            case .twentyone:
-                return ImagePredictor.imageClassifier21
-            case .twentytwo:
-                return ImagePredictor.imageClassifier22
-            case .twentythree:
-                return ImagePredictor.imageClassifier23
-            case .twentyfour:
-                return ImagePredictor.imageClassifier24
-            case .twentyfive:
-                return ImagePredictor.imageClassifier25
-            case .twentysix:
-                return ImagePredictor.imageClassifier26
-            case .twentyseven:
-                return ImagePredictor.imageClassifier27
-            }
-        }(), completionHandler: visionRequestHandler)
+        let imageClassificationRequest = VNCoreMLRequest(model: ImagePredictor.classifierCache.classifier(for: ultraDrawingJudgeModel), completionHandler: visionRequestHandler)
 
         imageClassificationRequest.imageCropAndScaleOption = .centerCrop
         return imageClassificationRequest
@@ -232,7 +167,7 @@ extension CGImagePropertyOrientation {
     /// - Parameter orientation: A `UIImage.Orientation` instance.
     ///
     /// The two orientation types use different raw values.
-    init(_ orientation: UIImage.Orientation) {
+    nonisolated init(_ orientation: UIImage.Orientation) {
         switch orientation {
             case .up: self = .up
             case .down: self = .down
@@ -249,7 +184,7 @@ extension CGImagePropertyOrientation {
 
 extension VNClassificationObservation {
     /// Generates a string of the observation's confidence as a percentage.
-    var confidencePercentageString: String {
+    nonisolated var confidencePercentageString: String {
         let percentage = confidence * 100
 
         switch percentage {

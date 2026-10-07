@@ -24,15 +24,15 @@ struct RectangleWrapper: ViewModifier {
         ZStack {
             if fixedHeight == nil {
                 Rectangle()
-                    .foregroundColor(color == nil ? .primary : color!)
-                    .opacity(opacity == nil ? 0.1 : opacity!)
-                    .cornerRadius(15)
+                    .foregroundStyle(color ?? .primary)
+                    .opacity(opacity ?? 0.1)
+                    .clipShape(.rect(cornerRadius: 15))
             } else {
                 Rectangle()
-                    .foregroundColor(color == nil ? .primary : color!)
+                    .foregroundStyle(color ?? .primary)
                     .frame(height: CGFloat(fixedHeight!))
-                    .opacity(opacity == nil ? 0.1 : opacity!)
-                    .cornerRadius(15)
+                    .opacity(opacity ?? 0.1)
+                    .clipShape(.rect(cornerRadius: 15))
             }
             content
         }

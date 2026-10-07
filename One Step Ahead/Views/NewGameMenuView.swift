@@ -7,14 +7,16 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 import SpriteKit
 
 /// The view for configuring a new game's options; originates from the main menu.
 struct NewGameMenuView: View {
+    @Environment(\.screenLayout) private var layout
     
     // MARK: - View Variables
-    /// The presentation status variable for this view's modal presentation.
-    @Environment(\.presentationMode) private var presentationMode
+    /// The action that dismisses this view.
+    @Environment(\.dismiss) private var dismiss
     /// A wrapper for the user's task-related save data. This value is presisted inside UserDefaults.
     @AppStorage("userTaskRecords") var userTaskRecords: UserTaskRecords = UserTaskRecords()
     /// Whether or not the user has enabled Unlock Assist. This value is persisted inside UserDefaults.
@@ -24,30 +26,41 @@ struct NewGameMenuView: View {
     /// Whether or not the game sequence is being presented as a full screen modal.
     @State var isShowingGameSequence = false
     /// The object that games launched from this view should always use. If it is nil, the object should be random.
-    var enforcedGameTask: Task? = nil
+    var enforcedGameTask: DrawingTask? = nil
     /// Whether or not the view should include a "Return To Gallery" button.
     var shouldShowReturnToGalleryButton = false
     
     /// The SpriteKit scene for the graphics of this view.
     @State var graphicsScene = SKScene(fileNamed: "\(UIDevice.current.userInterfaceIdiom == .phone ? "iOS " : "")New Game Menu Graphics")!
     
+    /// The arrangement of each section's title, buttons, and description: side by side, or stacked when an iPad window is taller than it is wide.
+    private var sectionLayout: AnyLayout {
+        if sectionsAreStacked {
+            return AnyLayout(VStackLayout(spacing: 10))
+        }
+        return AnyLayout(HStackLayout(alignment: layout.isRegular ? .bottom : .center, spacing: layout.isRegular ? 0 : 10))
+    }
+    /// The leading inset that lines the iPad layout's sections up with the title; it goes away when the sections are stacked.
+    private var sectionInset: CGFloat { layout.isRegular && !sectionsAreStacked ? 100 : 0 }
+    /// Whether each section's description sits under its buttons instead of beside them: in iPad windows that are taller than they are wide or too narrow for both.
+    private var sectionsAreStacked: Bool { layout.isRegular && (layout.isPortrait || layout.width < 1150) }
+    
     // MARK: - View Body
     var body: some View {
         ZStack {
-            SpriteView(scene: graphicsScene)
-                .edgesIgnoringSafeArea(.all)
+            GameBackground(scene: graphicsScene)
             VStack {
                 
                 VStack {
-                    HStack(alignment: UIDevice.current.userInterfaceIdiom != .phone ? .bottom : .center, spacing: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10) {
-                        VStack(alignment: .trailing) {
-                            Text(UIDevice.current.userInterfaceIdiom != .phone ? "Game Mode" : "Game Mode & Difficulty")
-                                .font(UIDevice.current.userInterfaceIdiom != .phone ? .title : .title3)
+                    sectionLayout {
+                        VStack(alignment: sectionsAreStacked ? .center : .trailing) {
+                            Text(layout.isRegular ? "Game Mode" : "Game Mode & Difficulty")
+                                .font(layout.isRegular ? .title : .title3)
                                 .fontWeight(.bold)
-                                .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
-                                .padding(.trailing, UIDevice.current.userInterfaceIdiom != .phone ? 0 : 23)
+                                .padding(.leading, sectionInset)
+                                .padding(.trailing, layout.isRegular ? 0 : 23)
                             HStack {
-                                if UIDevice.current.userInterfaceIdiom == .phone {
+                                if layout.isCompact {
                                     Spacer()
                                 }
                                 
@@ -57,7 +70,7 @@ struct NewGameMenuView: View {
                                 }) {
                                     IconButtonView(color: .green, imageName: "wand.and.stars.inverse", text: "Demystify", isColored: game.gameMode == .demystify)
                                 }
-                                .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                                .padding(.leading, sectionInset)
                                 Button(action: {
                                     game.gameMode = .batch
                                     game.defaultCommandText = game.getDefaultCommandText()
@@ -79,16 +92,17 @@ struct NewGameMenuView: View {
                             }
                         }
                         
-                        if UIDevice.current.userInterfaceIdiom == .phone {
+                        if layout.isCompact {
                             Spacer()
                         }
                         
-                        if UIDevice.current.userInterfaceIdiom != .phone {
+                        if layout.isRegular {
                             Text(getGameModeDescription())
                                 .font(.title3)
                                 .fontWeight(.bold)
-                                .frame(width: 350)
-                                .padding(.horizontal, 100)
+                                .frame(width: sectionsAreStacked ? min(350, layout.width - 40) : 350)
+                                .multilineTextAlignment(sectionsAreStacked ? .center : .leading)
+                                .padding(.horizontal, sectionsAreStacked ? 0 : 100)
                                 .padding(.bottom, 5)
                         } else {
                             HStack {
@@ -102,22 +116,22 @@ struct NewGameMenuView: View {
                                 
                                 Spacer()
                             }
-                            .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 350 : UIScreen.main.bounds.width / 2)
+                            .frame(width: layout.isRegular ? 350 : layout.width / 2)
                         }
                     }
                 }
                 
                 VStack {
-                    HStack(alignment: UIDevice.current.userInterfaceIdiom != .phone ? .bottom : .center, spacing: UIDevice.current.userInterfaceIdiom != .phone ? 0 : 10) {
+                    sectionLayout {
                         VStack {
-                            if UIDevice.current.userInterfaceIdiom != .phone {
+                            if layout.isRegular {
                                 Text("Difficulty")
                                     .font(.title)
                                     .fontWeight(.bold)
-                                    .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                                    .padding(.leading, sectionInset)
                             }
                             HStack {
-                                if UIDevice.current.userInterfaceIdiom == .phone {
+                                if layout.isCompact {
                                     Spacer()
                                 }
                                 
@@ -126,7 +140,7 @@ struct NewGameMenuView: View {
                                 }) {
                                     IconButtonView(color: .green, imageName: "sun.max.fill", text: "Easy", isColored: game.difficulty == .easy)
                                 }
-                                .padding(.leading, UIDevice.current.userInterfaceIdiom != .phone ? 100 : 0)
+                                .padding(.leading, sectionInset)
                                 Button(action: {
                                     game.difficulty = .normal
                                 }) {
@@ -145,16 +159,17 @@ struct NewGameMenuView: View {
                             }
                         }
                         
-                        if UIDevice.current.userInterfaceIdiom == .phone {
+                        if layout.isCompact {
                             Spacer()
                         }
                         
-                        if UIDevice.current.userInterfaceIdiom != .phone {
+                        if layout.isRegular {
                             Text(getDifficultyDescription())
                                 .font(.title3)
                                 .fontWeight(.bold)
-                                .frame(width: 350)
-                                .padding(.horizontal, 100)
+                                .frame(width: sectionsAreStacked ? min(350, layout.width - 40) : 350)
+                                .multilineTextAlignment(sectionsAreStacked ? .center : .leading)
+                                .padding(.horizontal, sectionsAreStacked ? 0 : 100)
                                 .padding(.bottom, 5)
                         } else {
                             HStack {
@@ -168,7 +183,7 @@ struct NewGameMenuView: View {
                                 
                                 Spacer()
                             }
-                            .frame(width: UIScreen.main.bounds.width / 2)
+                            .frame(width: layout.width / 2)
                         }
                     }
                 }
@@ -179,19 +194,20 @@ struct NewGameMenuView: View {
                 }) {
                     Text("Let's Roll!")
                         .fontWeight(.bold)
-                        .foregroundColor(Color.white)
+                        .foregroundStyle(Color.white)
                         .modifier(RectangleWrapper(fixedHeight: 50, color: .blue, opacity: 1.0))
                         .frame(width: 250)
-                        .padding(.top, UIDevice.current.userInterfaceIdiom != .phone ? 50 : 20)
+                        .padding(.top, layout.isRegular ? 50 : 20)
                 }
                 .fullScreenCover(isPresented: $isShowingGameSequence) {
                     GameView(isShowingGameSequence: $isShowingGameSequence, game: game, commandText: game.defaultCommandText)
+                        .measuringScreenLayout()
                 }
             }
             .padding(.leading)
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .onChange(of: isShowingGameSequence) { newValue in
+        .onChange(of: isShowingGameSequence) { _, newValue in
             if newValue == false {
                 // Reset the current game state
                 resetGameState()
@@ -199,12 +215,10 @@ struct NewGameMenuView: View {
         }
         .onAppear {
             // MARK: View Launch Code
-            // If nothing is playing, or if "Powerup!" is playing, start "The Big Beat 80s"
-            if audioPlayer != nil {
-                if !audioPlayer!.isPlaying || audioPlayer!.url!.absoluteString.contains("Powerup") {
-                    stopAudio()
-                    playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
-                }
+            // If nothing is playing, start "Lounge Drum and Bass"
+            if let audioPlayer, !audioPlayer.isPlaying {
+                stopAudio()
+                playAudio(fileName: "Lounge Drum and Bass", type: "mp3")
             }
             
             // Reset the current game state
@@ -215,13 +229,13 @@ struct NewGameMenuView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("New Game")
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Text("Return To Gallery")
                         .fontWeight(.bold)
-                        .foregroundColor(.red)
+                        .foregroundStyle(.red)
                 }
                 .isHidden(!shouldShowReturnToGalleryButton, remove: true)
             }
@@ -241,17 +255,17 @@ struct NewGameMenuView: View {
             // Pick a random task, considering Unlock Assist
             if isUnlockAssistOn {
                 // Use Unlock Assist...
-                var candidateTask = Task.taskList.randomElement()!
+                var candidateTask = DrawingTask.taskList.randomElement()!
                 // ...as long as there are drawings left to unlock
-                if userTaskRecords.records.count == Task.taskList.count {
+                if userTaskRecords.records.count == DrawingTask.taskList.count {
                     while userTaskRecords.records.keys.contains(candidateTask.object) {
-                        candidateTask = Task.taskList.randomElement()!
+                        candidateTask = DrawingTask.taskList.randomElement()!
                     }
                 }
                 game.task = candidateTask
             } else {
                 // Don't use Unlock Assist
-                game.task = Task.taskList.randomElement()!
+                game.task = DrawingTask.taskList.randomElement()!
             }
         } else {
             game.task = enforcedGameTask!
@@ -289,14 +303,12 @@ struct NewGameMenuView: View {
     
 }
 
-struct NewGameMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewGameMenuView()
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
+#Preview(traits: .landscapeLeft) {
+    NewGameMenuView()
 }
 
 struct IconButtonView: View {
+    @Environment(\.screenLayout) private var layout
     
     // Variables
     var color: Color = .blue
@@ -310,20 +322,20 @@ struct IconButtonView: View {
             Image(systemName: number == nil ? imageName : "\(number!).circle")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(.primary)
-                .frame(height: number == nil ? (UIDevice.current.userInterfaceIdiom != .phone ? 30 : 15) : (UIDevice.current.userInterfaceIdiom != .phone ? 40 : 20))
+                .foregroundStyle(Color.primary)
+                .frame(height: number == nil ? (layout.isRegular ? 30 : 15) : (layout.isRegular ? 40 : 20))
             
             if number == nil {
                 Text(text)
                     .fontWeight(.bold)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(Color.primary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
                     .padding([.top, .horizontal], 5)
             }
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .modifier(RectangleWrapper(fixedHeight: UIDevice.current.userInterfaceIdiom != .phone ? 80 : 60, color: isColored ? color : nil, opacity: isColored ? 1.0 : 0.1))
-        .frame(width: UIDevice.current.userInterfaceIdiom != .phone ? 120 : 60)
+        .modifier(RectangleWrapper(fixedHeight: layout.isRegular ? 80 : 60, color: isColored ? color : nil, opacity: isColored ? 1.0 : 0.1))
+        .frame(width: layout.isRegular ? 120 : 60)
     }
 }
