@@ -408,7 +408,7 @@ struct TutorialGameView: View {
             .toolbar(.hidden, for: .navigationBar)
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .ignoresSafeArea(edges: UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
+        .ignoresSafeArea(edges: .top)
         .safeAreaInset(edge: .top, spacing: 0) {
             NavigationChromeBar {
                 GlassCircleButton(systemImage: "pause.fill", accessibilityLabel: "Pause Game", symbolSize: 20, tint: .blue) {

@@ -339,7 +339,7 @@ struct GameView: View {
                     }
                 }
             }
-            .ignoresSafeArea(edges: UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
+            .ignoresSafeArea(edges: .top)
             .navigationDestination(isPresented: $isShowingGameEndView) {
                 GameEndView(isShowingGameSequence: $isShowingGameSequence, game: game)
             }

@@ -205,7 +205,7 @@ struct MainMenuView: View {
             .padding(.horizontal, layout.isRegular ? 70 : 20)
         }
         .dynamicTypeSize(.medium).statusBar(hidden: true)
-        .ignoresSafeArea(edges: UIDevice.current.userInterfaceIdiom != .mac ? .top : [])
+        .ignoresSafeArea(edges: .top)
         
         // MARK: Square Button Rotation Timer Responses
         .onReceive(clockwiseRotatingSquareTimer) { _ in

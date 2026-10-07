@@ -79,7 +79,7 @@ class MySceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         // Keep the game's windows from getting too small on the Mac; on iPad the system's own minimum applies, and every screen adapts down to it
-        if ProcessInfo.processInfo.isiOSAppOnMac || UIDevice.current.userInterfaceIdiom == .mac {
+        if ProcessInfo.processInfo.isiOSAppOnMac {
             windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1200, height: 800)
         } else if UIDevice.current.userInterfaceIdiom == .pad {
             // Anything smaller cannot fit the game's screens, even with their phone-sized layouts

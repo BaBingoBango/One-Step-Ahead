@@ -21,3 +21,9 @@ build/
 # Playgrounds
 timeline.xctimeline
 playground.xcworkspace
+
+# Agent instruction files and MCP configuration
+AGENTS.md
+CLAUDE.md
+.mcp.json
+.claude/
