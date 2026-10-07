@@ -1,0 +1,96 @@
+{
+  "fill": {
+    "linear-gradient": [
+      "display-p3:0.07500,0.21500,0.47000,1.00000",
+      "display-p3:0.02000,0.06000,0.19000,1.00000"
+    ]
+  },
+  "groups": [
+    {
+      "layers": [
+        {
+          "fill": {
+            "automatic-gradient": "display-p3:0.00000,0.96000,1.00000,1.00000"
+          },
+          "glass": true,
+          "image-name": "head.svg",
+          "name": "Head",
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.4
+      }
+    },
+    {
+      "layers": [
+        {
+          "fill": {
+            "automatic-gradient": "display-p3:0.00000,0.80000,1.00000,1.00000"
+          },
+          "glass": true,
+          "image-name": "handle.svg",
+          "name": "Handle",
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.45
+      }
+    },
+    {
+      "layers": [
+        {
+          "fill": "none",
+          "glass": false,
+          "image-name": "grid.png",
+          "name": "Grid",
+          "position": {
+            "scale": 1,
+            "translation-in-points": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "none",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": false,
+        "value": 0.5
+      },
+      "specular": false
+    }
+  ],
+  "supported-platforms": {
+    "circles": [
+      "watchOS"
+    ],
+    "squares": "shared"
+  }
+}
